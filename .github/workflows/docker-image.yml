@@ -47,7 +47,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            docker.io/swastikvenom/knight-omega
+            docker.io/swastikjaat7/knight-omega:alpha
             ghcr.io/Swastik-venom/knight-omega
           tags: |
             type=raw,value=alpha
