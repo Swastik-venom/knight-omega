@@ -67,7 +67,7 @@ const SettingsPanel = ({
             <Settings size={20} className="text-white" />
           </div>
           <Typography.Title heading={5} className="mb-0">
-            {t('Model Configuration')}
+            {t('模型配置')}
           </Typography.Title>
         </div>
 
@@ -106,21 +106,21 @@ const SettingsPanel = ({
           defaultPayload={previewPayload}
         />
 
-        {/* Group选择 */}
+        {/* 分组选择 */}
         <div className={customRequestMode ? 'opacity-50' : ''}>
           <div className="flex items-center gap-2 mb-2">
             <Users size={16} className="text-gray-500" />
             <Typography.Text strong className="text-sm">
-              {t('Group')}
+              {t('分组')}
             </Typography.Text>
             {customRequestMode && (
               <Typography.Text className="text-xs text-orange-600">
-                (ignored in custom mode)
+                (已在自定义模式中忽略)
               </Typography.Text>
             )}
           </div>
           <Select
-            placeholder={t('Please select group')}
+            placeholder={t('请选择分组')}
             name='group'
             required
             selection
@@ -136,21 +136,21 @@ const SettingsPanel = ({
           />
         </div>
 
-        {/* Model选择 */}
+        {/* 模型选择 */}
         <div className={customRequestMode ? 'opacity-50' : ''}>
           <div className="flex items-center gap-2 mb-2">
             <Sparkles size={16} className="text-gray-500" />
             <Typography.Text strong className="text-sm">
-              {t('Model')}
+              {t('模型')}
             </Typography.Text>
             {customRequestMode && (
               <Typography.Text className="text-xs text-orange-600">
-                (ignored in custom mode)
+                (已在自定义模式中忽略)
               </Typography.Text>
             )}
           </div>
           <Select
-            placeholder={t('Please select model')}
+            placeholder={t('请选择模型')}
             name='model'
             required
             selection
@@ -189,25 +189,25 @@ const SettingsPanel = ({
           />
         </div>
 
-        {/* Stream outputOnOff */}
+        {/* 流式输出开关 */}
         <div className={customRequestMode ? 'opacity-50' : ''}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ToggleLeft size={16} className="text-gray-500" />
               <Typography.Text strong className="text-sm">
-                Stream output
+                流式输出
               </Typography.Text>
               {customRequestMode && (
                 <Typography.Text className="text-xs text-orange-600">
-                  (ignored in custom mode)
+                  (已在自定义模式中忽略)
                 </Typography.Text>
               )}
             </div>
             <Switch
               checked={inputs.stream}
               onChange={(checked) => onInputChange('stream', checked)}
-              checkedText="On"
-              uncheckedText="Off"
+              checkedText="开"
+              uncheckedText="关"
               size="small"
               disabled={customRequestMode}
             />
