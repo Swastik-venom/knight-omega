@@ -8,6 +8,7 @@ import (
 	"one-api/common"
 	"one-api/dto"
 	"one-api/relay/helper"
+	"one-api/service"
 	"strings"
 
 	"one-api/types"
@@ -39,14 +40,14 @@ func embeddingRequestOpenAI2Ali(request dto.EmbeddingRequest) *AliEmbeddingReque
 	}
 }
 
-func aliEmbeddingHandler(c *gin.Context, resp *http.Response) (*types.NewapiError, *dto.Usage) {
+func aliEmbeddingHandler(c *gin.Context, resp *http.Response) (*types.NewAPIError, *dto.Usage) {
 	var fullTextResponse dto.FlexibleEmbeddingResponse
 	err := json.NewDecoder(resp.Body).Decode(&fullTextResponse)
 	if err != nil {
-		return types.NewError(err, types.ErrorCodeBadResponseBody), nil
+		return types.NewOpenAIError(err, types.ErrorCodeBadResponseBody, http.StatusInternalServerError), nil
 	}
 
-	common.CloseResponseBodyGracefully(resp)
+	service.CloseResponseBodyGracefully(resp)
 
 	model := c.GetString("model")
 	if model == "" {
@@ -120,7 +121,7 @@ func streamResponseAli2OpenAI(aliResponse *AliResponse) *dto.ChatCompletionsStre
 	return &response
 }
 
-func aliStreamHandler(c *gin.Context, resp *http.Response) (*types.NewapiError, *dto.Usage) {
+func aliStreamHandler(c *gin.Context, resp *http.Response) (*types.NewAPIError, *dto.Usage) {
 	var usage dto.Usage
 	scanner := bufio.NewScanner(resp.Body)
 	scanner.Split(bufio.ScanLines)
@@ -148,7 +149,7 @@ func aliStreamHandler(c *gin.Context, resp *http.Response) (*types.NewapiError, 
 			var aliResponse AliResponse
 			err := json.Unmarshal([]byte(data), &aliResponse)
 			if err != nil {
-				common.SysError("error unmarshalling stream response: " + err.Error())
+				common.SysLog("error unmarshalling stream response: " + err.Error())
 				return true
 			}
 			if aliResponse.Usage.OutputTokens != 0 {
@@ -161,7 +162,7 @@ func aliStreamHandler(c *gin.Context, resp *http.Response) (*types.NewapiError, 
 			lastResponseText = aliResponse.Output.Text
 			jsonResponse, err := json.Marshal(response)
 			if err != nil {
-				common.SysError("error marshalling stream response: " + err.Error())
+				common.SysLog("error marshalling stream response: " + err.Error())
 				return true
 			}
 			c.Render(-1, common.CustomEvent{Data: "data: " + string(jsonResponse)})
@@ -171,20 +172,20 @@ func aliStreamHandler(c *gin.Context, resp *http.Response) (*types.NewapiError, 
 			return false
 		}
 	})
-	common.CloseResponseBodyGracefully(resp)
+	service.CloseResponseBodyGracefully(resp)
 	return nil, &usage
 }
 
-func aliHandler(c *gin.Context, resp *http.Response) (*types.NewapiError, *dto.Usage) {
+func aliHandler(c *gin.Context, resp *http.Response) (*types.NewAPIError, *dto.Usage) {
 	var aliResponse AliResponse
 	responseBody, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return types.NewError(err, types.ErrorCodeReadResponseBodyFailed), nil
+		return types.NewOpenAIError(err, types.ErrorCodeReadResponseBodyFailed, http.StatusInternalServerError), nil
 	}
-	common.CloseResponseBodyGracefully(resp)
+	service.CloseResponseBodyGracefully(resp)
 	err = json.Unmarshal(responseBody, &aliResponse)
 	if err != nil {
-		return types.NewError(err, types.ErrorCodeBadResponseBody), nil
+		return types.NewOpenAIError(err, types.ErrorCodeBadResponseBody, http.StatusInternalServerError), nil
 	}
 	if aliResponse.Code != "" {
 		return types.WithOpenAIError(types.OpenAIError{

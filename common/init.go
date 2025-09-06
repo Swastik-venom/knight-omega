@@ -19,7 +19,7 @@ var (
 )
 
 func printHelp() {
-	fmt.Println("Knight Omega " + Version + " - All in Knight Omega service for OpenAI API.")
+	fmt.Println("New API " + Version + " - All in one API service for OpenAI API.")
 	fmt.Println("Copyright (C) 2023 JustSong. All rights reserved.")
 	fmt.Println("GitHub: https://github.com/songquanpeng/one-api")
 	fmt.Println("Usage: one-api [--port <port>] [--log-dir <log directory>] [--version] [--help]")
@@ -101,7 +101,7 @@ func InitEnv() {
 }
 
 func initConstantEnv() {
-	constant.StreamingTimeout = GetEnvOrDefault("STREAMING_TIMEOUT", 120)
+	constant.StreamingTimeout = GetEnvOrDefault("STREAMING_TIMEOUT", 300)
 	constant.DifyDebug = GetEnvOrDefaultBool("DIFY_DEBUG", true)
 	constant.MaxFileDownloadMB = GetEnvOrDefault("MAX_FILE_DOWNLOAD_MB", 20)
 	// ForceStreamOption 覆盖请求参数，强制返回usage信息

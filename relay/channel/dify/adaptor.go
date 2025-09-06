@@ -24,6 +24,11 @@ type Adaptor struct {
 	BotType int
 }
 
+func (a *Adaptor) ConvertGeminiRequest(*gin.Context, *relaycommon.RelayInfo, *dto.GeminiChatRequest) (any, error) {
+	//TODO implement me
+	return nil, errors.New("not implemented")
+}
+
 func (a *Adaptor) ConvertClaudeRequest(*gin.Context, *relaycommon.RelayInfo, *dto.ClaudeRequest) (any, error) {
 	//TODO implement me
 	panic("implement me")
@@ -56,13 +61,13 @@ func (a *Adaptor) Init(info *relaycommon.RelayInfo) {
 func (a *Adaptor) GetRequestURL(info *relaycommon.RelayInfo) (string, error) {
 	switch a.BotType {
 	case BotTypeWorkFlow:
-		return fmt.Sprintf("%s/v1/workflows/run", info.BaseUrl), nil
+		return fmt.Sprintf("%s/v1/workflows/run", info.ChannelBaseUrl), nil
 	case BotTypeCompletion:
-		return fmt.Sprintf("%s/v1/completion-messages", info.BaseUrl), nil
+		return fmt.Sprintf("%s/v1/completion-messages", info.ChannelBaseUrl), nil
 	case BotTypeAgent:
 		fallthrough
 	default:
-		return fmt.Sprintf("%s/v1/chat-messages", info.BaseUrl), nil
+		return fmt.Sprintf("%s/v1/chat-messages", info.ChannelBaseUrl), nil
 	}
 }
 
@@ -97,7 +102,7 @@ func (a *Adaptor) DoRequest(c *gin.Context, info *relaycommon.RelayInfo, request
 	return channel.DoApiRequest(a, c, info, requestBody)
 }
 
-func (a *Adaptor) DoResponse(c *gin.Context, resp *http.Response, info *relaycommon.RelayInfo) (usage any, err *types.NewapiError) {
+func (a *Adaptor) DoResponse(c *gin.Context, resp *http.Response, info *relaycommon.RelayInfo) (usage any, err *types.NewAPIError) {
 	if info.IsStream {
 		return difyStreamHandler(c, info, resp)
 	} else {

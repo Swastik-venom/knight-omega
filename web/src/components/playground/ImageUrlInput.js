@@ -68,7 +68,7 @@ const ImageUrlInput = ({ imageUrls, imageEnabled, onImageUrlsChange, onImageEnab
 
       {!imageEnabled ? (
         <Typography.Text className="text-xs text-gray-500 mb-2 block">
-          {disabled ? '图片功能在自定义请求体模式下不可用' : '启用后可添加图片URL进行多模态对话'}
+          {disabled ? 'The image function is not available in the custom request body mode':' After enabling, you can add image URLs for multimodal conversations'}
         </Typography.Text>
       ) : imageUrls.length === 0 ? (
         <Typography.Text className="text-xs text-gray-500 mb-2 block">
