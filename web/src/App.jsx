@@ -51,6 +51,7 @@ import SetupCheck from './components/layout/SetupCheck';
 const Home = lazy(() => import('./pages/Home'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const About = lazy(() => import('./pages/About'));
+const Docs = lazy(() => import('./pages/Docs'));
 
 function App() {
   const location = useLocation();
@@ -302,10 +303,10 @@ function App() {
           }
         />
         <Route
-          path='/console/chat/:id?'
+          path='/docs'
           element={
             <Suspense fallback={<Loading></Loading>} key={location.pathname}>
-              <Chat />
+              <Docs />
             </Suspense>
           }
         />

@@ -119,11 +119,26 @@ const CustomRequestEditor = ({
   return (
     <div className='space-y-4'>
       {/* 自定义模式开关 */}
+<<<<<<< HEAD
+<<<<<<<< HEAD:web/src/components/playground/CustomRequestEditor.jsx
+=======
+>>>>>>> main
       <div className='flex items-center justify-between'>
         <div className='flex items-center gap-2'>
           <Code size={16} className='text-gray-500' />
           <Typography.Text strong className='text-sm'>
+<<<<<<< HEAD
             自定义请求体模式
+========
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Code size={16} className="text-gray-500" />
+          <Typography.Text strong className="text-sm">
+            Custom request body mode
+>>>>>>>> main:web/src/components/playground/CustomRequestEditor.js
+=======
+            Custom request body mode
+>>>>>>> main
           </Typography.Text>
         </div>
         <Switch

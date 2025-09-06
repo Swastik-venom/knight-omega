@@ -5,7 +5,7 @@
 
 ![new-api](/web/public/logo.png)
 
-# New API
+# Knight Omega
 
 🍥新一代大模型网关与AI资产管理系统
 
@@ -33,7 +33,7 @@
 ## 📝 项目说明
 
 > [!NOTE]  
-> 本项目为开源项目，在[One API](https://github.com/songquanpeng/one-api)的基础上进行二次开发
+> 本项目为开源项目，在[Knight Omega](https://github.com/songquanpeng/one-api)的基础上进行二次开发
 
 > [!IMPORTANT]  
 > - 本项目仅供个人学习使用，不保证稳定性，且不提供任何技术支持。
@@ -50,7 +50,7 @@
   <a href="https://bda.pku.edu.cn/" target=_blank><img
     src="./docs/images/pku.png" alt="北京大学" height="120"
   /></a>
-  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target=_blank><img
+  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_Newapi" target=_blank><img
     src="./docs/images/ucloud.png" alt="UCloud 优刻得" height="120"
   /></a>
   <a href="https://www.aliyun.com/" target=_blank><img
@@ -64,28 +64,28 @@
 
 ## 📚 文档
 
-详细文档请访问我们的官方Wiki：[https://docs.newapi.pro/](https://docs.newapi.pro/)
+详细文档请访问我们的官方Wiki：[http://localhost:5173/](http://localhost:5173/)
 
 也可访问AI生成的DeepWiki:
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
 
 ## ✨ 主要特性
 
-New API提供了丰富的功能，详细特性请参考[特性说明](https://docs.newapi.pro/wiki/features-introduction)：
+Knight Omega提供了丰富的功能，详细特性请参考[特性说明](http://localhost:5173/wiki/features-introduction)：
 
 1. 🎨 全新的UI界面
 2. 🌍 多语言支持
 3. 💰 支持在线充值功能（易支付）
 4. 🔍 支持用key查询使用额度（配合[neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)）
-5. 🔄 兼容原版One API的数据库
+5. 🔄 兼容原版Knight Omega的数据库
 6. 💵 支持模型按次数收费
 7. ⚖️ 支持渠道加权随机
 8. 📈 数据看板（控制台）
 9. 🔒 令牌分组、模型限制
 10. 🤖 支持更多授权登陆方式（LinuxDO,Telegram、OIDC）
-11. 🔄 支持Rerank模型（Cohere和Jina），[接口文档](https://docs.newapi.pro/api/jinaai-rerank)
-12. ⚡ 支持OpenAI Realtime API（包括Azure渠道），[接口文档](https://docs.newapi.pro/api/openai-realtime)
-13. ⚡ 支持Claude Messages 格式，[接口文档](https://docs.newapi.pro/api/anthropic-chat)
+11. 🔄 支持Rerank模型（Cohere和Jina），[接口文档](http://localhost:5173/api/jinaai-rerank)
+12. ⚡ 支持OpenAI Realtime API（包括Azure渠道），[接口文档](http://localhost:5173/api/openai-realtime)
+13. ⚡ 支持Claude Messages 格式，[接口文档](http://localhost:5173/api/anthropic-chat)
 14. 支持使用路由/chat2link进入聊天界面
 15. 🧠 支持通过模型名称后缀设置 reasoning effort：
     1. OpenAI o系列模型
@@ -100,7 +100,11 @@ New API提供了丰富的功能，详细特性请参考[特性说明](https://do
     1. OpenAI Chat Completions => Claude Messages
     2. Clade Messages => OpenAI Chat Completions (可用于Claude Code调用第三方模型)
     3. OpenAI Chat Completions => Gemini Chat
+<<<<<<< HEAD
 19. 💰 缓存计费支持，开启后可以在缓存命中时按照设定的比例计费：
+=======
+20. 💰 缓存计费支持，开启后可以在缓存命中时按照设定的比例计费：
+>>>>>>> main
     1. 在 `系统设置-运营设置` 中设置 `提示缓存倍率` 选项
     2. 在渠道中设置 `提示缓存倍率`，范围 0-1，例如设置为 0.5 表示缓存命中时按照 50% 计费
     3. 支持的渠道：
@@ -111,19 +115,19 @@ New API提供了丰富的功能，详细特性请参考[特性说明](https://do
 
 ## 模型支持
 
-此版本支持多种模型，详情请参考[接口文档-中继接口](https://docs.newapi.pro/api)：
+此版本支持多种模型，详情请参考[接口文档-中继接口](http://localhost:5173/api)：
 
 1. 第三方模型 **gpts** （gpt-4-gizmo-*）
-2. 第三方渠道[Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy)接口，[接口文档](https://docs.newapi.pro/api/midjourney-proxy-image)
-3. 第三方渠道[Suno API](https://github.com/Suno-API/Suno-API)接口，[接口文档](https://docs.newapi.pro/api/suno-music)
+2. 第三方渠道[Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy)接口，[接口文档](http://localhost:5173/api/midjourney-proxy-image)
+3. 第三方渠道[Suno API](https://github.com/Suno-API/Suno-API)接口，[接口文档](http://localhost:5173/api/suno-music)
 4. 自定义渠道，支持填入完整调用地址
-5. Rerank模型（[Cohere](https://cohere.ai/)和[Jina](https://jina.ai/)），[接口文档](https://docs.newapi.pro/api/jinaai-rerank)
-6. Claude Messages 格式，[接口文档](https://docs.newapi.pro/api/anthropic-chat)
+5. Rerank模型（[Cohere](https://cohere.ai/)和[Jina](https://jina.ai/)），[接口文档](http://localhost:5173/api/jinaai-rerank)
+6. Claude Messages 格式，[接口文档](http://localhost:5173/api/anthropic-chat)
 7. Dify，当前仅支持chatflow
 
 ## 环境变量配置
 
-详细配置说明请参考[安装指南-环境变量配置](https://docs.newapi.pro/installation/environment-variables)：
+详细配置说明请参考[安装指南-环境变量配置](http://localhost:5173/installation/environment-variables)：
 
 - `GENERATE_DEFAULT_TOKEN`：是否为新注册用户生成初始令牌，默认为 `false`
 - `STREAMING_TIMEOUT`：流式回复超时时间，默认300秒
@@ -143,7 +147,7 @@ New API提供了丰富的功能，详细特性请参考[特性说明](https://do
 
 ## 部署
 
-详细部署指南请参考[安装指南-部署方式](https://docs.newapi.pro/installation)：
+详细部署指南请参考[安装指南-部署方式](http://localhost:5173/installation)：
 
 > [!TIP]
 > 最新版Docker镜像：`calciumion/new-api:latest`  
@@ -190,29 +194,29 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 
 ## 接口文档
 
-详细接口文档请参考[接口文档](https://docs.newapi.pro/api)：
+详细接口文档请参考[接口文档](http://localhost:5173/api)：
 
-- [聊天接口（Chat）](https://docs.newapi.pro/api/openai-chat)
-- [图像接口（Image）](https://docs.newapi.pro/api/openai-image)
-- [重排序接口（Rerank）](https://docs.newapi.pro/api/jinaai-rerank)
-- [实时对话接口（Realtime）](https://docs.newapi.pro/api/openai-realtime)
-- [Claude聊天接口（messages）](https://docs.newapi.pro/api/anthropic-chat)
+- [聊天接口（Chat）](http://localhost:5173/api/openai-chat)
+- [图像接口（Image）](http://localhost:5173/api/openai-image)
+- [重排序接口（Rerank）](http://localhost:5173/api/jinaai-rerank)
+- [实时对话接口（Realtime）](http://localhost:5173/api/openai-realtime)
+- [Claude聊天接口（messages）](http://localhost:5173/api/anthropic-chat)
 
 ## 相关项目
-- [One API](https://github.com/songquanpeng/one-api)：原版项目
+- [Knight Omega](https://github.com/songquanpeng/one-api)：原版项目
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy)：Midjourney接口支持
 - [chatnio](https://github.com/Deeptrain-Community/chatnio)：下一代AI一站式B/C端解决方案
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)：用key查询使用额度
 
-其他基于New API的项目：
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：New API高性能优化版
+其他基于Knight Omega的项目：
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：Knight Omega高性能优化版
 
 ## 帮助支持
 
-如有问题，请参考[帮助支持](https://docs.newapi.pro/support)：
-- [社区交流](https://docs.newapi.pro/support/community-interaction)
-- [反馈问题](https://docs.newapi.pro/support/feedback-issues)
-- [常见问题](https://docs.newapi.pro/support/faq)
+如有问题，请参考[帮助支持](http://localhost:5173/support)：
+- [社区交流](http://localhost:5173/support/community-interaction)
+- [反馈问题](http://localhost:5173/support/feedback-issues)
+- [常见问题](http://localhost:5173/support/faq)
 
 ## 🌟 Star History
 

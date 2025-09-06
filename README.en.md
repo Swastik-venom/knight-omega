@@ -5,7 +5,7 @@
 
 ![new-api](/web/public/logo.png)
 
-# New API
+# Knight Omega
 
 🍥 Next-Generation Large Model Gateway and AI Asset Management System
 
@@ -33,7 +33,7 @@
 ## 📝 Project Description
 
 > [!NOTE]  
-> This is an open-source project developed based on [One API](https://github.com/songquanpeng/one-api)
+> This is an open-source project developed based on [Knight Omega](https://github.com/songquanpeng/one-api)
 
 > [!IMPORTANT]  
 > - This project is for personal learning purposes only, with no guarantee of stability or technical support.
@@ -50,7 +50,7 @@
   <a href="https://bda.pku.edu.cn/" target=_blank><img
     src="./docs/images/pku.png" alt="Peking University" height="120"
   /></a>
-  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target=_blank><img
+  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_Newapi" target=_blank><img
     src="./docs/images/ucloud.png" alt="UCloud" height="120"
   /></a>
   <a href="https://www.aliyun.com/" target=_blank><img
@@ -64,28 +64,28 @@
 
 ## 📚 Documentation
 
-For detailed documentation, please visit our official Wiki: [https://docs.newapi.pro/](https://docs.newapi.pro/)
+For detailed documentation, please visit our official Wiki: [http://localhost:5173/](http://localhost:5173/)
 
 You can also access the AI-generated DeepWiki:
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
 
 ## ✨ Key Features
 
-New API offers a wide range of features, please refer to [Features Introduction](https://docs.newapi.pro/wiki/features-introduction) for details:
+Knight Omega offers a wide range of features, please refer to [Features Introduction](http://localhost:5173/wiki/features-introduction) for details:
 
 1. 🎨 Brand new UI interface
 2. 🌍 Multi-language support
 3. 💰 Online recharge functionality (YiPay)
 4. 🔍 Support for querying usage quotas with keys (works with [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool))
-5. 🔄 Compatible with the original One API database
+5. 🔄 Compatible with the original Knight Omega database
 6. 💵 Support for pay-per-use model pricing
 7. ⚖️ Support for weighted random channel selection
 8. 📈 Data dashboard (console)
 9. 🔒 Token grouping and model restrictions
 10. 🤖 Support for more authorization login methods (LinuxDO, Telegram, OIDC)
-11. 🔄 Support for Rerank models (Cohere and Jina), [API Documentation](https://docs.newapi.pro/api/jinaai-rerank)
-12. ⚡ Support for OpenAI Realtime API (including Azure channels), [API Documentation](https://docs.newapi.pro/api/openai-realtime)
-13. ⚡ Support for Claude Messages format, [API Documentation](https://docs.newapi.pro/api/anthropic-chat)
+11. 🔄 Support for Rerank models (Cohere and Jina), [API Documentation](http://localhost:5173/api/jinaai-rerank)
+12. ⚡ Support for OpenAI Realtime API (including Azure channels), [API Documentation](http://localhost:5173/api/openai-realtime)
+13. ⚡ Support for Claude Messages format, [API Documentation](http://localhost:5173/api/anthropic-chat)
 14. Support for entering chat interface via /chat2link route
 15. 🧠 Support for setting reasoning effort through model name suffixes:
     1. OpenAI o-series models
@@ -107,19 +107,19 @@ New API offers a wide range of features, please refer to [Features Introduction]
 
 ## Model Support
 
-This version supports multiple models, please refer to [API Documentation-Relay Interface](https://docs.newapi.pro/api) for details:
+This version supports multiple models, please refer to [API Documentation-Relay Interface](http://localhost:5173/api) for details:
 
 1. Third-party models **gpts** (gpt-4-gizmo-*)
-2. Third-party channel [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) interface, [API Documentation](https://docs.newapi.pro/api/midjourney-proxy-image)
-3. Third-party channel [Suno API](https://github.com/Suno-API/Suno-API) interface, [API Documentation](https://docs.newapi.pro/api/suno-music)
+2. Third-party channel [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) interface, [API Documentation](http://localhost:5173/api/midjourney-proxy-image)
+3. Third-party channel [Suno API](https://github.com/Suno-API/Suno-API) interface, [API Documentation](http://localhost:5173/api/suno-music)
 4. Custom channels, supporting full call address input
-5. Rerank models ([Cohere](https://cohere.ai/) and [Jina](https://jina.ai/)), [API Documentation](https://docs.newapi.pro/api/jinaai-rerank)
-6. Claude Messages format, [API Documentation](https://docs.newapi.pro/api/anthropic-chat)
+5. Rerank models ([Cohere](https://cohere.ai/) and [Jina](https://jina.ai/)), [API Documentation](http://localhost:5173/api/jinaai-rerank)
+6. Claude Messages format, [API Documentation](http://localhost:5173/api/anthropic-chat)
 7. Dify, currently only supports chatflow
 
 ## Environment Variable Configuration
 
-For detailed configuration instructions, please refer to [Installation Guide-Environment Variables Configuration](https://docs.newapi.pro/installation/environment-variables):
+For detailed configuration instructions, please refer to [Installation Guide-Environment Variables Configuration](http://localhost:5173/installation/environment-variables):
 
 - `GENERATE_DEFAULT_TOKEN`: Whether to generate initial tokens for newly registered users, default is `false`
 - `STREAMING_TIMEOUT`: Streaming response timeout, default is 300 seconds
@@ -139,7 +139,7 @@ For detailed configuration instructions, please refer to [Installation Guide-Env
 
 ## Deployment
 
-For detailed deployment guides, please refer to [Installation Guide-Deployment Methods](https://docs.newapi.pro/installation):
+For detailed deployment guides, please refer to [Installation Guide-Deployment Methods](http://localhost:5173/installation):
 
 > [!TIP]
 > Latest Docker image: `calciumion/new-api:latest`
@@ -186,30 +186,30 @@ Channel retry functionality has been implemented, you can set the number of retr
 
 ## API Documentation
 
-For detailed API documentation, please refer to [API Documentation](https://docs.newapi.pro/api):
+For detailed API documentation, please refer to [API Documentation](http://localhost:5173/api):
 
-- [Chat API](https://docs.newapi.pro/api/openai-chat)
-- [Image API](https://docs.newapi.pro/api/openai-image)
-- [Rerank API](https://docs.newapi.pro/api/jinaai-rerank)
-- [Realtime API](https://docs.newapi.pro/api/openai-realtime)
-- [Claude Chat API (messages)](https://docs.newapi.pro/api/anthropic-chat)
+- [Chat API](http://localhost:5173/api/openai-chat)
+- [Image API](http://localhost:5173/api/openai-image)
+- [Rerank API](http://localhost:5173/api/jinaai-rerank)
+- [Realtime API](http://localhost:5173/api/openai-realtime)
+- [Claude Chat API (messages)](http://localhost:5173/api/anthropic-chat)
 
 ## Related Projects
-- [One API](https://github.com/songquanpeng/one-api): Original project
+- [Knight Omega](https://github.com/songquanpeng/one-api): Original project
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy): Midjourney interface support
 - [chatnio](https://github.com/Deeptrain-Community/chatnio): Next-generation AI one-stop B/C-end solution
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool): Query usage quota with key
 
-Other projects based on New API:
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of New API
-- [VoAPI](https://github.com/VoAPI/VoAPI): Frontend beautified version based on New API
+Other projects based on Knight Omega:
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of Knight Omega
+- [VoAPI](https://github.com/VoAPI/VoAPI): Frontend beautified version based on Knight Omega
 
 ## Help and Support
 
-If you have any questions, please refer to [Help and Support](https://docs.newapi.pro/support):
-- [Community Interaction](https://docs.newapi.pro/support/community-interaction)
-- [Issue Feedback](https://docs.newapi.pro/support/feedback-issues)
-- [FAQ](https://docs.newapi.pro/support/faq)
+If you have any questions, please refer to [Help and Support](http://localhost:5173/support):
+- [Community Interaction](http://localhost:5173/support/community-interaction)
+- [Issue Feedback](http://localhost:5173/support/feedback-issues)
+- [FAQ](http://localhost:5173/support/faq)
 
 ## 🌟 Star History
 
