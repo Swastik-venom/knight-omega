@@ -72,7 +72,7 @@ const Docs = () => {
                 {[
                   { endpoint: 'GET /v1/user/self', desc: 'Get current user info', color: 'blue' },
                   { endpoint: 'GET /v1/token/', desc: 'List all API tokens', color: 'purple' },
-                  { endpoint: 'POST /v1/token/', desc: 'Create new API token', color: 'green' },
+                  { endpoint: 'POST /v1/token/', desc: 'Create Knight Omega token', color: 'green' },
                   { endpoint: 'GET /v1/models', desc: 'Get available models', color: 'orange' },
                   { endpoint: 'GET /v1/log/self', desc: 'Get usage logs', color: 'pink' }
                 ].map((item, index) => (
