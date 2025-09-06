@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { UserContext } from '../../context/User/index.js';
+import { UserContext } from '../../context/User/index.jsx';
 import { useSetTheme, useTheme } from '../../context/Theme/index.js';
 import { useTranslation } from 'react-i18next';
 import { API, getLogo, getSystemName, showSuccess, stringToColor } from '../../helpers/index.js';

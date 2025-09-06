@@ -165,17 +165,12 @@ const SettingsAPIInfo = ({ options, refresh }) => {
           api.id === editingApi.id ? { ...api, ...apiForm } : api,
         );
       } else {
-<<<<<<<< HEAD:web/src/pages/Setting/Dashboard/SettingsAPIInfo.jsx
         const newId = Math.max(...apiInfoList.map((api) => api.id), 0) + 1;
         const newApi = {
-========
-        const newId = Math.max(...apiInfoList.map(api => api.id), 0) + 1;
-        const Newapi = {
->>>>>>>> main:web/src/pages/Setting/Dashboard/SettingsAPIInfo.js
           id: newId,
           ...apiForm,
         };
-        newList = [...apiInfoList, Newapi];
+        newList = [...apiInfoList, newApi];
       }
 
       setApiInfoList(newList);

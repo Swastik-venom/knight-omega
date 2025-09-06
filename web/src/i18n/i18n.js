@@ -22,8 +22,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import enTranslation from './locales/en.json';
-import hiTranslation from './locales/hi.json';
-import ruTranslation from './locales/ru.json';
+import zhTranslation from './locales/zh.json';
 
 i18n
   .use(LanguageDetector)
@@ -34,16 +33,11 @@ i18n
       en: {
         translation: enTranslation,
       },
-      hi: {
-        translation: hiTranslation,
-      },
-      ru: {
-        translation: ruTranslation,
+      zh: {
+        translation: zhTranslation,
       },
     },
-    lng: null,
-    fallbackLng: 'en',
-    supportedLngs: ['en', 'hi', 'ru'],
+    fallbackLng: 'zh',
     interpolation: {
       escapeValue: false,
     },
