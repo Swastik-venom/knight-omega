@@ -132,7 +132,7 @@ const FooterBar = () => {
                     rel='noopener noreferrer'
                     className='!text-semi-color-text-1'
                   >
-                    One API
+                    Knight Api
                   </a>
                   <a
                     href='https://github.com/novicezk/midjourney-proxy'
@@ -207,7 +207,7 @@ const FooterBar = () => {
               rel='noopener noreferrer'
               className='!text-semi-color-primary font-medium'
             >
-              One API
+              Knight Api
             </a>
           </div>
         </div>

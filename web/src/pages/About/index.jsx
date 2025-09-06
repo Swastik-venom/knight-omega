@@ -96,7 +96,7 @@ const About = () => {
           rel='noopener noreferrer'
           className='!text-semi-color-primary'
         >
-          One API v0.5.4
+          Knight Api v0.5.4
         </a>{' '}
         © 2023{' '}
         <a

@@ -1664,7 +1664,7 @@ const EditChannelModal = (props) => {
                         <Banner
                           type='warning'
                           description={t(
-                            '如果你对接的是上游One API或者Knight Omega等转发项目，请使用OpenAI类型，不要使用此类型，除非你知道你在做什么。',
+                            '如果你对接的是上游Knight Api或者Knight Omega等转发项目，请使用OpenAI类型，不要使用此类型，除非你知道你在做什么。',
                           )}
                           className='!rounded-lg'
                         />
