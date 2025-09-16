@@ -90,39 +90,41 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 
 		if info.ChannelSetting.SystemPrompt != "" {
 			// 如果有系统提示，则将其添加到请求中
-			request := convertedRequest.(*dto.GeneralOpenAIRequest)
-			containSystemPrompt := false
-			for _, message := range request.Messages {
-				if message.Role == request.GetSystemRoleName() {
-					containSystemPrompt = true
-					break
-				}
-			}
-			if !containSystemPrompt {
-				// 如果没有系统提示，则添加系统提示
-				systemMessage := dto.Message{
-					Role:    request.GetSystemRoleName(),
-					Content: info.ChannelSetting.SystemPrompt,
-				}
-				request.Messages = append([]dto.Message{systemMessage}, request.Messages...)
-			} else if info.ChannelSetting.SystemPromptOverride {
-				common.SetContextKey(c, constant.ContextKeySystemPromptOverride, true)
-				// 如果有系统提示，且允许覆盖，则拼接到前面
-				for i, message := range request.Messages {
+			request, ok := convertedRequest.(*dto.GeneralOpenAIRequest)
+			if ok {
+				containSystemPrompt := false
+				for _, message := range request.Messages {
 					if message.Role == request.GetSystemRoleName() {
-						if message.IsStringContent() {
-							request.Messages[i].SetStringContent(info.ChannelSetting.SystemPrompt + "\n" + message.StringContent())
-						} else {
-							contents := message.ParseContent()
-							contents = append([]dto.MediaContent{
-								{
-									Type: dto.ContentTypeText,
-									Text: info.ChannelSetting.SystemPrompt,
-								},
-							}, contents...)
-							request.Messages[i].Content = contents
-						}
+						containSystemPrompt = true
 						break
+					}
+				}
+				if !containSystemPrompt {
+					// 如果没有系统提示，则添加系统提示
+					systemMessage := dto.Message{
+						Role:    request.GetSystemRoleName(),
+						Content: info.ChannelSetting.SystemPrompt,
+					}
+					request.Messages = append([]dto.Message{systemMessage}, request.Messages...)
+				} else if info.ChannelSetting.SystemPromptOverride {
+					common.SetContextKey(c, constant.ContextKeySystemPromptOverride, true)
+					// 如果有系统提示，且允许覆盖，则拼接到前面
+					for i, message := range request.Messages {
+						if message.Role == request.GetSystemRoleName() {
+							if message.IsStringContent() {
+								request.Messages[i].SetStringContent(info.ChannelSetting.SystemPrompt + "\n" + message.StringContent())
+							} else {
+								contents := message.ParseContent()
+								contents = append([]dto.MediaContent{
+									{
+										Type: dto.ContentTypeText,
+										Text: info.ChannelSetting.SystemPrompt,
+									},
+								}, contents...)
+								request.Messages[i].Content = contents
+							}
+							break
+						}
 					}
 				}
 			}
@@ -326,22 +328,11 @@ func postConsumeQuota(ctx *gin.Context, relayInfo *relaycommon.RelayInfo, usage 
 	} else {
 		quotaCalculateDecimal = dModelPrice.Mul(dQuotaPerUnit).Mul(dGroupRatio)
 	}
-	var dGeminiImageOutputQuota decimal.Decimal
-	var imageOutputPrice float64
-	if strings.HasPrefix(modelName, "gemini-2.5-flash-image-preview") {
-		imageOutputPrice = operation_setting.GetGeminiImageOutputPricePerMillionTokens(modelName)
-		if imageOutputPrice > 0 {
-			dImageOutputTokens := decimal.NewFromInt(int64(ctx.GetInt("gemini_image_tokens")))
-			dGeminiImageOutputQuota = decimal.NewFromFloat(imageOutputPrice).Div(decimal.NewFromInt(1000000)).Mul(dImageOutputTokens).Mul(dGroupRatio).Mul(dQuotaPerUnit)
-		}
-	}
 	// 添加 responses tools call 调用的配额
 	quotaCalculateDecimal = quotaCalculateDecimal.Add(dWebSearchQuota)
 	quotaCalculateDecimal = quotaCalculateDecimal.Add(dFileSearchQuota)
 	// 添加 audio input 独立计费
 	quotaCalculateDecimal = quotaCalculateDecimal.Add(audioInputQuota)
-	// 添加 Gemini image output 计费
-	quotaCalculateDecimal = quotaCalculateDecimal.Add(dGeminiImageOutputQuota)
 
 	quota := int(quotaCalculateDecimal.Round(0).IntPart())
 	totalTokens := promptTokens + completionTokens
@@ -439,10 +430,6 @@ func postConsumeQuota(ctx *gin.Context, relayInfo *relaycommon.RelayInfo, usage 
 		other["audio_input_seperate_price"] = true
 		other["audio_input_token_count"] = audioTokens
 		other["audio_input_price"] = audioInputPrice
-	}
-	if !dGeminiImageOutputQuota.IsZero() {
-		other["image_output_token_count"] = ctx.GetInt("gemini_image_tokens")
-		other["image_output_price"] = imageOutputPrice
 	}
 	model.RecordConsumeLog(ctx, relayInfo.UserId, model.RecordConsumeLogParams{
 		ChannelId:        relayInfo.ChannelId,
