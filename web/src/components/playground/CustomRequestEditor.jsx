@@ -123,7 +123,7 @@ const CustomRequestEditor = ({
         <div className='flex items-center gap-2'>
           <Code size={16} className='text-gray-500' />
           <Typography.Text strong className='text-sm'>
-            Custom request body mode
+            自定义请求体模式
           </Typography.Text>
         </div>
         <Switch
