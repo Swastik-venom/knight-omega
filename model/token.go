@@ -72,19 +72,19 @@ func SearchUserTokens(userId int, keyword string, token string) (tokens []*Token
 
 func ValidateUserToken(key string) (token *Token, err error) {
 	if key == "" {
-		return nil, errors.New("未提供令牌")
+		return nil, errors.New("No token provided")
 	}
 	token, err = GetTokenByKey(key, false)
 	if err == nil {
 		if token.Status == common.TokenStatusExhausted {
 			keyPrefix := key[:3]
 			keySuffix := key[len(key)-3:]
-			return token, errors.New("该令牌额度已用尽 TokenStatusExhausted[sk-" + keyPrefix + "***" + keySuffix + "]")
+			return token, errors.New("The token amount has been exhausted TokenStatusExhausted[sk-" + keyPrefix + "***" + keySuffix + "]")
 		} else if token.Status == common.TokenStatusExpired {
-			return token, errors.New("该令牌已过期")
+			return token, errors.New("The token has expired")
 		}
 		if token.Status != common.TokenStatusEnabled {
-			return token, errors.New("该令牌状态不可用")
+			return token, errors.New("The token status is unavailable")
 		}
 		if token.ExpiredTime != -1 && token.ExpiredTime < common.GetTimestamp() {
 			if !common.RedisEnabled {
@@ -94,7 +94,7 @@ func ValidateUserToken(key string) (token *Token, err error) {
 					common.SysLog("failed to update token status" + err.Error())
 				}
 			}
-			return token, errors.New("该令牌已过期")
+			return token, errors.New("The token has expired")
 		}
 		if !token.UnlimitedQuota && token.RemainQuota <= 0 {
 			if !common.RedisEnabled {
@@ -107,16 +107,16 @@ func ValidateUserToken(key string) (token *Token, err error) {
 			}
 			keyPrefix := key[:3]
 			keySuffix := key[len(key)-3:]
-			return token, errors.New(fmt.Sprintf("[sk-%s***%s] 该令牌额度已用尽 !token.UnlimitedQuota && token.RemainQuota = %d", keyPrefix, keySuffix, token.RemainQuota))
+			return token, errors.New(fmt.Sprintf("[sk-%s***%s] The token amount has been exhausted !token.UnlimitedQuota && token.RemainQuota = %d", keyPrefix, keySuffix, token.RemainQuota))
 		}
 		return token, nil
 	}
-	return nil, errors.New("无效的令牌")
+	return nil, errors.New("Invalid token")
 }
 
 func GetTokenByIds(id int, userId int) (*Token, error) {
 	if id == 0 || userId == 0 {
-		return nil, errors.New("id 或 userId 为空！")
+		return nil, errors.New("id or userId Empty!")
 	}
 	token := Token{Id: id, UserId: userId}
 	var err error = nil
@@ -126,7 +126,7 @@ func GetTokenByIds(id int, userId int) (*Token, error) {
 
 func GetTokenById(id int) (*Token, error) {
 	if id == 0 {
-		return nil, errors.New("id 为空！")
+		return nil, errors.New("id Empty!")
 	}
 	token := Token{Id: id}
 	var err error = nil

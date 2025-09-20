@@ -105,7 +105,7 @@ const Home = () => {
       }
     } else {
       showError(message);
-      setHomePageContent('加载首页内容失败...');
+      setHomePageContent('Failed to load homepage content...');
     }
     setHomePageContentLoaded(true);
   };
@@ -113,7 +113,7 @@ const Home = () => {
   const handleCopyBaseURL = async () => {
     const ok = await copy(serverAddress);
     if (ok) {
-      showSuccess(t('已复制到剪切板'));
+      showSuccess(t('Copied to clipboard'));
     }
   };
 
@@ -129,7 +129,7 @@ const Home = () => {
             setNoticeVisible(true);
           }
         } catch (error) {
-          console.error('获取公告失败:', error);
+          console.error('Failed to obtain announcement:', error);
         }
       }
     };
@@ -177,14 +177,14 @@ const Home = () => {
                       </>
                     ) : (
                       <>
-                        统一的
+                        unified
                         <br />
-                        <span className='shine-text'>大模型接口网关</span>
+                        <span className='shine-text'>LPfod1Raka3rYAjG6tYsPRf1UGjfe3yXUz</span>
                       </>
                     )}
                   </h1>
                   <p className='text-base md:text-lg lg:text-xl text-semi-color-text-1 mt-4 md:mt-6 max-w-xl'>
-                    {t('更好的价格，更好的稳定性，只需要将模型基址替换为：')}
+                    {t('Better price, better stability, just replace the model base address with:')}
                   </p>
                   {/* BASE URL 与端点选择 */}
                   <div className='flex flex-col md:flex-row items-center justify-center gap-4 w-full mt-4 md:mt-6 max-w-md'>
@@ -229,7 +229,7 @@ const Home = () => {
                       className='!rounded-3xl px-8 py-2'
                       icon={<IconPlay />}
                     >
-                      {t('获取密钥')}
+                      {t('Get the key')}
                     </Button>
                   </Link>
                   {isDemoSiteMode && statusState?.status?.version ? (
