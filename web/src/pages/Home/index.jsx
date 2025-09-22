@@ -177,9 +177,9 @@ const Home = () => {
                       </>
                     ) : (
                       <>
-                        unified
+                        The Unified
                         <br />
-                        <span className='shine-text'>LPfod1Raka3rYAjG6tYsPRf1UGjfe3yXUz</span>
+                        <span className='shine-text'>LLMs API Gateway</span>
                       </>
                     )}
                   </h1>
