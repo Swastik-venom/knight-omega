@@ -1,6 +1,10 @@
 <p align="right">
-   <a href="./README.md">中文</a> | <strong>English</strong>
+   <a href="./README.md">中文</a> | <strong>English</strong> | <a href="./README.fr.md">Français</a> | <a href="./README.ja.md">日本語</a>
 </p>
+
+> [!NOTE]
+> **MT (Machine Translation)**: This document is machine translated. For the most accurate information, please refer to the [Chinese version](./README.md).
+
 <div align="center">
 
 ![new-api](/web/public/logo.png)
@@ -75,7 +79,7 @@ Knight Omega offers a wide range of features, please refer to [Features Introduc
 
 1. 🎨 Brand new UI interface
 2. 🌍 Multi-language support
-3. 💰 Online recharge functionality (YiPay)
+3. 💰 Online recharge functionality, currently supports EPay and Stripe
 4. 🔍 Support for querying usage quotas with keys (works with [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool))
 5. 🔄 Compatible with the original Knight Omega database
 6. 💵 Support for pay-per-use model pricing
@@ -96,7 +100,11 @@ Knight Omega offers a wide range of features, please refer to [Features Introduc
         - Add `-thinking` suffix to enable thinking mode (e.g.: `claude-3-7-sonnet-20250219-thinking`)
 16. 🔄 Thinking-to-content functionality
 17. 🔄 Model rate limiting for users
-18. 💰 Cache billing support, which allows billing at a set ratio when cache is hit:
+18. 🔄 Request format conversion functionality, supporting the following three format conversions:
+    1. OpenAI Chat Completions => Claude Messages
+    2. Claude Messages => OpenAI Chat Completions (can be used for Claude Code to call third-party models)
+    3. OpenAI Chat Completions => Gemini Chat
+19. 💰 Cache billing support, which allows billing at a set ratio when cache is hit:
     1. Set the `Prompt Cache Ratio` option in `System Settings-Operation Settings`
     2. Set `Prompt Cache Ratio` in the channel, range 0-1, e.g., setting to 0.5 means billing at 50% when cache is hit
     3. Supported channels:
@@ -113,8 +121,8 @@ This version supports multiple models, please refer to [API Documentation-Relay 
 2. Third-party channel [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) interface, [API Documentation](http://localhost:5173/api/midjourney-proxy-image)
 3. Third-party channel [Suno API](https://github.com/Suno-API/Suno-API) interface, [API Documentation](http://localhost:5173/api/suno-music)
 4. Custom channels, supporting full call address input
-5. Rerank models ([Cohere](https://cohere.ai/) and [Jina](https://jina.ai/)), [API Documentation](http://localhost:5173/api/jinaai-rerank)
-6. Claude Messages format, [API Documentation](http://localhost:5173/api/anthropic-chat)
+5. Rerank models ([Cohere](https://cohere.ai/) and [Jina](https://jina.ai/)), [API Documentation](https://docs.newapi.pro/api/jinaai-rerank)
+6. Claude Messages format, [API Documentation](https://docs.newapi.pro/api/anthropic-chat)
 7. Dify, currently only supports chatflow
 
 ## Environment Variable Configuration
@@ -188,21 +196,20 @@ Channel retry functionality has been implemented, you can set the number of retr
 
 For detailed API documentation, please refer to [API Documentation](http://localhost:5173/api):
 
-- [Chat API](http://localhost:5173/api/openai-chat)
-- [Image API](http://localhost:5173/api/openai-image)
-- [Rerank API](http://localhost:5173/api/jinaai-rerank)
-- [Realtime API](http://localhost:5173/api/openai-realtime)
-- [Claude Chat API (messages)](http://localhost:5173/api/anthropic-chat)
+- [Chat API](https://docs.newapi.pro/api/openai-chat)
+- [Image API](https://docs.newapi.pro/api/openai-image)
+- [Rerank API](https://docs.newapi.pro/api/jinaai-rerank)
+- [Realtime API](https://docs.newapi.pro/api/openai-realtime)
+- [Claude Chat API (messages)](https://docs.newapi.pro/api/anthropic-chat)
 
 ## Related Projects
 - [Knight Omega](https://github.com/songquanpeng/one-api): Original project
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy): Midjourney interface support
-- [chatnio](https://github.com/Deeptrain-Community/chatnio): Next-generation AI one-stop B/C-end solution
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool): Query usage quota with key
 
-Other projects based on Knight Omega:
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of Knight Omega
-- [VoAPI](https://github.com/VoAPI/VoAPI): Frontend beautified version based on Knight Omega
+Other projects based on New API:
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of New API
+- [VoAPI](https://github.com/VoAPI/VoAPI): Frontend beautified version based on New API
 
 ## Help and Support
 
