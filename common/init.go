@@ -4,11 +4,12 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"one-api/constant"
 	"os"
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"github.com/QuantumNous/new-api/constant"
 )
 
 var (
@@ -19,7 +20,7 @@ var (
 )
 
 func printHelp() {
-	fmt.Println("Knight Omega " + Version + " - All in Knight Omega service for OpenAI API.")
+	fmt.Println("New API " + Version + " - All in one API service for OpenAI API.")
 	fmt.Println("Copyright (C) 2023 JustSong. All rights reserved.")
 	fmt.Println("GitHub: https://github.com/songquanpeng/one-api")
 	fmt.Println("Usage: one-api [--port <port>] [--log-dir <log directory>] [--version] [--help]")
