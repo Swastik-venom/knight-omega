@@ -647,17 +647,18 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
+    <div className='relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800'>
       {/* 背景模糊晕染球 */}
       <div
-        className='blur-ball blur-ball-indigo'
+        className='absolute blur-ball blur-ball-indigo'
         style={{ top: '-80px', right: '-80px', transform: 'none' }}
       />
       <div
-        className='blur-ball blur-ball-teal'
+        className='absolute blur-ball blur-ball-teal'
         style={{ top: '50%', left: '-120px' }}
       />
-      <div className='w-full max-w-sm mt-[60px]'>
+      <div className='w-full max-w-md mt-[60px]'>
+        <div className='glass-apple-heavy backdrop-blur-xl p-8 rounded-2xl shadow-xl border border-white/20'>
         {showEmailRegister ||
         !(
           status.github_oauth ||
@@ -680,6 +681,7 @@ const RegisterForm = () => {
             />
           </div>
         )}
+        </div>
       </div>
     </div>
   );

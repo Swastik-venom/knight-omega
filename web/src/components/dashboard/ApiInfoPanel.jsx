@@ -18,12 +18,10 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
-import { Card, Avatar, Tag, Divider, Empty } from '@douyinfe/semi-ui';
-import { Server, Gauge, ExternalLink } from 'lucide-react';
-import {
-  IllustrationConstruction,
-  IllustrationConstructionDark,
-} from '@douyinfe/semi-illustrations';
+import { Card, Tag, Divider, Empty, Button } from '@douyinfe/semi-ui';
+import { Server, RotateCcw } from 'lucide-react';
+import { ExternalLink } from '@douyinfe/semi-icons';
+import { IllustrationConstruction, IllustrationConstructionDark } from '@douyinfe/semi-illustrations';
 import ScrollableContainer from '../common/ui/ScrollableContainer';
 
 const ApiInfoPanel = ({
@@ -38,7 +36,7 @@ const ApiInfoPanel = ({
   return (
     <Card
       {...CARD_PROPS}
-      className='bg-gray-50 border-0 !rounded-2xl'
+      className='bg-white/10 border-0 !rounded-2xl glass-apple'
       title={
         <div className={FLEX_CENTER_GAP2}>
           <Server size={16} />
@@ -51,52 +49,52 @@ const ApiInfoPanel = ({
         {apiInfoData.length > 0 ? (
           apiInfoData.map((api) => (
             <React.Fragment key={api.id}>
-              <div className='flex p-2 hover:bg-white rounded-lg transition-colors cursor-pointer'>
-                <div className='flex-shrink-0 mr-3'>
-                  <Avatar size='extra-small' color={api.color}>
-                    {api.route.substring(0, 2)}
-                  </Avatar>
+              <div className='flex p-4 hover:bg-white/10 transition-colors cursor-pointer'>
+                <div className='flex-shrink-0 mr-3 flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600'>
+                  <span className='text-xs font-medium text-white'>
+                    {api.route.substring(0, 2).toUpperCase()}
+                  </span>
                 </div>
                 <div className='flex-1'>
                   <div className='flex flex-wrap items-center justify-between mb-1 w-full gap-2'>
-                    <span className='text-sm font-medium text-gray-900 !font-bold break-all'>
+                    <span className='text-sm font-medium text-white break-all'>
                       {api.route}
                     </span>
-                    <div className='flex items-center gap-1 mt-1 lg:mt-0'>
+                    <div className='flex items-center gap-2 mt-1 lg:mt-0'>
                       <Tag
-                        prefixIcon={<Gauge size={12} />}
                         size='small'
                         color='white'
-                        shape='circle'
+                        shape='basic'
                         onClick={() => handleSpeedTest(api.url)}
-                        className='cursor-pointer hover:opacity-80 text-xs'
+                        className='cursor-pointer text-xs hover:opacity-80'
                       >
+                        <RotateCcw size={12} className='mr-1' />
                         {t('测速')}
                       </Tag>
                       <Tag
-                        prefixIcon={<ExternalLink size={12} />}
                         size='small'
                         color='white'
-                        shape='circle'
+                        shape='basic'
                         onClick={() =>
                           window.open(api.url, '_blank', 'noopener,noreferrer')
                         }
-                        className='cursor-pointer hover:opacity-80 text-xs'
+                        className='cursor-pointer text-xs hover:opacity-80'
                       >
+                        <ExternalLink style={{ width: 12, height: 12 }} className='mr-1' />
                         {t('跳转')}
                       </Tag>
                     </div>
                   </div>
                   <div
-                    className='!text-semi-color-primary break-all cursor-pointer hover:underline mb-1'
+                    className='text-blue-400 break-all cursor-pointer hover:underline mb-1'
                     onClick={() => handleCopyUrl(api.url)}
                   >
                     {api.url}
                   </div>
-                  <div className='text-gray-500'>{api.description}</div>
+                  <div className='text-white/60 text-sm'>{api.description}</div>
                 </div>
               </div>
-              <Divider />
+              <Divider className='my-0 bg-white/20' />
             </React.Fragment>
           ))
         ) : (

@@ -18,13 +18,11 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  Button,
-  Typography,
-  Input,
-  ScrollList,
-  ScrollItem,
-} from '@douyinfe/semi-ui';
+import { motion } from "framer-motion";
+import { Button } from '@/components/common/ui/button';
+import { Badge } from '@/components/common/ui/badge';
+import { Input } from '@/components/common/ui/input';
+import { Sparkles } from "lucide-react";
 import { API, showError, copy, showSuccess } from '../../helpers';
 import { useIsMobile } from '../../hooks/common/useIsMobile';
 import { API_ENDPOINTS } from '../../constants/common.constant';
@@ -32,12 +30,7 @@ import { StatusContext } from '../../context/Status';
 import { useActualTheme } from '../../context/Theme';
 import { marked } from 'marked';
 import { useTranslation } from 'react-i18next';
-import {
-  IconGithubLogo,
-  IconPlay,
-  IconFile,
-  IconCopy,
-} from '@douyinfe/semi-icons';
+import { ScrollList, ScrollItem, Typography, IconCopy } from '@douyinfe/semi-ui';
 import { Link } from 'react-router-dom';
 import NoticeModal from '../../components/layout/NoticeModal';
 import {
@@ -149,7 +142,7 @@ const Home = () => {
   }, [endpointItems.length]);
 
   return (
-    <div className='w-full overflow-x-hidden modern-gradient-bg'>
+    <div className='w-full overflow-x-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800'>
       <NoticeModal
         visible={noticeVisible}
         onClose={() => setNoticeVisible(false)}
@@ -175,7 +168,7 @@ const Home = () => {
             <div className="container mx-auto px-4 2xl:max-w-[1400px]">
               {/* Enhanced Badge with Animation */}
               <div className="flex justify-center animate-fadeInUp">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm mb-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
                   <svg className="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -221,9 +214,9 @@ const Home = () => {
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 w-full max-w-2xl">
                   <div className="relative flex-1 w-full">
                     <Input
-                      readonly
+                      readOnly
                       value={serverAddress}
-                      className='!rounded-full glass !border-white/20 !text-white placeholder:text-white/50'
+                      className='!rounded-full bg-white/15 !border-white/25 !text-white placeholder:text-white/50 backdrop-blur-xl border glass-apple'
                       size={isMobile ? 'default' : 'large'}
                       suffix={
                         <div className='flex items-center gap-2'>
@@ -241,9 +234,13 @@ const Home = () => {
                           </ScrollList>
                           <Button
                             onClick={handleCopyBaseURL}
-                            icon={<IconCopy />}
-                            className='!rounded-full gradient-primary border-0 text-white hover:scale-105 transition-transform'
-                          />
+                            className='!rounded-full bg-white/20 border border-white/30 text-white hover:scale-105 transition-transform backdrop-blur-xl glass-apple'
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-copy">
+                              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                            </svg>
+                          </Button>
                         </div>
                       }
                     />
@@ -253,44 +250,78 @@ const Home = () => {
 
               {/* Enhanced Action Buttons */}
               <div className='mt-8 flex justify-center gap-3 animate-fadeInUp delay-500'>
-                <Link to='/console' className="group">
-                  <Button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 rounded-full px-8 py-3">
-                    Get Started Free
-                  </Button>
+                <Link to="/signup">
+                  <div className="group cursor-pointer border border-white/30 bg-white/15 gap-2 h-[60px] flex items-center p-[10px] rounded-full hover:bg-white/25 transition-all backdrop-blur-xl glass-apple">
+                    <div className="border border-white/30 bg-gradient-to-r from-blue-500 to-purple-600 h-[40px] rounded-full flex items-center justify-center text-primary-foreground">
+                      <p className="font-medium tracking-tight mr-3 ml-3 flex items-center gap-2 justify-center text-base">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="lucide lucide-globe"
+                        >
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                          <path d="M2 12h20"></path>
+                        </svg>
+                        Get started
+                      </p>
+                    </div>
+                    <div className="text-white/80 group-hover:ml-4 ease-in-out transition-all size-[24px] flex items-center justify-center rounded-full border-2 border-white/30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-arrow-right group-hover:translate-x-1 ease-in-out transition-all"
+                      >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                      </svg>
+                    </div>
+                  </div>
                 </Link>
-                <Link to='/docs' className="group">
+                <Link to='/docs'>
                   <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-full px-6 py-3">
                     View Docs
-                    <svg className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
                   </Button>
                 </Link>
               </div>
 
               {/* Enhanced Provider Trust Indicators */}
-              <div className="mt-5 flex items-center justify-center gap-x-4 animate-fadeInUp delay-700">
-                <span className="text-sm text-gray-500">Trusted by developers building with</span>
+              <div className="mt-5 flex items-center justify-center gap-x-4">
+                <span className="text-sm text-white/60">Trusted by developers building with</span>
                 <div className="flex items-center gap-3">
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
                     <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                     <span className="text-xs text-white/80">OpenAI</span>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
                     <svg className="w-4 h-4 text-purple-400" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                     <span className="text-xs text-white/80">Claude</span>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
                     <svg className="w-4 h-4 text-cyan-400" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
                     <span className="text-xs text-white/80">Gemini</span>
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                  <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm">
                     <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                     </svg>
@@ -321,7 +352,7 @@ const Home = () => {
                   ].map((provider, index) => (
                     <div
                       key={provider.name}
-                      className="group flex flex-col items-center p-4 rounded-xl glass hover:bg-white/10 transition-all duration-300 hover:scale-105"
+                      className="group flex flex-col items-center p-4 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                       style={{
                         animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
                       }}
@@ -334,7 +365,7 @@ const Home = () => {
                   ))}
                   
                   {/* 30+ More indicator */}
-                  <div className="flex flex-col items-center p-4 rounded-xl glass">
+                  <div className="flex flex-col items-center p-4 rounded-xl bg-white/10 border border-white/20 backdrop-blur-sm">
                     <div className="w-12 h-12 flex items-center justify-center">
                       <Typography.Text className='!text-2xl font-bold text-gradient'>
                         30+
@@ -372,7 +403,7 @@ const Home = () => {
                   ].map((card, i) => (
                     <div
                       key={i}
-                      className="group relative rounded-2xl p-6 bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105"
+                      className="group relative rounded-2xl p-6 bg-white/10 border border-white/20 hover:border-white/30 transition-all duration-300 hover:scale-105 backdrop-blur-sm"
                     >
                       <div className="flex flex-col items-center text-center">
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-600/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">

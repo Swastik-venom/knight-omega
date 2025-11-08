@@ -21,11 +21,13 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, transformWithEsbuild } from 'vite';
 import pkg from '@douyinfe/vite-plugin-semi';
 import path from 'path';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
 const { vitePluginSemi } = pkg;
 
 // API URL configuration
 const API_BASE_URL = 'http://localhost:3000';
-const WS_BASE_URL = 'ws://localhost:3000';
+const WS_BASE_URL = 'ws://localhost:5173';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -58,8 +60,8 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [
-        require('tailwindcss'),
-        require('autoprefixer'),
+        tailwindcss,
+        autoprefixer,
       ],
     },
   },
@@ -76,7 +78,11 @@ export default defineConfig({
       'clsx',
       'react-hook-form',
       'i18next',
-      'react-i18next'
+      'react-i18next',
+      'hast-util-is-element',
+      'd3-color',
+      'd3-quadtree',
+      'd3-ease'
     ],
     esbuildOptions: {
       loader: {

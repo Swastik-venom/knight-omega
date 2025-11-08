@@ -17,12 +17,14 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import React from 'react';
+import React, { useState } from 'react';
 import NewYearButton from './NewYearButton';
 import NotificationButton from './NotificationButton';
 import ThemeToggle from './ThemeToggle';
 import LanguageSelector from './LanguageSelector';
 import UserArea from './UserArea';
+import { Button } from '@douyinfe/semi-ui';
+import { Palette } from 'lucide-react';
 
 const ActionButtons = ({
   isNewYear,
@@ -40,8 +42,31 @@ const ActionButtons = ({
   navigate,
   t,
 }) => {
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  
+  const colorOptions = [
+    { name: 'Blue', value: 'from-blue-500 to-purple-600', bg: 'bg-gradient-to-r from-blue-500 to-purple-600' },
+    { name: 'Purple', value: 'from-purple-500 to-pink-500', bg: 'bg-gradient-to-r from-purple-500 to-pink-500' },
+    { name: 'Green', value: 'from-green-500 to-teal-500', bg: 'bg-gradient-to-r from-green-500 to-teal-500' },
+    { name: 'Orange', value: 'from-orange-500 to-red-500', bg: 'bg-gradient-to-r from-orange-500 to-red-500' },
+    { name: 'Cyan', value: 'from-cyan-500 to-blue-500', bg: 'bg-gradient-to-r from-cyan-500 to-blue-500' },
+  ];
+
+  const handleColorChange = (colorValue) => {
+    document.documentElement.style.setProperty('--primary-gradient', colorValue);
+    // Save to localStorage
+    localStorage.setItem('primaryGradient', colorValue);
+  };
+
+  React.useEffect(() => {
+    const savedGradient = localStorage.getItem('primaryGradient');
+    if (savedGradient) {
+      document.documentElement.style.setProperty('--primary-gradient', savedGradient);
+    }
+  }, []);
+
   return (
-    <div className='flex items-center gap-2 md:gap-3'>
+    <div className='flex items-center gap-2 md:gap-3 relative'>
       <NewYearButton isNewYear={isNewYear} />
 
       <NotificationButton
@@ -51,6 +76,36 @@ const ActionButtons = ({
       />
 
       <ThemeToggle theme={theme} onThemeToggle={onThemeToggle} t={t} />
+
+      {/* Color Changing Button */}
+      <div className="relative">
+        <Button
+          theme="light"
+          type="tertiary"
+          onClick={() => setShowColorPicker(!showColorPicker)}
+          className="p-2 border border-white/20 text-white hover:bg-white/10 backdrop-blur-xl glass-apple"
+        >
+          <Palette className="h-4 w-4" />
+        </Button>
+        
+        {showColorPicker && (
+          <div className="absolute top-full right-0 mt-2 p-3 bg-white/15 backdrop-blur-xl border border-white/20 rounded-lg glass-apple z-50 min-w-[140px] shadow-lg">
+            <div className="grid grid-cols-2 gap-2">
+              {colorOptions.map((color) => (
+                <button
+                  key={color.name}
+                  onClick={() => {
+                    handleColorChange(color.value);
+                    setShowColorPicker(false);
+                  }}
+                  className={`w-8 h-8 rounded-lg ${color.bg} hover:scale-110 transition-transform`}
+                  title={color.name}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
 
       <LanguageSelector
         currentLang={currentLang}

@@ -121,11 +121,14 @@ const PageLayout = () => {
 
   return (
     <Layout
+      className="gradient-bg"
       style={{
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         overflow: isMobile ? 'visible' : 'hidden',
+        background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #0f172a 100%)',
+        backgroundSize: '400% 400%',
       }}
     >
       <Header
@@ -190,6 +193,7 @@ const PageLayout = () => {
               WebkitOverflowScrolling: 'touch',
               padding: shouldInnerPadding ? (isMobile ? '5px' : '24px') : '0',
               position: 'relative',
+              background: 'transparent',
             }}
           >
             <App />

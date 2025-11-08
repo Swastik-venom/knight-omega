@@ -21,8 +21,10 @@ import React from 'react';
 import Dashboard from '../../components/dashboard';
 
 const Detail = () => (
-  <div className='mt-[60px] px-2'>
-    <Dashboard />
+  <div className='mt-[60px] px-4 py-6'>
+    <div className="glass-apple-heavy p-6 rounded-2xl backdrop-blur-xl">
+      <Dashboard />
+    </div>
   </div>
 );
 
