@@ -1,12 +1,14 @@
-FROM node:18-alpine AS builder
+FROM oven/bun:latest AS builder
 
 WORKDIR /build
 COPY web/package.json .
-COPY web/package-lock.json .
-RUN npm ci
+COPY web/bun.lock .
+RUN bun install
+# Install vite globally to ensure it's available
+RUN bun add -g vite
 COPY ./web .
 COPY ./VERSION .
-RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) npm run build
+RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) bun run build
 
 FROM golang:alpine AS builder2
 ENV GO111MODULE=on CGO_ENABLED=0
