@@ -35,78 +35,86 @@ const AnnouncementsPanel = ({
   t,
 }) => {
   return (
-    <Card className='bg-white/10 border border-white/20 backdrop-blur-xl !rounded-2xl lg:col-span-2 glass-apple'>
-      <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-6 border-b border-white/20'>
-        <div className='flex items-center gap-2'>
-          <Bell size={16} className='text-blue-400' />
-          <h3 className='font-semibold text-white'>{t('系统公告')}</h3>
-          <Badge variant="secondary" className='text-xs bg-white/20 border-white/30 backdrop-blur-xl'>
-            {t('显示最新20条')}
-          </Badge>
+    <Card
+      {...CARD_PROPS}
+      className='shadow-sm !rounded-2xl lg:col-span-2 glass-apple'
+      title={
+        <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 w-full'>
+          <div className='flex items-center gap-2'>
+            <Bell size={16} />
+            {t('系统公告')}
+            <Tag color='white' shape='circle'>
+              {t('显示最新20条')}
+            </Tag>
+          </div>
+          {/* 图例 */}
+          <div className='flex flex-wrap gap-3 text-xs'>
+            {announcementLegendData.map((legend, index) => (
+              <div key={index} className='flex items-center gap-1'>
+                <div
+                  className='w-2 h-2 rounded-full'
+                  style={{
+                    backgroundColor:
+                      legend.color === 'grey'
+                        ? '#8b9aa7'
+                        : legend.color === 'blue'
+                          ? '#3b82f6'
+                          : legend.color === 'green'
+                            ? '#10b981'
+                            : legend.color === 'orange'
+                              ? '#f59e0b'
+                              : legend.color === 'red'
+                                ? '#ef4444'
+                                : '#8b9aa7',
+                  }}
+                />
+                <span className='text-white/60'>{legend.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        {/* 图例 */}
-        <div className='flex flex-wrap gap-3 text-xs'>
-          {announcementLegendData.map((legend, index) => (
-            <div key={index} className='flex items-center gap-1'>
-              <div
-                className='w-2 h-2 rounded-full'
-                style={{
-                  backgroundColor:
-                    legend.color === 'grey'
-                      ? '#8b9aa7'
-                      : legend.color === 'blue'
-                        ? '#3b82f6'
-                        : legend.color === 'green'
-                          ? '#10b981'
-                          : legend.color === 'orange'
-                            ? '#f59e0b'
-                            : legend.color === 'red'
-                              ? '#ef4444'
-                              : '#8b9aa7',
-                }}
-              />
-              <span className='text-white/60'>{legend.label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <CardContent className='p-0'>
-        <ScrollableContainer maxHeight='24rem'>
-          {announcementData.length > 0 ? (
-            <div className="space-y-4 p-4">
-              {announcementData.map((item, idx) => {
-                const htmlExtra = item.extra ? marked.parse(item.extra) : '';
-                return (
-                  <div key={idx} className="relative pl-8 pb-6 last:pb-0 p-4 rounded-lg backdrop-blur-sm glass-apple-hover">
-                    <div className="absolute left-0 top-1 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
-                    <div className="absolute left-1.5 top-4 bottom-0 w-px bg-gradient-to-b from-blue-500/20 to-transparent"></div>
-                    <div className="text-xs text-white/60 mb-1 ml-4">{item.relative ? item.relative + ' ' : ''}{item.time}</div>
-                    <div 
-                      className="ml-4 text-white/80"
-                      dangerouslySetInnerHTML={{
-                        __html: marked.parse(item.content || ''),
-                      }}
+      }
+      bodyStyle={{ padding: 0 }}
+    >
+      <ScrollableContainer maxHeight='24rem'>
+        {announcementData.length > 0 ? (
+          <div className="space-y-4 p-4">
+            {announcementData.map((item, idx) => {
+              const htmlExtra = item.extra ? marked.parse(item.extra) : '';
+              return (
+                <div key={idx} className="relative pl-8 pb-6 last:pb-0 p-4 rounded-lg hover:bg-white/10">
+                  <div className="absolute left-0 top-1 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                  <div className="absolute left-1.5 top-4 bottom-0 w-px bg-gradient-to-b from-blue-500/20 to-transparent"></div>
+                  <div className="text-xs text-white/60 mb-1 ml-4">{item.relative ? item.relative + ' ' : ''}{item.time}</div>
+                  <div 
+                    className="ml-4 text-white/80"
+                    dangerouslySetInnerHTML={{
+                      __html: marked.parse(item.content || ''),
+                    }}
+                  />
+                  {item.extra && (
+                    <div
+                      className='ml-4 text-xs text-white/50 mt-2'
+                      dangerouslySetInnerHTML={{ __html: htmlExtra }}
                     />
-                    {item.extra && (
-                      <div
-                        className='ml-4 text-xs text-white/50 mt-2'
-                        dangerouslySetInnerHTML={{ __html: htmlExtra }}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className='flex justify-center items-center py-8'>
-              <Empty
-                title={t('暂无系统公告')}
-                description={t('请联系管理员在系统设置中配置公告信息')}
-              />
-            </div>
-          )}
-        </ScrollableContainer>
-      </CardContent>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className='flex justify-center items-center py-8'>
+            <Empty
+              image={<IllustrationConstruction style={ILLUSTRATION_SIZE} />}
+              darkModeImage={
+                <IllustrationConstructionDark style={ILLUSTRATION_SIZE} />
+              }
+              title={t('暂无系统公告')}
+              description={t('请联系管理员在系统设置中配置公告信息')}
+            />
+          </div>
+        )}
+      </ScrollableContainer>
     </Card>
   );
 };

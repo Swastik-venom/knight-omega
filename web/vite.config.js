@@ -35,6 +35,10 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
+    // Force Vite to use the main entry points for problematic packages
+    mainFields: ['module', 'jsnext:main', 'jsnext'],
+    // Add specific resolutions for problematic packages
+    dedupe: ['react', 'react-dom'],
   },
   plugins: [
     {
