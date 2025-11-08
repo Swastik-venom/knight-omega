@@ -177,9 +177,9 @@ const Home = () => {
                       </>
                     ) : (
                       <>
-                        The Unified
+                        统一的
                         <br />
-                        <span className='shine-text'>LLMs API Gateway</span>
+                        <span className='shine-text'>大模型接口网关</span>
                       </>
                     )}
                   </h1>

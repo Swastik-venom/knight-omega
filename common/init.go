@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/QuantumNous/new-api/constant"
@@ -98,6 +99,9 @@ func InitEnv() {
 	GlobalWebRateLimitNum = GetEnvOrDefault("GLOBAL_WEB_RATE_LIMIT", 60)
 	GlobalWebRateLimitDuration = int64(GetEnvOrDefault("GLOBAL_WEB_RATE_LIMIT_DURATION", 180))
 
+	CriticalRateLimitEnable = GetEnvOrDefaultBool("CRITICAL_RATE_LIMIT_ENABLE", true)
+	CriticalRateLimitNum = GetEnvOrDefault("CRITICAL_RATE_LIMIT", 20)
+	CriticalRateLimitDuration = int64(GetEnvOrDefault("CRITICAL_RATE_LIMIT_DURATION", 20*60))
 	initConstantEnv()
 }
 
@@ -118,4 +122,17 @@ func initConstantEnv() {
 	constant.GenerateDefaultToken = GetEnvOrDefaultBool("GENERATE_DEFAULT_TOKEN", false)
 	// 是否启用错误日志
 	constant.ErrorLogEnabled = GetEnvOrDefaultBool("ERROR_LOG_ENABLED", false)
+
+	soraPatchStr := GetEnvOrDefaultString("TASK_PRICE_PATCH", "")
+	if soraPatchStr != "" {
+		var taskPricePatches []string
+		soraPatches := strings.Split(soraPatchStr, ",")
+		for _, patch := range soraPatches {
+			trimmedPatch := strings.TrimSpace(patch)
+			if trimmedPatch != "" {
+				taskPricePatches = append(taskPricePatches, trimmedPatch)
+			}
+		}
+		constant.TaskPricePatches = taskPricePatches
+	}
 }
