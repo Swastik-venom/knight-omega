@@ -132,7 +132,7 @@ const FooterBar = () => {
                     rel='noopener noreferrer'
                     className='!text-semi-color-text-1'
                   >
-                    Knight Omega
+                    One API
                   </a>
                   <a
                     href='https://github.com/novicezk/midjourney-proxy'
@@ -155,7 +155,7 @@ const FooterBar = () => {
 
               <div className='text-left'>
                 <p className='!text-semi-color-text-0 font-semibold mb-5'>
-                  {t('基于New API的项目')}
+                  {t('友情链接')}
                 </p>
                 <div className='flex flex-col gap-4'>
                   <a
@@ -205,16 +205,7 @@ const FooterBar = () => {
               rel='noopener noreferrer'
               className='!text-semi-color-primary font-medium'
             >
-              Knight Omega
-            </a>
-            <span className='!text-semi-color-text-1'> & </span>
-            <a
-              href='https://github.com/songquanpeng/one-api'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='!text-semi-color-primary font-medium'
-            >
-              One API
+              New API
             </a>
           </div>
         </div>
