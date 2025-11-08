@@ -29,7 +29,7 @@ import React, { useState } from 'react';
 
 const { Title, Text, Paragraph } = Typography;
 
-const TwoFAVerification = ({ onSuccess, onBack, isModal = false }) => {
+const TwoFAVerification = ({ onSuccess, onBack, isModal = false, turnstileToken = '' }) => {
   const [loading, setLoading] = useState(false);
   const [useBackupCode, setUseBackupCode] = useState(false);
   const [verificationCode, setVerificationCode] = useState('');
@@ -50,7 +50,7 @@ const TwoFAVerification = ({ onSuccess, onBack, isModal = false }) => {
 
     setLoading(true);
     try {
-      const res = await API.post('/api/user/login/2fa', {
+      const res = await API.post(`/api/user/login/2fa?turnstile=${turnstileToken}`, {
         code: verificationCode,
       });
 

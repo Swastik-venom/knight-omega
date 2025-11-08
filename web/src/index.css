@@ -13,6 +13,9 @@
   @tailwind utilities;
 }
 
+/* ==================== Modern Design System Import ==================== */
+@import './styles/modern-design-system.css';
+
 /* ==================== 全局基础样式 ==================== */
 :root {
   --sidebar-width: 180px;

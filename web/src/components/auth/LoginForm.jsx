@@ -806,6 +806,7 @@ const LoginForm = () => {
           onSuccess={handle2FASuccess}
           onBack={handleBackToLogin}
           isModal={true}
+          turnstileToken={turnstileToken}
         />
       </Modal>
     );
