@@ -17,15 +17,16 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Card, Tag, Empty } from '@douyinfe/semi-ui';
 import { Bell } from 'lucide-react';
 import { marked } from 'marked';
-import { 
+import {
   IllustrationConstruction,
   IllustrationConstructionDark,
 } from '@douyinfe/semi-illustrations';
 import ScrollableContainer from '../common/ui/ScrollableContainer';
+import { Card as GlassCard, CardHeader, CardContent } from '../common/ui/card';
 
 const AnnouncementsPanel = ({
   announcementData,
@@ -34,11 +35,25 @@ const AnnouncementsPanel = ({
   ILLUSTRATION_SIZE,
   t,
 }) => {
+  // Memoize the color mapping function for better performance
+  const getColorStyle = useMemo(() => (color) => {
+    const colorMap = {
+      grey: '#8b9aa7',
+      blue: '#3b82f6',
+      green: '#10b981',
+      orange: '#f59e0b',
+      red: '#ef4444',
+    };
+    return colorMap[color] || '#8b9aa7';
+  }, []);
+
   return (
-    <Card
+    <GlassCard 
+      elevated 
+      className='shadow-sm !rounded-2xl lg:col-span-2'
       {...CARD_PROPS}
-      className='shadow-sm !rounded-2xl lg:col-span-2 glass-apple'
-      title={
+    >
+      <CardHeader>
         <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 w-full'>
           <div className='flex items-center gap-2'>
             <Bell size={16} />
@@ -54,18 +69,7 @@ const AnnouncementsPanel = ({
                 <div
                   className='w-2 h-2 rounded-full'
                   style={{
-                    backgroundColor:
-                      legend.color === 'grey'
-                        ? '#8b9aa7'
-                        : legend.color === 'blue'
-                          ? '#3b82f6'
-                          : legend.color === 'green'
-                            ? '#10b981'
-                            : legend.color === 'orange'
-                              ? '#f59e0b'
-                              : legend.color === 'red'
-                                ? '#ef4444'
-                                : '#8b9aa7',
+                    backgroundColor: getColorStyle(legend.color)
                   }}
                 />
                 <span className='text-white/60'>{legend.label}</span>
@@ -73,49 +77,54 @@ const AnnouncementsPanel = ({
             ))}
           </div>
         </div>
-      }
-      bodyStyle={{ padding: 0 }}
-    >
-      <ScrollableContainer maxHeight='24rem'>
-        {announcementData.length > 0 ? (
-          <div className="space-y-4 p-4">
-            {announcementData.map((item, idx) => {
-              const htmlExtra = item.extra ? marked.parse(item.extra) : '';
-              return (
-                <div key={idx} className="relative pl-8 pb-6 last:pb-0 p-4 rounded-lg hover:bg-white/10">
-                  <div className="absolute left-0 top-1 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
-                  <div className="absolute left-1.5 top-4 bottom-0 w-px bg-gradient-to-b from-blue-500/20 to-transparent"></div>
-                  <div className="text-xs text-white/60 mb-1 ml-4">{item.relative ? item.relative + ' ' : ''}{item.time}</div>
-                  <div 
-                    className="ml-4 text-white/80"
-                    dangerouslySetInnerHTML={{
-                      __html: marked.parse(item.content || ''),
-                    }}
-                  />
-                  {item.extra && (
+      </CardHeader>
+      
+      <CardContent padding="none">
+        <ScrollableContainer maxHeight='24rem'>
+          {announcementData.length > 0 ? (
+            <div className="space-y-4 p-4">
+              {announcementData.map((item, idx) => {
+                // Memoize the parsed extra content
+                const parsedExtra = useMemo(() => {
+                  return item.extra ? marked.parse(item.extra) : '';
+                }, [item.extra]);
+
+                return (
+                  <div key={idx} className="relative pl-8 pb-6 last:pb-0 p-4 rounded-lg hover:bg-white/10 transition-all duration-200">
+                    <div className="absolute left-0 top-1 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
+                    <div className="absolute left-1.5 top-4 bottom-0 w-px bg-gradient-to-b from-blue-500/20 to-transparent"></div>
+                    <div className="text-xs text-white/60 mb-1 ml-4">{item.relative ? item.relative + ' ' : ''}{item.time}</div>
                     <div
-                      className='ml-4 text-xs text-white/50 mt-2'
-                      dangerouslySetInnerHTML={{ __html: htmlExtra }}
+                      className="ml-4 text-white/80"
+                      dangerouslySetInnerHTML={{
+                        __html: marked.parse(item.content || ''),
+                      }}
                     />
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <div className='flex justify-center items-center py-8'>
-            <Empty
-              image={<IllustrationConstruction style={ILLUSTRATION_SIZE} />}
-              darkModeImage={
-                <IllustrationConstructionDark style={ILLUSTRATION_SIZE} />
-              }
-              title={t('暂无系统公告')}
-              description={t('请联系管理员在系统设置中配置公告信息')}
-            />
-          </div>
-        )}
-      </ScrollableContainer>
-    </Card>
+                    {item.extra && (
+                      <div
+                        className='ml-4 text-xs text-white/50 mt-2'
+                        dangerouslySetInnerHTML={{ __html: parsedExtra }}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className='flex justify-center items-center py-8'>
+              <Empty
+                image={<IllustrationConstruction style={ILLUSTRATION_SIZE} />}
+                darkModeImage={
+                  <IllustrationConstructionDark style={ILLUSTRATION_SIZE} />
+                }
+                title={t('暂无系统公告')}
+                description={t('请联系管理员在系统设置中配置公告信息')}
+              />
+            </div>
+          )}
+        </ScrollableContainer>
+      </CardContent>
+    </GlassCard>
   );
 };
 

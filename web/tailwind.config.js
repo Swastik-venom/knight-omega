@@ -129,8 +129,80 @@ export default {
         'semi-border-radius-large': 'var(--semi-border-radius-large)',
         'semi-border-radius-circle': 'var(--semi-border-radius-circle)',
         'semi-border-radius-full': 'var(--semi-border-radius-full)',
+        'xl': '1rem', // 16px
+        '2xl': '1.25rem', // 20px
+        '3xl': '1.5rem', // 24px
       },
+      backdropBlur: {
+        'xl': '24px',
+      },
+      boxShadow: {
+        'glass': '0 8px 32px rgba(0, 0, 0, 0.15)',
+        'glass-hover': '0 20px 40px rgba(0, 0, 0, 0.3)',
+      },
+      animation: {
+        'hover-lift': 'hover-lift 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+        'gradient': 'gradient 15s ease infinite',
+      },
+      keyframes: {
+        'hover-lift': {
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-4px)' },
+        },
+        'gradient': {
+          '0%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+          '100%': { 'background-position': '0% 50%' },
+        }
+      },
+      zIndex: {
+        '9999': '9999',
+      }
     },
   },
-  plugins: [],
+  plugins: [
+    // Add a plugin to generate glass effect utilities
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.glass': {
+          'background': 'rgba(255, 255, 255, 0.1)',
+          'backdrop-filter': 'blur(12px)',
+          '-webkit-backdrop-filter': 'blur(12px)',
+          'border': '1px solid rgba(255, 255, 255, 0.18)',
+          'border-radius': '16px',
+        },
+        '.glass-dark': {
+          'background': 'rgba(0, 0, 0, 0.15)',
+          'backdrop-filter': 'blur(12px)',
+          '-webkit-backdrop-filter': 'blur(12px)',
+          'border': '1px solid rgba(255, 255, 255, 0.08)',
+          'border-radius': '16px',
+        },
+        '.glass-apple': {
+          'background': 'rgba(255, 255, 255, 0.05)',
+          'backdrop-filter': 'blur(16px)',
+          '-webkit-backdrop-filter': 'blur(16px)',
+          'border': '1px solid rgba(255, 255, 255, 0.1)',
+          'border-radius': '20px',
+          'box-shadow': '0 8px 32px rgba(0, 0, 0, 0.1)',
+        },
+        '.animate-hover-lift': {
+          'transition': 'transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+        },
+        '.animate-hover-lift:hover': {
+          'transform': 'translateY(-4px)',
+        },
+        '.shadow-glass': {
+          'box-shadow': '0 8px 32px rgba(0, 0, 0, 0.15)',
+        },
+        '.shadow-glass-hover': {
+          'transition': 'box-shadow 0.3s ease',
+        },
+        '.shadow-glass-hover:hover': {
+          'box-shadow': '0 20px 40px rgba(0, 0, 0, 0.3)',
+        }
+      };
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    }
+  ],
 };
