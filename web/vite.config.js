@@ -23,6 +23,10 @@ import pkg from '@douyinfe/vite-plugin-semi';
 import path from 'path';
 const { vitePluginSemi } = pkg;
 
+// API URL configuration
+const API_BASE_URL = 'http://localhost:3000';
+const WS_BASE_URL = 'ws://localhost:3000';
+
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -51,11 +55,33 @@ export default defineConfig({
       cssLayer: true,
     }),
   ],
+  css: {
+    postcss: {
+      plugins: [
+        require('@tailwindcss/postcss'),
+        require('autoprefixer'),
+      ],
+    },
+  },
   optimizeDeps: {
-    force: true,
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      'antd',
+      '@douyinfe/semi-ui',
+      '@douyinfe/semi-icons',
+      'axios',
+      'dayjs',
+      'clsx',
+      'react-hook-form',
+      'i18next',
+      'react-i18next'
+    ],
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
+        '.ts': 'tsx',
         '.json': 'json',
       },
     },
@@ -66,38 +92,86 @@ export default defineConfig({
         manualChunks: {
           'react-core': ['react', 'react-dom', 'react-router-dom'],
           'semi-ui': ['@douyinfe/semi-icons', '@douyinfe/semi-ui'],
-          tools: ['axios', 'history', 'marked'],
+          'ui-libs': [
+            'antd',
+            '@ant-design/icons',
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-select',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-toast'
+          ],
+          tools: ['axios', 'history', 'marked', 'dayjs', 'date-fns'],
           'react-components': [
             'react-dropzone',
             'react-fireworks',
             'react-telegram-login',
             'react-toastify',
             'react-turnstile',
+            'react-hook-form',
+            'react-resizable-panels',
+            'react-day-picker',
+            'react-markdown',
+            'sonner'
           ],
           i18n: [
             'i18next',
             'react-i18next',
             'i18next-browser-languagedetector',
           ],
+          charts: [
+            'recharts',
+            '@visactor/react-vchart',
+            '@visactor/vchart',
+            '@visactor/vchart-semi-theme'
+          ],
+          utils: [
+            'clsx',
+            'tailwind-merge',
+            'class-variance-authority',
+            'zod',
+            'katex',
+            'mermaid'
+          ],
+          animation: [
+            'framer-motion',
+            'motion',
+            'tailwindcss-animate',
+            'tw-animate-css'
+          ]
         },
       },
     },
   },
   server: {
     host: '0.0.0.0',
+    port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: API_BASE_URL,
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
       '/mj': {
-        target: 'http://localhost:3000',
+        target: API_BASE_URL,
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/mj/, '/mj'),
       },
       '/pg': {
-        target: 'http://localhost:3000',
+        target: API_BASE_URL,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/pg/, '/pg'),
+      },
+      '/ws': {
+        target: WS_BASE_URL,
+        ws: true,
         changeOrigin: true,
       },
     },
+  },
+  preview: {
+    port: 4173,
+    host: '0.0.0.0',
   },
 });
