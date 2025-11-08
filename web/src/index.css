@@ -1,17 +1,7 @@
 /* ==================== Tailwind CSS 配置 ==================== */
-@layer tailwind-base, semi, tailwind-components, tailwind-utils;
-
-@layer tailwind-base {
-  @tailwind base;
-}
-
-@layer tailwind-components {
-  @tailwind components;
-}
-
-@layer tailwind-utils {
-  @tailwind utilities;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* ==================== Modern Design System Import ==================== */
 @import './styles/modern-design-system.css';
@@ -689,7 +679,7 @@ html:not(.dark) .blur-ball-teal {
 
 /* 暗黑模式下更柔和的色彩和透明度 */
 html.dark .with-pastel-balls {
-  /* 使用与明亮模式一致的“刚才那组”马卡龙色，但整体更柔和 */
+  /* 使用与明亮模式一致的"刚才那组"马卡龙色，但整体更柔和 */
   --pb1: #ffd1dc;
   /* 粉 */
   --pb2: #e5d4ff;
