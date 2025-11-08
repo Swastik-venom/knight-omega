@@ -86,7 +86,7 @@ const AnnouncementsPanel = ({
               {announcementData.map((item, idx) => {
                 // Memoize the parsed extra content
                 const parsedExtra = useMemo(() => {
-                  return item.extra ? marked.parse(item.extra) : '';
+                  return item.extra ? marked(item.extra) : '';
                 }, [item.extra]);
 
                 return (
@@ -97,7 +97,7 @@ const AnnouncementsPanel = ({
                     <div
                       className="ml-4 text-white/80"
                       dangerouslySetInnerHTML={{
-                        __html: marked.parse(item.content || ''),
+                        __html: marked(item.content || ''),
                       }}
                     />
                     {item.extra && (
