@@ -100,11 +100,6 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
-      external: [
-        // Externalize Node.js built-in modules
-        'http', 'https', 'http2', 'util', 'zlib', 'stream', 'events',
-        'url', 'crypto', 'path', 'fs', 'assert'
-      ],
       output: {
         manualChunks: {
           'react-core': ['react', 'react-dom', 'react-router-dom'],
