@@ -47,9 +47,18 @@ const AnnouncementsPanel = ({
     return colorMap[color] || '#8b9aa7';
   }, []);
 
+  // Pre-process announcement data to avoid using hooks inside map
+  const processedAnnouncements = useMemo(() => {
+    return announcementData.map(item => ({
+      ...item,
+      parsedContent: marked(item.content || ''),
+      parsedExtra: item.extra ? marked(item.extra) : ''
+    }));
+  }, [announcementData]);
+
   return (
-    <GlassCard 
-      elevated 
+    <GlassCard
+      elevated
       className='shadow-sm !rounded-2xl lg:col-span-2'
       {...CARD_PROPS}
     >
@@ -78,17 +87,13 @@ const AnnouncementsPanel = ({
           </div>
         </div>
       </CardHeader>
-      
+
       <CardContent padding="none">
         <ScrollableContainer maxHeight='24rem'>
           {announcementData.length > 0 ? (
             <div className="space-y-4 p-4">
-              {announcementData.map((item, idx) => {
-                // Memoize the parsed extra content
-                const parsedExtra = useMemo(() => {
-                  return item.extra ? marked(item.extra) : '';
-                }, [item.extra]);
-
+              {processedAnnouncements.map((processedItem, idx) => {
+                const item = announcementData[idx];
                 return (
                   <div key={idx} className="relative pl-8 pb-6 last:pb-0 p-4 rounded-lg hover:bg-white/10 transition-all duration-200">
                     <div className="absolute left-0 top-1 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
@@ -97,13 +102,13 @@ const AnnouncementsPanel = ({
                     <div
                       className="ml-4 text-white/80"
                       dangerouslySetInnerHTML={{
-                        __html: marked(item.content || ''),
+                        __html: processedItem.parsedContent,
                       }}
                     />
                     {item.extra && (
                       <div
                         className='ml-4 text-xs text-white/50 mt-2'
-                        dangerouslySetInnerHTML={{ __html: parsedExtra }}
+                        dangerouslySetInnerHTML={{ __html: processedItem.parsedExtra }}
                       />
                     )}
                   </div>
