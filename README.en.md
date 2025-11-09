@@ -224,9 +224,9 @@ For detailed API documentation, please refer to [API Documentation](http://local
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy): Midjourney interface support
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool): Query usage quota with key
 
-Other projects based on New API:
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of New API
-- [VoAPI](https://github.com/VoAPI/VoAPI): Frontend beautified version based on New API
+Other projects based on Knight Omega:
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of Knight Omega
+- [VoAPI](https://github.com/VoAPI/VoAPI): Frontend beautified version based on Knight Omega
 
 ## Help and Support
 

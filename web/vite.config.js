@@ -61,14 +61,7 @@ export default defineConfig({
       cssLayer: true,
     }),
   ],
-  css: {
-    postcss: {
-      plugins: [
-        tailwindcss,
-        autoprefixer,
-      ],
-    },
-  },
+
   optimizeDeps: {
     include: [
       'react',
@@ -100,6 +93,11 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
+      external: [
+        // Externalize Node.js built-in modules
+        'http', 'https', 'http2', 'util', 'zlib', 'stream', 'events',
+        'url', 'crypto', 'path', 'fs', 'assert'
+      ],
       output: {
         manualChunks: {
           'react-core': ['react', 'react-dom', 'react-router-dom'],
@@ -158,26 +156,18 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 3000,
+    port: 5173,
     proxy: {
       '/api': {
-        target: API_BASE_URL,
+        target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
       '/mj': {
-        target: API_BASE_URL,
+        target: 'http://localhost:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/mj/, '/mj'),
       },
       '/pg': {
-        target: API_BASE_URL,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/pg/, '/pg'),
-      },
-      '/ws': {
-        target: WS_BASE_URL,
-        ws: true,
+        target: 'http://localhost:3000',
         changeOrigin: true,
       },
     },

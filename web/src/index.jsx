@@ -33,11 +33,15 @@ import { useTranslation } from 'react-i18next';
 import zh_CN from '@douyinfe/semi-ui/lib/es/locale/source/zh_CN';
 import en_GB from '@douyinfe/semi-ui/lib/es/locale/source/en_GB';
 
-// 欢迎信息（二次开发者未经允许不准将此移除）
+// Import Skipper UI components and features
+import { ThemeProvider as SkipperThemeProvider } from './components/common/ui/theme-provider';
+import { TooltipProvider } from './components/common/ui/tooltip';
+import { Toaster } from './components/common/ui/sonner';
+
 // Welcome message (Do not remove this without permission from the original developer)
 if (typeof window !== 'undefined') {
   console.log(
-    '%cWE ❤ NEWAPI%c Github: https://github.com/QuantumNous/new-api',
+    '%cWE ❤ NEWAPI%c Github: https://github.com/QuantumNous/knight-omega',
     'color: #10b981; font-weight: bold; font-size: 24px;',
     'color: inherit; font-size: 14px;',
   );
@@ -52,8 +56,7 @@ function SemiLocaleWrapper({ children }) {
   return <LocaleProvider locale={semiLocale}>{children}</LocaleProvider>;
 }
 
-// initialization
-
+// Initialization
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -66,9 +69,14 @@ root.render(
           }}
         >
           <ThemeProvider>
-            <SemiLocaleWrapper>
-              <PageLayout />
-            </SemiLocaleWrapper>
+            <SkipperThemeProvider>
+              <TooltipProvider>
+                <SemiLocaleWrapper>
+                  <PageLayout />
+                </SemiLocaleWrapper>
+                <Toaster />
+              </TooltipProvider>
+            </SkipperThemeProvider>
           </ThemeProvider>
         </BrowserRouter>
       </UserProvider>

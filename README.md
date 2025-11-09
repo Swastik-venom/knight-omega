@@ -121,7 +121,7 @@
 
 ## ✨ 主要特性
 
-New API提供了丰富的功能，详细特性请参考[特性说明](https://docs.newapi.pro/wiki/features-introduction)：
+Knight Omega提供了丰富的功能，详细特性请参考[特性说明](https://docs.newapi.pro/wiki/features-introduction)：
 
 1. 🎨 全新的UI界面
 2. 🌍 多语言支持
@@ -277,8 +277,8 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy)：Midjourney接口支持
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)：用key查询使用额度
 
-其他基于New API的项目：
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：New API高性能优化版
+其他基于Knight Omega的项目：
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：Knight Omega高性能优化版
 
 ## 💬 帮助支持
 
@@ -299,7 +299,7 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 
 <div align="center">
 
-### 💖 感谢使用 New API
+### 💖 感谢使用 Knight Omega
 
 如果这个项目对你有帮助，欢迎给我们一个 ⭐️ Star！
 

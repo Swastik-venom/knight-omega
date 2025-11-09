@@ -59,7 +59,7 @@ const AnnouncementsPanel = ({
   return (
     <GlassCard
       elevated
-      className='shadow-sm !rounded-2xl lg:col-span-2'
+      className='lg:col-span-2 border border-slate-200/70 bg-white/95 !rounded-3xl shadow-[0_20px_55px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_20px_55px_rgba(15,23,42,0.4)]'
       {...CARD_PROPS}
     >
       <CardHeader>
@@ -72,7 +72,7 @@ const AnnouncementsPanel = ({
             </Tag>
           </div>
           {/* 图例 */}
-          <div className='flex flex-wrap gap-3 text-xs'>
+          <div className='flex flex-wrap gap-3 text-xs text-slate-500 dark:text-white/70'>
             {announcementLegendData.map((legend, index) => (
               <div key={index} className='flex items-center gap-1'>
                 <div
@@ -81,7 +81,7 @@ const AnnouncementsPanel = ({
                     backgroundColor: getColorStyle(legend.color)
                   }}
                 />
-                <span className='text-white/60'>{legend.label}</span>
+                <span className='text-slate-500 dark:text-white/60'>{legend.label}</span>
               </div>
             ))}
           </div>
@@ -95,19 +95,19 @@ const AnnouncementsPanel = ({
               {processedAnnouncements.map((processedItem, idx) => {
                 const item = announcementData[idx];
                 return (
-                  <div key={idx} className="relative pl-8 pb-6 last:pb-0 p-4 rounded-lg hover:bg-white/10 transition-all duration-200">
-                    <div className="absolute left-0 top-1 w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600"></div>
-                    <div className="absolute left-1.5 top-4 bottom-0 w-px bg-gradient-to-b from-blue-500/20 to-transparent"></div>
-                    <div className="text-xs text-white/60 mb-1 ml-4">{item.relative ? item.relative + ' ' : ''}{item.time}</div>
+                  <div key={idx} className='relative p-4 pl-8 rounded-lg transition-all duration-200 hover:bg-slate-100/80 dark:hover:bg-white/10 last:pb-0'>
+                    <div className='absolute left-0 top-1 h-3 w-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600'></div>
+                    <div className='absolute left-1.5 top-4 bottom-0 w-px bg-gradient-to-b from-blue-500/20 to-transparent'></div>
+                    <div className='mb-1 ml-4 text-xs text-slate-500 dark:text-white/60'>{item.relative ? item.relative + ' ' : ''}{item.time}</div>
                     <div
-                      className="ml-4 text-white/80"
+                      className='ml-4 text-slate-700 dark:text-white/80'
                       dangerouslySetInnerHTML={{
                         __html: processedItem.parsedContent,
                       }}
                     />
                     {item.extra && (
                       <div
-                        className='ml-4 text-xs text-white/50 mt-2'
+                        className='ml-4 mt-2 text-xs text-slate-500 dark:text-white/60'
                         dangerouslySetInnerHTML={{ __html: processedItem.parsedExtra }}
                       />
                     )}

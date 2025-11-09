@@ -1,22 +1,22 @@
 import React from 'react';
 import { Tag } from '@douyinfe/semi-ui';
 
-// Glass effect badge component
+// Modern glass effect badge component with skiper-ui-clone design
 const GlassBadge = ({ variant = 'default', className = '', children, ...props }) => {
-  let variantClasses = 'backdrop-blur-xl';
+  let variantClasses = 'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 backdrop-blur-xl ';
   
   switch (variant) {
     case 'secondary':
-      variantClasses += ' bg-white/20 border border-white/30 text-white';
+      variantClasses += 'border-transparent bg-white/20 text-white hover:bg-white/30 backdrop-blur-xl';
       break;
     case 'destructive':
-      variantClasses += ' bg-red-500/20 border border-red-500/30 text-red-100';
+      variantClasses += 'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80';
       break;
     case 'outline':
-      variantClasses += ' border border-white/30 text-white';
+      variantClasses += 'border-white/30 text-foreground bg-transparent';
       break;
     default:
-      variantClasses += ' bg-white/20 border border-white/30 text-white';
+      variantClasses += 'border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80';
   }
 
   const badgeClasses = `${variantClasses} ${className}`;

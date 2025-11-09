@@ -1,9 +1,9 @@
 {
-  "name": "react-template",
+  "name": "knight-omega",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Modern React template with Vite, TypeScript, Tailwind CSS, and comprehensive UI components",
+  "description": "Modern React application with Skipper UI features, Vite, TypeScript, Tailwind CSS, and comprehensive UI components",
   "keywords": [
     "react",
     "vite",
@@ -11,6 +11,7 @@
     "tailwindcss",
     "antd",
     "radix-ui",
+    "skipper-ui",
     "template"
   ],
   "author": "",
@@ -40,8 +41,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
-    "@douyinfe/semi-icons": "^2.63.1",
-    "@douyinfe/semi-ui": "^2.69.1",
+    "@douyinfe/semi-icons": "^2.87.1",
+    "@douyinfe/semi-ui": "^2.87.1",
     "@emotion/is-prop-valid": "latest",
     "@hookform/resolvers": "^3.10.0",
     "@lobehub/icons": "^2.0.0",
@@ -82,9 +83,8 @@
     "clsx": "^2.1.1",
     "cmdk": "1.0.4",
     "cobe": "latest",
-    "country-flag-icons": "^1.5.19",
-    "date-fns": "^3.6.0",
-    "date-fns-tz": "^3.2.0",
+    "country-flag-icons": "^1.5.21",
+    "date-fns": "4.1.0",
     "dayjs": "^1.11.11",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "latest",
@@ -97,13 +97,14 @@
     "lucide-react": "^0.511.0",
     "marked": "^4.1.1",
     "mermaid": "^11.6.0",
+    "micromark": "^4.0.2",
     "motion": "latest",
     "next": "15.2.4",
     "next-themes": "latest",
     "qrcode.react": "^4.2.0",
-    "react": ">=18.0.0",
+    "react": "^18.2.0",
     "react-day-picker": "9.8.0",
-    "react-dom": ">=18.0.0",
+    "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-fireworks": "^1.0.4",
     "react-hook-form": "^7.60.0",
@@ -134,17 +135,18 @@
   "devDependencies": {
     "@douyinfe/vite-plugin-semi": "^2.74.0-alpha.6",
     "@so1ve/prettier-config": "^3.1.0",
+    "@tailwindcss/postcss": "^4.1.17",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
-    "@types/node": "^22.0.0",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
+    "@types/node": "^22",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "@vitejs/plugin-react": "^4.3.0",
     "@vitest/coverage-v8": "^2.0.0",
     "@vitest/ui": "^2.0.0",
-    "autoprefixer": "^10.4.21",
+    "autoprefixer": "^10.4.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-header": "^3.1.1",
@@ -154,10 +156,10 @@
     "i18next-cli": "^1.10.3",
     "jsdom": "^25.0.0",
     "npm-check-updates": "^17.0.0",
-    "postcss": "^8.5.3",
+    "postcss": "^8.4.0",
     "prettier": "^3.0.0",
     "tailwindcss": "^3.4.0",
-    "typescript": "^5.6.0",
+    "typescript": "^5",
     "vite": "^5.4.0",
     "vite-plugin-pwa": "^0.20.0",
     "vitest": "^2.0.0"
@@ -166,8 +168,8 @@
     "@rollup/rollup-linux-x64-gnu": "^4.0.0"
   },
   "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "eslintConfig": {
     "extends": [
@@ -217,10 +219,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/react-template.git"
+    "url": "https://github.com/QuantumNous/knight-omega"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/react-template/issues"
+    "url": "https://github.com/QuantumNous/knight-omega/issues"
   },
-  "homepage": "https://github.com/yourusername/react-template#readme"
+  "homepage": "https://github.com/QuantumNous/knight-omega#readme"
 }

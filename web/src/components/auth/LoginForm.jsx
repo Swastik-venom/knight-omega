@@ -18,6 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React, { useContext, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { UserContext } from '../../context/User';
 import {
@@ -39,7 +40,6 @@ import {
 import Turnstile from 'react-turnstile';
 import { Button, Card, Checkbox, Divider, Form, Icon, Modal } from '@douyinfe/semi-ui';
 import Title from '@douyinfe/semi-ui/lib/es/typography/title';
-import Text from '@douyinfe/semi-ui/lib/es/typography/text';
 import TelegramLoginButton from 'react-telegram-login';
 
 import {
@@ -52,6 +52,7 @@ import OIDCIcon from '../common/logo/OIDCIcon';
 import WeChatIcon from '../common/logo/WeChatIcon';
 import LinuxDoIcon from '../common/logo/LinuxDoIcon';
 import TwoFAVerification from './TwoFAVerification';
+import AuthFooter from './AuthFooter';
 import { useTranslation } from 'react-i18next';
 
 const LoginForm = () => {
@@ -90,6 +91,11 @@ const LoginForm = () => {
 
   const logo = getLogo();
   const systemName = getSystemName();
+  const heroHighlights = [
+    { label: 'Live latency', value: '<120ms' },
+    { label: 'Global regions', value: '12' },
+    { label: 'Active teams', value: '8K+' },
+  ];
 
   let affCode = new URLSearchParams(window.location.search).get('aff');
   if (affCode) {
@@ -101,13 +107,13 @@ const LoginForm = () => {
     return savedStatus ? JSON.parse(savedStatus) : {};
   });
 
+  // Load Turnstile configuration and agreement settings from status
   useEffect(() => {
     if (status.turnstile_check) {
       setTurnstileEnabled(true);
       setTurnstileSiteKey(status.turnstile_site_key);
     }
     
-    // 从 status 获取用户协议和隐私政策的启用状态
     setHasUserAgreement(status.user_agreement_enabled || false);
     setHasPrivacyPolicy(status.privacy_policy_enabled || false);
   }, [status]);
@@ -120,13 +126,13 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (searchParams.get('expired')) {
-      showError(t('未登录或登录已过期，请重新登录'));
+      showError(t('You are not logged in or your session has expired, please sign in again.'));
     }
   }, []);
 
   const onWeChatLoginClicked = () => {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     setWechatLoading(true);
@@ -136,7 +142,7 @@ const LoginForm = () => {
 
   const onSubmitWeChatVerificationCode = async () => {
     if (turnstileEnabled && turnstileToken === '') {
-      showInfo('请稍后几秒重试，Turnstile 正在检查用户环境！');
+      showInfo('Please wait a moment - Turnstile is verifying your environment.');
       return;
     }
     setWechatCodeSubmitLoading(true);
@@ -151,13 +157,13 @@ const LoginForm = () => {
         setUserData(data);
         updateAPI();
         navigate('/');
-        showSuccess('登录成功！');
+        showSuccess('Signed in successfully!');
         setShowWeChatLoginModal(false);
       } else {
-        showError(message);
+      showError(message);
       }
     } catch (error) {
-      showError('登录失败，请重试');
+      showError('Sign in failed, please try again.');
     } finally {
       setWechatCodeSubmitLoading(false);
     }
@@ -169,11 +175,11 @@ const LoginForm = () => {
 
   async function handleSubmit(e) {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     if (turnstileEnabled && turnstileToken === '') {
-      showInfo('请稍后几秒重试，Turnstile 正在检查用户环境！');
+      showInfo('Please wait a moment - Turnstile is verifying your environment.');
       return;
     }
     setSubmitted(true);
@@ -189,7 +195,7 @@ const LoginForm = () => {
         );
         const { success, message, data } = res.data;
         if (success) {
-          // 检查是否需要2FA验证
+          // If 2FA is required, show the verification modal
           if (data && data.require_2fa) {
             setShowTwoFA(true);
             setLoginLoading(false);
@@ -199,11 +205,11 @@ const LoginForm = () => {
           userDispatch({ type: 'login', payload: data });
           setUserData(data);
           updateAPI();
-          showSuccess('登录成功！');
+          showSuccess('Signed in successfully!');
           if (username === 'root' && password === '123456') {
             Modal.error({
-              title: '您正在使用默认密码！',
-              content: '请立刻修改默认密码！',
+              title: 'You are using the default password!',
+              content: 'Please change the default password immediately!',
               centered: true,
             });
           }
@@ -212,19 +218,19 @@ const LoginForm = () => {
           showError(message);
         }
       } else {
-        showError('请输入用户名和密码！');
+        showError('Please enter your username and password.');
       }
     } catch (error) {
-      showError('登录失败，请重试');
+      showError('Sign in failed, please try again.');
     } finally {
       setLoginLoading(false);
     }
   }
 
-  // 添加Telegram登录处理函数
+  // Telegram login handler
   const onTelegramLoginClicked = async (response) => {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     const fields = [
@@ -249,7 +255,7 @@ const LoginForm = () => {
       if (success) {
         userDispatch({ type: 'login', payload: data });
         localStorage.setItem('user', JSON.stringify(data));
-        showSuccess('登录成功！');
+        showSuccess('Signed in successfully!');
         setUserData(data);
         updateAPI();
         navigate('/');
@@ -257,56 +263,56 @@ const LoginForm = () => {
         showError(message);
       }
     } catch (error) {
-      showError('登录失败，请重试');
+      showError('Sign in failed, please try again.');
     }
   };
 
-  // 包装的GitHub登录点击处理
+  // GitHub login handler
   const handleGitHubClick = () => {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     setGithubLoading(true);
     try {
       onGitHubOAuthClicked(status.github_client_id);
     } finally {
-      // 由于重定向，这里不会执行到，但为了完整性添加
+      // This won't execute due to the redirect, included for completeness
       setTimeout(() => setGithubLoading(false), 3000);
     }
   };
 
-  // 包装的OIDC登录点击处理
+  // OIDC login handler
   const handleOIDCClick = () => {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     setOidcLoading(true);
     try {
       onOIDCClicked(status.oidc_authorization_endpoint, status.oidc_client_id);
     } finally {
-      // 由于重定向，这里不会执行到，但为了完整性添加
+      // This won't execute due to the redirect, included for completeness
       setTimeout(() => setOidcLoading(false), 3000);
     }
   };
 
-  // 包装的LinuxDO登录点击处理
+  // LinuxDO login handler
   const handleLinuxDOClick = () => {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     setLinuxdoLoading(true);
     try {
       onLinuxDOOAuthClicked(status.linuxdo_client_id);
     } finally {
-      // 由于重定向，这里不会执行到，但为了完整性添加
+      // This won't execute due to the redirect, included for completeness
       setTimeout(() => setLinuxdoLoading(false), 3000);
     }
   };
 
-  // 包装的邮箱登录选项点击处理
+  // Email login option handler
   const handleEmailLoginClick = () => {
     setEmailLoginLoading(true);
     setShowEmailLogin(true);
@@ -315,15 +321,15 @@ const LoginForm = () => {
 
   const handlePasskeyLogin = async () => {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     if (!passkeySupported) {
-      showInfo('当前环境无法使用 Passkey 登录');
+      showInfo('Passkey sign-in is not available in this environment.');
       return;
     }
     if (!window.PublicKeyCredential) {
-      showInfo('当前浏览器不支持 Passkey');
+      showInfo('Your browser does not support Passkey.');
       return;
     }
 
@@ -332,7 +338,7 @@ const LoginForm = () => {
       const beginRes = await API.post('/api/user/passkey/login/begin');
       const { success, message, data } = beginRes.data;
       if (!success) {
-        showError(message || '无法发起 Passkey 登录');
+        showError(message || 'Unable to start Passkey sign-in.');
         return;
       }
 
@@ -344,7 +350,7 @@ const LoginForm = () => {
       });
       const payload = buildAssertionResult(assertion);
       if (!payload) {
-        showError('Passkey 验证失败，请重试');
+        showError('Passkey verification failed, please try again.');
         return;
       }
 
@@ -357,46 +363,46 @@ const LoginForm = () => {
         userDispatch({ type: 'login', payload: finish.data });
         setUserData(finish.data);
         updateAPI();
-        showSuccess('登录成功！');
+        showSuccess('Signed in successfully!');
         navigate('/console');
       } else {
-        showError(finish.message || 'Passkey 登录失败，请重试');
+        showError(finish.message || 'Passkey sign-in failed, please try again.');
       }
     } catch (error) {
       if (error?.name === 'AbortError') {
-        showInfo('已取消 Passkey 登录');
+        showInfo('Passkey sign-in canceled.');
       } else {
-        showError('Passkey 登录失败，请重试');
+        showError('Passkey sign-in failed, please try again.');
       }
     } finally {
       setPasskeyLoading(false);
     }
   };
 
-  // 包装的重置密码点击处理
+  // Reset password handler
   const handleResetPasswordClick = () => {
     setResetPasswordLoading(true);
     navigate('/reset');
     setResetPasswordLoading(false);
   };
 
-  // 包装的其他登录选项点击处理
+  // Other login options handler
   const handleOtherLoginOptionsClick = () => {
     setOtherLoginOptionsLoading(true);
     setShowEmailLogin(false);
     setOtherLoginOptionsLoading(false);
   };
 
-  // 2FA验证成功处理
+  // 2FA success handler
   const handle2FASuccess = (data) => {
     userDispatch({ type: 'login', payload: data });
     setUserData(data);
     updateAPI();
-    showSuccess('登录成功！');
+    showSuccess('Signed in successfully!');
     navigate('/console');
   };
 
-  // 返回登录页面
+  // Reset login state
   const handleBackToLogin = () => {
     setShowTwoFA(false);
     setInputs({ username: '', password: '', wechat_verification_code: '' });
@@ -407,24 +413,25 @@ const LoginForm = () => {
       <div className='flex flex-col items-center'>
         <div className='w-full max-w-md'>
           <div className='flex items-center justify-center mb-6 gap-2'>
-            <img src={logo} alt='Logo' className='h-10 rounded-full' />
-            <Title heading={3} className='!text-gray-800'>
+            <img src={logo} alt='Logo' className='h-10 rounded-full border border-slate-200 bg-white p-1 shadow-sm dark:border-white/30 dark:bg-white/10' />
+            <Title heading={3} className='!text-slate-900 dark:!text-white'>
               {systemName}
             </Title>
           </div>
 
-          <Card className='border-0 !rounded-2xl overflow-hidden'>
+          <Card className='border border-slate-200 !bg-white/95 !backdrop-blur-2xl !rounded-[28px] overflow-hidden !shadow-[0_25px_60px_rgba(15,23,42,0.15)] dark:border-white/15 dark:!bg-white/10'>
             <div className='flex justify-center pt-6 pb-2'>
-              <Title heading={3} className='text-gray-800 dark:text-gray-200'>
-                {t('登 录')}
+              <Title heading={3} className='!text-slate-900 dark:!text-white'>
+                {t('Sign In')}
               </Title>
             </div>
-            <div className='px-2 py-8'>
-              <div className='space-y-3'>
+            <div className='relative px-6 py-8'>
+              <div className='pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-br from-white/25 via-transparent to-white/10 opacity-80' />
+              <div className='relative space-y-3'>
                 {status.wechat_login && (
                   <Button
-                    theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    theme='solid'
+                    className='w-full h-12 flex items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
                     type='tertiary'
                     icon={
                       <Icon svg={<WeChatIcon />} style={{ color: '#07C160' }} />
@@ -432,40 +439,40 @@ const LoginForm = () => {
                     onClick={onWeChatLoginClicked}
                     loading={wechatLoading}
                   >
-                    <span className='ml-3'>{t('使用 微信 继续')}</span>
+                    <span className='ml-3'>{t('Continue with WeChat')}</span>
                   </Button>
                 )}
 
                 {status.github_oauth && (
                   <Button
-                    theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    theme='solid'
+                    className='w-full h-12 flex items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
                     type='tertiary'
                     icon={<IconGithubLogo size='large' />}
                     onClick={handleGitHubClick}
                     loading={githubLoading}
                   >
-                    <span className='ml-3'>{t('使用 GitHub 继续')}</span>
+                    <span className='ml-3'>{t('Continue with GitHub')}</span>
                   </Button>
                 )}
 
                 {status.oidc_enabled && (
                   <Button
-                    theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    theme='solid'
+                    className='w-full h-12 flex items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
                     type='tertiary'
                     icon={<OIDCIcon style={{ color: '#1877F2' }} />}
                     onClick={handleOIDCClick}
                     loading={oidcLoading}
                   >
-                    <span className='ml-3'>{t('使用 OIDC 继续')}</span>
+                    <span className='ml-3'>{t('Continue with OIDC')}</span>
                   </Button>
                 )}
 
                 {status.linuxdo_oauth && (
                   <Button
-                    theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    theme='solid'
+                    className='w-full h-12 flex items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
                     type='tertiary'
                     icon={
                       <LinuxDoIcon
@@ -479,7 +486,7 @@ const LoginForm = () => {
                     onClick={handleLinuxDOClick}
                     loading={linuxdoLoading}
                   >
-                    <span className='ml-3'>{t('使用 LinuxDO 继续')}</span>
+                    <span className='ml-3'>{t('Continue with LinuxDO')}</span>
                   </Button>
                 )}
 
@@ -494,82 +501,81 @@ const LoginForm = () => {
 
                 {status.passkey_login && passkeySupported && (
                   <Button
-                    theme='outline'
-                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    theme='solid'
+                    className='w-full h-12 flex items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
                     type='tertiary'
                     icon={<IconKey size='large' />}
                     onClick={handlePasskeyLogin}
                     loading={passkeyLoading}
                   >
-                    <span className='ml-3'>{t('使用 Passkey 登录')}</span>
+                    <span className='ml-3'>{t('Sign in with Passkey')}</span>
                   </Button>
                 )}
 
-                <Divider margin='12px' align='center'>
-                  {t('或')}
+                <Divider margin='12px' align='center' className='!border-slate-200 !text-slate-400 dark:!border-white/10 dark:!text-white/60'>
+                  {t('OR')}
                 </Divider>
 
                 <Button
                   theme='solid'
                   type='primary'
-                  className='w-full h-12 flex items-center justify-center bg-black text-white !rounded-full hover:bg-gray-800 transition-colors'
+                  className='w-full h-12 flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white !rounded-full shadow-[0_15px_35px_rgba(99,102,241,0.35)] hover:opacity-90 transition-opacity'
                   icon={<IconMail size='large' />}
                   onClick={handleEmailLoginClick}
                   loading={emailLoginLoading}
                 >
-                  <span className='ml-3'>{t('使用 邮箱或用户名 登录')}</span>
+                  <span className='ml-3'>{t('Continue with Email or Username')}</span>
                 </Button>
               </div>
 
               {(hasUserAgreement || hasPrivacyPolicy) && (
-                <div className='mt-6'>
+                <div className='mt-6 text-xs text-slate-600 dark:text-white/70'>
                   <Checkbox
                     checked={agreedToTerms}
                     onChange={(e) => setAgreedToTerms(e.target.checked)}
+                    className='text-slate-700 dark:text-white'
                   >
-                    <Text size='small' className='text-gray-600'>
-                      {t('我已阅读并同意')}
+                    <span>
+                      {t('I have read and agree to the')}
                       {hasUserAgreement && (
                         <>
                           <a
                             href='/user-agreement'
                             target='_blank'
                             rel='noopener noreferrer'
-                            className='text-blue-600 hover:text-blue-800 mx-1'
+                            className='mx-1 text-slate-900 font-medium hover:text-slate-600 dark:text-white dark:hover:text-white/80'
                           >
-                            {t('用户协议')}
+                            {t('Terms of Service')}
                           </a>
                         </>
                       )}
-                      {hasUserAgreement && hasPrivacyPolicy && t('和')}
+                      {hasUserAgreement && hasPrivacyPolicy && t('and')}
                       {hasPrivacyPolicy && (
                         <>
                           <a
                             href='/privacy-policy'
                             target='_blank'
                             rel='noopener noreferrer'
-                            className='text-blue-600 hover:text-blue-800 mx-1'
+                            className='mx-1 text-slate-900 font-medium hover:text-slate-600 dark:text-white dark:hover:text-white/80'
                           >
-                            {t('隐私政策')}
+                            {t('Privacy Policy')}
                           </a>
                         </>
-                        )}
-                      </Text>
-                    </Checkbox>
-                  </div>
-                )}
+                      )}
+                    </span>
+                  </Checkbox>
+                </div>
+              )}
 
               {!status.self_use_mode_enabled && (
-                <div className='mt-6 text-center text-sm'>
-                  <Text>
-                    {t('没有账户？')}{' '}
-                    <Link
-                      to='/register'
-                      className='text-blue-600 hover:text-blue-800 font-medium'
-                    >
-                      {t('注册')}
-                    </Link>
-                  </Text>
+                <div className='mt-6 text-center text-sm text-slate-600 dark:text-white/70'>
+                  {t("Don't have an account?")}{' '}
+                  <Link
+                    to='/register'
+                    className='font-medium text-slate-900 hover:text-slate-600 dark:text-white dark:hover:text-white/80'
+                  >
+                    {t('Sign Up')}
+                  </Link>
                 </div>
               )}
             </div>
@@ -583,48 +589,70 @@ const LoginForm = () => {
     return (
       <div className='flex flex-col items-center'>
         <div className='w-full max-w-md'>
-          <div className='flex items-center justify-center mb-6 gap-2'>
-            <img src={logo} alt='Logo' className='h-10 rounded-full' />
-            <Title heading={3}>{systemName}</Title>
+          <div className='mb-6 flex items-center justify-center gap-2'>
+            <img
+              src={logo}
+              alt='Logo'
+              className='h-10 rounded-full border border-slate-200 bg-white p-1 shadow-sm dark:border-white/30 dark:bg-white/10'
+            />
+            <Title heading={3} className='!text-slate-900 dark:!text-white'>
+              {systemName}
+            </Title>
           </div>
 
-          <Card className='border-0 !rounded-2xl overflow-hidden'>
+          <Card className='border border-slate-200 !bg-white/95 !backdrop-blur-2xl !rounded-[28px] overflow-hidden !shadow-[0_25px_60px_rgba(15,23,42,0.15)] dark:border-white/15 dark:!bg-white/10'>
             <div className='flex justify-center pt-6 pb-2'>
-              <Title heading={3} className='text-gray-800 dark:text-gray-200'>
-                {t('登 录')}
+              <Title heading={3} className='!text-slate-900 dark:!text-white'>
+                {t('Sign In')}
               </Title>
             </div>
-            <div className='px-2 py-8'>
+
+            <div className='relative px-6 py-8'>
+              <div className='pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-br from-white/45 via-transparent to-white/15 opacity-90 dark:from-white/25 dark:to-white/10' />
+
               {status.passkey_login && passkeySupported && (
                 <Button
-                  theme='outline'
+                  theme='solid'
                   type='tertiary'
-                  className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors mb-4'
+                  className='mb-4 flex h-12 w-full items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
                   icon={<IconKey size='large' />}
                   onClick={handlePasskeyLogin}
                   loading={passkeyLoading}
                 >
-                  <span className='ml-3'>{t('使用 Passkey 登录')}</span>
+                  <span className='ml-3'>{t('Sign in with Passkey')}</span>
                 </Button>
               )}
-              <Form className='space-y-3'>
+
+              <Form className='relative space-y-3'>
                 <Form.Input
                   field='username'
-                  label={t('用户名或邮箱')}
-                  placeholder={t('请输入您的用户名或邮箱地址')}
+                  label={t('Username or Email')}
+                  placeholder={t('Enter your username or email address')}
                   name='username'
                   onChange={(value) => handleChange('username', value)}
                   prefix={<IconMail />}
+                  className='!text-slate-900 dark:!text-white'
+                  style={{
+                    background: 'rgba(248,250,252,0.92)',
+                    borderColor: 'rgba(148,163,184,0.35)',
+                    color: '#0f172a',
+                  }}
                 />
 
                 <Form.Input
                   field='password'
-                  label={t('密码')}
-                  placeholder={t('请输入您的密码')}
+                  label={t('Password')}
+                  placeholder={t('Enter your password')}
                   name='password'
                   mode='password'
                   onChange={(value) => handleChange('password', value)}
                   prefix={<IconLock />}
+                  className='!text-slate-900 dark:!text-white'
+                  style={{
+                    background: 'rgba(248,250,252,0.92)',
+                    borderColor: 'rgba(148,163,184,0.35)',
+                    color: '#0f172a',
+                  }}
                 />
 
                 {(hasUserAgreement || hasPrivacyPolicy) && (
@@ -632,35 +660,36 @@ const LoginForm = () => {
                     <Checkbox
                       checked={agreedToTerms}
                       onChange={(e) => setAgreedToTerms(e.target.checked)}
+                      className='text-slate-700 dark:text-white'
                     >
-                      <Text size='small' className='text-gray-600'>
-                        {t('我已阅读并同意')}
+                      <span className='text-xs text-slate-600 sm:text-sm dark:text-white/70'>
+                        {t('I have read and agree to the')}
                         {hasUserAgreement && (
                           <>
                             <a
                               href='/user-agreement'
                               target='_blank'
                               rel='noopener noreferrer'
-                              className='text-blue-600 hover:text-blue-800 mx-1'
+                              className='mx-1 text-slate-900 font-medium hover:text-slate-600 dark:text-white dark:hover:text-white/80'
                             >
-                              {t('用户协议')}
+                              {t('Terms of Service')}
                             </a>
                           </>
                         )}
-                        {hasUserAgreement && hasPrivacyPolicy && t('和')}
+                        {hasUserAgreement && hasPrivacyPolicy && t('and')}
                         {hasPrivacyPolicy && (
                           <>
                             <a
                               href='/privacy-policy'
                               target='_blank'
                               rel='noopener noreferrer'
-                              className='text-blue-600 hover:text-blue-800 mx-1'
+                              className='mx-1 text-slate-900 font-medium hover:text-slate-600 dark:text-white dark:hover:text-white/80'
                             >
-                              {t('隐私政策')}
+                              {t('Privacy Policy')}
                             </a>
                           </>
                         )}
-                      </Text>
+                      </span>
                     </Checkbox>
                   </div>
                 )}
@@ -668,24 +697,24 @@ const LoginForm = () => {
                 <div className='space-y-2 pt-2'>
                   <Button
                     theme='solid'
-                    className='w-full !rounded-full'
+                    className='w-full !rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-[0_15px_35px_rgba(99,102,241,0.35)] hover:opacity-90 transition-opacity'
                     type='primary'
                     htmlType='submit'
                     onClick={handleSubmit}
                     loading={loginLoading}
                     disabled={(hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms}
                   >
-                    {t('继续')}
+                    {t('Continue')}
                   </Button>
 
                   <Button
                     theme='borderless'
                     type='tertiary'
-                    className='w-full !rounded-full'
+                    className='w-full !rounded-full !text-slate-600 hover:!text-slate-900 dark:!text-white/70 dark:hover:!text-white'
                     onClick={handleResetPasswordClick}
                     loading={resetPasswordLoading}
                   >
-                    {t('忘记密码？')}
+                    {t('Forgot password?')}
                   </Button>
                 </div>
               </Form>
@@ -696,35 +725,33 @@ const LoginForm = () => {
                 status.linuxdo_oauth ||
                 status.telegram_oauth) && (
                 <>
-                  <Divider margin='12px' align='center'>
-                    {t('或')}
+                  <Divider margin='12px' align='center' className='!border-slate-200 !text-slate-400 dark:!border-white/10 dark:!text-white/60'>
+                    {t('OR')}
                   </Divider>
 
                   <div className='mt-4 text-center'>
                     <Button
-                      theme='outline'
+                      theme='solid'
                       type='tertiary'
-                      className='w-full !rounded-full'
+                      className='w-full !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
                       onClick={handleOtherLoginOptionsClick}
                       loading={otherLoginOptionsLoading}
                     >
-                      {t('其他登录选项')}
+                      {t('Other sign-in options')}
                     </Button>
                   </div>
                 </>
               )}
 
               {!status.self_use_mode_enabled && (
-                <div className='mt-6 text-center text-sm'>
-                  <Text>
-                    {t('没有账户？')}{' '}
-                    <Link
-                      to='/register'
-                      className='text-blue-600 hover:text-blue-800 font-medium'
-                    >
-                      {t('注册')}
-                    </Link>
-                  </Text>
+                <div className='mt-6 text-center text-sm text-slate-600 dark:text-white/70'>
+                  {t("Don't have an account?")}{' '}
+                  <Link
+                    to='/register'
+                    className='font-medium text-slate-900 hover:text-slate-600 dark:text-white dark:hover:text-white/80'
+                  >
+                    {t('Sign Up')}
+                  </Link>
                 </div>
               )}
             </div>
@@ -734,36 +761,36 @@ const LoginForm = () => {
     );
   };
 
-  // 微信登录模态框
+  // WeChat login modal
   const renderWeChatLoginModal = () => {
     return (
       <Modal
-        title={t('微信扫码登录')}
+        title={t('Sign in with WeChat QR code')}
         visible={showWeChatLoginModal}
         maskClosable={true}
         onOk={onSubmitWeChatVerificationCode}
         onCancel={() => setShowWeChatLoginModal(false)}
-        okText={t('登录')}
+        okText={t('Sign In')}
         centered={true}
         okButtonProps={{
           loading: wechatCodeSubmitLoading,
         }}
       >
         <div className='flex flex-col items-center'>
-          <img src={status.wechat_qrcode} alt='微信二维码' className='mb-4' />
+          <img src={status.wechat_qrcode} alt='WeChat QR code' className='mb-4' />
         </div>
 
         <div className='text-center mb-4'>
           <p>
-            {t('微信扫码关注公众号，输入「验证码」获取验证码（三分钟内有效）')}
+            {t('Scan the QR code with WeChat, then send "verification code" to receive a code (valid for 3 minutes).')}
           </p>
         </div>
 
         <Form>
           <Form.Input
             field='wechat_verification_code'
-            placeholder={t('验证码')}
-            label={t('验证码')}
+            placeholder={t('Verification code')}
+            label={t('Verification code')}
             value={inputs.wechat_verification_code}
             onChange={(value) =>
               handleChange('wechat_verification_code', value)
@@ -774,7 +801,7 @@ const LoginForm = () => {
     );
   };
 
-  // 2FA验证弹窗
+  // Two-factor modal
   const render2FAModal = () => {
     return (
       <Modal
@@ -793,7 +820,7 @@ const LoginForm = () => {
                 />
               </svg>
             </div>
-            两步验证
+            {t('Two-factor verification')}
           </div>
         }
         visible={showTwoFA}
@@ -813,43 +840,96 @@ const LoginForm = () => {
   };
 
   return (
-    <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
-      {/* 背景模糊晕染球 */}
-      <div
-        className='blur-ball blur-ball-indigo'
-        style={{ top: '-80px', right: '-80px', transform: 'none' }}
-      />
-      <div
-        className='blur-ball blur-ball-teal'
-        style={{ top: '50%', left: '-120px' }}
-      />
-      <div className='w-full max-w-sm mt-[60px]'>
-        {showEmailLogin ||
-        !(
-          status.github_oauth ||
-          status.oidc_enabled ||
-          status.wechat_login ||
-          status.linuxdo_oauth ||
-          status.telegram_oauth
-        )
-          ? renderEmailLoginForm()
-          : renderOAuthOptions()}
-        {renderWeChatLoginModal()}
-        {render2FAModal()}
+    <div className='relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f4f7ff] via-white to-[#ecf3ff] text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white'>
+      <div className='absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),transparent_60%),radial-gradient(circle_at_bottom,_rgba(45,212,191,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(147,51,234,0.2),transparent_60%)]' />
+      <div className='absolute -top-44 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-sky-200/60 blur-[160px] dark:bg-indigo-600/25' />
+      <div className='absolute -bottom-48 right-[-180px] h-[520px] w-[520px] rounded-full bg-purple-200/40 blur-[180px] dark:bg-blue-500/25' />
 
-        {turnstileEnabled && (
-          <div className='flex justify-center mt-6'>
-            <Turnstile
-              sitekey={turnstileSiteKey}
-              onVerify={(token) => {
-                setTurnstileToken(token);
-              }}
-            />
+      <main className='relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 pb-16 pt-24 lg:flex-row lg:items-center lg:justify-between lg:pt-28'>
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className='flex-1 space-y-8'
+        >
+          <div className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-500 shadow-sm backdrop-blur-xl dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
+            <span className='h-2 w-2 rounded-full bg-emerald-400' />
+            Secure Access Portal
           </div>
-        )}
-      </div>
+
+          <div className='flex items-center gap-4'>
+            <div className='relative flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200/70 bg-white shadow-[0_18px_40px_rgba(15,23,42,0.12)] dark:border-white/20 dark:bg-white/10'>
+              {logo ? (
+                <img src={logo} alt={systemName} className='h-12 w-12 rounded-full object-cover' />
+              ) : (
+                <span className='text-2xl font-semibold text-slate-800 dark:text-white'>KΩ</span>
+              )}
+            </div>
+            <div>
+              <p className='text-sm uppercase tracking-[0.3em] text-slate-500 dark:text-white/60'>Knight Omega</p>
+              <h1 className='text-4xl font-semibold text-slate-900 sm:text-5xl dark:text-white'>Welcome back to {systemName}</h1>
+            </div>
+          </div>
+
+          <p className='max-w-xl text-base text-slate-600 sm:text-lg dark:text-white/70'>
+            Manage keys, monitor usage, and orchestrate teams with a refined control surface connected to 50+ premium AI providers.
+          </p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className='grid gap-4 sm:grid-cols-3'
+          >
+            {heroHighlights.map((item) => (
+              <div
+                key={item.label}
+                className='rounded-3xl border border-slate-200/80 bg-white/90 px-4 py-4 text-slate-700 shadow-[0_14px_30px_rgba(15,23,42,0.08)] backdrop-blur-lg dark:border-white/15 dark:bg-white/10 dark:text-white'
+              >
+                <p className='text-xs uppercase tracking-widest text-slate-500 dark:text-white/60'>{item.label}</p>
+                <p className='mt-2 text-2xl font-semibold text-slate-900 dark:text-white'>{item.value}</p>
+              </div>
+            ))}
+          </motion.div>
+        </motion.section>
+
+        <motion.section
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
+          className='w-full max-w-lg'
+        >
+          {showEmailLogin ||
+          !(
+            status.github_oauth ||
+            status.oidc_enabled ||
+            status.wechat_login ||
+            status.linuxdo_oauth ||
+            status.telegram_oauth
+          )
+            ? renderEmailLoginForm()
+            : renderOAuthOptions()}
+        </motion.section>
+      </main>
+
+      {renderWeChatLoginModal()}
+      {render2FAModal()}
+
+      {turnstileEnabled && (
+        <div className='relative z-10 flex justify-center pb-12'>
+          <Turnstile
+            sitekey={turnstileSiteKey}
+            onVerify={(token) => {
+              setTurnstileToken(token);
+            }}
+          />
+        </div>
+      )}
+
+      <AuthFooter />
     </div>
   );
+
 };
 
 export default LoginForm;

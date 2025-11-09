@@ -9,7 +9,7 @@
 
 ![new-api](/web/public/logo.png)
 
-# New API
+# Knight Omega
 
 🍥次世代大規模モデルゲートウェイとAI資産管理システム
 
@@ -75,7 +75,7 @@ AIが生成したDeepWikiにもアクセスできます：
 
 ## ✨ 主な機能
 
-New APIは豊富な機能を提供しています。詳細な機能については[機能説明](https://docs.newapi.pro/wiki/features-introduction)を参照してください：
+Knight Omegaは豊富な機能を提供しています。詳細な機能については[機能説明](https://docs.newapi.pro/wiki/features-introduction)を参照してください：
 
 1. 🎨 全く新しいUIインターフェース
 2. 🌍 多言語サポート
@@ -210,8 +210,8 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy)：Midjourneyインターフェースサポート
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)：キーを使用して使用量クォータを照会
 
-New APIベースのその他のプロジェクト：
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：New API高性能最適化版
+Knight Omegaベースのその他のプロジェクト：
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：Knight Omega高性能最適化版
 
 ## ヘルプサポート
 
