@@ -84,7 +84,7 @@
     "cmdk": "1.0.4",
     "cobe": "latest",
     "country-flag-icons": "^1.5.21",
-    "date-fns": "^2.30.0",
+    "date-fns": "4.1.0",
     "dayjs": "^1.11.11",
     "embla-carousel-react": "8.5.1",
     "framer-motion": "latest",
