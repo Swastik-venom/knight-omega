@@ -37,6 +37,7 @@ export default defineConfig({
       { find: /^date-fns\//, replacement: 'date-fns-v2/' },
       { find: 'util', replacement: 'util/' },
       { find: 'stream', replacement: 'stream-browserify' },
+      { find: 'events', replacement: 'events/' },
     ],
     // Force Vite to use the main entry points for problematic packages
     mainFields: ['module', 'jsnext:main', 'jsnext'],
