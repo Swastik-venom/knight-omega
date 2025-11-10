@@ -134,6 +134,7 @@
     "util": "^0.12.5",
     "stream-browserify": "^3.0.0",
     "events": "^3.3.0",
+    "inherits": "^2.0.4",
     "vaul": "^0.9.9",
     "zod": "3.25.76"
   },

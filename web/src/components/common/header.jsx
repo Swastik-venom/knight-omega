@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useContext, useRef, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { UserContext } from '../../context/User';
 import { StatusContext } from '../../context/Status';
@@ -19,6 +19,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [hoveredNav, setHoveredNav] = useState(null);
+  const [activeSection, setActiveSection] = useState(null);
   const [userState, userDispatch] = useContext(UserContext);
   const [statusState] = useContext(StatusContext);
   const location = useLocation();
@@ -51,10 +52,11 @@ export default function Header() {
 
   const navItems = useMemo(
     () => [
-      { label: 'Home', path: '/' },
-      { label: 'Pricing', path: '/pricing' },
-      { label: 'About', path: '/about' },
-      { label: 'Docs', path: '/docs' },
+      { key: 'features', label: 'Features', section: 'features' },
+      { key: 'pricing', label: 'Pricing', section: 'pricing' },
+      { key: 'testimonials', label: 'Testimonials', section: 'testimonials' },
+      { key: 'faq', label: 'FAQ', section: 'faq' },
+      { key: 'docs', label: 'Docs', path: '/docs' },
     ],
     [],
   );
@@ -72,17 +74,62 @@ export default function Header() {
     }
   }, [isMobile, isMobileMenuOpen]);
 
-  const activeNavPath = useMemo(() => {
-    if (location.pathname === '/') {
-      return '/';
-    }
-    const matched = navItems
-      .filter((item) => item.path !== '/')
-      .find((item) => location.pathname.startsWith(item.path));
-    return matched?.path ?? '/';
-  }, [location.pathname, navItems]);
+  const scrollToSection = useCallback((sectionId) => {
+    if (typeof window === 'undefined') return;
+    const element = document.getElementById(sectionId);
+    if (!element) return;
+    const headerOffset = window.innerWidth < 768 ? 96 : 120;
+    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+    const offsetPosition = Math.max(elementPosition - headerOffset, 0);
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+  }, []);
 
-  const highlightTarget = hoveredNav ?? activeNavPath;
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveSection(null);
+      return;
+    }
+    const params = new URLSearchParams(location.search);
+    const sectionParam = params.get('section');
+    if (sectionParam) {
+      setActiveSection(sectionParam);
+      setTimeout(() => scrollToSection(sectionParam), 100);
+      navigate('/', { replace: true });
+    }
+  }, [location.pathname, location.search, navigate, scrollToSection]);
+
+  const activeNavKey = useMemo(() => {
+    const matchedRoute = navItems.find(
+      (item) => item.path && location.pathname.startsWith(item.path),
+    );
+    if (matchedRoute) return matchedRoute.key;
+    if (location.pathname === '/' && activeSection) return activeSection;
+    if (location.pathname === '/') {
+      const firstSection = navItems.find((item) => item.section);
+      return firstSection?.key ?? null;
+    }
+    return null;
+  }, [location.pathname, navItems, activeSection]);
+
+  const handleNavSelection = useCallback(
+    (item, onItemClick) => {
+      if (onItemClick) onItemClick();
+      if (item.section) {
+        if (location.pathname === '/') {
+          setActiveSection(item.key);
+          scrollToSection(item.section);
+        } else {
+          navigate({ pathname: '/', search: `?section=${item.section}` });
+        }
+      } else if (item.path) {
+        setActiveSection(null);
+        navigate(item.path);
+      }
+    },
+    [location.pathname, navigate, scrollToSection],
+  );
+
+  const highlightTarget = hoveredNav ?? activeNavKey ?? navItems[0]?.key;
 
   useEffect(() => {
     if (!isUserMenuOpen) return;
@@ -142,49 +189,76 @@ export default function Header() {
         className="relative flex items-center gap-1 rounded-full border border-white/25 bg-white/12 p-1 text-sm text-slate-600 shadow-[0_16px_36px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/15 dark:bg-white/5 dark:text-white/70"
       >
         {navItems.map((item, index) => {
-          const isCurrent = activeNavPath === item.path;
-          const isHighlighted = highlightTarget === item.path;
+          const isRoute = Boolean(item.path);
+          const isHighlighted = highlightTarget === item.key;
 
           return (
             <motion.div
-              key={item.path}
+              key={item.key}
               custom={index}
               variants={navItemVariants}
               initial="initial"
               animate="animate"
               className="relative"
             >
-              <Link
-                to={item.path}
-                onClick={() => {
-                  if (onItemClick) onItemClick();
-                }}
-                onMouseEnter={() => setHoveredNav(item.path)}
-                onMouseLeave={() => setHoveredNav(null)}
-                onFocus={() => setHoveredNav(item.path)}
-                onBlur={() => setHoveredNav(null)}
-                className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-              >
-                {isHighlighted && (
-                  <motion.span
-                    layoutId="marketing-header-pill"
-                    className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
-                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-                  />
-                )}
-                <span
-                  className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                    isHighlighted
-                      ? 'text-slate-900 dark:text-white'
-                      : 'text-slate-500 hover:text-slate-900 dark:text-white/60 dark:hover:text-white'
-                  }`}
+              {isRoute ? (
+                <Link
+                  to={item.path}
+                  onClick={() => {
+                    if (onItemClick) onItemClick();
+                    setActiveSection(null);
+                  }}
+                  onMouseEnter={() => setHoveredNav(item.key)}
+                  onMouseLeave={() => setHoveredNav(null)}
+                  onFocus={() => setHoveredNav(item.key)}
+                  onBlur={() => setHoveredNav(null)}
+                  className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
                 >
-                  {item.label}
-                  {isCurrent && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 shadow-[0_0_0_4px_rgba(79,70,229,0.2)] dark:bg-indigo-400" />
+                  {isHighlighted && (
+                    <motion.span
+                      layoutId="marketing-header-pill"
+                      className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
+                      transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                    />
                   )}
-                </span>
-              </Link>
+                  <span
+                    className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                      isHighlighted
+                        ? 'text-slate-900 dark:text-white'
+                        : 'text-slate-500 hover:text-slate-900 dark:text-white/60 dark:hover:text-white'
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => handleNavSelection(item, onItemClick)}
+                  onMouseEnter={() => setHoveredNav(item.key)}
+                  onMouseLeave={() => setHoveredNav(null)}
+                  onFocus={() => setHoveredNav(item.key)}
+                  onBlur={() => setHoveredNav(null)}
+                  className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                >
+                  {isHighlighted && (
+                    <motion.span
+                      layoutId="marketing-header-pill"
+                      className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
+                      transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                      isHighlighted
+                        ? 'text-slate-900 dark:text-white'
+                        : 'text-slate-500 hover:text-slate-900 dark:text-white/60 dark:hover:text-white'
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                </button>
+              )}
             </motion.div>
           );
         })}
@@ -206,18 +280,18 @@ export default function Header() {
           className={`flex items-center gap-3 transition-all duration-300 ${isScrolled ? 'pl-2' : ''}`}
         >
           <motion.div
-            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/70 shadow-[0_10px_24px_rgba(15,23,42,0.2)] backdrop-blur"
+            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/35 bg-white/70 shadow-[0_10px_26px_rgba(15,23,42,0.2)] backdrop-blur dark:border-white/15 dark:bg-white/10"
             whileHover={{ rotate: 4 }}
             transition={{ type: 'spring', stiffness: 380, damping: 22 }}
           >
             {logoSrc ? (
               <img src={logoSrc} alt={systemName} className="h-full w-full object-cover" />
             ) : (
-              <span className="text-base font-semibold text-slate-900 dark:text-white">KΩ</span>
+              <span className="text-sm font-semibold text-slate-900 dark:text-white">KΩ</span>
             )}
           </motion.div>
           <div className="flex flex-col leading-none">
-            <span className="text-[10px] uppercase tracking-[0.5em] text-slate-500 dark:text-white/50">Knight</span>
+            <span className="text-[10px] uppercase tracking-[0.5em] text-slate-500 dark:text-white/50">Knight Omega</span>
             <span className="text-sm font-semibold text-slate-900 dark:text-white">{systemName}</span>
           </div>
         </Link>
@@ -361,27 +435,51 @@ export default function Header() {
               onClick={(e) => e.stopPropagation()}
             >
               <nav className="flex flex-col space-y-3 text-base">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.path}
-                    initial={{ x: -16, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.06, duration: 0.22 }}
-                  >
-                    <Link
-                      to={item.path}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center justify-between rounded-2xl border border-white/25 px-4 py-3 transition-colors ${
-                        location.pathname === item.path
-                          ? 'bg-white text-slate-900 shadow-[0_12px_32px_rgba(15,23,42,0.16)] dark:bg-white/15 dark:text-white'
-                          : 'bg-white/30 text-slate-700 hover:bg-white/50 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/10'
-                      }`}
+                {navItems.map((item, index) => {
+                  const isRoute = Boolean(item.path);
+                  const isActive = highlightTarget === item.key;
+                  return (
+                    <motion.div
+                      key={item.key}
+                      initial={{ x: -16, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.06, duration: 0.22 }}
                     >
-                      {item.label}
-                      <ChevronRight className="h-4 w-4" />
-                    </Link>
-                  </motion.div>
-                ))}
+                      {isRoute ? (
+                        <Link
+                          to={item.path}
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            setActiveSection(null);
+                          }}
+                          className={`flex items-center justify-between rounded-2xl border px-4 py-3 transition-all ${
+                            isActive
+                              ? 'border-white/30 bg-white text-slate-900 shadow-[0_22px_48px_rgba(15,23,42,0.16)] dark:bg-white/15 dark:text-white'
+                              : 'border-white/18 bg-white/20 text-slate-700 hover:bg-white/35 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/15'
+                          }`}
+                        >
+                          {item.label}
+                          <ChevronRight className="h-4 w-4" />
+                        </Link>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleNavSelection(item, () => setIsMobileMenuOpen(false));
+                          }}
+                          className={`flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left transition-all ${
+                            isActive
+                              ? 'border-white/30 bg-white text-slate-900 shadow-[0_22px_48px_rgba(15,23,42,0.16)] dark:bg-white/15 dark:text-white'
+                              : 'border-white/18 bg-white/20 text-slate-700 hover:bg-white/35 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/15'
+                          }`}
+                        >
+                          <span>{item.label}</span>
+                          <ChevronRight className="h-4 w-4" />
+                        </button>
+                      )}
+                    </motion.div>
+                  );
+                })}
 
                 <div className="mt-4 border-t border-white/20 pt-4 dark:border-white/10">
                   {userState?.user ? (

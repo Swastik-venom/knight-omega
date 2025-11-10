@@ -35,7 +35,7 @@ export default defineConfig({
     alias: [
       { find: '@', replacement: path.resolve(__dirname, './src') },
       { find: /^date-fns\//, replacement: 'date-fns-v2/' },
-      { find: 'util', replacement: 'util/' },
+      { find: /^util$/, replacement: path.resolve(__dirname, './src/polyfills/util-browser.js') },
       { find: 'stream', replacement: 'stream-browserify' },
       { find: 'events', replacement: 'events/' },
     ],
@@ -83,7 +83,11 @@ export default defineConfig({
       'hast-util-is-element',
       'd3-color',
       'd3-quadtree',
-      'd3-ease'
+      'd3-ease',
+      'util',
+      'inherits',
+      'stream-browserify',
+      'events'
     ],
     esbuildOptions: {
       loader: {
