@@ -139,7 +139,7 @@ export default function Header() {
     <LayoutGroup id="marketing-header-nav">
       <motion.nav
         layout
-        className="relative flex items-center gap-1 rounded-full border border-white/40 bg-white/20 p-1 text-sm text-slate-600 shadow-[0_12px_32px_rgba(15,23,42,0.18)] backdrop-blur-xl dark:border-white/15 dark:bg-white/5 dark:text-white/70"
+        className="relative flex items-center gap-1 rounded-full border border-white/25 bg-white/12 p-1 text-sm text-slate-600 shadow-[0_16px_36px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/15 dark:bg-white/5 dark:text-white/70"
       >
         {navItems.map((item, index) => {
           const isCurrent = activeNavPath === item.path;
@@ -163,12 +163,12 @@ export default function Header() {
                 onMouseLeave={() => setHoveredNav(null)}
                 onFocus={() => setHoveredNav(item.path)}
                 onBlur={() => setHoveredNav(null)}
-                className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+                className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
               >
                 {isHighlighted && (
                   <motion.span
                     layoutId="marketing-header-pill"
-                    className="absolute inset-0 z-0 rounded-full bg-white/85 shadow-[0_12px_32px_rgba(15,23,42,0.18)] backdrop-blur-lg dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
+                    className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
                     transition={{ type: 'spring', stiffness: 420, damping: 32 }}
                   />
                 )}
@@ -198,7 +198,7 @@ export default function Header() {
         variants={headerVariants}
         initial="initial"
         animate="animate"
-        className={`pointer-events-auto sticky top-4 hidden items-center justify-between rounded-full border border-white/30 bg-white/25 shadow-[0_18px_50px_rgba(15,23,42,0.18)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-white/10 md:flex ${desktopSizing} mx-auto`}
+        className={`pointer-events-auto sticky top-4 hidden items-center justify-between rounded-full border border-white/20 bg-white/12 shadow-[0_20px_52px_rgba(15,23,42,0.18)] backdrop-blur-2xl transition-all duration-300 dark:border-white/10 dark:bg-white/10 md:flex ${desktopSizing} mx-auto`}
         style={{ willChange: 'transform', transform: 'translateZ(0)', backfaceVisibility: 'hidden', perspective: '1000px' }}
       >
         <Link
@@ -206,7 +206,7 @@ export default function Header() {
           className={`flex items-center gap-3 transition-all duration-300 ${isScrolled ? 'pl-2' : ''}`}
         >
           <motion.div
-            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/50 bg-white shadow-inner dark:border-white/15 dark:bg-white/10"
+            className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/70 shadow-[0_10px_24px_rgba(15,23,42,0.2)] backdrop-blur"
             whileHover={{ rotate: 4 }}
             transition={{ type: 'spring', stiffness: 380, damping: 22 }}
           >
@@ -231,7 +231,7 @@ export default function Header() {
             <div className="relative" ref={menuRef}>
               <motion.button
                 onClick={() => setIsUserMenuOpen((prev) => !prev)}
-                className="flex items-center gap-2 rounded-full border border-white/40 bg-white/30 px-4 py-2 text-sm font-medium text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white"
+                className="flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-4 py-2 text-sm font-medium text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/35 hover:text-slate-900 dark:border-white/15 dark:bg-white/10 dark:text-white"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -293,13 +293,13 @@ export default function Header() {
             <div className="hidden items-center gap-2 md:flex">
               <Link
                 to="/login"
-                className="rounded-full border border-white/40 bg-white/30 px-4 py-2 text-sm font-medium text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80"
+                className="rounded-full border border-white/25 bg-white/15 px-4 py-2 text-sm font-medium text-slate-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/35 hover:text-slate-900 dark:border-white/15 dark:bg-white/10 dark:text-white/80"
               >
                 Log In
               </Link>
               <Link
                 to="/register"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_36px_rgba(79,70,229,0.35)] transition-transform duration-300 hover:-translate-y-1"
+                className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-gradient-to-r from-indigo-500/90 via-purple-500/85 to-blue-500/90 px-4 py-2 text-sm font-semibold text-white shadow-[0_20px_46px_rgba(79,70,229,0.35)] transition-transform duration-300 hover:-translate-y-1"
               >
                 <Sparkles className="h-4 w-4" />
                 Get Started
@@ -313,11 +313,11 @@ export default function Header() {
         variants={headerVariants}
         initial="initial"
         animate="animate"
-        className="pointer-events-auto sticky top-4 flex w-full items-center justify-between rounded-full border border-white/25 bg-white/20 px-4 py-3 shadow-[0_14px_40px_rgba(15,23,42,0.2)] backdrop-blur-xl transition-all duration-300 dark:border-white/10 dark:bg-white/10 md:hidden"
+        className="pointer-events-auto sticky top-4 flex w-full items-center justify-between rounded-full border border-white/20 bg-white/10 px-4 py-3 shadow-[0_18px_46px_rgba(15,23,42,0.2)] backdrop-blur-xl transition-all duration-300 dark:border-white/10 dark:bg-white/10 md:hidden"
       >
         <Link to="/" className="flex items-center gap-2">
           <motion.div
-            className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white shadow-inner dark:border-white/15 dark:bg-white/10"
+            className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-white/35 bg-white/70 shadow-[0_10px_26px_rgba(15,23,42,0.2)] backdrop-blur dark:border-white/15 dark:bg-white/10"
             whileHover={{ rotate: 4 }}
             transition={{ type: 'spring', stiffness: 380, damping: 22 }}
           >
@@ -332,7 +332,7 @@ export default function Header() {
 
         <button
           onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/20 transition-colors hover:bg-white/40 dark:border-white/10 dark:bg-white/10"
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/15 transition-colors hover:border-white/35 hover:bg-white/25 dark:border-white/10 dark:bg-white/10"
           aria-label="Toggle menu"
         >
           <div className="flex h-5 w-5 flex-col items-center justify-center space-y-1">

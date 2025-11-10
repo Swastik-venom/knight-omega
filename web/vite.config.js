@@ -35,6 +35,7 @@ export default defineConfig({
     alias: [
       { find: '@', replacement: path.resolve(__dirname, './src') },
       { find: /^date-fns\//, replacement: 'date-fns-v2/' },
+      { find: 'util', replacement: 'util/' },
     ],
     // Force Vite to use the main entry points for problematic packages
     mainFields: ['module', 'jsnext:main', 'jsnext'],
@@ -96,7 +97,7 @@ export default defineConfig({
     rollupOptions: {
       external: [
         // Externalize Node.js built-in modules
-        'http', 'https', 'http2', 'util', 'zlib', 'stream', 'events',
+        'http', 'https', 'http2', 'zlib', 'stream', 'events',
         'url', 'crypto', 'path', 'fs', 'assert'
       ],
       output: {

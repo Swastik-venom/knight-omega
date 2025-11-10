@@ -134,18 +134,7 @@ const PageLayout = () => {
     }
   }, [i18n]);
 
-  const marketingBackground =
-    'linear-gradient(135deg, rgba(248,250,252,1) 0%, rgba(241,245,249,0.92) 45%, rgba(224,231,255,0.9) 100%)';
-  const landingBackground =
-    'linear-gradient(135deg, rgba(245,247,255,1) 0%, rgba(240,253,244,0.9) 55%, rgba(226,232,240,0.85) 100%)';
-  const consoleBackground =
-    'linear-gradient(135deg, rgba(245,247,255,1) 0%, rgba(231,240,253,0.92) 45%, rgba(220,229,247,0.9) 100%)';
-
-  const activeBackground = showConsoleHeader
-    ? consoleBackground
-    : isLandingPage
-      ? landingBackground
-      : marketingBackground;
+  const activeBackground = 'transparent';
 
   const marketingHeaderHeight = showMarketingHeader ? 124 : 0;
   const combinedHeaderHeight = marketingHeaderHeight;
@@ -159,7 +148,6 @@ const PageLayout = () => {
         flexDirection: 'column',
         overflow: isMobile ? 'visible' : 'hidden',
         background: activeBackground,
-        backgroundSize: showConsoleHeader ? '200% 200%' : 'unset',
       }}
     >
       <Header
@@ -224,10 +212,10 @@ const PageLayout = () => {
               WebkitOverflowScrolling: 'touch',
               padding: !isLandingPage && shouldInnerPadding ? (isMobile ? '5px' : '24px') : '0',
               position: 'relative',
-              background: activeBackground,
-              width: !showConsoleHeader && !showSider ? (isMobile ? '100%' : '90%') : '100%',
-              maxWidth: !showConsoleHeader && !showSider ? '90vw' : '100%',
-              margin: !showConsoleHeader && !showSider ? '0 auto' : '0',
+              background: 'transparent',
+              width: '100%',
+              maxWidth: '100%',
+              margin: 0,
             }}
           >
             {showConsoleHeader && (

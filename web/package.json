@@ -95,6 +95,7 @@
     "i18next-browser-languagedetector": "^7.2.0",
     "input-otp": "1.4.1",
     "katex": "^0.16.22",
+    "liquid-glass-tailwind-react": "^1.0.56",
     "lucide-react": "^0.511.0",
     "marked": "^4.1.1",
     "mermaid": "^11.6.0",
@@ -130,6 +131,7 @@
     "tw-animate-css": "1.3.3",
     "unist-util-visit": "^5.0.0",
     "use-debounce": "^10.0.4",
+    "util": "^0.12.5",
     "vaul": "^0.9.9",
     "zod": "3.25.76"
   },

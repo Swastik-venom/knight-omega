@@ -179,9 +179,9 @@
 /* Enhanced Gradient Backgrounds */
 .gradient-bg {
   background: linear-gradient(135deg,
-    rgba(59, 130, 246, 0.1) 0%,
-    rgba(147, 51, 234, 0.1) 50%,
-    rgba(59, 130, 246, 0.1) 100%);
+    rgba(59, 130, 246, 0.06) 0%,
+    rgba(147, 51, 234, 0.05) 50%,
+    rgba(59, 130, 246, 0.06) 100%);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
