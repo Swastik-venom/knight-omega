@@ -19,7 +19,6 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [hoveredNav, setHoveredNav] = useState(null);
-  const [activeSection, setActiveSection] = useState(null);
   const [userState, userDispatch] = useContext(UserContext);
   const [statusState] = useContext(StatusContext);
   const location = useLocation();
@@ -52,10 +51,9 @@ export default function Header() {
 
   const navItems = useMemo(
     () => [
-      { key: 'features', label: 'Features', section: 'features' },
-      { key: 'pricing', label: 'Pricing', section: 'pricing' },
-      { key: 'testimonials', label: 'Testimonials', section: 'testimonials' },
-      { key: 'faq', label: 'FAQ', section: 'faq' },
+      { key: 'home', label: 'Home', path: '/' },
+      { key: 'pricing', label: 'Pricing', path: '/pricing' },
+      { key: 'about', label: 'About', path: '/about' },
       { key: 'docs', label: 'Docs', path: '/docs' },
     ],
     [],
@@ -74,62 +72,37 @@ export default function Header() {
     }
   }, [isMobile, isMobileMenuOpen]);
 
-  const scrollToSection = useCallback((sectionId) => {
-    if (typeof window === 'undefined') return;
-    const element = document.getElementById(sectionId);
-    if (!element) return;
-    const headerOffset = window.innerWidth < 768 ? 96 : 120;
-    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-    const offsetPosition = Math.max(elementPosition - headerOffset, 0);
-    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-  }, []);
-
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      setActiveSection(null);
-      return;
-    }
-    const params = new URLSearchParams(location.search);
-    const sectionParam = params.get('section');
-    if (sectionParam) {
-      setActiveSection(sectionParam);
-      setTimeout(() => scrollToSection(sectionParam), 100);
-      navigate('/', { replace: true });
-    }
-  }, [location.pathname, location.search, navigate, scrollToSection]);
-
   const activeNavKey = useMemo(() => {
-    const matchedRoute = navItems.find(
-      (item) => item.path && location.pathname.startsWith(item.path),
-    );
-    if (matchedRoute) return matchedRoute.key;
-    if (location.pathname === '/' && activeSection) return activeSection;
-    if (location.pathname === '/') {
-      const firstSection = navItems.find((item) => item.section);
-      return firstSection?.key ?? null;
-    }
-    return null;
-  }, [location.pathname, navItems, activeSection]);
+    const matchedRoute = navItems.find((item) => {
+      if (!item.path) return false;
+      if (item.path === '/') {
+        return location.pathname === '/';
+      }
+      return location.pathname.startsWith(item.path);
+    });
+    return matchedRoute?.key ?? null;
+  }, [location.pathname, navItems]);
 
   const handleNavSelection = useCallback(
     (item, onItemClick) => {
       if (onItemClick) onItemClick();
-      if (item.section) {
-        if (location.pathname === '/') {
-          setActiveSection(item.key);
-          scrollToSection(item.section);
-        } else {
-          navigate({ pathname: '/', search: `?section=${item.section}` });
+      if (!item.path) return;
+
+      if (item.path === '/' && location.pathname === '/') {
+        if (typeof window !== 'undefined') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      } else if (item.path) {
-        setActiveSection(null);
+        return;
+      }
+
+      if (item.path !== location.pathname) {
         navigate(item.path);
       }
     },
-    [location.pathname, navigate, scrollToSection],
+    [navigate, location.pathname],
   );
 
-  const highlightTarget = hoveredNav ?? activeNavKey ?? navItems[0]?.key;
+  const highlightTarget = hoveredNav ?? activeNavKey;
 
   useEffect(() => {
     if (!isUserMenuOpen) return;
@@ -189,7 +162,6 @@ export default function Header() {
         className="relative flex items-center gap-1 rounded-full border border-white/25 bg-white/12 p-1 text-sm text-slate-600 shadow-[0_16px_36px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/15 dark:bg-white/5 dark:text-white/70"
       >
         {navItems.map((item, index) => {
-          const isRoute = Boolean(item.path);
           const isHighlighted = highlightTarget === item.key;
 
           return (
@@ -201,64 +173,32 @@ export default function Header() {
               animate="animate"
               className="relative"
             >
-              {isRoute ? (
-                <Link
-                  to={item.path}
-                  onClick={() => {
-                    if (onItemClick) onItemClick();
-                    setActiveSection(null);
-                  }}
-                  onMouseEnter={() => setHoveredNav(item.key)}
-                  onMouseLeave={() => setHoveredNav(null)}
-                  onFocus={() => setHoveredNav(item.key)}
-                  onBlur={() => setHoveredNav(null)}
-                  className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              <button
+                type="button"
+                onClick={() => handleNavSelection(item, onItemClick)}
+                onMouseEnter={() => setHoveredNav(item.key)}
+                onMouseLeave={() => setHoveredNav(null)}
+                onFocus={() => setHoveredNav(item.key)}
+                onBlur={() => setHoveredNav(null)}
+                className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+              >
+                {isHighlighted && (
+                  <motion.span
+                    layoutId="marketing-header-pill"
+                    className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
+                    transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+                  />
+                )}
+                <span
+                  className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                    isHighlighted
+                      ? 'text-slate-900 dark:text-white'
+                      : 'text-slate-500 hover:text-slate-900 dark:text-white/60 dark:hover:text-white'
+                  }`}
                 >
-                  {isHighlighted && (
-                    <motion.span
-                      layoutId="marketing-header-pill"
-                      className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
-                      transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-                    />
-                  )}
-                  <span
-                    className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                      isHighlighted
-                        ? 'text-slate-900 dark:text-white'
-                        : 'text-slate-500 hover:text-slate-900 dark:text-white/60 dark:hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() => handleNavSelection(item, onItemClick)}
-                  onMouseEnter={() => setHoveredNav(item.key)}
-                  onMouseLeave={() => setHoveredNav(null)}
-                  onFocus={() => setHoveredNav(item.key)}
-                  onBlur={() => setHoveredNav(null)}
-                  className="relative inline-flex items-center justify-center overflow-hidden rounded-full px-0 py-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
-                >
-                  {isHighlighted && (
-                    <motion.span
-                      layoutId="marketing-header-pill"
-                      className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
-                      transition={{ type: 'spring', stiffness: 420, damping: 32 }}
-                    />
-                  )}
-                  <span
-                    className={`relative z-10 flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                      isHighlighted
-                        ? 'text-slate-900 dark:text-white'
-                        : 'text-slate-500 hover:text-slate-900 dark:text-white/60 dark:hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                  </span>
-                </button>
-              )}
+                  {item.label}
+                </span>
+              </button>
             </motion.div>
           );
         })}
@@ -436,7 +376,6 @@ export default function Header() {
             >
               <nav className="flex flex-col space-y-3 text-base">
                 {navItems.map((item, index) => {
-                  const isRoute = Boolean(item.path);
                   const isActive = highlightTarget === item.key;
                   return (
                     <motion.div
@@ -445,38 +384,20 @@ export default function Header() {
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ delay: index * 0.06, duration: 0.22 }}
                     >
-                      {isRoute ? (
-                        <Link
-                          to={item.path}
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            setActiveSection(null);
-                          }}
-                          className={`flex items-center justify-between rounded-2xl border px-4 py-3 transition-all ${
-                            isActive
-                              ? 'border-white/30 bg-white text-slate-900 shadow-[0_22px_48px_rgba(15,23,42,0.16)] dark:bg-white/15 dark:text-white'
-                              : 'border-white/18 bg-white/20 text-slate-700 hover:bg-white/35 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/15'
-                          }`}
-                        >
-                          {item.label}
-                          <ChevronRight className="h-4 w-4" />
-                        </Link>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            handleNavSelection(item, () => setIsMobileMenuOpen(false));
-                          }}
-                          className={`flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left transition-all ${
-                            isActive
-                              ? 'border-white/30 bg-white text-slate-900 shadow-[0_22px_48px_rgba(15,23,42,0.16)] dark:bg-white/15 dark:text-white'
-                              : 'border-white/18 bg-white/20 text-slate-700 hover:bg-white/35 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/15'
-                          }`}
-                        >
-                          <span>{item.label}</span>
-                          <ChevronRight className="h-4 w-4" />
-                        </button>
-                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleNavSelection(item, () => setIsMobileMenuOpen(false));
+                        }}
+                        className={`flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left transition-all ${
+                          isActive
+                            ? 'border-white/30 bg-white text-slate-900 shadow-[0_22px_48px_rgba(15,23,42,0.16)] dark:bg-white/15 dark:text-white'
+                            : 'border-white/18 bg-white/20 text-slate-700 hover:bg-white/35 dark:bg-white/5 dark:text-white/80 dark:hover:bg-white/15'
+                        }`}
+                      >
+                        <span>{item.label}</span>
+                        <ChevronRight className="h-4 w-4" />
+                      </button>
                     </motion.div>
                   );
                 })}
