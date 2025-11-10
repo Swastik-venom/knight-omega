@@ -32,9 +32,10 @@ const WS_BASE_URL = 'ws://localhost:5173';
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    },
+    alias: [
+      { find: '@', replacement: path.resolve(__dirname, './src') },
+      { find: /^date-fns\//, replacement: 'date-fns-v2/' },
+    ],
     // Force Vite to use the main entry points for problematic packages
     mainFields: ['module', 'jsnext:main', 'jsnext'],
     // Add specific resolutions for problematic packages
