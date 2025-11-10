@@ -36,13 +36,23 @@ export default defineConfig({
       { find: '@', replacement: path.resolve(__dirname, './src') },
       { find: /^date-fns\//, replacement: 'date-fns-v2/' },
       { find: /^util$/, replacement: path.resolve(__dirname, './src/polyfills/util-browser.js') },
+      { find: /^node:util$/, replacement: path.resolve(__dirname, './src/polyfills/util-browser.js') },
       { find: 'stream', replacement: 'stream-browserify' },
+      { find: /^node:stream$/, replacement: 'stream-browserify' },
       { find: 'events', replacement: 'events/' },
+      { find: /^node:events$/, replacement: 'events/' },
+      { find: /^zlib$/, replacement: path.resolve(__dirname, './src/polyfills/zlib.js') },
+      { find: /^node:zlib$/, replacement: path.resolve(__dirname, './src/polyfills/zlib.js') },
+      { find: 'zlib', replacement: 'browserify-zlib' },
     ],
     // Force Vite to use the main entry points for problematic packages
     mainFields: ['module', 'jsnext:main', 'jsnext'],
     // Add specific resolutions for problematic packages
     dedupe: ['react', 'react-dom'],
+  },
+  define: {
+    'process.env': {},
+    global: 'globalThis',
   },
   plugins: [
     {
@@ -87,7 +97,8 @@ export default defineConfig({
       'util',
       'inherits',
       'stream-browserify',
-      'events'
+      'events',
+      'browserify-zlib'
     ],
     esbuildOptions: {
       loader: {
