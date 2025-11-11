@@ -1,19 +1,17 @@
-<p align="right">
-   <a href="./README.md">中文</a> | <a href="./README.en.md">English</a> | <strong>Français</strong> | <a href="./README.ja.md">日本語</a>
-</p>
-
-> [!NOTE]
-> **MT (Traduction Automatique)**: Ce document est traduit automatiquement. Pour les informations les plus précises, veuillez vous référer à la [version chinoise](./README.md).
-
 <div align="center">
 
 ![new-api](/web/public/logo.png)
 
 # Knight Omega
 
-🍥 Passerelle de modèles étendus de nouvelle génération et système de gestion d'actifs d'IA
+🍥 **Passerelle de modèles étendus de nouvelle génération et système de gestion d'actifs d'IA**
 
-<a href="https://trendshift.io/repositories/8227" target="_blank"><img src="https://trendshift.io/api/badge/repositories/8227" alt="Calcium-Ion%2Fnew-api | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<p align="center">
+  <a href="./README.md">中文</a> | 
+  <a href="./README.en.md">English</a> | 
+  <strong>Français</strong> | 
+  <a href="./README.ja.md">日本語</a>
+</p>
 
 <p align="center">
   <a href="https://raw.githubusercontent.com/Calcium-Ion/new-api/main/LICENSE">
@@ -32,50 +30,149 @@
     <img src="https://goreportcard.com/badge/github.com/Calcium-Ion/new-api" alt="GoReportCard">
   </a>
 </p>
+
+<p align="center">
+  <a href="https://trendshift.io/repositories/8227" target="_blank">
+    <img src="https://trendshift.io/api/badge/repositories/8227" alt="Calcium-Ion%2Fnew-api | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="#-démarrage-rapide">Démarrage rapide</a> •
+  <a href="#-fonctionnalités-clés">Fonctionnalités clés</a> •
+  <a href="#-déploiement">Déploiement</a> •
+  <a href="#-documentation">Documentation</a> •
+  <a href="#-aide-support">Aide</a>
+</p>
+
 </div>
 
 ## 📝 Description du projet
 
-> [!NOTE]
+> [!NOTE]  
 > Il s'agit d'un projet open-source développé sur la base de [One API](https://github.com/songquanpeng/one-api)
 
-> [!IMPORTANT]
+> [!IMPORTANT]  
 > - Ce projet est uniquement destiné à des fins d'apprentissage personnel, sans garantie de stabilité ni de support technique.
 > - Les utilisateurs doivent se conformer aux [Conditions d'utilisation](https://openai.com/policies/terms-of-use) d'OpenAI et aux **lois et réglementations applicables**, et ne doivent pas l'utiliser à des fins illégales.
 > - Conformément aux [《Mesures provisoires pour la gestion des services d'intelligence artificielle générative》](http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm), veuillez ne fournir aucun service d'IA générative non enregistré au public en Chine.
 
-<h2>🤝 Partenaires de confiance</h2>
-<p id="premium-sponsors">&nbsp;</p>
-<p align="center"><strong>Sans ordre particulier</strong></p>
+---
+
+## 🤝 Partenaires de confiance
+
 <p align="center">
-  <a href="https://www.cherry-ai.com/" target=_blank><img
-    src="./docs/images/cherry-studio.png" alt="Cherry Studio" height="120"
-  /></a>
-  <a href="https://bda.pku.edu.cn/" target=_blank><img
-    src="./docs/images/pku.png" alt="Université de Pékin" height="120"
-  /></a>
-  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target=_blank><img
-    src="./docs/images/ucloud.png" alt="UCloud" height="120"
-  /></a>
-  <a href="https://www.aliyun.com/" target=_blank><img
-    src="./docs/images/aliyun.png" alt="Alibaba Cloud" height="120"
-  /></a>
-  <a href="https://io.net/" target=_blank><img
-    src="./docs/images/io-net.png" alt="IO.NET" height="120"
-  /></a>
+  <em>Sans ordre particulier</em>
 </p>
-<p>&nbsp;</p>
+
+<p align="center">
+  <a href="https://www.cherry-ai.com/" target="_blank">
+    <img src="./docs/images/cherry-studio.png" alt="Cherry Studio" height="80" />
+  </a>
+  <a href="https://bda.pku.edu.cn/" target="_blank">
+    <img src="./docs/images/pku.png" alt="Université de Pékin" height="80" />
+  </a>
+  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target="_blank">
+    <img src="./docs/images/ucloud.png" alt="UCloud" height="80" />
+  </a>
+  <a href="https://www.aliyun.com/" target="_blank">
+    <img src="./docs/images/aliyun.png" alt="Alibaba Cloud" height="80" />
+  </a>
+  <a href="https://io.net/" target="_blank">
+    <img src="./docs/images/io-net.png" alt="IO.NET" height="80" />
+  </a>
+</p>
+
+---
+
+## 🙏 Remerciements spéciaux
+
+<p align="center">
+  <a href="https://www.jetbrains.com/?from=new-api" target="_blank">
+    <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo" width="120" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>Merci à <a href="https://www.jetbrains.com/?from=new-api">JetBrains</a> pour avoir fourni une licence de développement open-source gratuite pour ce projet</strong>
+</p>
+
+---
+
+## 🚀 Démarrage rapide
+
+### Utilisation de Docker Compose (recommandé)
+
+```bash
+# Cloner le projet
+git clone https://github.com/QuantumNous/new-api.git
+cd new-api
+
+# Modifier la configuration docker-compose.yml
+nano docker-compose.yml
+
+# Démarrer le service
+docker-compose up -d
+```
+
+<details>
+<summary><strong>Utilisation des commandes Docker</strong></summary>
+
+```bash
+# Tirer la dernière image
+docker pull calciumion/new-api:latest
+
+# Utilisation de SQLite (par défaut)
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
+
+# Utilisation de MySQL
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
+```
+
+> **💡 Astuce:** `-v ./data:/data` sauvegardera les données dans le dossier `data` du répertoire actuel, vous pouvez également le changer en chemin absolu comme `-v /your/custom/path:/data`
+
+</details>
+
+---
+
+🎉 Après le déploiement, visitez `http://localhost:3000` pour commencer à utiliser!
+
+📖 Pour plus de méthodes de déploiement, veuillez vous référer à [Guide de déploiement](https://docs.newapi.pro/installation)
+
+---
 
 ## 📚 Documentation
 
-Pour une documentation détaillée, veuillez consulter notre Wiki officiel : [https://docs.newapi.pro/](https://docs.newapi.pro/)
+<div align="center">
 
-Vous pouvez également accéder au DeepWiki généré par l'IA :
-[![Demander à DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
+### 📖 [Documentation officielle](https://docs.newapi.pro/) | [![Demander à DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
+
+</div>
+
+**Navigation rapide:**
+
+| Catégorie | Lien |
+|------|------|
+| 🚀 Guide de déploiement | [Documentation d'installation](https://docs.newapi.pro/installation) |
+| ⚙️ Configuration de l'environnement | [Variables d'environnement](https://docs.newapi.pro/installation/environment-variables) |
+| 📡 Documentation de l'API | [Documentation de l'API](https://docs.newapi.pro/api) |
+| ❓ FAQ | [FAQ](https://docs.newapi.pro/support/faq) |
+| 💬 Interaction avec la communauté | [Canaux de communication](https://docs.newapi.pro/support/community-interaction) |
+
+---
 
 ## ✨ Fonctionnalités clés
 
-Knight Omega offre un large éventail de fonctionnalités, veuillez vous référer à [Présentation des fonctionnalités](https://docs.newapi.pro/wiki/features-introduction) pour plus de détails :
+New API offre un large éventail de fonctionnalités, veuillez vous référer à [Présentation des fonctionnalités](https://docs.newapi.pro/wiki/features-introduction) pour plus de détails :
 
 1. 🎨 Nouvelle interface utilisateur
 2. 🌍 Prise en charge multilingue
@@ -116,74 +213,110 @@ Knight Omega offre un large éventail de fonctionnalités, veuillez vous référ
 
 ## Prise en charge des modèles
 
-Cette version prend en charge plusieurs modèles, veuillez vous référer à [Documentation de l'API-Interface de relais](https://docs.newapi.pro/api) pour plus de détails :
+> Pour les détails, veuillez vous référer à [Documentation de l'API - Interface de relais](https://docs.newapi.pro/api)
 
-1. Modèles tiers **gpts** (gpt-4-gizmo-*)
-2. Canal tiers [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy), [Documentation de l'API](https://docs.newapi.pro/api/midjourney-proxy-image)
-3. Canal tiers [Suno API](https://github.com/Suno-API/Suno-API), [Documentation de l'API](https://docs.newapi.pro/api/suno-music)
-4. Canaux personnalisés, prenant en charge la saisie complète de l'adresse d'appel
-5. Modèles Rerank ([Cohere](https://cohere.ai/) et [Jina](https://jina.ai/)), [Documentation de l'API](https://docs.newapi.pro/api/jinaai-rerank)
-6. Format de messages Claude, [Documentation de l'API](https://docs.newapi.pro/api/anthropic-chat)
-7. Format Google Gemini, [Documentation de l'API](https://docs.newapi.pro/api/google-gemini-chat/)
-8. Dify, ne prend actuellement en charge que chatflow
-9. Pour plus d'interfaces, veuillez vous référer à la [Documentation de l'API](https://docs.newapi.pro/api)
+| Type de modèle | Description | Documentation |
+|---------|------|------|
+| 🤖 OpenAI GPTs | série gpt-4-gizmo-* | - |
+| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [Documentation](https://docs.newapi.pro/api/midjourney-proxy-image) |
+| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [Documentation](https://docs.newapi.pro/api/suno-music) |
+| 🔄 Rerank | Cohere, Jina | [Documentation](https://docs.newapi.pro/api/jinaai-rerank) |
+| 💬 Claude | Format Messages | [Documentation](https://docs.newapi.pro/api/anthropic-chat) |
+| 🌐 Gemini | Format Google Gemini | [Documentation](https://docs.newapi.pro/api/google-gemini-chat/) |
+| 🔧 Dify | Mode ChatFlow | - |
+| 🎯 Personnalisé | Prise en charge de l'adresse d'appel complète | - |
 
-## Configuration des variables d'environnement
+### 📡 Interfaces prises en charge
 
-Pour des instructions de configuration détaillées, veuillez vous référer à [Guide d'installation-Configuration des variables d'environnement](https://docs.newapi.pro/installation/environment-variables) :
+<details>
+<summary>Voir la liste complète des interfaces</summary>
 
-- `GENERATE_DEFAULT_TOKEN` : S'il faut générer des jetons initiaux pour les utilisateurs nouvellement enregistrés, la valeur par défaut est `false`
-- `STREAMING_TIMEOUT` : Délai d'expiration de la réponse en streaming, la valeur par défaut est de 300 secondes
-- `DIFY_DEBUG` : S'il faut afficher les informations sur le flux de travail et les nœuds pour les canaux Dify, la valeur par défaut est `true`
-- `GET_MEDIA_TOKEN` : S'il faut compter les jetons d'image, la valeur par défaut est `true`
-- `GET_MEDIA_TOKEN_NOT_STREAM` : S'il faut compter les jetons d'image dans les cas sans streaming, la valeur par défaut est `true`
-- `UPDATE_TASK` : S'il faut mettre à jour les tâches asynchrones (Midjourney, Suno), la valeur par défaut est `true`
-- `GEMINI_VISION_MAX_IMAGE_NUM` : Nombre maximum d'images pour les modèles Gemini, la valeur par défaut est `16`
-- `MAX_FILE_DOWNLOAD_MB` : Taille maximale de téléchargement de fichier en Mo, la valeur par défaut est `20`
-- `CRYPTO_SECRET` : Clé de chiffrement utilisée pour chiffrer le contenu de la base de données Redis
-- `AZURE_DEFAULT_API_VERSION` : Version de l'API par défaut du canal Azure, la valeur par défaut est `2025-04-01-preview`
-- `NOTIFICATION_LIMIT_DURATION_MINUTE` : Durée de la limite de notification, la valeur par défaut est de `10` minutes
-- `NOTIFY_LIMIT_COUNT` : Nombre maximal de notifications utilisateur dans la durée spécifiée, la valeur par défaut est `2`
-- `ERROR_LOG_ENABLED=true` : S'il faut enregistrer et afficher les journaux d'erreurs, la valeur par défaut est `false`
+- [Interface de discussion (Chat Completions)](https://docs.newapi.pro/api/openai-chat)
+- [Interface de réponse (Responses)](https://docs.newapi.pro/api/openai-responses)
+- [Interface d'image (Image)](https://docs.newapi.pro/api/openai-image)
+- [Interface audio (Audio)](https://docs.newapi.pro/api/openai-audio)
+- [Interface vidéo (Video)](https://docs.newapi.pro/api/openai-video)
+- [Interface d'incorporation (Embeddings)](https://docs.newapi.pro/api/openai-embeddings)
+- [Interface de rerank (Rerank)](https://docs.newapi.pro/api/jinaai-rerank)
+- [Conversation en temps réel (Realtime)](https://docs.newapi.pro/api/openai-realtime)
+- [Discussion Claude](https://docs.newapi.pro/api/anthropic-chat)
+- [Discussion Google Gemini](https://docs.newapi.pro/api/google-gemini-chat/)
 
-## Déploiement
+</details>
 
-Pour des guides de déploiement détaillés, veuillez vous référer à [Guide d'installation-Méthodes de déploiement](https://docs.newapi.pro/installation) :
+---
+
+## 🚢 Déploiement
 
 > [!TIP]
-> Dernière image Docker : `calciumion/new-api:latest`
+> **Dernière image Docker:** `calciumion/new-api:latest`
 
-### Considérations sur le déploiement multi-machines
-- La variable d'environnement `SESSION_SECRET` doit être définie, sinon l'état de connexion sera incohérent sur plusieurs machines
-- Si vous partagez Redis, `CRYPTO_SECRET` doit être défini, sinon le contenu de Redis ne pourra pas être consulté sur plusieurs machines
+### 📋 Exigences de déploiement
 
-### Exigences de déploiement
-- Base de données locale (par défaut) : SQLite (le déploiement Docker doit monter le répertoire `/data`)
-- Base de données distante : MySQL version >= 5.7.8, PgSQL version >= 9.6
+| Composant | Exigence |
+|------|------|
+| **Base de données locale** | SQLite (Docker doit monter le répertoire `/data`)|
+| **Base de données distante | MySQL ≥ 5.7.8 ou PostgreSQL ≥ 9.6 |
+| **Moteur de conteneur** | Docker / Docker Compose |
 
-### Méthodes de déploiement
+### ⚙️ Configuration des variables d'environnement
 
-#### Utilisation de la fonctionnalité Docker du panneau BaoTa
-Installez le panneau BaoTa (version **9.2.0** ou supérieure), recherchez **New-API** dans le magasin d'applications et installez-le.
-[Tutoriel avec des images](./docs/BT.md)
+<details>
+<summary>Configuration courante des variables d'environnement</summary>
 
-#### Utilisation de Docker Compose (recommandé)
-```shell
-# Télécharger le projet
-git clone https://github.com/Calcium-Ion/new-api.git
+| Nom de variable | Description | Valeur par défaut |
+|--------|------|--------|
+| `SESSION_SECRET` | Secret de session (requis pour le déploiement multi-machines) |
+| `CRYPTO_SECRET` | Secret de chiffrement (requis pour Redis) | - |
+| `SQL_DSN` | Chaine de connexion à la base de données | - |
+| `REDIS_CONN_STRING` | Chaine de connexion Redis | - |
+| `STREAMING_TIMEOUT` | Délai d'expiration du streaming (secondes) | `300` |
+| `AZURE_DEFAULT_API_VERSION` | Version de l'API Azure | `2025-04-01-preview` |
+| `ERROR_LOG_ENABLED` | Interrupteur du journal d'erreurs | `false` |
+
+📖 **Configuration complète:** [Documentation des variables d'environnement](https://docs.newapi.pro/installation/environment-variables)
+
+</details>
+
+### 🔧 Méthodes de déploiement
+
+<details>
+<summary><strong>Méthode 1: Docker Compose (recommandé)</strong></summary>
+
+```bash
+# Cloner le projet
+git clone https://github.com/QuantumNous/new-api.git
 cd new-api
-# Modifier docker-compose.yml si nécessaire
-# Démarrer
+
+# Modifier la configuration
+nano docker-compose.yml
+
+# Démarrer le service
 docker-compose up -d
 ```
 
-#### Utilisation directe de l'image Docker
-```shell
-# Utilisation de SQLite
-docker run --name new-api -d --restart always -p 3000:3000 -e TZ=Asia/Shanghai -v /home/ubuntu/data/new-api:/data calciumion/new-api:latest
+</details>
 
-# Utilisation de MySQL
-docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" -e TZ=Asia/Shanghai -v /home/ubuntu/data/new-api:/data calciumion/new-api:latest
+<details>
+<summary><strong>Méthode 2: Commandes Docker</strong></summary>
+
+**Utilisation de SQLite:**
+```bash
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
+```
+
+**Utilisation de MySQL:**
+```bash
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
 ```
 
 ## Nouvelle tentative de canal et cache
@@ -210,8 +343,8 @@ Pour une documentation détaillée de l'API, veuillez vous référer à [Documen
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy) : Prise en charge de l'interface Midjourney
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool) : Interroger le quota d'utilisation avec une clé
 
-Autres projets basés sur Knight Omega :
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon) : Version optimisée hautes performances de Knight Omega
+Autres projets basés sur New API :
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon) : Version optimisée hautes performances de New API
 
 ## Aide et support
 
@@ -222,4 +355,22 @@ Si vous avez des questions, veuillez vous référer à [Aide et support](https:/
 
 ## 🌟 Historique des étoiles
 
+<div align="center">
+
 [![Graphique de l'historique des étoiles](https://api.star-history.com/svg?repos=Calcium-Ion/new-api&type=Date)](https://star-history.com/#Calcium-Ion/new-api&Date)
+
+</div>
+
+---
+
+<div align="center">
+
+### 💖 Merci d'utiliser New API
+
+Si ce projet vous est utile, bienvenue à nous donner une ⭐️ Étoile！
+
+**[Documentation officielle](https://docs.newapi.pro/)** • **[Commentaires sur les problèmes](https://github.com/Calcium-Ion/new-api/issues)** • **[Dernière version](https://github.com/Calcium-Ion/new-api/releases)**
+
+<sub>Construit avec ❤️ par QuantumNous</sub>
+
+</div>

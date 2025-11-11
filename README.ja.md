@@ -1,19 +1,17 @@
-<p align="right">
-   <a href="./README.md">中文</a> | <a href="./README.en.md">English</a> | <a href="./README.fr.md">Français</a> | <strong>日本語</strong>
-</p>
-
-> [!NOTE]
-> **MT（機械翻訳）**: この文書は機械翻訳されています。最も正確な情報については、[中国語版](./README.md)を参照してください。
-
 <div align="center">
 
 ![new-api](/web/public/logo.png)
 
 # Knight Omega
 
-🍥次世代大規模モデルゲートウェイとAI資産管理システム
+🍥 **次世代大規模モデルゲートウェイとAI資産管理システム**
 
-<a href="https://trendshift.io/repositories/8227" target="_blank"><img src="https://trendshift.io/api/badge/repositories/8227" alt="Calcium-Ion%2Fnew-api | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<p align="center">
+  <a href="./README.md">中文</a> | 
+  <a href="./README.en.md">English</a> | 
+  <a href="./README.fr.md">Français</a> | 
+  <strong>日本語</strong>
+</p>
 
 <p align="center">
   <a href="https://raw.githubusercontent.com/Calcium-Ion/new-api/main/LICENSE">
@@ -32,6 +30,21 @@
     <img src="https://goreportcard.com/badge/github.com/Calcium-Ion/new-api" alt="GoReportCard">
   </a>
 </p>
+
+<p align="center">
+  <a href="https://trendshift.io/repositories/8227" target="_blank">
+    <img src="https://trendshift.io/api/badge/repositories/8227" alt="Calcium-Ion%2Fnew-api | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="#-クイックスタート">クイックスタート</a> •
+  <a href="#-主な機能">主な機能</a> •
+  <a href="#-デプロイ">デプロイ</a> •
+  <a href="#-ドキュメント">ドキュメント</a> •
+  <a href="#-ヘルプサポート">ヘルプ</a>
+</p>
+
 </div>
 
 ## 📝 プロジェクト説明
@@ -44,38 +57,122 @@
 > - ユーザーは、OpenAIの[利用規約](https://openai.com/policies/terms-of-use)および**法律法規**を遵守する必要があり、違法な目的で使用してはいけません。
 > - [《生成式人工智能服务管理暂行办法》](http://www.cac.gov.cn/2023-07/13/c_1690898327029107.htm)の要求に従い、中国地域の公衆に未登録の生成式AI サービスを提供しないでください。
 
-<h2>🤝 信頼できるパートナー</h2>
-<p id="premium-sponsors">&nbsp;</p>
-<p align="center"><strong>順不同</strong></p>
+---
+
+## 🤝 信頼できるパートナー
+
 <p align="center">
-  <a href="https://www.cherry-ai.com/" target=_blank><img
-    src="./docs/images/cherry-studio.png" alt="Cherry Studio" height="120"
-  /></a>
-  <a href="https://bda.pku.edu.cn/" target=_blank><img
-    src="./docs/images/pku.png" alt="北京大学" height="120"
-  /></a>
-  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target=_blank><img
-    src="./docs/images/ucloud.png" alt="UCloud 優刻得" height="120"
-  /></a>
-  <a href="https://www.aliyun.com/" target=_blank><img
-    src="./docs/images/aliyun.png" alt="Alibaba Cloud" height="120"
-  /></a>
-  <a href="https://io.net/" target=_blank><img
-    src="./docs/images/io-net.png" alt="IO.NET" height="120"
-  /></a>
+  <em>順不同</em>
 </p>
-<p>&nbsp;</p>
+
+<p align="center">
+  <a href="https://www.cherry-ai.com/" target="_blank">
+    <img src="./docs/images/cherry-studio.png" alt="Cherry Studio" height="80" />
+  </a>
+  <a href="https://bda.pku.edu.cn/" target="_blank">
+    <img src="./docs/images/pku.png" alt="北京大学" height="80" />
+  </a>
+  <a href="https://www.compshare.cn/?ytag=GPU_yy_gh_newapi" target="_blank">
+    <img src="./docs/images/ucloud.png" alt="UCloud 優刻得" height="80" />
+  </a>
+  <a href="https://www.aliyun.com/" target="_blank">
+    <img src="./docs/images/aliyun.png" alt="Alibaba Cloud" height="80" />
+  </a>
+  <a href="https://io.net/" target="_blank">
+    <img src="./docs/images/io-net.png" alt="IO.NET" height="80" />
+  </a>
+</p>
+
+---
+
+## 🙏 特別な感謝
+
+<p align="center">
+  <a href="https://www.jetbrains.com/?from=new-api" target="_blank">
+    <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png" alt="JetBrains Logo" width="120" />
+  </a>
+</p>
+
+<p align="center">
+  <strong>感謝 <a href="https://www.jetbrains.com/?from=new-api">JetBrains</a> が本プロジェクトに無料のオープンソース開発ライセンスを提供してくれたことに感謝します</strong>
+</p>
+
+---
+
+## 🚀 クイックスタート
+
+### Docker Composeを使用（推奨）
+
+```bash
+# プロジェクトをクローン
+git clone https://github.com/QuantumNous/new-api.git
+cd new-api
+
+# docker-compose.yml 設定を編集
+nano docker-compose.yml
+
+# サービスを起動
+docker-compose up -d
+```
+
+<details>
+<summary><strong>Dockerコマンドを使用</strong></summary>
+
+```bash
+# 最新のイメージをプル
+docker pull calciumion/new-api:latest
+
+# SQLiteを使用（デフォルト）
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
+
+# MySQLを使用
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
+```
+
+> **💡 ヒント:** `-v ./data:/data` は現在のディレクトリの `data` フォルダにデータを保存します。絶対パスに変更することもできます：`-v /your/custom/path:/data`
+
+</details>
+
+---
+
+🎉 デプロイが完了したら、`http://localhost:3000` にアクセスして使用を開始してください！
+
+📖 その他のデプロイ方法については[デプロイガイド](https://docs.newapi.pro/installation)を参照してください。
+
+---
 
 ## 📚 ドキュメント
 
-詳細なドキュメントは公式Wikiをご覧ください：[https://docs.newapi.pro/](https://docs.newapi.pro/)
+<div align="center">
 
-AIが生成したDeepWikiにもアクセスできます：
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
+### 📖 [公式ドキュメント](https://docs.newapi.pro/) | [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
+
+</div>
+
+**クイックナビゲーション:**
+
+| カテゴリ | リンク |
+|------|------|
+| 🚀 デプロイガイド | [インストールドキュメント](https://docs.newapi.pro/installation) |
+| ⚙️ 環境設定 | [環境変数](https://docs.newapi.pro/installation/environment-variables) |
+| 📡 APIドキュメント | [APIドキュメント](https://docs.newapi.pro/api) |
+| ❓ よくある質問 | [FAQ](https://docs.newapi.pro/support/faq) |
+| 💬 コミュニティ交流 | [交流チャネル](https://docs.newapi.pro/support/community-interaction) |
+
+---
 
 ## ✨ 主な機能
 
-Knight Omegaは豊富な機能を提供しています。詳細な機能については[機能説明](https://docs.newapi.pro/wiki/features-introduction)を参照してください：
+New APIは豊富な機能を提供しています。詳細な機能については[機能説明](https://docs.newapi.pro/wiki/features-introduction)を参照してください：
 
 1. 🎨 全く新しいUIインターフェース
 2. 🌍 多言語サポート
@@ -151,29 +248,49 @@ Knight Omegaは豊富な機能を提供しています。詳細な機能につ�
 詳細なデプロイガイドについては[インストールガイド-デプロイ方法](https://docs.newapi.pro/installation)を参照してください：
 
 > [!TIP]
-> 最新のDockerイメージ：`calciumion/new-api:latest`  
+> **最新のDockerイメージ:** `calciumion/new-api:latest`
 
-### マルチマシンデプロイの注意事項
-- 環境変数`SESSION_SECRET`を設定する必要があります。そうしないとマルチマシンデプロイ時にログイン状態が不一致になります
-- Redisを共有する場合、`CRYPTO_SECRET`を設定する必要があります。そうしないとマルチマシンデプロイ時にRedisの内容を取得できません
+### 📋 デプロイ要件
 
-### デプロイ要件
-- ローカルデータベース（デフォルト）：SQLite（Dockerデプロイの場合は`/data`ディレクトリをマウントする必要があります）
-- リモートデータベース：MySQLバージョン >= 5.7.8、PgSQLバージョン >= 9.6
+| コンポーネント | 要件 |
+|------|------|
+| **ローカルデータベース** | SQLite（Dockerは `/data` ディレクトリをマウントする必要があります）|
+| **リモートデータベース** | MySQL ≥ 5.7.8 または PostgreSQL ≥ 9.6 |
+| **コンテナエンジン** | Docker / Docker Compose |
 
-### デプロイ方法
+### ⚙️ 環境変数設定
 
-#### 宝塔パネルのDocker機能を使用してデプロイ
-宝塔パネル（**9.2.0バージョン**以上）をインストールし、アプリケーションストアで**New-API**を見つけてインストールします。
-[画像付きチュートリアル](./docs/BT.md)
+<details>
+<summary>一般的な環境変数設定</summary>
 
-#### Docker Composeを使用してデプロイ（推奨）
-```shell
-# プロジェクトをダウンロード
-git clone https://github.com/Calcium-Ion/new-api.git
+| 変数名 | 説明 | デフォルト値 |
+|--------|------|--------|
+| `SESSION_SECRET` | セッションシークレット（マルチマシンデプロイに必須） | - |
+| `CRYPTO_SECRET` | 暗号化シークレット（Redisに必須） | - |
+| `SQL_DSN** | データベース接続文字列 | - |
+| `REDIS_CONN_STRING` | Redis接続文字列 | - |
+| `STREAMING_TIMEOUT` | ストリーミング応答のタイムアウト時間（秒） | `300` |
+| `AZURE_DEFAULT_API_VERSION` | Azure APIバージョン | `2025-04-01-preview` |
+| `ERROR_LOG_ENABLED` | エラーログスイッチ | `false` |
+
+📖 **完全な設定:** [環境変数ドキュメント](https://docs.newapi.pro/installation/environment-variables)
+
+</details>
+
+### 🔧 デプロイ方法
+
+<details>
+<summary><strong>方法 1: Docker Compose（推奨）</strong></summary>
+
+```bash
+# プロジェクトをクローン
+git clone https://github.com/QuantumNous/new-api.git
 cd new-api
-# 必要に応じてdocker-compose.ymlを編集
-# 起動
+
+# 設定を編集
+nano docker-compose.yml
+
+# サービスを起動
 docker-compose up -d
 ```
 
@@ -210,17 +327,49 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy)：Midjourneyインターフェースサポート
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)：キーを使用して使用量クォータを照会
 
-Knight Omegaベースのその他のプロジェクト：
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：Knight Omega高性能最適化版
+New APIベースのその他のプロジェクト：
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon)：New API高性能最適化版
 
-## ヘルプサポート
+## 💬 ヘルプサポート
 
-問題がある場合は、[ヘルプサポート](https://docs.newapi.pro/support)を参照してください：
-- [コミュニティ交流](https://docs.newapi.pro/support/community-interaction)
-- [問題のフィードバック](https://docs.newapi.pro/support/feedback-issues)
-- [よくある質問](https://docs.newapi.pro/support/faq)
+### 📖 ドキュメントリソース
 
-## 🌟 Star History
+| リソース | リンク |
+|------|------|
+| 📘 よくある質問 | [FAQ](https://docs.newapi.pro/support/faq) |
+| 💬 コミュニティ交流 | [交流チャネル](https://docs.newapi.pro/support/community-interaction) |
+| 🐛 問題のフィードバック | [問題フィードバック](https://docs.newapi.pro/support/feedback-issues) |
+| 📚 完全なドキュメント | [公式ドキュメント](https://docs.newapi.pro/support) |
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Calcium-Ion/new-api&type=Date)](https://star-history.com/#Calcium-Ion/new-api&Date)
+### 🤝 貢献ガイド
 
+あらゆる形の貢献を歓迎します！
+
+- 🐛 バグを報告する
+- 💡 新しい機能を提案する
+- 📝 ドキュメントを改善する
+- 🔧 コードを提出する
+
+---
+
+## 🌟 スター履歴
+
+<div align="center">
+
+[![スター履歴チャート](https://api.star-history.com/svg?repos=Calcium-Ion/new-api&type=Date)](https://star-history.com/#Calcium-Ion/new-api&Date)
+
+</div>
+
+---
+
+<div align="center">
+
+### 💖 New APIをご利用いただきありがとうございます
+
+このプロジェクトがあなたのお役に立てたなら、ぜひ ⭐️ スターをください！
+
+**[公式ドキュメント](https://docs.newapi.pro/)** • **[問題フィードバック](https://github.com/Calcium-Ion/new-api/issues)** • **[最新リリース](https://github.com/Calcium-Ion/new-api/releases)**
+
+<sub>❤️ で構築された QuantumNous</sub>
+
+</div>
