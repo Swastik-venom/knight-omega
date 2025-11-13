@@ -166,8 +166,9 @@ func Relay(c *gin.Context, relayFormat types.RelayFormat) {
 		}
 
 		addUsedChannel(c, channel.Id)
-		requestBody, _ := common.GetRequestBody(c)
-		c.Request.Body = io.NopCloser(bytes.NewBuffer(requestBody))
+		// Note: Do NOT restore original request body here as it would overwrite model mapping
+		// The handlers (TextHelper, ClaudeHelper, etc.) will construct the request body
+		// with the properly mapped model name
 
 		switch relayFormat {
 		case types.RelayFormatOpenAIRealtime:
@@ -417,8 +418,8 @@ func RelayTask(c *gin.Context) {
 		logger.LogInfo(c, fmt.Sprintf("using channel #%d to retry (remain times %d)", channel.Id, i))
 		//middleware.SetupContextForSelectedChannel(c, channel, originalModel)
 
-		requestBody, _ := common.GetRequestBody(c)
-		c.Request.Body = io.NopCloser(bytes.NewBuffer(requestBody))
+		// Note: Do NOT restore original request body here as it would overwrite model mapping
+		// The task relay handler will construct the request body with the properly mapped model name
 		taskErr = taskRelayHandler(c, relayInfo)
 	}
 	useChannel := c.GetStringSlice("use_channel")

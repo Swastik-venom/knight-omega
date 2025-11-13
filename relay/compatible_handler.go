@@ -40,7 +40,7 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 	}
 	
 	// Log the model name AFTER mapping
-	logger.LogInfo(c, fmt.Sprintf("After ModelMappedHelper - textReq.Model: %s, info.UpstreamModelName: %s", textReq.Model, info.UpstreamModelName))
+	logger.LogInfo(c, fmt.Sprintf("✓ After ModelMappedHelper - textReq.Model: %s, info.UpstreamModelName: %s", textReq.Model, info.UpstreamModelName))
 
 	// THEN make the deep copy with the mapped model name
 	request, err := common.DeepCopy(textReq)
@@ -49,7 +49,7 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 	}
 	
 	// Log the model name AFTER deep copy
-	logger.LogInfo(c, fmt.Sprintf("After DeepCopy - request.Model: %s", request.Model))
+	logger.LogInfo(c, fmt.Sprintf("✓ After DeepCopy - request.Model: %s", request.Model))
 
 	if request.WebSearchOptions != nil {
 		c.Set("chat_completion_web_search_context_size", request.WebSearchOptions.SearchContextSize)
@@ -159,10 +159,10 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 		}
 
 		// Log the ACTUAL request body being sent to upstream
-		logger.LogInfo(c, fmt.Sprintf("🚀 SENDING TO UPSTREAM - Model in JSON: %s", string(jsonData)))
+		logger.LogInfo(c, fmt.Sprintf("✓ Request body marshaled successfully"))
 		logger.LogDebug(c, fmt.Sprintf("text request body: %s", string(jsonData)))
-		logger.LogInfo(c, fmt.Sprintf("Model mapping verification - Original: %s, Mapped: %s",
-			info.OriginModelName, info.UpstreamModelName))
+		logger.LogInfo(c, fmt.Sprintf("🚀 FINAL CHECK - Original model: %s → Mapped model: %s → Model in JSON body: %s",
+			info.OriginModelName, info.UpstreamModelName, request.Model))
 
 		requestBody = bytes.NewBuffer(jsonData)
 	}
