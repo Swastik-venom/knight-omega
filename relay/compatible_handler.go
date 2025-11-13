@@ -33,26 +33,18 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 		return types.NewErrorWithStatusCode(fmt.Errorf("invalid request type, expected dto.GeneralOpenAIRequest, got %T", info.Request), types.ErrorCodeInvalidRequest, http.StatusBadRequest, types.ErrOptionWithSkipRetry())
 	}
 
-	// Apply model mapping FIRST to the original request
-	err := helper.ModelMappedHelper(c, info, textReq)
-	if err != nil {
-		return types.NewError(err, types.ErrorCodeChannelModelMappedError, types.ErrOptionWithSkipRetry())
-	}
-	
-	// Log the model name AFTER mapping
-	logger.LogInfo(c, fmt.Sprintf("✓ After ModelMappedHelper - textReq.Model: %s, info.UpstreamModelName: %s", textReq.Model, info.UpstreamModelName))
-
-	// THEN make the deep copy with the mapped model name
 	request, err := common.DeepCopy(textReq)
 	if err != nil {
 		return types.NewError(fmt.Errorf("failed to copy request to GeneralOpenAIRequest: %w", err), types.ErrorCodeInvalidRequest, types.ErrOptionWithSkipRetry())
 	}
-	
-	// Log the model name AFTER deep copy
-	logger.LogInfo(c, fmt.Sprintf("✓ After DeepCopy - request.Model: %s", request.Model))
 
 	if request.WebSearchOptions != nil {
 		c.Set("chat_completion_web_search_context_size", request.WebSearchOptions.SearchContextSize)
+	}
+
+	err = helper.ModelMappedHelper(c, info, request)
+	if err != nil {
+		return types.NewError(err, types.ErrorCodeChannelModelMappedError, types.ErrOptionWithSkipRetry())
 	}
 
 	includeUsage := true
@@ -158,11 +150,7 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 			}
 		}
 
-		// Log the ACTUAL request body being sent to upstream
-		logger.LogInfo(c, fmt.Sprintf("✓ Request body marshaled successfully"))
 		logger.LogDebug(c, fmt.Sprintf("text request body: %s", string(jsonData)))
-		logger.LogInfo(c, fmt.Sprintf("🚀 FINAL CHECK - Original model: %s → Mapped model: %s → Model in JSON body: %s",
-			info.OriginModelName, info.UpstreamModelName, request.Model))
 
 		requestBody = bytes.NewBuffer(jsonData)
 	}

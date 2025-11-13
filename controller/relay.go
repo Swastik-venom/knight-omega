@@ -1,7 +1,9 @@
 package controller
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -164,9 +166,8 @@ func Relay(c *gin.Context, relayFormat types.RelayFormat) {
 		}
 
 		addUsedChannel(c, channel.Id)
-		// Note: Do NOT restore original request body here as it would overwrite model mapping
-		// The handlers (TextHelper, ClaudeHelper, etc.) will construct the request body
-		// with the properly mapped model name
+		requestBody, _ := common.GetRequestBody(c)
+		c.Request.Body = io.NopCloser(bytes.NewBuffer(requestBody))
 
 		switch relayFormat {
 		case types.RelayFormatOpenAIRealtime:
@@ -367,7 +368,7 @@ func RelayMidjourney(c *gin.Context) {
 func RelayNotImplemented(c *gin.Context) {
 	err := dto.OpenAIError{
 		Message: "API not implemented",
-		Type:    "Knight_omega_api_error",
+		Type:    "new_api_error",
 		Param:   "",
 		Code:    "api_not_implemented",
 	}
@@ -416,8 +417,8 @@ func RelayTask(c *gin.Context) {
 		logger.LogInfo(c, fmt.Sprintf("using channel #%d to retry (remain times %d)", channel.Id, i))
 		//middleware.SetupContextForSelectedChannel(c, channel, originalModel)
 
-		// Note: Do NOT restore original request body here as it would overwrite model mapping
-		// The task relay handler will construct the request body with the properly mapped model name
+		requestBody, _ := common.GetRequestBody(c)
+		c.Request.Body = io.NopCloser(bytes.NewBuffer(requestBody))
 		taskErr = taskRelayHandler(c, relayInfo)
 	}
 	useChannel := c.GetStringSlice("use_channel")

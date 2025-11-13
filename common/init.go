@@ -8,38 +8,10 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/QuantumNous/new-api/constant"
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 )
-
-var (
-	Logger *zap.Logger
-	loggerOnce sync.Once
-)
-
-func initLogger() {
-	config := zap.NewProductionConfig()
-	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	config.OutputPaths = []string{"stdout"}
-	config.ErrorOutputPaths = []string{"stderr"}
-	
-	var err error
-	Logger, err = config.Build()
-	if err != nil {
-		log.Fatalf("Failed to initialize logger: %v", err)
-	}
-}
-
-func GetLogger() *zap.Logger {
-	loggerOnce.Do(func() {
-		initLogger()
-	})
-	return Logger
-}
 
 var (
 	Port         = flag.Int("port", 3000, "the listening port")

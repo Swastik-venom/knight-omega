@@ -4,8 +4,6 @@ WORKDIR /build
 COPY web/package.json .
 COPY web/bun.lock .
 RUN bun install
-# Install vite globally to ensure it's available
-RUN bun add -g vite
 COPY ./web .
 COPY ./VERSION .
 RUN DISABLE_ESLINT_PLUGIN='true' VITE_REACT_APP_VERSION=$(cat VERSION) bun run build
