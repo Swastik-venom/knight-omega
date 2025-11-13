@@ -11,7 +11,32 @@ import (
 	"time"
 
 	"github.com/QuantumNous/new-api/constant"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 )
+
+var Logger *zap.Logger
+
+func init() {
+	// Initialize logger
+	config := zap.NewProductionConfig()
+	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	config.OutputPaths = []string{"stdout"}
+	config.ErrorOutputPaths = []string{"stderr"}
+	
+	var err error
+	Logger, err = config.Build()
+	if err != nil {
+		log.Fatalf("Failed to initialize logger: %v", err)
+	}
+}
+
+func GetLogger() *zap.Logger {
+	if Logger == nil {
+		init()
+	}
+	return Logger
+}
 
 var (
 	Port         = flag.Int("port", 3000, "the listening port")

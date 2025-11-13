@@ -8,32 +8,31 @@ import (
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/dto"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 func ModelMappedHelper(c *gin.Context, info *common.RelayInfo, request dto.Request) error {
-	// map model name
+	logger := common.GetLogger()
+	fields := []zap.Field{
+		zap.String("original_model", info.OriginModelName),
+		zap.String("endpoint", c.Request.URL.Path),
+	}
+
 	modelMapping := c.GetString("model_mapping")
-	common.SysLog(fmt.Sprintf("Model mapping - original: %s, endpoint: %s",
-		info.OriginModelName, c.Request.URL.Path))
+	logger.Info("Starting model mapping", append(fields, zap.String("model_mapping", modelMapping))...)
 	
 	currentModel := info.OriginModelName
 
-	// map model name
-	modelMapping := c.GetString("model_mapping")
-	fields = append(fields, zap.String("model_mapping", modelMapping))
-	
 	if modelMapping != "" && modelMapping != "{}" {
 		modelMap := make(map[string]string)
 		err := json.Unmarshal([]byte(modelMapping), &modelMap)
 		if err != nil {
-			logger.Error("Failed to unmarshal model mapping",
+			logger.Error("Failed to unmarshal model mapping", 
 				append(fields, zap.Error(err))...)
 			return fmt.Errorf("unmarshal_model_mapping_failed")
 		}
-		fields = append(fields, zap.Any("model_map", modelMap))
 
 		// 支持链式模型重定向，最终使用链尾的模型
-		currentModel := info.OriginModelName
 		visitedModels := map[string]bool{
 			currentModel: true,
 		}
@@ -44,12 +43,16 @@ func ModelMappedHelper(c *gin.Context, info *common.RelayInfo, request dto.Reque
 					if mappedModel == currentModel {
 						if currentModel == info.OriginModelName {
 							info.IsModelMapped = false
+							logger.Info("Model mapping not applied - same as original", fields...)
 							return nil
 						} else {
 							info.IsModelMapped = true
 							break
 						}
 					}
+					logger.Error("Model mapping contains cycle", 
+						append(fields, zap.String("current_model", currentModel), 
+							zap.String("mapped_model", mappedModel))...)
 					return errors.New("model_mapping_contains_cycle")
 				}
 				visitedModels[mappedModel] = true
@@ -61,18 +64,20 @@ func ModelMappedHelper(c *gin.Context, info *common.RelayInfo, request dto.Reque
 		}
 		if info.IsModelMapped {
 			info.UpstreamModelName = currentModel
-			common.SysLog(fmt.Sprintf("Model mapped to: %s", info.UpstreamModelName))
+			logger.Info("Model mapping applied", 
+				append(fields, zap.String("mapped_model", info.UpstreamModelName))...)
 		}
 	} else {
 		// If no model mapping, use the original model name
 		info.UpstreamModelName = info.OriginModelName
-		common.SysLog("No model mapping applied")
+		logger.Debug("No model mapping applied", fields...)
 	}
 	
 	// Always set the model name in the request
 	if request != nil {
 		request.SetModelName(info.UpstreamModelName)
-		common.SysLog(fmt.Sprintf("Request model set to: %s", info.UpstreamModelName))
+		logger.Debug("Request model set", 
+			append(fields, zap.String("request_model", info.UpstreamModelName))...)
 	}
 	return nil
 }

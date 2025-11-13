@@ -17,16 +17,27 @@ import (
 	"github.com/QuantumNous/new-api/relay/channel"
 	relaycommon "github.com/QuantumNous/new-api/relay/common"
 	relayconstant "github.com/QuantumNous/new-api/relay/constant"
+	"github.com/QuantumNous/new-api/relay/helper"
 	"github.com/QuantumNous/new-api/service"
 	"github.com/QuantumNous/new-api/setting/ratio_setting"
+	"go.uber.org/zap"
 
 	"github.com/gin-gonic/gin"
 )
+
+var logger = common.GetLogger()
 
 /*
 Task 任务通过平台、Action 区分任务
 */
 func RelayTaskSubmit(c *gin.Context, info *relaycommon.RelayInfo) (taskErr *dto.TaskError) {
+	// Initialize logging fields
+	fields := []zap.Field{
+		zap.String("endpoint", c.Request.URL.Path),
+		zap.String("request_id", c.GetString("request_id")),
+		zap.Int("user_id", info.UserId),
+	}
+
 	info.InitChannelMeta(c)
 	// ensure TaskRelayInfo is initialized to avoid nil dereference when accessing embedded fields
 	if info.TaskRelayInfo == nil {
@@ -37,33 +48,61 @@ func RelayTaskSubmit(c *gin.Context, info *relaycommon.RelayInfo) (taskErr *dto.
 		platform = GetTaskPlatform(c)
 	}
 
+	fields = append(fields, zap.String("platform", string(platform)))
+	logger.Info("Starting task submission", fields...)
+
 	info.InitChannelMeta(c)
 	adaptor := GetTaskAdaptor(platform)
 	if adaptor == nil {
-		return service.TaskErrorWrapperLocal(fmt.Errorf("invalid api platform: %s", platform), "invalid_api_platform", http.StatusBadRequest)
+		err := fmt.Errorf("invalid api platform: %s", platform)
+		logger.Error("Invalid platform", append(fields, zap.Error(err))...)
+		return service.TaskErrorWrapperLocal(err, "invalid_api_platform", http.StatusBadRequest)
 	}
 	adaptor.Init(info)
+	
 	// get & validate taskRequest 获取并验证文本请求
 	taskErr = adaptor.ValidateRequestAndSetAction(c, info)
 	if taskErr != nil {
+		logger.Error("Task validation failed", append(fields,
+			zap.String("error", taskErr.Message),
+			zap.Int("status_code", taskErr.StatusCode))...)
 		return
 	}
+	
+	fields = append(fields, zap.String("action", info.Action))
+	logger.Debug("Task request validated", fields...)
 
 	// Apply model mapping
 	modelName := info.OriginModelName
 	if modelName == "" {
 		modelName = service.CoverTaskActionToModelName(platform, info.Action)
+		logger.Debug("Set model name from action",
+			append(fields,
+				zap.String("action", info.Action),
+				zap.String("model_name", modelName))...)
 	}
+	
 	// Update the model name in the info struct
 	info.OriginModelName = modelName
 	info.UpstreamModelName = modelName
+	logger.Debug("Initial model name set",
+		append(fields, zap.String("model_name", modelName))...)
 
 	// Apply model mapping
 	if err := helper.ModelMappedHelper(c, info, nil); err != nil {
+		logger.Error("Model mapping failed",
+			append(fields,
+				zap.String("model_name", modelName),
+				zap.Error(err))...)
 		taskErr = service.TaskErrorWrapper(err, "model_mapping_failed", http.StatusInternalServerError)
 		return
 	}
+	
 	modelName = info.UpstreamModelName
+	logger.Info("Model mapping completed",
+		append(fields,
+			zap.String("mapped_model", modelName),
+			zap.Bool("is_mapped", info.IsModelMapped))...)
 	modelPrice, success := ratio_setting.GetModelPrice(modelName, true)
 	if !success {
 		defaultPrice, ok := ratio_setting.GetDefaultModelPriceMap()[modelName]
