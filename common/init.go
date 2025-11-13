@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/QuantumNous/new-api/constant"
@@ -15,10 +16,12 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-var Logger *zap.Logger
+var (
+	Logger *zap.Logger
+	loggerOnce sync.Once
+)
 
-func init() {
-	// Initialize logger
+func initLogger() {
 	config := zap.NewProductionConfig()
 	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
 	config.OutputPaths = []string{"stdout"}
@@ -32,9 +35,9 @@ func init() {
 }
 
 func GetLogger() *zap.Logger {
-	if Logger == nil {
-		init()
-	}
+	loggerOnce.Do(func() {
+		initLogger()
+	})
 	return Logger
 }
 
