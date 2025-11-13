@@ -8,15 +8,15 @@ import (
 	"github.com/QuantumNous/new-api/common"
 	"github.com/QuantumNous/new-api/dto"
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 )
 
 func ModelMappedHelper(c *gin.Context, info *common.RelayInfo, request dto.Request) error {
-	logger := common.GetLogger()
-	fields := []zap.Field{
-		zap.String("original_model", info.OriginModelName),
-		zap.String("endpoint", c.Request.URL.Path),
-	}
+	// map model name
+	modelMapping := c.GetString("model_mapping")
+	common.SysLog(fmt.Sprintf("Model mapping - original: %s, endpoint: %s",
+		info.OriginModelName, c.Request.URL.Path))
+	
+	currentModel := info.OriginModelName
 
 	// map model name
 	modelMapping := c.GetString("model_mapping")
@@ -61,25 +61,18 @@ func ModelMappedHelper(c *gin.Context, info *common.RelayInfo, request dto.Reque
 		}
 		if info.IsModelMapped {
 			info.UpstreamModelName = currentModel
-			fields = append(fields,
-				zap.String("mapped_model", info.UpstreamModelName),
-				zap.Bool("is_mapped", true))
-			logger.Info("Model mapping applied", fields...)
+			common.SysLog(fmt.Sprintf("Model mapped to: %s", info.UpstreamModelName))
 		}
 	} else {
 		// If no model mapping, use the original model name
 		info.UpstreamModelName = info.OriginModelName
-		fields = append(fields,
-			zap.String("final_model", info.UpstreamModelName),
-			zap.Bool("is_mapped", false))
-		logger.Debug("No model mapping applied", fields...)
+		common.SysLog("No model mapping applied")
 	}
 	
 	// Always set the model name in the request
 	if request != nil {
 		request.SetModelName(info.UpstreamModelName)
-		logger.Debug("Request model set",
-			append(fields, zap.String("request_model", info.UpstreamModelName))...)
+		common.SysLog(fmt.Sprintf("Request model set to: %s", info.UpstreamModelName))
 	}
 	return nil
 }
