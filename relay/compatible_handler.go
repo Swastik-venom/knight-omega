@@ -38,12 +38,18 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 	if err != nil {
 		return types.NewError(err, types.ErrorCodeChannelModelMappedError, types.ErrOptionWithSkipRetry())
 	}
+	
+	// Log the model name AFTER mapping
+	logger.LogInfo(c, fmt.Sprintf("After ModelMappedHelper - textReq.Model: %s, info.UpstreamModelName: %s", textReq.Model, info.UpstreamModelName))
 
 	// THEN make the deep copy with the mapped model name
 	request, err := common.DeepCopy(textReq)
 	if err != nil {
 		return types.NewError(fmt.Errorf("failed to copy request to GeneralOpenAIRequest: %w", err), types.ErrorCodeInvalidRequest, types.ErrOptionWithSkipRetry())
 	}
+	
+	// Log the model name AFTER deep copy
+	logger.LogInfo(c, fmt.Sprintf("After DeepCopy - request.Model: %s", request.Model))
 
 	if request.WebSearchOptions != nil {
 		c.Set("chat_completion_web_search_context_size", request.WebSearchOptions.SearchContextSize)
@@ -153,6 +159,8 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 		}
 
 		logger.LogDebug(c, fmt.Sprintf("text request body: %s", string(jsonData)))
+		logger.LogInfo(c, fmt.Sprintf("Model mapping verification - Original: %s, Mapped: %s, In JSON: contains model field",
+			info.OriginModelName, info.UpstreamModelName))
 
 		requestBody = bytes.NewBuffer(jsonData)
 	}
