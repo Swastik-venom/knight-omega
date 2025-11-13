@@ -158,8 +158,10 @@ func TextHelper(c *gin.Context, info *relaycommon.RelayInfo) (newAPIError *types
 			}
 		}
 
+		// Log the ACTUAL request body being sent to upstream
+		logger.LogInfo(c, fmt.Sprintf("🚀 SENDING TO UPSTREAM - Model in JSON: %s", string(jsonData)))
 		logger.LogDebug(c, fmt.Sprintf("text request body: %s", string(jsonData)))
-		logger.LogInfo(c, fmt.Sprintf("Model mapping verification - Original: %s, Mapped: %s, In JSON: contains model field",
+		logger.LogInfo(c, fmt.Sprintf("Model mapping verification - Original: %s, Mapped: %s",
 			info.OriginModelName, info.UpstreamModelName))
 
 		requestBody = bytes.NewBuffer(jsonData)
