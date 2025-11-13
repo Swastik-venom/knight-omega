@@ -25,7 +25,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var logger = common.GetLogger()
+var taskLogger = common.GetLogger()
 
 /*
 Task 任务通过平台、Action 区分任务
@@ -49,13 +49,13 @@ func RelayTaskSubmit(c *gin.Context, info *relaycommon.RelayInfo) (taskErr *dto.
 	}
 
 	fields = append(fields, zap.String("platform", string(platform)))
-	logger.Info("Starting task submission", fields...)
+	taskLogger.Info("Starting task submission", fields...)
 
 	info.InitChannelMeta(c)
 	adaptor := GetTaskAdaptor(platform)
 	if adaptor == nil {
 		err := fmt.Errorf("invalid api platform: %s", platform)
-		logger.Error("Invalid platform", append(fields, zap.Error(err))...)
+		taskLogger.Error("Invalid platform", append(fields, zap.Error(err))...)
 		return service.TaskErrorWrapperLocal(err, "invalid_api_platform", http.StatusBadRequest)
 	}
 	adaptor.Init(info)
@@ -63,20 +63,20 @@ func RelayTaskSubmit(c *gin.Context, info *relaycommon.RelayInfo) (taskErr *dto.
 	// get & validate taskRequest 获取并验证文本请求
 	taskErr = adaptor.ValidateRequestAndSetAction(c, info)
 	if taskErr != nil {
-		logger.Error("Task validation failed", append(fields,
+		taskLogger.Error("Task validation failed", append(fields,
 			zap.String("error", taskErr.Message),
 			zap.Int("status_code", taskErr.StatusCode))...)
 		return
 	}
 	
 	fields = append(fields, zap.String("action", info.Action))
-	logger.Debug("Task request validated", fields...)
+	taskLogger.Debug("Task request validated", fields...)
 
 	// Apply model mapping
 	modelName := info.OriginModelName
 	if modelName == "" {
 		modelName = service.CoverTaskActionToModelName(platform, info.Action)
-		logger.Debug("Set model name from action",
+		taskLogger.Debug("Set model name from action",
 			append(fields,
 				zap.String("action", info.Action),
 				zap.String("model_name", modelName))...)
@@ -85,12 +85,12 @@ func RelayTaskSubmit(c *gin.Context, info *relaycommon.RelayInfo) (taskErr *dto.
 	// Update the model name in the info struct
 	info.OriginModelName = modelName
 	info.UpstreamModelName = modelName
-	logger.Debug("Initial model name set",
+	taskLogger.Debug("Initial model name set",
 		append(fields, zap.String("model_name", modelName))...)
 
 	// Apply model mapping
 	if err := helper.ModelMappedHelper(c, info, nil); err != nil {
-		logger.Error("Model mapping failed",
+		taskLogger.Error("Model mapping failed",
 			append(fields,
 				zap.String("model_name", modelName),
 				zap.Error(err))...)
@@ -99,7 +99,7 @@ func RelayTaskSubmit(c *gin.Context, info *relaycommon.RelayInfo) (taskErr *dto.
 	}
 	
 	modelName = info.UpstreamModelName
-	logger.Info("Model mapping completed",
+	taskLogger.Info("Model mapping completed",
 		append(fields,
 			zap.String("mapped_model", modelName),
 			zap.Bool("is_mapped", info.IsModelMapped))...)

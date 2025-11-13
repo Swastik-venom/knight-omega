@@ -42,6 +42,11 @@ const EnhancedHeaderBar = ({ onMobileMenuToggle, drawerOpen }) => {
     t,
   } = useHeaderBar({ onMobileMenuToggle, drawerOpen })
 
+  // Apply theme class to body
+  useEffect(() => {
+    document.body.className = theme
+  }, [theme])
+
   const { noticeVisible, unreadCount, handleNoticeOpen, handleNoticeClose, getUnreadKeys } =
     useNotifications(statusState)
 
