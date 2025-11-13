@@ -48,7 +48,6 @@ func SetApiRouter(router *gin.Engine) {
 		apiRouter.GET("/verify/status", middleware.UserAuth(), controller.GetVerificationStatus)
 
 		userRoute := apiRouter.Group("/user")
-		userRoute.Use(middleware.CORS()) // Add CORS middleware to user routes
 		{
 			userRoute.POST("/register", middleware.CriticalRateLimit(), middleware.TurnstileCheck(), controller.Register)
 			userRoute.POST("/login", middleware.CriticalRateLimit(), middleware.TurnstileCheck(), controller.Login)

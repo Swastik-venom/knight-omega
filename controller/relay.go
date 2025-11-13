@@ -142,7 +142,7 @@ func Relay(c *gin.Context, relayFormat types.RelayFormat) {
 	// common.SetContextKey(c, constant.ContextKeyTokenCountMeta, meta)
 
 	if priceData.FreeModel {
-		logger.LogInfo(c, fmt.Sprintf("Model %s is free, skip upfront fees", relayInfo.OriginModelName))
+		logger.LogInfo(c, fmt.Sprintf("模型 %s 免费，跳过预扣费", relayInfo.OriginModelName))
 	} else {
 		newAPIError = service.PreConsumeQuota(c, priceData.QuotaToPreConsume, relayInfo)
 		if newAPIError != nil {
@@ -368,7 +368,7 @@ func RelayMidjourney(c *gin.Context) {
 func RelayNotImplemented(c *gin.Context) {
 	err := dto.OpenAIError{
 		Message: "API not implemented",
-		Type:    "knight-omega_error_error",
+		Type:    "Knight_omega_api_error",
 		Param:   "",
 		Code:    "api_not_implemented",
 	}

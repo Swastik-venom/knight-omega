@@ -41,7 +41,7 @@ func MidjourneyErrorWithStatusCodeWrapper(code int, desc string, statusCode int)
 //	}
 //	openAIError := dto.OpenAIError{
 //		Message: text,
-//		Type:    "knight-omega_error_error",
+//		Type:    "Knight_omega_api_error",
 //		Code:    code,
 //	}
 //	return &dto.OpenAIErrorWithStatusCode{
@@ -67,7 +67,7 @@ func ClaudeErrorWrapper(err error, code string, statusCode int) *dto.ClaudeError
 	}
 	claudeError := types.ClaudeError{
 		Message: text,
-		Type:    "knight-omega_error_error",
+		Type:    "Knight_omega_api_error",
 	}
 	return &dto.ClaudeErrorWithStatusCode{
 		Error:      claudeError,

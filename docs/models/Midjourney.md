@@ -9,7 +9,7 @@
 + [x] /mj/submit/blend
 + [x] /mj/submit/describe
 + [x] /mj/image/{id} （通过此接口获取图片，**请必须在系统设置中填写服务器地址！！**）
-+ [x] /mj/task/{id}/fetch （此接口返回的图片地址为经过Knight Omega转发的地址）
++ [x] /mj/task/{id}/fetch （此接口返回的图片地址为经过One API转发的地址）
 + [x] /task/list-by-condition
 + [x] /mj/submit/action （仅midjourney-proxy-plus支持，下同）
 + [x] /mj/submit/modal
@@ -75,8 +75,8 @@
 3. **代理**填写midjourney-proxy部署的地址，例如：http://localhost:8080
 4. 密钥填写midjourney-proxy的密钥，如果没有设置密钥，可以随便填
 
-### 对接上游Knight Omega
+### 对接上游new api
 
 1. 在渠道管理中添加渠道，渠道类型选择**Midjourney Proxy Plus**，模型请参考上方模型列表
-2. **代理**填写上游Knight Omega的地址，例如：http://localhost:3000
-3. 密钥填写上游Knight Omega的密钥
+2. **代理**填写上游new api的地址，例如：http://localhost:3000
+3. 密钥填写上游new api的密钥
