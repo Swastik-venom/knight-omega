@@ -121,7 +121,7 @@ You can also access the AI-generated DeepWiki:
 
 ## ✨ Key Features
 
-New API offers a wide range of features, please refer to [Features Introduction](https://docs.newapi.pro/wiki/features-introduction) for details:
+Knight Omega offers a wide range of features, please refer to [Features Introduction](https://docs.newapi.pro/wiki/features-introduction) for details:
 
 1. 🎨 Brand new UI interface
 2. 🌍 Multi-language support
@@ -291,8 +291,8 @@ For detailed API documentation, please refer to [API Documentation](https://docs
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy): Midjourney interface support
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool): Query usage quota with key
 
-Other projects based on New API:
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of New API
+Other projects based on Knight Omega:
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon): High-performance optimized version of Knight Omega
 
 ## Help and Support
 
@@ -313,7 +313,7 @@ If you have any questions, please refer to [Help and Support](https://docs.newap
 
 <div align="center">
 
-### 💖 Thank you for using New API
+### 💖 Thank you for using Knight Omega
 
 If this project is helpful to you, welcome to give us a ⭐️ Star！
 

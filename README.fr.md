@@ -172,7 +172,7 @@ docker run --name new-api -d --restart always \
 
 ## ✨ Fonctionnalités clés
 
-New API offre un large éventail de fonctionnalités, veuillez vous référer à [Présentation des fonctionnalités](https://docs.newapi.pro/wiki/features-introduction) pour plus de détails :
+Knight Omega offre un large éventail de fonctionnalités, veuillez vous référer à [Présentation des fonctionnalités](https://docs.newapi.pro/wiki/features-introduction) pour plus de détails :
 
 1. 🎨 Nouvelle interface utilisateur
 2. 🌍 Prise en charge multilingue
@@ -343,8 +343,8 @@ Pour une documentation détaillée de l'API, veuillez vous référer à [Documen
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy) : Prise en charge de l'interface Midjourney
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool) : Interroger le quota d'utilisation avec une clé
 
-Autres projets basés sur New API :
-- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon) : Version optimisée hautes performances de New API
+Autres projets basés sur Knight Omega :
+- [new-api-horizon](https://github.com/Calcium-Ion/new-api-horizon) : Version optimisée hautes performances de Knight Omega
 
 ## Aide et support
 
@@ -365,7 +365,7 @@ Si vous avez des questions, veuillez vous référer à [Aide et support](https:/
 
 <div align="center">
 
-### 💖 Merci d'utiliser New API
+### 💖 Merci d'utiliser Knight Omega
 
 Si ce projet vous est utile, bienvenue à nous donner une ⭐️ Étoile！
 
