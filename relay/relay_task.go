@@ -49,10 +49,21 @@ func RelayTaskSubmit(c *gin.Context, info *relaycommon.RelayInfo) (taskErr *dto.
 		return
 	}
 
+	// Apply model mapping
 	modelName := info.OriginModelName
 	if modelName == "" {
 		modelName = service.CoverTaskActionToModelName(platform, info.Action)
 	}
+	// Update the model name in the info struct
+	info.OriginModelName = modelName
+	info.UpstreamModelName = modelName
+
+	// Apply model mapping
+	if err := helper.ModelMappedHelper(c, info, nil); err != nil {
+		taskErr = service.TaskErrorWrapper(err, "model_mapping_failed", http.StatusInternalServerError)
+		return
+	}
+	modelName = info.UpstreamModelName
 	modelPrice, success := ratio_setting.GetModelPrice(modelName, true)
 	if !success {
 		defaultPrice, ok := ratio_setting.GetDefaultModelPriceMap()[modelName]
