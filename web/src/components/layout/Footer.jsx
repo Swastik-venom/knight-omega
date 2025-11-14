@@ -19,7 +19,8 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography } from '@douyinfe/semi-ui';
+import { Button, Typography } from '@douyinfe/semi-ui';
+import { Link, useNavigate } from 'react-router-dom';
 import { getFooterHTML, getLogo, getSystemName } from '../../helpers';
 import { StatusContext } from '../../context/Status';
 
@@ -29,220 +30,144 @@ const FooterBar = () => {
   const systemName = getSystemName();
   const logo = getLogo();
   const [statusState] = useContext(StatusContext);
-  const isDemoSiteMode = statusState?.status?.demo_site_enabled || false;
-
-  const loadFooter = () => {
-    let footer_html = localStorage.getItem('footer_html');
-    if (footer_html) {
-      setFooter(footer_html);
-    }
-  };
-
-  const currentYear = new Date().getFullYear();
-
-  const customFooter = useMemo(
-    () => (
-      <footer className='relative h-auto py-16 px-6 md:px-24 w-full flex flex-col items-center justify-between overflow-hidden'>
-        <div className='absolute hidden md:block top-[204px] left-[-100px] w-[151px] h-[151px] rounded-full bg-[#FFD166]'></div>
-        <div className='absolute md:hidden bottom-[20px] left-[-50px] w-[80px] h-[80px] rounded-full bg-[#FFD166] opacity-60'></div>
-
-        {isDemoSiteMode && (
-          <div className='flex flex-col md:flex-row justify-between w-full max-w-[1110px] mb-10 gap-8'>
-            <div className='flex-shrink-0'>
-              <img
-                src={logo}
-                alt={systemName}
-                className='w-16 h-16 rounded-full bg-gray-800 p-1.5 object-contain'
-              />
-            </div>
-
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full'>
-              <div className='text-left'>
-                <p className='!text-semi-color-text-0 font-semibold mb-5'>
-                  {t('关于我们')}
-                </p>
-                <div className='flex flex-col gap-4'>
-                  <a
-                    href='https://docs.newapi.pro/wiki/project-introduction/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    {t('关于项目')}
-                  </a>
-                  <a
-                    href='https://docs.newapi.pro/support/community-interaction/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    {t('联系我们')}
-                  </a>
-                  <a
-                    href='https://docs.newapi.pro/wiki/features-introduction/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    {t('功能特性')}
-                  </a>
-                </div>
-              </div>
-
-              <div className='text-left'>
-                <p className='!text-semi-color-text-0 font-semibold mb-5'>
-                  {t('文档')}
-                </p>
-                <div className='flex flex-col gap-4'>
-                  <a
-                    href='https://docs.newapi.pro/getting-started/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    {t('快速开始')}
-                  </a>
-                  <a
-                    href='https://docs.newapi.pro/installation/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    {t('安装指南')}
-                  </a>
-                  <a
-                    href='https://docs.newapi.pro/api/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    {t('API 文档')}
-                  </a>
-                </div>
-              </div>
-
-              <div className='text-left'>
-                <p className='!text-semi-color-text-0 font-semibold mb-5'>
-                  {t('相关项目')}
-                </p>
-                <div className='flex flex-col gap-4'>
-                  <a
-                    href='https://github.com/songquanpeng/one-api'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    One API
-                  </a>
-                  <a
-                    href='https://github.com/novicezk/midjourney-proxy'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    Midjourney-Proxy
-                  </a>
-                  <a
-                    href='https://github.com/Calcium-Ion/neko-api-key-tool'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    neko-api-key-tool
-                  </a>
-                </div>
-              </div>
-
-              <div className='text-left'>
-                <p className='!text-semi-color-text-0 font-semibold mb-5'>
-                  {t('友情链接')}
-                </p>
-                <div className='flex flex-col gap-4'>
-                  <a
-                    href='https://github.com/Calcium-Ion/new-api-horizon'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    new-api-horizon
-                  </a>
-                  <a
-                    href='https://github.com/coaidev/coai'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    CoAI
-                  </a>
-                  <a
-                    href='https://www.gpt-load.com/'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='!text-semi-color-text-1'
-                  >
-                    GPT-Load
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className='flex flex-col md:flex-row items-center justify-between w-full max-w-[1110px] gap-6'>
-          <div className='flex flex-wrap items-center gap-2'>
-            <Typography.Text className='text-sm !text-semi-color-text-1'>
-              © {currentYear} {systemName}. {t('版权所有')}
-            </Typography.Text>
-          </div>
-
-          <div className='text-sm'>
-            <span className='!text-semi-color-text-1'>
-              {t('设计与开发由')}{' '}
-            </span>
-            <a
-              href='https://github.com/QuantumNous/new-api'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='!text-semi-color-primary font-medium'
-            >
-              New API
-            </a>
-          </div>
-        </div>
-      </footer>
-    ),
-    [logo, systemName, t, currentYear, isDemoSiteMode],
-  );
+  const docsLink = statusState?.status?.docs_link || '';
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loadFooter();
+    const footerHtml = localStorage.getItem('footer_html');
+    if (footerHtml) {
+      setFooter(footerHtml);
+    }
   }, []);
 
-  return (
-    <div className='w-full'>
-      {footer ? (
-        <div className='relative'>
-          <div
-            className='custom-footer'
-            dangerouslySetInnerHTML={{ __html: footer }}
-          ></div>
-          <div className='absolute bottom-2 right-4 text-xs !text-semi-color-text-2 opacity-70'>
-            <span>{t('设计与开发由')} </span>
-            <a
-              href='https://github.com/QuantumNous/new-api'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='!text-semi-color-primary font-medium'
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+
+  const quickLinks = useMemo(
+    () => [
+      { label: t('Home'), to: '/' },
+      { label: t('Console'), to: '/console' },
+      { label: t('Pricing'), to: '/pricing' },
+      { label: t('About'), to: '/about' },
+    ],
+    [t],
+  );
+
+  const resourceLinks = useMemo(() => {
+    const items = [];
+    if (docsLink) {
+      items.push({ label: t('Product guide'), href: docsLink });
+    }
+    items.push({ label: t('User agreement'), to: '/user-agreement' });
+    items.push({ label: t('Privacy policy'), to: '/privacy-policy' });
+    return items;
+  }, [docsLink, t]);
+
+  const supportContacts = useMemo(
+    () => [
+      { label: 'support@knight-omega.io', href: 'mailto:support@knight-omega.io' },
+      { label: 'status.knight-omega.io', href: 'https://status.knight-omega.io' },
+    ],
+    [],
+  );
+
+  const renderLink = (item) => {
+    if (item.to) {
+      return (
+        <Link key={item.label} to={item.to} className='footer-link'>
+          {item.label}
+        </Link>
+      );
+    }
+
+    return (
+      <a key={item.label} href={item.href} target='_blank' rel='noopener noreferrer' className='footer-link'>
+        {item.label}
+      </a>
+    );
+  };
+
+  const renderCustomFooter = () => (
+    <footer className='footer-modern'>
+      <div className='footer-modern__orb footer-modern__orb--one' />
+      <div className='footer-modern__orb footer-modern__orb--two' />
+
+      <div className='footer-modern__grid'>
+        <div className='footer-modern__brand'>
+          <div className='footer-modern__brand-row'>
+            {logo ? (
+              <img src={logo} alt={systemName} className='footer-modern__logo' />
+            ) : (
+              <div className='footer-modern__logo--placeholder'>{systemName?.charAt(0)}</div>
+            )}
+            <div>
+              <Typography.Title heading={5} className='footer-modern__title'>
+                {systemName || 'Knight Omega'}
+              </Typography.Title>
+              <Typography.Text className='footer-modern__tagline'>
+                {t('The all-in-one gateway for free tiers and $8 Pro monetisation')}
+              </Typography.Text>
+            </div>
+          </div>
+
+          <div className='footer-modern__cta'>
+            <Button size='large' theme='solid' type='primary' onClick={() => navigate('/console')}>
+              {t('Open control center')}
+            </Button>
+            <Button
+              size='large'
+              theme='borderless'
+              className='footer-modern__cta-secondary'
+              onClick={() => window.open('mailto:support@knight-omega.io')}
             >
-              New API
-            </a>
+              {t('Schedule a demo')}
+            </Button>
           </div>
         </div>
-      ) : (
-        customFooter
-      )}
-    </div>
+
+        <div className='footer-modern__links'>
+          <div>
+            <p className='footer-modern__links-title'>{t('Site')}</p>
+            <div className='footer-modern__links-column'>{quickLinks.map(renderLink)}</div>
+          </div>
+
+          <div>
+            <p className='footer-modern__links-title'>{t('Resources')}</p>
+            <div className='footer-modern__links-column'>{resourceLinks.map(renderLink)}</div>
+          </div>
+
+          <div>
+            <p className='footer-modern__links-title'>{t('Support')}</p>
+            <div className='footer-modern__links-column'>
+              {supportContacts.map((item) => (
+                <a key={item.label} href={item.href} className='footer-link'>
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className='footer-modern__bottom'>
+        <Typography.Text className='footer-modern__legal'>
+          © {currentYear} {systemName || 'Knight Omega'}. {t('All rights reserved')}
+        </Typography.Text>
+        <Typography.Text className='footer-modern__legal'>
+          {t('Deliver secure AI access with premium routing, billing, and compliance guardrails')}
+        </Typography.Text>
+      </div>
+    </footer>
   );
+
+  if (footer) {
+    return (
+      <div className='w-full footer-custom-html'>
+        <div className='custom-footer' dangerouslySetInnerHTML={{ __html: footer }}></div>
+      </div>
+    );
+  }
+
+  return renderCustomFooter();
 };
 
 export default FooterBar;

@@ -39,7 +39,7 @@ i18n
       ru: ruTranslation,
       ja: jaTranslation,
     },
-    fallbackLng: 'zh',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },

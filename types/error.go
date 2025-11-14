@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/QuantumNous/new-api/common"
+	"github.com/QuantumNous/knight-omega/common"
 )
 
 type OpenAIError struct {
@@ -24,7 +24,7 @@ type ClaudeError struct {
 type ErrorType string
 
 const (
-	ErrorTypeNewAPIError     ErrorType = "new_api_error"
+	ErrorTypeKnightOmegaError ErrorType = "knight_omega_error"
 	ErrorTypeOpenAIError     ErrorType = "openai_error"
 	ErrorTypeClaudeError     ErrorType = "claude_error"
 	ErrorTypeMidjourneyError ErrorType = "midjourney_error"
@@ -39,7 +39,7 @@ const (
 	ErrorCodeInvalidRequest         ErrorCode = "invalid_request"
 	ErrorCodeSensitiveWordsDetected ErrorCode = "sensitive_words_detected"
 
-	// new api error
+	// Knight Omega error
 	ErrorCodeCountTokenFailed   ErrorCode = "count_token_failed"
 	ErrorCodeModelPriceError    ErrorCode = "model_price_error"
 	ErrorCodeInvalidApiType     ErrorCode = "invalid_api_type"
@@ -84,7 +84,7 @@ const (
 	ErrorCodePreConsumeTokenQuotaFailed ErrorCode = "pre_consume_token_quota_failed"
 )
 
-type NewAPIError struct {
+type KnightOmegaError struct {
 	Err            error
 	RelayError     any
 	skipRetry      bool
@@ -94,21 +94,21 @@ type NewAPIError struct {
 	StatusCode     int
 }
 
-func (e *NewAPIError) GetErrorCode() ErrorCode {
+func (e *KnightOmegaError) GetErrorCode() ErrorCode {
 	if e == nil {
 		return ""
 	}
 	return e.errorCode
 }
 
-func (e *NewAPIError) GetErrorType() ErrorType {
+func (e *KnightOmegaError) GetErrorType() ErrorType {
 	if e == nil {
 		return ""
 	}
 	return e.errorType
 }
 
-func (e *NewAPIError) Error() string {
+func (e *KnightOmegaError) Error() string {
 	if e == nil {
 		return ""
 	}
@@ -119,7 +119,7 @@ func (e *NewAPIError) Error() string {
 	return e.Err.Error()
 }
 
-func (e *NewAPIError) MaskSensitiveError() string {
+func (e *KnightOmegaError) MaskSensitiveError() string {
 	if e == nil {
 		return ""
 	}
@@ -133,11 +133,11 @@ func (e *NewAPIError) MaskSensitiveError() string {
 	return common.MaskSensitiveInfo(errStr)
 }
 
-func (e *NewAPIError) SetMessage(message string) {
+func (e *KnightOmegaError) SetMessage(message string) {
 	e.Err = errors.New(message)
 }
 
-func (e *NewAPIError) ToOpenAIError() OpenAIError {
+func (e *KnightOmegaError) ToOpenAIError() OpenAIError {
 	var result OpenAIError
 	switch e.errorType {
 	case ErrorTypeOpenAIError:
@@ -170,7 +170,7 @@ func (e *NewAPIError) ToOpenAIError() OpenAIError {
 	return result
 }
 
-func (e *NewAPIError) ToClaudeError() ClaudeError {
+func (e *KnightOmegaError) ToClaudeError() ClaudeError {
 	var result ClaudeError
 	switch e.errorType {
 	case ErrorTypeOpenAIError:
@@ -199,21 +199,21 @@ func (e *NewAPIError) ToClaudeError() ClaudeError {
 	return result
 }
 
-type NewAPIErrorOptions func(*NewAPIError)
+type KnightOmegaErrorOptions func(*KnightOmegaError)
 
-func NewError(err error, errorCode ErrorCode, ops ...NewAPIErrorOptions) *NewAPIError {
-	var newErr *NewAPIError
-	// 保留深层传递的 new err
+func NewError(err error, errorCode ErrorCode, ops ...KnightOmegaErrorOptions) *KnightOmegaError {
+	var newErr *KnightOmegaError
+	// 保留深层传递的 knight omega err
 	if errors.As(err, &newErr) {
 		for _, op := range ops {
 			op(newErr)
 		}
 		return newErr
 	}
-	e := &NewAPIError{
+	e := &KnightOmegaError{
 		Err:        err,
 		RelayError: nil,
-		errorType:  ErrorTypeNewAPIError,
+		errorType:  ErrorTypeKnightOmegaError,
 		StatusCode: http.StatusInternalServerError,
 		errorCode:  errorCode,
 	}
@@ -223,9 +223,9 @@ func NewError(err error, errorCode ErrorCode, ops ...NewAPIErrorOptions) *NewAPI
 	return e
 }
 
-func NewOpenAIError(err error, errorCode ErrorCode, statusCode int, ops ...NewAPIErrorOptions) *NewAPIError {
-	var newErr *NewAPIError
-	// 保留深层传递的 new err
+func NewOpenAIError(err error, errorCode ErrorCode, statusCode int, ops ...KnightOmegaErrorOptions) *KnightOmegaError {
+	var newErr *KnightOmegaError
+	// 保留深层传递的 knight omega err
 	if errors.As(err, &newErr) {
 		if newErr.RelayError == nil {
 			openaiError := OpenAIError{
@@ -248,7 +248,7 @@ func NewOpenAIError(err error, errorCode ErrorCode, statusCode int, ops ...NewAP
 	return WithOpenAIError(openaiError, statusCode, ops...)
 }
 
-func InitOpenAIError(errorCode ErrorCode, statusCode int, ops ...NewAPIErrorOptions) *NewAPIError {
+func InitOpenAIError(errorCode ErrorCode, statusCode int, ops ...KnightOmegaErrorOptions) *KnightOmegaError {
 	openaiError := OpenAIError{
 		Type: string(errorCode),
 		Code: errorCode,
@@ -256,14 +256,14 @@ func InitOpenAIError(errorCode ErrorCode, statusCode int, ops ...NewAPIErrorOpti
 	return WithOpenAIError(openaiError, statusCode, ops...)
 }
 
-func NewErrorWithStatusCode(err error, errorCode ErrorCode, statusCode int, ops ...NewAPIErrorOptions) *NewAPIError {
-	e := &NewAPIError{
+func NewErrorWithStatusCode(err error, errorCode ErrorCode, statusCode int, ops ...KnightOmegaErrorOptions) *KnightOmegaError {
+	e := &KnightOmegaError{
 		Err: err,
 		RelayError: OpenAIError{
 			Message: err.Error(),
 			Type:    string(errorCode),
 		},
-		errorType:  ErrorTypeNewAPIError,
+		errorType:  ErrorTypeKnightOmegaError,
 		StatusCode: statusCode,
 		errorCode:  errorCode,
 	}
@@ -274,7 +274,7 @@ func NewErrorWithStatusCode(err error, errorCode ErrorCode, statusCode int, ops 
 	return e
 }
 
-func WithOpenAIError(openAIError OpenAIError, statusCode int, ops ...NewAPIErrorOptions) *NewAPIError {
+func WithOpenAIError(openAIError OpenAIError, statusCode int, ops ...KnightOmegaErrorOptions) *KnightOmegaError {
 	code, ok := openAIError.Code.(string)
 	if !ok {
 		if openAIError.Code != nil {
@@ -286,7 +286,7 @@ func WithOpenAIError(openAIError OpenAIError, statusCode int, ops ...NewAPIError
 	if openAIError.Type == "" {
 		openAIError.Type = "upstream_error"
 	}
-	e := &NewAPIError{
+	e := &KnightOmegaError{
 		RelayError: openAIError,
 		errorType:  ErrorTypeOpenAIError,
 		StatusCode: statusCode,
@@ -299,11 +299,11 @@ func WithOpenAIError(openAIError OpenAIError, statusCode int, ops ...NewAPIError
 	return e
 }
 
-func WithClaudeError(claudeError ClaudeError, statusCode int, ops ...NewAPIErrorOptions) *NewAPIError {
+func WithClaudeError(claudeError ClaudeError, statusCode int, ops ...KnightOmegaErrorOptions) *KnightOmegaError {
 	if claudeError.Type == "" {
 		claudeError.Type = "upstream_error"
 	}
-	e := &NewAPIError{
+	e := &KnightOmegaError{
 		RelayError: claudeError,
 		errorType:  ErrorTypeClaudeError,
 		StatusCode: statusCode,
@@ -316,14 +316,14 @@ func WithClaudeError(claudeError ClaudeError, statusCode int, ops ...NewAPIError
 	return e
 }
 
-func IsChannelError(err *NewAPIError) bool {
+func IsChannelError(err *KnightOmegaError) bool {
 	if err == nil {
 		return false
 	}
 	return strings.HasPrefix(string(err.errorCode), "channel:")
 }
 
-func IsSkipRetryError(err *NewAPIError) bool {
+func IsSkipRetryError(err *KnightOmegaError) bool {
 	if err == nil {
 		return false
 	}
@@ -331,20 +331,20 @@ func IsSkipRetryError(err *NewAPIError) bool {
 	return err.skipRetry
 }
 
-func ErrOptionWithSkipRetry() NewAPIErrorOptions {
-	return func(e *NewAPIError) {
+func ErrOptionWithSkipRetry() KnightOmegaErrorOptions {
+	return func(e *KnightOmegaError) {
 		e.skipRetry = true
 	}
 }
 
-func ErrOptionWithNoRecordErrorLog() NewAPIErrorOptions {
-	return func(e *NewAPIError) {
+func ErrOptionWithNoRecordErrorLog() KnightOmegaErrorOptions {
+	return func(e *KnightOmegaError) {
 		e.recordErrorLog = common.GetPointer(false)
 	}
 }
 
-func ErrOptionWithHideErrMsg(replaceStr string) NewAPIErrorOptions {
-	return func(e *NewAPIError) {
+func ErrOptionWithHideErrMsg(replaceStr string) KnightOmegaErrorOptions {
+	return func(e *KnightOmegaError) {
 		if common.DebugEnabled {
 			fmt.Printf("ErrOptionWithHideErrMsg: %s, origin error: %s", replaceStr, e.Err)
 		}
@@ -352,7 +352,7 @@ func ErrOptionWithHideErrMsg(replaceStr string) NewAPIErrorOptions {
 	}
 }
 
-func IsRecordErrorLog(e *NewAPIError) bool {
+func IsRecordErrorLog(e *KnightOmegaError) bool {
 	if e == nil {
 		return false
 	}

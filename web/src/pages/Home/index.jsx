@@ -17,14 +17,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import React, { useContext, useEffect, useState } from 'react';
-import {
-  Button,
-  Typography,
-  Input,
-  ScrollList,
-  ScrollItem,
-} from '@douyinfe/semi-ui';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { API, showError, copy, showSuccess } from '../../helpers';
 import { useIsMobile } from '../../hooks/common/useIsMobile';
 import { API_ENDPOINTS } from '../../constants/common.constant';
@@ -32,38 +25,26 @@ import { StatusContext } from '../../context/Status';
 import { useActualTheme } from '../../context/Theme';
 import { marked } from 'marked';
 import { useTranslation } from 'react-i18next';
-import {
-  IconGithubLogo,
-  IconPlay,
-  IconFile,
-  IconCopy,
-} from '@douyinfe/semi-icons';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NoticeModal from '../../components/layout/NoticeModal';
 import {
   Moonshot,
   OpenAI,
-  XAI,
-  Zhipu,
-  Volcengine,
-  Cohere,
   Claude,
   Gemini,
-  Suno,
-  Minimax,
-  Wenxin,
-  Spark,
-  Qingyan,
   DeepSeek,
   Qwen,
-  Midjourney,
   Grok,
   AzureAI,
-  Hunyuan,
-  Xinference,
 } from '@lobehub/icons';
-
-const { Text } = Typography;
+import { ShieldCheck, Sparkles, Wallet } from 'lucide-react';
+import HeroSection from '../../components/home/HeroSection';
+import FeatureShowcase from '../../components/home/FeatureShowcase';
+import MetricsRibbon from '../../components/home/MetricsRibbon';
+import WorkflowShowcase from '../../components/home/WorkflowShowcase';
+import CallToAction from '../../components/home/CallToAction';
+import TestimonialsMarquee from '../../components/home/TestimonialsMarquee';
+import LandingBackground from '../../components/layout/LandingBackground';
 
 const Home = () => {
   const { t, i18n } = useTranslation();
@@ -73,13 +54,12 @@ const Home = () => {
   const [homePageContent, setHomePageContent] = useState('');
   const [noticeVisible, setNoticeVisible] = useState(false);
   const isMobile = useIsMobile();
-  const isDemoSiteMode = statusState?.status?.demo_site_enabled || false;
+  const navigate = useNavigate();
   const docsLink = statusState?.status?.docs_link || '';
   const serverAddress =
     statusState?.status?.server_address || `${window.location.origin}`;
   const endpointItems = API_ENDPOINTS.map((e) => ({ value: e }));
   const [endpointIndex, setEndpointIndex] = useState(0);
-  const isChinese = i18n.language.startsWith('zh');
 
   const displayHomePageContent = async () => {
     setHomePageContent(localStorage.getItem('home_page_content') || '');
@@ -93,7 +73,6 @@ const Home = () => {
       setHomePageContent(content);
       localStorage.setItem('home_page_content', content);
 
-      // 如果内容是 URL，则发送主题模式
       if (data.startsWith('https://')) {
         const iframe = document.querySelector('iframe');
         if (iframe) {
@@ -105,7 +84,7 @@ const Home = () => {
       }
     } else {
       showError(message);
-      setHomePageContent('加载首页内容失败...');
+      setHomePageContent('Failed to load home page content...');
     }
     setHomePageContentLoaded(true);
   };
@@ -113,7 +92,7 @@ const Home = () => {
   const handleCopyBaseURL = async () => {
     const ok = await copy(serverAddress);
     if (ok) {
-      showSuccess(t('已复制到剪切板'));
+      showSuccess(t('Copied to clipboard'));
     }
   };
 
@@ -148,208 +127,209 @@ const Home = () => {
     return () => clearInterval(timer);
   }, [endpointItems.length]);
 
+  const heroBadges = useMemo(
+    () => [
+      { label: t('Free tier ready in minutes'), color: 'green' },
+      { label: t('$8 Pro unlocks premium lanes'), color: 'blue' },
+    ],
+    [t],
+  );
+
+  const heroIntegrations = useMemo(
+    () => [
+      { key: 'openai', icon: <OpenAI size={36} /> },
+      { key: 'claude', icon: <Claude.Color size={36} /> },
+      { key: 'deepseek', icon: <DeepSeek.Color size={36} /> },
+      { key: 'moonshot', icon: <Moonshot size={36} /> },
+      { key: 'gemini', icon: <Gemini.Color size={36} /> },
+      { key: 'qwen', icon: <Qwen.Color size={36} /> },
+      { key: 'grok', icon: <Grok size={36} /> },
+      { key: 'azure', icon: <AzureAI.Color size={36} /> },
+    ],
+    [],
+  );
+
+  const heroHighlights = useMemo(
+    () => [
+      {
+        title: t('Launch a free API tier instantly'),
+        description: t('Ship 10,000 complimentary tokens per month with shared capacity out of the box.'),
+        icon: <Sparkles size={20} />,
+      },
+      {
+        title: t('Protected multi-provider routing'),
+        description: t('Failover across global regions so both hobby and paying users stay online.'),
+        icon: <ShieldCheck size={20} />,
+      },
+      {
+        title: t('Upgrade to $8 Pro when ready'),
+        description: t('Unlock premium models, priority bandwidth, and consolidated billing as you scale.'),
+        icon: <Wallet size={20} />,
+      },
+    ],
+    [t],
+  );
+
+  const featureSections = useMemo(
+    () => [
+      {
+        icon: 'reliability',
+        title: t('Free tier without the maintenance tax'),
+        description: t('Serve generous usage caps with intelligent throttling, shared limits, and zero manual intervention.'),
+        points: [
+          t('10K monthly tokens included for each workspace'),
+          t('Automatic pooling across upstream providers'),
+          t('Realtime health scoring for free-plan traffic'),
+        ],
+      },
+      {
+        icon: 'observability',
+        title: t('Transparent upgrades to paid lanes'),
+        description: t('Help teams understand when to move to Pro with built-in analytics, cost previews, and upgrade nudges.'),
+        points: [
+          t('Forecast monthly spend before committing'),
+          t('Usage insights surfaced inside your product'),
+          t('Experiment-friendly sandbox reporting'),
+        ],
+      },
+      {
+        icon: 'automation',
+        title: t('Billing & governance that scales with you'),
+        description: t('Blend credit wallets, seat permissions, and key rotation without rebuilding your stack.'),
+        points: [
+          t('Seat-based or usage-based monetisation options'),
+          t('Automated key rotation & audit trails'),
+          t('Webhook-ready status and billing events'),
+        ],
+      },
+      {
+        icon: 'performance',
+        title: t('Premium providers for Pro users'),
+        description: t('Route Pro traffic through priority providers, dedicated bandwidth, and faster inference lanes.'),
+        points: [
+          t('Curated paid model catalogue with SLAs'),
+          t('Latency-optimised routing for paying customers'),
+          t('Provider-level spend controls and alerts'),
+        ],
+      },
+    ],
+    [t],
+  );
+
+  const metrics = useMemo(
+    () => [
+      { value: '10K', label: t('Complimentary tokens every month') },
+      { value: '$8', label: t('Pro plan unlocks premium routing') },
+      { value: '6', label: t('Premium providers bundled in Pro') },
+      { value: '99.95%', label: t('Uptime backed by smart failover') },
+    ],
+    [t],
+  );
+
+  const workflowSteps = useMemo(
+    () => [
+      {
+        title: t('Launch a free workspace'),
+        description: t('Invite users, ship sandbox keys, and cap usage with a single toggle.'),
+        meta: t('Ready in under five minutes'),
+      },
+      {
+        title: t('Add monetisation rules'),
+        description: t('Bundle credits, define the $8 Pro plan, and preview upgrade-ready cohorts.'),
+        meta: t('Usage scoring + conversion prompts'),
+      },
+      {
+        title: t('Route free vs. paid traffic'),
+        description: t('Auto-promote Pro users through premium providers while guarding the free tier.'),
+        meta: t('Failover-ready multi-region mesh'),
+      },
+      {
+        title: t('Report & grow revenue'),
+        description: t('Export billing events, trigger payouts, and surface upgrade nudges across the funnel.'),
+        meta: t('BI, CRM, and webhook friendly'),
+      },
+    ],
+    [t],
+  );
+
   return (
-    <div className='w-full overflow-x-hidden'>
-      <NoticeModal
-        visible={noticeVisible}
-        onClose={() => setNoticeVisible(false)}
-        isMobile={isMobile}
-      />
-      {homePageContentLoaded && homePageContent === '' ? (
-        <div className='w-full overflow-x-hidden'>
-          {/* Banner 部分 */}
-          <div className='w-full border-b border-semi-color-border min-h-[500px] md:min-h-[600px] lg:min-h-[700px] relative overflow-x-hidden'>
-            {/* 背景模糊晕染球 */}
-            <div className='blur-ball blur-ball-indigo' />
-            <div className='blur-ball blur-ball-teal' />
-            <div className='flex items-center justify-center h-full px-4 py-20 md:py-24 lg:py-32 mt-10'>
-              {/* 居中内容区 */}
-              <div className='flex flex-col items-center justify-center text-center max-w-4xl mx-auto'>
-                <div className='flex flex-col items-center justify-center mb-6 md:mb-8'>
-                  <h1
-                    className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-semi-color-text-0 leading-tight ${isChinese ? 'tracking-wide md:tracking-wider' : ''}`}
-                  >
-                    <>
-                      {t('统一的')}
-                      <br />
-                      <span className='shine-text'>{t('大模型接口网关')}</span>
-                    </>
-                  </h1>
-                  <p className='text-base md:text-lg lg:text-xl text-semi-color-text-1 mt-4 md:mt-6 max-w-xl'>
-                    {t('更好的价格，更好的稳定性，只需要将模型基址替换为：')}
-                  </p>
-                  {/* BASE URL 与端点选择 */}
-                  <div className='flex flex-col md:flex-row items-center justify-center gap-4 w-full mt-4 md:mt-6 max-w-md'>
-                    <Input
-                      readonly
-                      value={serverAddress}
-                      className='flex-1 !rounded-full'
-                      size={isMobile ? 'default' : 'large'}
-                      suffix={
-                        <div className='flex items-center gap-2'>
-                          <ScrollList
-                            bodyHeight={32}
-                            style={{ border: 'unset', boxShadow: 'unset' }}
-                          >
-                            <ScrollItem
-                              mode='wheel'
-                              cycled={true}
-                              list={endpointItems}
-                              selectedIndex={endpointIndex}
-                              onSelect={({ index }) => setEndpointIndex(index)}
-                            />
-                          </ScrollList>
-                          <Button
-                            type='primary'
-                            onClick={handleCopyBaseURL}
-                            icon={<IconCopy />}
-                            className='!rounded-full'
-                          />
-                        </div>
-                      }
-                    />
-                  </div>
-                </div>
+    <LandingBackground>
+      <div className='w-full overflow-x-hidden'>
+        <NoticeModal
+          visible={noticeVisible}
+          onClose={() => setNoticeVisible(false)}
+          isMobile={isMobile}
+        />
+        {homePageContentLoaded && homePageContent === '' ? (
+          <div className='w-full overflow-x-hidden'>
+          <HeroSection
+            headline={
+              <>
+                {t('Knight Omega')}
+                <br />
+                {t('Free-to-Pro API Gateway')}
+              </>
+            }
+            subheadline={t('Free + paid API platform for modern builders')}
+            description={t('Offer an always-on free tier and a $8 Pro upgrade with premium providers, all from one control plane.')}
+            serverAddress={serverAddress}
+            endpointItems={endpointItems}
+            endpointIndex={endpointIndex}
+            onEndpointChange={setEndpointIndex}
+            onCopy={handleCopyBaseURL}
+            primaryCta={{
+              label: t('Get API keys'),
+              onClick: () => navigate('/console'),
+            }}
+            secondaryCta={
+              docsLink
+                ? {
+                    label: t('Explore documentation'),
+                    onClick: () => window.open(docsLink, '_blank'),
+                  }
+                : null
+            }
+            badges={heroBadges}
+            integrations={heroIntegrations}
+            highlights={heroHighlights}
+            isMobile={isMobile}
+          />
 
-                {/* 操作按钮 */}
-                <div className='flex flex-row gap-4 justify-center items-center'>
-                  <Link to='/console'>
-                    <Button
-                      theme='solid'
-                      type='primary'
-                      size={isMobile ? 'default' : 'large'}
-                      className='!rounded-3xl px-8 py-2'
-                      icon={<IconPlay />}
-                    >
-                      {t('获取密钥')}
-                    </Button>
-                  </Link>
-                  {isDemoSiteMode && statusState?.status?.version ? (
-                    <Button
-                      size={isMobile ? 'default' : 'large'}
-                      className='flex items-center !rounded-3xl px-6 py-2'
-                      icon={<IconGithubLogo />}
-                      onClick={() =>
-                        window.open(
-                          'https://github.com/QuantumNous/new-api',
-                          '_blank',
-                        )
-                      }
-                    >
-                      {statusState.status.version}
-                    </Button>
-                  ) : (
-                    docsLink && (
-                      <Button
-                        size={isMobile ? 'default' : 'large'}
-                        className='flex items-center !rounded-3xl px-6 py-2'
-                        icon={<IconFile />}
-                        onClick={() => window.open(docsLink, '_blank')}
-                      >
-                        {t('文档')}
-                      </Button>
-                    )
-                  )}
-                </div>
+          <MetricsRibbon metrics={metrics} />
 
-                {/* 框架兼容性图标 */}
-                <div className='mt-12 md:mt-16 lg:mt-20 w-full'>
-                  <div className='flex items-center mb-6 md:mb-8 justify-center'>
-                    <Text
-                      type='tertiary'
-                      className='text-lg md:text-xl lg:text-2xl font-light'
-                    >
-                      {t('支持众多的大模型供应商')}
-                    </Text>
-                  </div>
-                  <div className='flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-5xl mx-auto px-4'>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Moonshot size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <OpenAI size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <XAI size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Zhipu.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Volcengine.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Cohere.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Claude.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Gemini.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Suno size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Minimax.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Wenxin.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Spark.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Qingyan.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <DeepSeek.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Qwen.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Midjourney size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Grok size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <AzureAI.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Hunyuan.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Xinference.Color size={40} />
-                    </div>
-                    <div className='w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center'>
-                      <Typography.Text className='!text-lg sm:!text-xl md:!text-2xl lg:!text-3xl font-bold'>
-                        30+
-                      </Typography.Text>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <FeatureShowcase sections={featureSections} />
+
+          <TestimonialsMarquee />
+
+          <WorkflowShowcase steps={workflowSteps} />
+
+          <CallToAction
+            headline={t('Monetise your API with a delightful free-to-Pro journey')}
+            subheadline={t('Chat with our team to tailor the $8 Pro plan, premium providers, and billing flows to your product roadmap.')}
+            primaryCta={{
+              label: t('Launch free tier'),
+              onClick: () => navigate('/console'),
+            }}
+            secondaryCta={{
+              label: t('Design my Pro plan'),
+              onClick: () => window.open('https://cal.com', '_blank'),
+            }}
+          />
           </div>
-        </div>
-      ) : (
-        <div className='overflow-x-hidden w-full'>
-          {homePageContent.startsWith('https://') ? (
-            <iframe
-              src={homePageContent}
-              className='w-full h-screen border-none'
-            />
-          ) : (
-            <div
-              className='mt-[60px]'
-              dangerouslySetInnerHTML={{ __html: homePageContent }}
-            />
-          )}
-        </div>
-      )}
-    </div>
+        ) : (
+          <div className='overflow-x-hidden w-full'>
+            {homePageContent.startsWith('https://') ? (
+              <iframe src={homePageContent} className='w-full h-screen border-none' />
+            ) : (
+              <div
+                className='mt-[60px]'
+                dangerouslySetInnerHTML={{ __html: homePageContent }}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </LandingBackground>
   );
 };
 
