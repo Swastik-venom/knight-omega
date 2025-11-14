@@ -17,12 +17,14 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import React, { useCallback } from 'react';
-import { Card, Divider, Empty, Button } from '@douyinfe/semi-ui';
-import { Server, RotateCcw, Copy, ExternalLink as ExternalLinkIcon } from 'lucide-react';
-import { IllustrationConstruction, IllustrationConstructionDark } from '@douyinfe/semi-illustrations';
+import React from 'react';
+import { Card, Avatar, Tag, Divider, Empty } from '@douyinfe/semi-ui';
+import { Server, Gauge, ExternalLink } from 'lucide-react';
+import {
+  IllustrationConstruction,
+  IllustrationConstructionDark,
+} from '@douyinfe/semi-illustrations';
 import ScrollableContainer from '../common/ui/ScrollableContainer';
-import { Card as GlassCard, CardHeader, CardContent } from '../common/ui/card';
 
 const ApiInfoPanel = ({
   apiInfoData,
@@ -33,119 +35,84 @@ const ApiInfoPanel = ({
   ILLUSTRATION_SIZE,
   t,
 }) => {
-  // Memoize the click handlers to prevent unnecessary re-renders
-  const handleSpeedTestMemo = useCallback((url) => {
-    handleSpeedTest(url);
-  }, [handleSpeedTest]);
-
-  const handleOpenUrl = useCallback((url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }, []);
-
-  const handleCopyUrlMemo = useCallback((url) => {
-    handleCopyUrl(url);
-  }, [handleCopyUrl]);
-
   return (
-    <GlassCard 
-      elevated 
-      className='border border-slate-200/70 bg-white/95 !rounded-3xl shadow-[0_20px_55px_rgba(15,23,42,0.08)] dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_20px_55px_rgba(15,23,42,0.4)]'
+    <Card
       {...CARD_PROPS}
-    >
-      <CardHeader className="w-full">
-        <div className="w-full flex justify-center items-center gap-2">
+      className='bg-gray-50 border-0 !rounded-2xl'
+      title={
+        <div className={FLEX_CENTER_GAP2}>
           <Server size={16} />
-          <span className="text-lg font-semibold text-slate-900 dark:text-white">
-            {t('API信息', { defaultValue: 'API Information' })}
-          </span>
+          {t('API信息')}
         </div>
-      </CardHeader>
-      
-      <CardContent padding="none">
-        <ScrollableContainer maxHeight='24rem'>
-          {apiInfoData.length > 0 ? (
-            apiInfoData.map((api) => (
-              <React.Fragment key={api.id}>
-                <div className='flex p-4 transition-all duration-200 cursor-pointer hover:bg-slate-100/80 dark:hover:bg-white/10'>
-                  <div className='mr-3 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-500 to-purple-500'>
-                    <span className='text-xs font-medium text-white'>
-                      {api.route.substring(0, 2).toUpperCase()}
-                    </span>
-                  </div>
-                  <div className='flex-1'>
-                    <div className='flex flex-wrap items-center justify-between mb-1 w-full gap-2'>
-                      <span className='text-sm font-semibold text-slate-900 break-all dark:text-white'>
-                        {api.route}
-                      </span>
-                      <div className='flex items-center gap-2 mt-1 lg:mt-0'>
-                        <Button
-                          theme='borderless'
-                          size='small'
-                          className='!rounded-full !px-3 !py-1.5 !text-xs !text-slate-600 hover:!bg-slate-100 dark:!text-white dark:hover:!bg-white/10'
-                          icon={<RotateCcw size={12} />}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleSpeedTestMemo(api.url);
-                          }}
-                        >
-                          {t('测速', { defaultValue: 'Speed test' })}
-                        </Button>
-                        <Button
-                          theme='borderless'
-                          size='small'
-                          className='!rounded-full !px-3 !py-1.5 !text-xs !text-slate-600 hover:!bg-slate-100 dark:!text-white dark:hover:!bg-white/10'
-                          icon={<ExternalLinkIcon size={12} />}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleOpenUrl(api.url);
-                          }}
-                        >
-                          {t('跳转', { defaultValue: 'Open' })}
-                        </Button>
-                        <Button
-                          theme='borderless'
-                          size='small'
-                          className='!rounded-full !px-3 !py-1.5 !text-xs !text-slate-600 hover:!bg-slate-100 dark:!text-white dark:hover:!bg-white/10'
-                          icon={<Copy size={12} />}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleCopyUrlMemo(api.url);
-                          }}
-                        >
-                          {t('复制', { defaultValue: 'Copy' })}
-                        </Button>
-                      </div>
-                    </div>
-                    <div
-                      className='text-slate-600 break-all cursor-pointer hover:text-indigo-500 hover:underline transition-colors dark:text-blue-300'
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleCopyUrlMemo(api.url);
-                      }}
-                    >
-                      {api.url}
-                    </div>
-                    <div className='text-sm text-slate-500 dark:text-white/70'>{api.description}</div>
-                  </div>
+      }
+      bodyStyle={{ padding: 0 }}
+    >
+      <ScrollableContainer maxHeight='24rem'>
+        {apiInfoData.length > 0 ? (
+          apiInfoData.map((api) => (
+            <React.Fragment key={api.id}>
+              <div className='flex p-2 hover:bg-white rounded-lg transition-colors cursor-pointer'>
+                <div className='flex-shrink-0 mr-3'>
+                  <Avatar size='extra-small' color={api.color}>
+                    {api.route.substring(0, 2)}
+                  </Avatar>
                 </div>
-                <Divider className='my-0 bg-slate-200/70 dark:bg-white/10' />
-              </React.Fragment>
-            ))
-          ) : (
-            <div className='flex justify-center items-center min-h-[20rem] w-full'>
-              <Empty
-                image={<IllustrationConstruction style={ILLUSTRATION_SIZE} />}
-                darkModeImage={
-                  <IllustrationConstructionDark style={ILLUSTRATION_SIZE} />
-                }
-                title={t('暂无API信息')}
-                description={t('请联系管理员在系统设置中配置API信息')}
-              />
-            </div>
-          )}
-        </ScrollableContainer>
-      </CardContent>
-    </GlassCard>
+                <div className='flex-1'>
+                  <div className='flex flex-wrap items-center justify-between mb-1 w-full gap-2'>
+                    <span className='text-sm font-medium text-gray-900 !font-bold break-all'>
+                      {api.route}
+                    </span>
+                    <div className='flex items-center gap-1 mt-1 lg:mt-0'>
+                      <Tag
+                        prefixIcon={<Gauge size={12} />}
+                        size='small'
+                        color='white'
+                        shape='circle'
+                        onClick={() => handleSpeedTest(api.url)}
+                        className='cursor-pointer hover:opacity-80 text-xs'
+                      >
+                        {t('测速')}
+                      </Tag>
+                      <Tag
+                        prefixIcon={<ExternalLink size={12} />}
+                        size='small'
+                        color='white'
+                        shape='circle'
+                        onClick={() =>
+                          window.open(api.url, '_blank', 'noopener,noreferrer')
+                        }
+                        className='cursor-pointer hover:opacity-80 text-xs'
+                      >
+                        {t('跳转')}
+                      </Tag>
+                    </div>
+                  </div>
+                  <div
+                    className='!text-semi-color-primary break-all cursor-pointer hover:underline mb-1'
+                    onClick={() => handleCopyUrl(api.url)}
+                  >
+                    {api.url}
+                  </div>
+                  <div className='text-gray-500'>{api.description}</div>
+                </div>
+              </div>
+              <Divider />
+            </React.Fragment>
+          ))
+        ) : (
+          <div className='flex justify-center items-center min-h-[20rem] w-full'>
+            <Empty
+              image={<IllustrationConstruction style={ILLUSTRATION_SIZE} />}
+              darkModeImage={
+                <IllustrationConstructionDark style={ILLUSTRATION_SIZE} />
+              }
+              title={t('暂无API信息')}
+              description={t('请联系管理员在系统设置中配置API信息')}
+            />
+          </div>
+        )}
+      </ScrollableContainer>
+    </Card>
   );
 };
 

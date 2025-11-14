@@ -17,16 +17,15 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
+import HeaderBar from './headerbar';
 import { Layout } from '@douyinfe/semi-ui';
 import SiderBar from './SiderBar';
 import App from '../../App';
 import FooterBar from './Footer';
 import { ToastContainer } from 'react-toastify';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useIsMobile } from '../../hooks/common/useIsMobile';
 import { useSidebarCollapsed } from '../../hooks/common/useSidebarCollapsed';
-import MarketingHeader from '../common/header';
-import ConsoleHeader from './ConsoleHeader';
 import { useTranslation } from 'react-i18next';
 import {
   API,
@@ -45,6 +44,7 @@ const PageLayout = () => {
   const [, statusDispatch] = useContext(StatusContext);
   const isMobile = useIsMobile();
   const [collapsed, , setCollapsed] = useSidebarCollapsed();
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const { i18n } = useTranslation();
   const location = useLocation();
 
@@ -60,36 +60,21 @@ const PageLayout = () => {
     '/pricing',
   ];
 
-  const authRoutePrefixes = ['/login', '/register', '/reset', '/user/reset'];
-
-  const landingPages = ['/'];
-
-  const isConsoleRoute = location.pathname.startsWith('/console');
-  const showConsoleHeader = isConsoleRoute;
-  const isAuthRoute = authRoutePrefixes.some((prefix) =>
-    location.pathname.startsWith(prefix),
-  );
-  const showMarketingHeader = true;
-  const showSider = isConsoleRoute && !isMobile;
-
-  const shouldHideFooter =
-    cardProPages.includes(location.pathname) || isAuthRoute; // Don't hide footer on landing page
-  const isLandingPage = landingPages.includes(location.pathname);
+  const shouldHideFooter = cardProPages.includes(location.pathname);
 
   const shouldInnerPadding =
     location.pathname.includes('/console') &&
     !location.pathname.startsWith('/console/chat') &&
     location.pathname !== '/console/playground';
 
-  useEffect(() => {
-    if (isMobile && collapsed) {
-      setCollapsed(false);
-    }
-  }, [isMobile, collapsed, setCollapsed]);
+  const isConsoleRoute = location.pathname.startsWith('/console');
+  const showSider = isConsoleRoute && (!isMobile || drawerOpen);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }, [location.pathname]);
+    if (isMobile && drawerOpen && collapsed) {
+      setCollapsed(false);
+    }
+  }, [isMobile, drawerOpen, collapsed, setCollapsed]);
 
   const loadUser = () => {
     let user = localStorage.getItem('user');
@@ -134,70 +119,63 @@ const PageLayout = () => {
     }
   }, [i18n]);
 
-  const activeBackground = 'transparent';
-
-  const marketingHeaderHeight = showMarketingHeader ? 124 : 0;
-  const combinedHeaderHeight = marketingHeaderHeight;
-
   return (
     <Layout
-      className="gradient-bg"
       style={{
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
         overflow: isMobile ? 'visible' : 'hidden',
-        background: activeBackground,
       }}
     >
       <Header
         style={{
           padding: 0,
-          height: combinedHeaderHeight,
+          height: 'auto',
           lineHeight: 'normal',
           position: 'fixed',
           width: '100%',
           top: 0,
           zIndex: 100,
-          pointerEvents: 'none',
-          background: 'transparent',
         }}
       >
-        {showMarketingHeader && (
-          <div style={{ pointerEvents: 'auto' }}>
-            <MarketingHeader />
-          </div>
-        )}
+        <HeaderBar
+          onMobileMenuToggle={() => setDrawerOpen((prev) => !prev)}
+          drawerOpen={drawerOpen}
+        />
       </Header>
       <Layout
         style={{
           overflow: isMobile ? 'visible' : 'auto',
           display: 'flex',
           flexDirection: 'column',
-          marginTop: `${combinedHeaderHeight}px`,
         }}
       >
-        {!isLandingPage && showSider && (
+        {showSider && (
           <Sider
             style={{
               position: 'fixed',
               left: 0,
-              top: `${marketingHeaderHeight}px`,
+              top: '64px',
               zIndex: 99,
               border: 'none',
               paddingRight: '0',
-              height: `calc(100vh - ${marketingHeaderHeight}px)`,
+              height: 'calc(100vh - 64px)',
               width: 'var(--sidebar-current-width)',
             }}
           >
-            <SiderBar onNavigate={() => undefined} />
+            <SiderBar
+              onNavigate={() => {
+                if (isMobile) setDrawerOpen(false);
+              }}
+            />
           </Sider>
         )}
         <Layout
           style={{
             marginLeft: isMobile
               ? '0'
-              : !isLandingPage && showSider
+              : showSider
                 ? 'var(--sidebar-current-width)'
                 : '0',
             flex: '1 1 auto',
@@ -210,22 +188,13 @@ const PageLayout = () => {
               flex: '1 0 auto',
               overflowY: isMobile ? 'visible' : 'hidden',
               WebkitOverflowScrolling: 'touch',
-              padding: !isLandingPage && shouldInnerPadding ? (isMobile ? '5px' : '24px') : '0',
+              padding: shouldInnerPadding ? (isMobile ? '5px' : '24px') : '0',
               position: 'relative',
-              background: 'transparent',
-              width: '100%',
-              maxWidth: '100%',
-              margin: 0,
             }}
           >
-            {showConsoleHeader && (
-              <div className='mx-auto w-full max-w-6xl px-4 py-6 sm:px-6'>
-                <ConsoleHeader />
-              </div>
-            )}
             <App />
           </Content>
-          {!shouldHideFooter && !isLandingPage && (
+          {!shouldHideFooter && (
             <Layout.Footer
               style={{
                 flex: '0 0 auto',

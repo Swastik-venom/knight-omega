@@ -21,38 +21,14 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, transformWithEsbuild } from 'vite';
 import pkg from '@douyinfe/vite-plugin-semi';
 import path from 'path';
-import tailwindcss from 'tailwindcss';
-import autoprefixer from 'autoprefixer';
 const { vitePluginSemi } = pkg;
-
-// API URL configuration
-const API_BASE_URL = 'http://localhost:3000';
-const WS_BASE_URL = 'ws://localhost:5173';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
-    alias: [
-      { find: '@', replacement: path.resolve(__dirname, './src') },
-      { find: /^date-fns\//, replacement: 'date-fns-v2/' },
-      { find: /^util$/, replacement: path.resolve(__dirname, './src/polyfills/util-browser.js') },
-      { find: /^node:util$/, replacement: path.resolve(__dirname, './src/polyfills/util-browser.js') },
-      { find: 'stream', replacement: 'stream-browserify' },
-      { find: /^node:stream$/, replacement: 'stream-browserify' },
-      { find: 'events', replacement: 'events/' },
-      { find: /^node:events$/, replacement: 'events/' },
-      { find: /^zlib$/, replacement: path.resolve(__dirname, './src/polyfills/zlib.js') },
-      { find: /^node:zlib$/, replacement: path.resolve(__dirname, './src/polyfills/zlib.js') },
-      { find: 'zlib', replacement: 'browserify-zlib' },
-    ],
-    // Force Vite to use the main entry points for problematic packages
-    mainFields: ['module', 'jsnext:main', 'jsnext'],
-    // Add specific resolutions for problematic packages
-    dedupe: ['react', 'react-dom'],
-  },
-  define: {
-    'process.env': {},
-    global: 'globalThis',
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
   plugins: [
     {
@@ -75,102 +51,40 @@ export default defineConfig({
       cssLayer: true,
     }),
   ],
-
   optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-      'antd',
-      '@douyinfe/semi-ui',
-      '@douyinfe/semi-icons',
-      'axios',
-      'dayjs',
-      'clsx',
-      'react-hook-form',
-      'i18next',
-      'react-i18next',
-      'hast-util-is-element',
-      'd3-color',
-      'd3-quadtree',
-      'd3-ease',
-      'util',
-      'inherits',
-      'stream-browserify',
-      'events',
-      'browserify-zlib'
-    ],
+    force: true,
     esbuildOptions: {
       loader: {
         '.js': 'jsx',
-        '.ts': 'tsx',
         '.json': 'json',
       },
     },
   },
   build: {
-    outDir: 'dist',
-    emptyOutDir: true,
     rollupOptions: {
       output: {
         manualChunks: {
           'react-core': ['react', 'react-dom', 'react-router-dom'],
           'semi-ui': ['@douyinfe/semi-icons', '@douyinfe/semi-ui'],
-          'ui-libs': [
-            'antd',
-            '@ant-design/icons',
-            '@radix-ui/react-accordion',
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-select',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-toast'
-          ],
-          tools: ['axios', 'history', 'marked', 'dayjs', 'date-fns'],
+          tools: ['axios', 'history', 'marked'],
           'react-components': [
             'react-dropzone',
             'react-fireworks',
             'react-telegram-login',
             'react-toastify',
             'react-turnstile',
-            'react-hook-form',
-            'react-resizable-panels',
-            'react-day-picker',
-            'react-markdown',
-            'sonner'
           ],
           i18n: [
             'i18next',
             'react-i18next',
             'i18next-browser-languagedetector',
           ],
-          charts: [
-            'recharts',
-            '@visactor/react-vchart',
-            '@visactor/vchart',
-            '@visactor/vchart-semi-theme'
-          ],
-          utils: [
-            'clsx',
-            'tailwind-merge',
-            'class-variance-authority',
-            'zod',
-            'katex',
-            'mermaid'
-          ],
-          animation: [
-            'framer-motion',
-            'motion',
-            'tailwindcss-animate',
-            'tw-animate-css'
-          ]
         },
       },
     },
   },
   server: {
     host: '0.0.0.0',
-    port: 5173,
     proxy: {
       '/api': {
         target: 'http://localhost:3000',
@@ -185,9 +99,5 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-  },
-  preview: {
-    port: 4173,
-    host: '0.0.0.0',
   },
 });

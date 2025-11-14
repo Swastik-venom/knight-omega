@@ -17,201 +17,155 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 For commercial licensing, please contact support@quantumnous.com
 */
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { HeartHandshake, Globe2, MessageSquareHeart, ShieldCheck } from 'lucide-react';
-import TestimonialsSection from '../LandingPage/Testimonials';
-
-const milestones = [
-  {
-    year: '2021',
-    title: 'Kernel forged',
-    description: 'Early prototypes unified API gateways for internal teams struggling with provider sprawl.',
-  },
-  {
-    year: '2022',
-    title: 'Observability unlocked',
-    description: 'Real-time analytics, rate guardrails, and billing telemetry landed for our first enterprise rollout.',
-  },
-  {
-    year: '2023',
-    title: 'Multi-region scale',
-    description: 'Global routing, failover playbooks, and compliance tooling brought zero-downtime resilience.',
-  },
-  {
-    year: '2024',
-    title: 'Ecosystem bloom',
-    description: 'Templates, SDKs, and community contributions accelerated product teams across 40+ countries.',
-  },
-];
-
-const stats = [
-  { label: 'Workspaces orchestrated', value: '6,400+' },
-  { label: 'Providers under one roof', value: '50+' },
-  { label: 'Average latency savings', value: '27%' },
-  { label: 'Integrations launched', value: '18K' },
-];
-
-const principles = [
-  {
-    icon: <ShieldCheck className='h-5 w-5 text-indigo-500' />,
-    title: 'Reliability by default',
-    description: 'We build for the edge cases: consistent SLAs, instant failover, and transparent observability.',
-  },
-  {
-    icon: <MessageSquareHeart className='h-5 w-5 text-indigo-500' />,
-    title: 'Human-centered tooling',
-    description: 'Crafted experiences that help every builder — from solo founders to platform teams — move with clarity.',
-  },
-  {
-    icon: <HeartHandshake className='h-5 w-5 text-indigo-500' />,
-    title: 'Generous collaboration',
-    description: 'Documentation, templates, and support loops that meet teams where they are, sharing what we learn.',
-  },
-  {
-    icon: <Globe2 className='h-5 w-5 text-indigo-500' />,
-    title: 'Global-first mindset',
-    description: 'Multi-region routing, compliance guardrails, and language-localised experiences from day one.',
-  },
-];
+import React, { useEffect, useState } from 'react';
+import { API, showError } from '../../helpers';
+import { marked } from 'marked';
+import { Empty } from '@douyinfe/semi-ui';
+import {
+  IllustrationConstruction,
+  IllustrationConstructionDark,
+} from '@douyinfe/semi-illustrations';
+import { useTranslation } from 'react-i18next';
 
 const About = () => {
+  const { t } = useTranslation();
+  const [about, setAbout] = useState('');
+  const [aboutLoaded, setAboutLoaded] = useState(false);
+  const currentYear = new Date().getFullYear();
+
+  const displayAbout = async () => {
+    setAbout(localStorage.getItem('about') || '');
+    const res = await API.get('/api/about');
+    const { success, message, data } = res.data;
+    if (success) {
+      let aboutContent = data;
+      if (!data.startsWith('https://')) {
+        aboutContent = marked.parse(data);
+      }
+      setAbout(aboutContent);
+      localStorage.setItem('about', aboutContent);
+    } else {
+      showError(message);
+      setAbout(t('加载关于内容失败...'));
+    }
+    setAboutLoaded(true);
+  };
+
+  useEffect(() => {
+    displayAbout().then();
+  }, []);
+
+  const emptyStyle = {
+    padding: '24px',
+  };
+
+  const customDescription = (
+    <div style={{ textAlign: 'center' }}>
+      <p>{t('可在设置页面设置关于内容，支持 HTML & Markdown')}</p>
+      {t('New API项目仓库地址：')}
+      <a
+        href='https://github.com/QuantumNous/new-api'
+        target='_blank'
+        rel='noopener noreferrer'
+        className='!text-semi-color-primary'
+      >
+        https://github.com/QuantumNous/new-api
+      </a>
+      <p>
+        <a
+          href='https://github.com/QuantumNous/new-api'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='!text-semi-color-primary'
+        >
+          NewAPI
+        </a>{' '}
+        {t('© {{currentYear}}', { currentYear })}{' '}
+        <a
+          href='https://github.com/QuantumNous'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='!text-semi-color-primary'
+        >
+          QuantumNous
+        </a>{' '}
+        {t('| 基于')}{' '}
+        <a
+          href='https://github.com/songquanpeng/one-api/releases/tag/v0.5.4'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='!text-semi-color-primary'
+        >
+          One API v0.5.4
+        </a>{' '}
+        © 2023{' '}
+        <a
+          href='https://github.com/songquanpeng'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='!text-semi-color-primary'
+        >
+          JustSong
+        </a>
+      </p>
+      <p>
+        {t('本项目根据')}
+        <a
+          href='https://github.com/songquanpeng/one-api/blob/v0.5.4/LICENSE'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='!text-semi-color-primary'
+        >
+          {t('MIT许可证')}
+        </a>
+        {t('授权，需在遵守')}
+        <a
+          href='https://www.gnu.org/licenses/agpl-3.0.html'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='!text-semi-color-primary'
+        >
+          {t('AGPL v3.0协议')}
+        </a>
+        {t('的前提下使用。')}
+      </p>
+    </div>
+  );
+
   return (
-    <div className='min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-white via-slate-50 to-indigo-50 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white'>
-      <section className='relative overflow-hidden pt-32 pb-24 sm:pt-36'>
-        <div className='absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.18),transparent_60%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,116,144,0.2),transparent_60%)]' />
-        <div className='mx-auto flex w-full max-w-6xl flex-col items-center gap-8 px-6 text-center'>
-          <span className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 shadow-sm backdrop-blur-md dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
-            Our story
-          </span>
-          <h1 className='text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl dark:text-white'>
-            Building the operating system for responsible AI delivery
-          </h1>
-          <p className='max-w-3xl text-base text-slate-600 dark:text-white/70'>
-            Knight Omega exists so teams can orchestrate, govern, and evolve AI experiences with confidence. We believe tooling should feel as crafted as the products it enables — opinionated, joyful, and relentlessly reliable.
-          </p>
-          <div className='flex flex-wrap items-center justify-center gap-4'>
-            <Link
-              to='/pricing'
-              className='inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5'
-            >
-              Explore plans
-            </Link>
-            <Link
-              to='/docs'
-              className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80'
-            >
-              Browse documentation
-            </Link>
-          </div>
+    <div className='mt-[60px] px-2'>
+      {aboutLoaded && about === '' ? (
+        <div className='flex justify-center items-center h-screen p-8'>
+          <Empty
+            image={
+              <IllustrationConstruction style={{ width: 150, height: 150 }} />
+            }
+            darkModeImage={
+              <IllustrationConstructionDark
+                style={{ width: 150, height: 150 }}
+              />
+            }
+            description={t('管理员暂时未设置任何关于内容')}
+            style={emptyStyle}
+          >
+            {customDescription}
+          </Empty>
         </div>
-      </section>
-
-      <section className='relative mx-auto mb-24 w-full max-w-6xl px-6'>
-        <div className='grid gap-6 rounded-3xl border border-slate-200/70 bg-white/95 p-10 shadow-[0_24px_60px_rgba(15,23,42,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_24px_60px_rgba(15,23,42,0.45)] sm:grid-cols-2 lg:grid-cols-4'>
-          {stats.map((stat) => (
-            <div key={stat.label} className='text-left'>
-              <p className='text-3xl font-semibold text-slate-900 dark:text-white'>
-                {stat.value}
-              </p>
-              <p className='mt-2 text-sm text-slate-600 dark:text-white/70'>{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className='relative mx-auto mb-24 w-full max-w-6xl px-6'>
-        <div className='grid gap-6 rounded-3xl border border-slate-200/70 bg-white/95 p-10 shadow-[0_28px_70px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_28px_70px_rgba(15,23,42,0.45)] lg:grid-cols-[1fr_1.2fr]'>
-          <div>
-            <span className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-slate-500 dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
-              Principles
-            </span>
-            <h2 className='mt-4 text-3xl font-semibold text-slate-900 dark:text-white'>
-              Craft, care, and operational excellence
-            </h2>
-            <p className='mt-4 text-sm leading-relaxed text-slate-600 dark:text-white/70'>
-              From the first commit we shared with partners, we treated orchestration as a design problem. Knight Omega keeps providers honest, teams aligned, and end users delighted — because we obsess over the invisible details.
-            </p>
-          </div>
-
-          <div className='grid gap-4 sm:grid-cols-2'>
-            {principles.map((principle) => (
-              <div
-                key={principle.title}
-                className='rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-white/15 dark:bg-white/10'
-              >
-                <div className='flex items-center gap-3'>
-                  <div className='rounded-xl bg-gradient-to-r from-indigo-500/15 to-sky-500/15 p-3'>
-                    {principle.icon}
-                  </div>
-                  <h3 className='text-base font-semibold text-slate-900 dark:text-white'>
-                    {principle.title}
-                  </h3>
-                </div>
-                <p className='mt-3 text-sm text-slate-600 dark:text-white/70'>
-                  {principle.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className='relative mx-auto mb-24 w-full max-w-6xl px-6'>
-        <div className='rounded-3xl border border-slate-200/70 bg-white/95 p-10 shadow-[0_24px_60px_rgba(15,23,42,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_24px_60px_rgba(15,23,42,0.45)]'>
-          <span className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-slate-500 dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
-            Milestones
-          </span>
-          <h2 className='mt-4 text-3xl font-semibold text-slate-900 dark:text-white'>
-            Designed with builders, refined by operators
-          </h2>
-          <div className='mt-8 grid gap-6 md:grid-cols-2'>
-            {milestones.map((milestone) => (
-              <div
-                key={milestone.year}
-                className='relative rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm dark:border-white/15 dark:bg-white/10'
-              >
-                <span className='text-sm font-medium uppercase tracking-[0.25em] text-slate-500 dark:text-white/60'>
-                  {milestone.year}
-                </span>
-                <h3 className='mt-3 text-lg font-semibold text-slate-900 dark:text-white'>
-                  {milestone.title}
-                </h3>
-                <p className='mt-2 text-sm text-slate-600 dark:text-white/70'>
-                  {milestone.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <TestimonialsSection />
-
-      <section className='relative mx-auto mb-24 w-full max-w-6xl px-6'>
-        <div className='flex flex-col items-center gap-6 rounded-3xl border border-slate-200/70 bg-white/95 p-10 text-center shadow-[0_24px_60px_rgba(15,23,42,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_24px_60px_rgba(15,23,42,0.45)]'>
-          <h2 className='text-3xl font-semibold text-slate-900 dark:text-white'>
-            Join the teams orchestrating responsibly
-          </h2>
-          <p className='max-w-2xl text-sm text-slate-600 dark:text-white/70'>
-            We partner with builders who see AI as a long-term craft. If you are designing workflows, scaling platforms, or want to shape the operating system behind them, we would love to collaborate.
-          </p>
-          <div className='flex flex-wrap items-center justify-center gap-4'>
-            <a
-              href='mailto:support@quantumnous.com'
-              className='inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5'
-            >
-              Talk to our team
-            </a>
-            <Link
-              to='/pricing'
-              className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80'
-            >
-              View platform plans
-            </Link>
-          </div>
-        </div>
-      </section>
+      ) : (
+        <>
+          {about.startsWith('https://') ? (
+            <iframe
+              src={about}
+              style={{ width: '100%', height: '100vh', border: 'none' }}
+            />
+          ) : (
+            <div
+              style={{ fontSize: 'larger' }}
+              dangerouslySetInnerHTML={{ __html: about }}
+            ></div>
+          )}
+        </>
+      )}
     </div>
   );
 };
