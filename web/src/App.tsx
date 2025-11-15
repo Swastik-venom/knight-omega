@@ -12,6 +12,7 @@ import LogPage from "@/pages/Log"
 import SettingPage from "@/pages/Setting"
 import ChannelPage from "@/pages/Channel"
 import UserPage from "@/pages/User"
+import SetupPage from "@/pages/Setup"
 import Hero from "@/components/home/hero"
 import Features from "@/components/features"
 import { TestimonialsSection } from "@/components/testimonials"
@@ -19,6 +20,7 @@ import { NewReleasePromo } from "@/components/new-release-promo"
 import { FAQSection } from "@/components/faq-section"
 import { PricingSection } from "@/components/pricing-section"
 import Navigation from "@/components/navigation"
+import Footer from "@/components/Footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { AuthProvider } from "@/lib/auth"
 import { Toaster } from "@/components/ui/sonner"
@@ -38,7 +40,7 @@ function AppContent() {
       <Navigation />
       <Routes>
             <Route path="/" element={
-              <div className="min-h-screen w-full relative bg-background overflow-hidden">
+              <div className="min-h-screen w-full relative bg-background overflow-hidden flex flex-col">
                 {/* Unified Background with Seamless Gradients */}
                 <div className="absolute inset-0 z-0">
                   {/* Top gradient - Pearl mist */}
@@ -97,30 +99,32 @@ function AppContent() {
                 <div id="faq" className="relative z-10">
                   <FAQSection />
                 </div>
+
+                <Footer />
               </div>
             } />
             <Route path="/features" element={
-              <div className="min-h-screen w-full relative bg-background overflow-hidden">
+              <div className="min-h-screen w-full relative bg-background overflow-hidden flex flex-col">
                 <FeaturesPage />
+                <Footer />
               </div>
             } />
             <Route path="/pricing" element={
-              <div className="min-h-screen w-full relative bg-background overflow-hidden">
+              <div className="min-h-screen w-full relative bg-background overflow-hidden flex flex-col">
                 <PricingSection />
+                <Footer />
               </div>
             } />
             <Route path="/testimonials" element={
-              <div className="min-h-screen w-full relative bg-background overflow-hidden">
+              <div className="min-h-screen w-full relative bg-background overflow-hidden flex flex-col">
                 <TestimonialsSection />
+                <Footer />
               </div>
             } />
-            <Route path="/models" element={
-              <div className="min-h-screen w-full relative bg-background overflow-hidden flex items-center justify-center">
-                <h1 className="text-4xl font-bold text-foreground">Models Page</h1>
-              </div>
-            } />
+            <Route path="/models" element={<ModelsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
+            <Route path="/setup" element={<SetupPage />} />
             <Route path="/console" element={
               <ProtectedRoute>
                 <ConsoleLayout />
@@ -129,7 +133,6 @@ function AppContent() {
               <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<DashboardPage />} />
               <Route path="api-keys" element={<ApiKeysPage />} />
-              <Route path="models" element={<ModelsPage />} />
               <Route path="logs" element={<LogPage />} />
               <Route path="topup" element={<TopUpPage />} />
               <Route path="settings" element={<SettingPage />} />

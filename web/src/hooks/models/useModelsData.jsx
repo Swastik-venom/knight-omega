@@ -1,21 +1,4 @@
-/*
-Copyright (C) 2025 QuantumNous
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-For commercial licensing, please contact support@quantumnous.com
-*/
 
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -154,7 +137,7 @@ export const useModelsData = () => {
       }
     } catch (error) {
       console.error(error);
-      showError(t('获取模型列表失败'));
+      showError(t('Failed to get model list'));
       setModels([]);
     }
     setLoading(false);
@@ -180,16 +163,16 @@ export const useModelsData = () => {
         const skipped = (data?.skipped_models || []).length || 0;
         showSuccess(
           t(
-            `已同步：新增 ${createdModels} 模型，新增 ${createdVendors} 供应商，跳过 ${skipped} 项`,
+            `Synced: Added ${createdModels} models, Added ${createdVendors} vendors, Skipped ${skipped} items`,
           ),
         );
         await loadVendors();
         await refresh();
       } else {
-        showError(message || t('同步失败'));
+        showError(message || t('Sync failed'));
       }
     } catch (e) {
-      showError(t('同步失败'));
+      showError(t('Sync failed'));
     }
     setSyncing(false);
   };
@@ -205,10 +188,10 @@ export const useModelsData = () => {
       if (success) {
         return data || { missing: [], conflicts: [] };
       }
-      showError(message || t('预览失败'));
+      showError(message || t('Preview failed'));
       return { missing: [], conflicts: [] };
     } catch (e) {
-      showError(t('预览失败'));
+      showError(t('Preview failed'));
       return { missing: [], conflicts: [] };
     } finally {
       setPreviewing(false);
@@ -233,17 +216,17 @@ export const useModelsData = () => {
         const skipped = (data?.skipped_models || []).length || 0;
         showSuccess(
           t(
-            `完成：新增 ${createdModels} 模型，更新 ${updatedModels} 模型，新增 ${createdVendors} 供应商，跳过 ${skipped} 项`,
+            `Completed: Added ${createdModels} models, Updated ${updatedModels} models, Added ${createdVendors} vendors, Skipped ${skipped} items`,
           ),
         );
         await loadVendors();
         await refresh();
         return true;
       }
-      showError(message || t('同步失败'));
+      showError(message || t('Sync failed'));
       return false;
     } catch (e) {
-      showError(t('同步失败'));
+      showError(t('Sync failed'));
       return false;
     } finally {
       setSyncing(false);
@@ -284,7 +267,7 @@ export const useModelsData = () => {
       }
     } catch (error) {
       console.error(error);
-      showError(t('搜索模型失败'));
+      showError(t('Failed to search models'));
       setModels([]);
     }
     setSearching(false);
@@ -309,7 +292,7 @@ export const useModelsData = () => {
 
     const { success, message } = res.data;
     if (success) {
-      showSuccess(t('操作成功完成！'));
+      showSuccess(t('Operation completed successfully!'));
       if (action === 'delete') {
         await refresh();
       } else {
@@ -376,7 +359,7 @@ export const useModelsData = () => {
   // Batch delete models
   const batchDeleteModels = async () => {
     if (selectedKeys.length === 0) {
-      showError(t('请至少选择一个模型'));
+      showError(t('Please select at least one model'));
       return;
     }
 
@@ -393,18 +376,18 @@ export const useModelsData = () => {
           successCount++;
         } else {
           showError(
-            `删除模型 ${selectedKeys[index].model_name} 失败: ${res.data.message}`,
+            `Failed to delete model ${selectedKeys[index].model_name}: ${res.data.message}`,
           );
         }
       });
 
       if (successCount > 0) {
-        showSuccess(t(`成功删除 ${successCount} 个模型`));
+        showSuccess(t(`Successfully deleted ${successCount} models`));
         setSelectedKeys([]);
         await refresh();
       }
     } catch (error) {
-      showError(t('批量删除失败'));
+      showError(t('Batch deletion failed'));
     }
   };
 
@@ -412,10 +395,10 @@ export const useModelsData = () => {
   const copyText = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
-      showSuccess(t('复制成功'));
+      showSuccess(t('Copy successful'));
     } catch (error) {
       console.error('Copy failed:', error);
-      showError(t('复制失败'));
+      showError(t('Copy failed'));
     }
   };
 
