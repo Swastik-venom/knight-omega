@@ -27,6 +27,7 @@ import DatabaseStep from './components/steps/DatabaseStep';
 import AdminStep from './components/steps/AdminStep';
 import UsageModeStep from './components/steps/UsageModeStep';
 import CompleteStep from './components/steps/CompleteStep';
+import './setup-styles.css';
 
 const SetupWizard = () => {
   const { t } = useTranslation();
@@ -269,13 +270,13 @@ const SetupWizard = () => {
   };
 
   return (
-    <div className='min-h-screen flex items-center justify-center px-4'>
+    <div className='setup-wizard min-h-screen flex items-center justify-center px-4'>
       <div className='w-full max-w-4xl'>
         <Card className='!rounded-2xl shadow-sm border-0'>
-          <div className='mb-4'>
-            <div className='text-xl font-semibold'>{t('系统初始化')}</div>
-            <div className='text-xs text-gray-600'>
-              {t('欢迎使用，请完成以下设置以开始使用系统')}
+          <div className='setup-header'>
+            <div className='setup-title'>System Initialization</div>
+            <div className='setup-subtitle'>
+              Welcome! Please complete the following steps to start using the system
             </div>
           </div>
 

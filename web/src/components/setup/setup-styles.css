@@ -1,0 +1,396 @@
+/* Setup Wizard Dark Theme Styles */
+
+.setup-wizard {
+  background: rgb(17, 24, 39);
+  min-height: 100vh;
+}
+
+/* Card styling */
+.setup-wizard .semi-card {
+  background: linear-gradient(135deg, rgb(31, 41, 55) 0%, rgb(17, 24, 39) 100%) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Typography - WHITE */
+.setup-wizard .semi-typography,
+.setup-wizard h1,
+.setup-wizard h2,
+.setup-wizard h3,
+.setup-wizard h4,
+.setup-wizard p,
+.setup-wizard span,
+.setup-wizard div {
+  color: rgb(255, 255, 255) !important;
+}
+
+.setup-wizard .text-gray-600 {
+  color: rgb(156, 163, 175) !important;
+}
+
+/* Steps styling */
+.setup-wizard .semi-steps {
+  background: transparent !important;
+}
+
+.setup-wizard .semi-steps-item-title {
+  color: rgb(209, 213, 219) !important;
+  font-weight: 500 !important;
+}
+
+.setup-wizard .semi-steps-item-description {
+  color: rgb(156, 163, 175) !important;
+}
+
+.setup-wizard .semi-steps-item-icon {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.setup-wizard .semi-steps-item-process .semi-steps-item-icon {
+  background: linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12)) !important;
+  border-color: rgb(249, 115, 22) !important;
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.4) !important;
+}
+
+.setup-wizard .semi-steps-item-finish .semi-steps-item-icon {
+  background: rgb(34, 197, 94) !important;
+  border-color: rgb(34, 197, 94) !important;
+}
+
+.setup-wizard .semi-steps-item-finish .semi-steps-item-title {
+  color: rgb(134, 239, 172) !important;
+}
+
+.setup-wizard .semi-steps-item-process .semi-steps-item-title {
+  color: rgb(249, 115, 22) !important;
+  font-weight: 600 !important;
+}
+
+.setup-wizard .semi-steps-item-tail {
+  background: rgb(55, 65, 81) !important;
+}
+
+.setup-wizard .semi-steps-item-finish .semi-steps-item-tail {
+  background: rgb(34, 197, 94) !important;
+}
+
+/* Shine text animation for current step */
+.setup-wizard .shine-text {
+  background: linear-gradient(90deg, rgb(249, 115, 22), rgb(251, 146, 60), rgb(249, 115, 22));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Form elements */
+.setup-wizard .semi-form-field-label {
+  color: rgb(255, 255, 255) !important;
+  font-weight: 500 !important;
+}
+
+.setup-wizard .semi-input,
+.setup-wizard .semi-input-wrapper {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.setup-wizard .semi-input::placeholder {
+  color: rgb(107, 114, 128) !important;
+}
+
+.setup-wizard .semi-input:hover {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.setup-wizard .semi-input:focus {
+  border-color: rgb(249, 115, 22) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+}
+
+.setup-wizard .semi-input-prefix {
+  color: rgb(156, 163, 175) !important;
+}
+
+/* Radio buttons */
+.setup-wizard .semi-radio {
+  border-color: rgb(55, 65, 81) !important;
+}
+
+.setup-wizard .semi-radio-checked {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.setup-wizard .semi-radio-inner {
+  background: rgb(249, 115, 22) !important;
+}
+
+.setup-wizard .semi-radio-addon {
+  color: rgb(255, 255, 255) !important;
+}
+
+.setup-wizard .semi-radio-addon-disabled {
+  color: rgb(107, 114, 128) !important;
+}
+
+/* Buttons */
+.setup-wizard .semi-button-primary {
+  background: linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12)) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: white !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 6px -1px rgba(249, 115, 22, 0.3) !important;
+}
+
+.setup-wizard .semi-button-primary:hover {
+  background: linear-gradient(135deg, rgb(234, 88, 12), rgb(194, 65, 12)) !important;
+  box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+.setup-wizard .semi-button-secondary,
+.setup-wizard .semi-button-tertiary {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.setup-wizard .semi-button-secondary:hover,
+.setup-wizard .semi-button-tertiary:hover {
+  background: rgb(75, 85, 99) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.setup-wizard .semi-button-disabled {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(107, 114, 128) !important;
+  opacity: 0.5 !important;
+}
+
+/* Banner styling */
+.setup-wizard .semi-banner {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: rgb(147, 197, 253) !important;
+}
+
+.setup-wizard .semi-banner-warning {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  color: rgb(252, 211, 77) !important;
+}
+
+.setup-wizard .semi-banner-success {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.05) 100%) !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
+  color: rgb(134, 239, 172) !important;
+}
+
+.setup-wizard .semi-banner-info {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.05) 100%) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+  color: rgb(147, 197, 253) !important;
+}
+
+.setup-wizard .semi-banner-title {
+  color: rgb(255, 255, 255) !important;
+  font-weight: 600 !important;
+}
+
+.setup-wizard .semi-banner-description {
+  color: inherit !important;
+}
+
+.setup-wizard .semi-banner code {
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: rgb(251, 146, 60) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+/* Divider */
+.setup-wizard .semi-divider {
+  border-color: rgb(55, 65, 81) !important;
+}
+
+/* Usage mode cards */
+.setup-wizard .usage-mode-card {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.8) 100%) !important;
+  border: 2px solid rgb(55, 65, 81) !important;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.setup-wizard .usage-mode-card:hover {
+  border-color: rgb(249, 115, 22) !important;
+  box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.2) !important;
+  transform: translateY(-2px) !important;
+}
+
+.setup-wizard .usage-mode-card.selected {
+  border-color: rgb(249, 115, 22) !important;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.05) 100%) !important;
+  box-shadow: 0 0 20px rgba(249, 115, 22, 0.3) !important;
+}
+
+.setup-wizard .usage-mode-icon {
+  font-size: 48px !important;
+  margin-bottom: 12px !important;
+}
+
+.setup-wizard .usage-mode-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: rgb(255, 255, 255) !important;
+  margin-bottom: 8px !important;
+}
+
+.setup-wizard .usage-mode-description {
+  font-size: 14px !important;
+  color: rgb(156, 163, 175) !important;
+  line-height: 1.5 !important;
+}
+
+/* Complete step styling */
+.setup-wizard .complete-step-icon {
+  font-size: 64px !important;
+  color: rgb(34, 197, 94) !important;
+  margin-bottom: 20px !important;
+  animation: checkmark 0.5s ease-in-out !important;
+}
+
+@keyframes checkmark {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.setup-wizard .summary-card {
+  background: rgba(31, 41, 55, 0.5) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+.setup-wizard .summary-label {
+  color: rgb(156, 163, 175) !important;
+  font-size: 14px !important;
+  margin-bottom: 4px !important;
+}
+
+.setup-wizard .summary-value {
+  color: rgb(255, 255, 255) !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+/* Loading spinner */
+.setup-wizard .semi-spin-wrapper {
+  background: rgba(17, 24, 39, 0.8) !important;
+}
+
+.setup-wizard .semi-spin-dot {
+  background: rgb(249, 115, 22) !important;
+}
+
+/* Scrollbar */
+.setup-wizard ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.setup-wizard ::-webkit-scrollbar-track {
+  background: rgb(31, 41, 55);
+  border-radius: 4px;
+}
+
+.setup-wizard ::-webkit-scrollbar-thumb {
+  background: rgb(75, 85, 99);
+  border-radius: 4px;
+}
+
+.setup-wizard ::-webkit-scrollbar-thumb:hover {
+  background: rgb(249, 115, 22);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .setup-wizard .semi-steps {
+    flex-direction: column !important;
+  }
+  
+  .setup-wizard .usage-mode-card {
+    margin-bottom: 16px !important;
+  }
+}
+
+/* Animations */
+.setup-wizard .steps-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header gradient effect */
+.setup-wizard .setup-header {
+  position: relative;
+  padding: 24px;
+  border-radius: 16px 16px 0 0;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.05) 100%);
+  border-bottom: 1px solid rgb(55, 65, 81);
+}
+
+.setup-wizard .setup-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgb(249, 115, 22), transparent);
+}
+
+.setup-wizard .setup-title {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: rgb(255, 255, 255) !important;
+  margin-bottom: 8px !important;
+}
+
+.setup-wizard .setup-subtitle {
+  font-size: 14px !important;
+  color: rgb(156, 163, 175) !important;
+}

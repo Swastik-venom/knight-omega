@@ -25,6 +25,11 @@ interface Model {
   vendorId?: string
   type?: number
   enabled?: boolean
+  pricing?: {
+    input?: number
+    output?: number
+    currency?: string
+  }
 }
 
 export default function ModelsPage() {
@@ -62,7 +67,12 @@ export default function ModelsPage() {
           tags: model.tags || [],
           vendorId: model.vendor_id,
           type: model.type,
-          enabled: model.enabled
+          enabled: model.enabled,
+          pricing: {
+            input: model.input_price || model.price || 0,
+            output: model.output_price || model.price || 0,
+            currency: 'USD'
+          }
         }))
         setModels(transformedModels)
         setFilteredModels(transformedModels)
@@ -181,6 +191,8 @@ export default function ModelsPage() {
                     <TableHead>Description</TableHead>
                     <TableHead>Category</TableHead>
                     <TableHead>Provider</TableHead>
+                    <TableHead>Pricing (Input/Output)</TableHead>
+                    <TableHead>Max Tokens</TableHead>
                     <TableHead>Status</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -204,6 +216,23 @@ export default function ModelsPage() {
                         <Badge variant="secondary">{model.category}</Badge>
                       </TableCell>
                       <TableCell>{model.provider}</TableCell>
+                      <TableCell>
+                        {model.pricing ? (
+                          <div className="text-sm">
+                            <div className="text-green-600 dark:text-green-400">
+                              ${(model.pricing.input || 0).toFixed(6)} / 1K
+                            </div>
+                            <div className="text-blue-600 dark:text-blue-400">
+                              ${(model.pricing.output || 0).toFixed(6)} / 1K
+                            </div>
+                          </div>
+                        ) : (
+                          <span className="text-muted-foreground">-</span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="outline">{model.maxTokens?.toLocaleString() || '-'}</Badge>
+                      </TableCell>
                       <TableCell>
                         <Badge variant={model.status === "active" ? "default" : "secondary"}>
                           {model.status}
