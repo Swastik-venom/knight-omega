@@ -19,13 +19,13 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useEffect, useState } from 'react';
 import { Card, Spin } from '@douyinfe/semi-ui';
-import SettingsGeneral from '../../pages/Setting/Operation/SettingsGeneral';
-import SettingsHeaderNavModules from '../../pages/Setting/Operation/SettingsHeaderNavModules';
-import SettingsSidebarModulesAdmin from '../../pages/Setting/Operation/SettingsSidebarModulesAdmin';
-import SettingsSensitiveWords from '../../pages/Setting/Operation/SettingsSensitiveWords';
-import SettingsLog from '../../pages/Setting/Operation/SettingsLog';
-import SettingsMonitoring from '../../pages/Setting/Operation/SettingsMonitoring';
-import SettingsCreditLimit from '../../pages/Setting/Operation/SettingsCreditLimit';
+import SettingsGeneral from '../../pages/Setting/Operation/SettingsGeneral.jsx';
+import SettingsHeaderNavModules from '../../pages/Setting/Operation/SettingsHeaderNavModules.jsx';
+import SettingsSidebarModulesAdmin from '../../pages/Setting/Operation/SettingsSidebarModulesAdmin.jsx';
+import SettingsSensitiveWords from '../../pages/Setting/Operation/SettingsSensitiveWords.jsx';
+import SettingsLog from '../../pages/Setting/Operation/SettingsLog.jsx';
+import SettingsMonitoring from '../../pages/Setting/Operation/SettingsMonitoring.jsx';
+import SettingsCreditLimit from '../../pages/Setting/Operation/SettingsCreditLimit.jsx';
 import { API, showError, toBoolean } from '../../helpers';
 
 const OperationSetting = () => {

@@ -32,7 +32,7 @@ import React from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import clsx from 'clsx';
 import { Button, Tooltip, Toast } from '@douyinfe/semi-ui';
-import { copy, rehypeSplitWordsIntoSpans } from '../../../helpers';
+import { copy, rehypeSplitWordsIntoSpans } from '../../../helpers/index.js';
 import { IconCopy } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
 

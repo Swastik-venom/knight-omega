@@ -46,7 +46,7 @@ import {
   showError,
   showSuccess,
   timestamp2string,
-} from '../../../../helpers';
+} from '../../../../helpers/index.js';
 
 const { Text } = Typography;
 

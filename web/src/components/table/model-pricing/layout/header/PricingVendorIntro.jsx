@@ -26,7 +26,7 @@ import {
   Tooltip,
   Modal,
 } from '@douyinfe/semi-ui';
-import { getLobeHubIcon } from '../../../../../helpers';
+import { getLobeHubIcon } from '../../../../../helpers/index.js';
 import SearchActions from './SearchActions';
 
 const { Paragraph } = Typography;

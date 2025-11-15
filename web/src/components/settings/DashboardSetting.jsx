@@ -20,11 +20,11 @@ For commercial licensing, please contact support@quantumnous.com
 import React, { useEffect, useState, useMemo } from 'react';
 import { Card, Spin, Button, Modal } from '@douyinfe/semi-ui';
 import { API, showError, showSuccess, toBoolean } from '../../helpers';
-import SettingsAPIInfo from '../../pages/Setting/Dashboard/SettingsAPIInfo';
-import SettingsAnnouncements from '../../pages/Setting/Dashboard/SettingsAnnouncements';
-import SettingsFAQ from '../../pages/Setting/Dashboard/SettingsFAQ';
-import SettingsUptimeKuma from '../../pages/Setting/Dashboard/SettingsUptimeKuma';
-import SettingsDataDashboard from '../../pages/Setting/Dashboard/SettingsDataDashboard';
+import SettingsAPIInfo from '../../pages/Setting/Dashboard/SettingsAPIInfo.jsx';
+import SettingsAnnouncements from '../../pages/Setting/Dashboard/SettingsAnnouncements.jsx';
+import SettingsFAQ from '../../pages/Setting/Dashboard/SettingsFAQ.jsx';
+import SettingsUptimeKuma from '../../pages/Setting/Dashboard/SettingsUptimeKuma.jsx';
+import SettingsDataDashboard from '../../pages/Setting/Dashboard/SettingsDataDashboard.jsx';
 
 const DashboardSetting = () => {
   let [inputs, setInputs] = useState({

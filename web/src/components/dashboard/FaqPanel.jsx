@@ -22,11 +22,13 @@ import { Card, Collapse, Empty } from '@douyinfe/semi-ui';
 import { HelpCircle } from 'lucide-react';
 import { IconPlus, IconMinus } from '@douyinfe/semi-icons';
 import { marked } from 'marked';
-import {
+import { 
   IllustrationConstruction,
   IllustrationConstructionDark,
 } from '@douyinfe/semi-illustrations';
 import ScrollableContainer from '../common/ui/ScrollableContainer';
+
+const { Panel } = Collapse;
 
 const FaqPanel = ({
   faqData,
@@ -38,7 +40,7 @@ const FaqPanel = ({
   return (
     <Card
       {...CARD_PROPS}
-      className='shadow-sm !rounded-2xl lg:col-span-1'
+      className='lg:col-span-1 !rounded-3xl border border-slate-200/70 bg-white/95 shadow-[0_20px_55px_rgba(15,23,42,0.08)] backdrop-blur-md dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_20px_55px_rgba(15,23,42,0.4)]'
       title={
         <div className={FLEX_CENTER_GAP2}>
           <HelpCircle size={16} />
@@ -55,7 +57,7 @@ const FaqPanel = ({
             collapseIcon={<IconMinus />}
           >
             {faqData.map((item, index) => (
-              <Collapse.Panel
+              <Panel
                 key={index}
                 header={item.question}
                 itemKey={index.toString()}
@@ -65,7 +67,7 @@ const FaqPanel = ({
                     __html: marked.parse(item.answer || ''),
                   }}
                 />
-              </Collapse.Panel>
+              </Panel>
             ))}
           </Collapse>
         ) : (

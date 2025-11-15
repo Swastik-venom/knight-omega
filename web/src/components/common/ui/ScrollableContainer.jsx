@@ -47,6 +47,8 @@ const ScrollableContainer = forwardRef(
       debounceDelay = 16, // ~60fps
       onScroll,
       onScrollStateChange,
+      showFadeIndicator = true, // Option to disable fade indicator
+      fadeColor = 'white', // Color for fade indicator
       ...props
     },
     ref,
@@ -145,6 +147,12 @@ const ScrollableContainer = forwardRef(
               element.scrollHeight - scrollThreshold,
           };
         },
+        scrollTo: (top) => {
+          if (scrollRef.current) {
+            scrollRef.current.scrollTop = top;
+          }
+        },
+        element: () => scrollRef.current,
       }),
       [checkScrollable, scrollThreshold],
     );
@@ -209,15 +217,21 @@ const ScrollableContainer = forwardRef(
 
     const fadeIndicatorStyle = useMemo(
       () => ({
-        opacity: showScrollHint ? 1 : 0,
+        opacity: showScrollHint && showFadeIndicator ? 1 : 0,
+        background: `linear-gradient(to bottom, transparent, ${fadeColor === 'white' ? 'rgba(255,255,255,0.1)' : `rgba(0,0,0,0.1)`})`,
+        position: 'sticky',
+        bottom: 0,
+        height: '40px',
+        pointerEvents: 'none',
+        transition: 'opacity 0.3s ease',
       }),
-      [showScrollHint],
+      [showScrollHint, showFadeIndicator, fadeColor],
     );
 
     return (
       <div
         ref={containerRef}
-        className={`card-content-container ${className}`}
+        className={`card-content-container relative ${className}`}
         {...props}
       >
         <div
@@ -228,10 +242,12 @@ const ScrollableContainer = forwardRef(
         >
           {children}
         </div>
-        <div
-          className={`card-content-fade-indicator ${fadeIndicatorClassName}`}
-          style={fadeIndicatorStyle}
-        />
+        {showFadeIndicator && (
+          <div
+            className={`card-content-fade-indicator ${fadeIndicatorClassName}`}
+            style={fadeIndicatorStyle}
+          />
+        )}
       </div>
     );
   },

@@ -26,7 +26,7 @@ import {
   showWarning,
   verifyJSON,
   selectFilter,
-} from '../../../../helpers';
+} from '../../../../helpers/index.js';
 import {
   SideSheet,
   Space,
@@ -47,7 +47,7 @@ import {
   IconCode,
   IconSetting,
 } from '@douyinfe/semi-icons';
-import { getChannelModels } from '../../../../helpers';
+import { getChannelModels } from '../../../../helpers/index.js';
 import { useTranslation } from 'react-i18next';
 
 const { Text, Title } = Typography;

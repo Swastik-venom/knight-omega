@@ -27,7 +27,7 @@ import AddUserModal from './modals/AddUserModal';
 import EditUserModal from './modals/EditUserModal';
 import { useUsersData } from '../../../hooks/users/useUsersData';
 import { useIsMobile } from '../../../hooks/common/useIsMobile';
-import { createCardProPagination } from '../../../helpers/utils';
+import { createCardProPagination } from '../../../helpers/index.js';
 
 const UsersPage = () => {
   const usersData = useUsersData();

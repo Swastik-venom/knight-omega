@@ -40,15 +40,15 @@ import {
   showError,
   showSuccess,
   stringToColor,
-} from '../../../../helpers';
+} from '../../../../helpers/index.js';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../../../../hooks/common/useIsMobile';
-import CardTable from '../../../common/ui/CardTable';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import CardTable from '../../common/ui/CardTable';
 import EditPrefillGroupModal from './EditPrefillGroupModal';
 import {
   renderLimitedItems,
   renderDescription,
-} from '../../../common/ui/RenderUtils';
+} from '../../common/ui/RenderUtils';
 
 const { Text, Title } = Typography;
 

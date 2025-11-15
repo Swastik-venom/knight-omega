@@ -39,7 +39,8 @@ i18n
       ru: ruTranslation,
       ja: jaTranslation,
     },
-    fallbackLng: 'en',
+    fallbackLng: 'en', // Changed from 'zh' to 'en'
+    lng: 'en', // Set default language to English
     interpolation: {
       escapeValue: false,
     },

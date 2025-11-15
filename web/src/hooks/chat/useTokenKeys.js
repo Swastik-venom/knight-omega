@@ -18,8 +18,8 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import { useEffect, useState } from 'react';
-import { fetchTokenKeys, getServerAddress } from '../../helpers/token';
-import { showError } from '../../helpers';
+import { fetchTokenKeys, getServerAddress } from '../../../helpers/token';
+import { showError } from '../../../helpers';
 
 export function useTokenKeys(id) {
   const [keys, setKeys] = useState([]);

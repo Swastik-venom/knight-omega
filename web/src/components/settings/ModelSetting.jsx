@@ -22,9 +22,9 @@ import { Card, Spin, Tabs } from '@douyinfe/semi-ui';
 
 import { API, showError, showSuccess, toBoolean } from '../../helpers';
 import { useTranslation } from 'react-i18next';
-import SettingGeminiModel from '../../pages/Setting/Model/SettingGeminiModel';
-import SettingClaudeModel from '../../pages/Setting/Model/SettingClaudeModel';
-import SettingGlobalModel from '../../pages/Setting/Model/SettingGlobalModel';
+import SettingGeminiModel from '../../pages/Setting/Model/SettingGeminiModel.jsx';
+import SettingClaudeModel from '../../pages/Setting/Model/SettingClaudeModel.jsx';
+import SettingGlobalModel from '../../pages/Setting/Model/SettingGlobalModel.jsx';
 
 const ModelSetting = () => {
   const { t } = useTranslation();

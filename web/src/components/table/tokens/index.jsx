@@ -31,16 +31,16 @@ import {
   showError,
   getModelCategories,
   selectFilter,
-} from '../../../helpers';
+} from '../../../helpers/index.js';
 import CardPro from '../../common/ui/CardPro';
 import TokensTable from './TokensTable';
 import TokensActions from './TokensActions';
 import TokensFilters from './TokensFilters';
 import TokensDescription from './TokensDescription';
 import EditTokenModal from './modals/EditTokenModal';
-import { useTokensData } from '../../../hooks/tokens/useTokensData';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
-import { createCardProPagination } from '../../../helpers/utils';
+import { useTokensData } from '../../hooks/tokens/useTokensData';
+import { useIsMobile } from '../../hooks/common/useIsMobile';
+import { createCardProPagination } from '../../../helpers/index.js';
 
 function TokensPage() {
   // Define the function first, then pass it into the hook to avoid TDZ errors

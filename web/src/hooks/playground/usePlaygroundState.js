@@ -30,7 +30,7 @@ import {
   loadMessages,
   saveMessages,
 } from '../../components/playground/configStorage';
-import { processIncompleteThinkTags } from '../../helpers';
+import { processIncompleteThinkTags } from '../../../helpers';
 
 export const usePlaygroundState = () => {
   // 使用惰性初始化，确保只在组件首次挂载时加载配置和消息

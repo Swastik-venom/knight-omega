@@ -1,0 +1,128 @@
+/* Settings Page Custom Styles */
+
+.settings-tabs .semi-tabs-bar {
+  background: transparent;
+  border-bottom: 2px solid rgba(148, 163, 184, 0.2);
+  padding: 0 0 0 0;
+  margin-bottom: 0;
+}
+
+.settings-tabs .semi-tabs-tab {
+  padding: 12px 20px;
+  margin: 0 4px;
+  border-radius: 8px 8px 0 0;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: rgb(100, 116, 139);
+}
+
+.settings-tabs .semi-tabs-tab:hover {
+  background: rgba(99, 102, 241, 0.05);
+  color: rgb(99, 102, 241);
+}
+
+.settings-tabs .semi-tabs-tab-active {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.1) 100%);
+  color: rgb(249, 115, 22);
+  border-bottom: 2px solid rgb(249, 115, 22);
+}
+
+.settings-tabs .semi-tabs-tab-active:hover {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 88, 12, 0.15) 100%);
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .settings-tabs .semi-tabs-bar {
+    border-bottom-color: rgba(148, 163, 184, 0.1);
+  }
+  
+  .settings-tabs .semi-tabs-tab {
+    color: rgb(148, 163, 184);
+  }
+  
+  .settings-tabs .semi-tabs-tab:hover {
+    background: rgba(249, 115, 22, 0.1);
+    color: rgb(251, 146, 60);
+  }
+  
+  .settings-tabs .semi-tabs-tab-active {
+    background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(234, 88, 12, 0.15) 100%);
+    color: rgb(251, 146, 60);
+    border-bottom-color: rgb(251, 146, 60);
+  }
+}
+
+/* Card improvements */
+.semi-card {
+  transition: all 0.3s ease;
+}
+
+.semi-card:hover {
+  transform: translateY(-2px);
+}
+
+/* Form improvements */
+.semi-form-field {
+  margin-bottom: 20px;
+}
+
+.semi-form-field-label {
+  font-weight: 500;
+  color: rgb(51, 65, 85);
+  margin-bottom: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .semi-form-field-label {
+    color: rgb(226, 232, 240);
+  }
+}
+
+/* Button improvements */
+.semi-button-primary {
+  background: linear-gradient(135deg, rgb(249, 115, 22) 0%, rgb(234, 88, 12) 100%);
+  border: none;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.semi-button-primary:hover {
+  background: linear-gradient(135deg, rgb(234, 88, 12) 0%, rgb(194, 65, 12) 100%);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.4);
+  transform: translateY(-1px);
+}
+
+.semi-button-secondary {
+  border-color: rgb(203, 213, 225);
+  color: rgb(71, 85, 105);
+}
+
+.semi-button-secondary:hover {
+  border-color: rgb(249, 115, 22);
+  color: rgb(249, 115, 22);
+  background: rgba(249, 115, 22, 0.05);
+}
+
+/* Switch improvements */
+.semi-switch-checked {
+  background: linear-gradient(135deg, rgb(249, 115, 22) 0%, rgb(234, 88, 12) 100%);
+}
+
+/* Table improvements */
+.semi-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.semi-table-thead > tr > th {
+  background: rgb(248, 250, 252);
+  font-weight: 600;
+  color: rgb(51, 65, 85);
+}
+
+@media (prefers-color-scheme: dark) {
+  .semi-table-thead > tr > th {
+    background: rgb(30, 41, 59);
+    color: rgb(226, 232, 240);
+  }
+}

@@ -26,8 +26,8 @@ import {
   showSuccess,
   renderQuota,
   renderQuotaWithPrompt,
-} from '../../../../helpers';
-import { useIsMobile } from '../../../../hooks/common/useIsMobile';
+} from '../../../../helpers/index.js';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
 import {
   Button,
   Modal,

@@ -16,7 +16,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 For commercial licensing, please contact support@quantumnous.com
 */
-import { API, showError, showSuccess, showWarning } from '../../../../helpers';
+import { API, showError, showSuccess, showWarning } from '../../../../helpers/index.js';
 import {
   Banner,
   Button,

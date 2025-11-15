@@ -25,7 +25,7 @@ import {
   renderQuota,
   modelToColor,
   getQuotaWithUnit,
-} from '../../helpers';
+} from '../../../helpers';
 import {
   processRawData,
   calculateTrendData,
@@ -34,7 +34,7 @@ import {
   updateChartSpec,
   updateMapValue,
   initializeMaps,
-} from '../../helpers/dashboard';
+} from '../../../helpers/dashboard';
 
 export const useDashboardCharts = (
   dataExportDefaultTime,

@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useState } from 'react';
 import { Button, Space } from '@douyinfe/semi-ui';
-import { showError } from '../../../helpers';
+import { showError } from '../../../helpers/index.js';
 import CopyTokensModal from './modals/CopyTokensModal';
 import DeleteTokensModal from './modals/DeleteTokensModal';
 

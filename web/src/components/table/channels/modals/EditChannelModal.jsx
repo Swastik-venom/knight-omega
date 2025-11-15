@@ -25,7 +25,7 @@ import {
   showInfo,
   showSuccess,
   verifyJSON,
-} from '../../../../helpers';
+} from '../../../../helpers/index.js';
 import { useIsMobile } from '../../../../hooks/common/useIsMobile';
 import { CHANNEL_OPTIONS } from '../../../../constants';
 import {
@@ -53,7 +53,7 @@ import {
   getChannelIcon,
   getModelCategories,
   selectFilter,
-} from '../../../../helpers';
+} from '../../../../helpers/index.js';
 import ModelSelectModal from './ModelSelectModal';
 import JSONEditor from '../../../common/ui/JSONEditor';
 import SecureVerificationModal from '../../../common/modals/SecureVerificationModal';
@@ -2107,7 +2107,7 @@ const EditChannelModal = (props) => {
                               }
                               showClear
                               extraText={t(
-                                '对于官方渠道，knight-omega已经内置地址，除非是第三方代理站点或者Azure的特殊接入地址，否则不需要填写',
+                                '对于官方渠道，new-api已经内置地址，除非是第三方代理站点或者Azure的特殊接入地址，否则不需要填写',
                               )}
                             />
                           </div>

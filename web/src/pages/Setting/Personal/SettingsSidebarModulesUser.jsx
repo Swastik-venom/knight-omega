@@ -28,7 +28,7 @@ import {
   Col,
   Avatar,
 } from '@douyinfe/semi-ui';
-import { API, showSuccess, showError } from '../../../helpers';
+import { API, showSuccess, showError } from '../../../helpers/index.js';
 import { StatusContext } from '../../../context/Status';
 import { UserContext } from '../../../context/User';
 import { useUserPermissions } from '../../../hooks/common/useUserPermissions';
@@ -54,15 +54,11 @@ export default function SettingsSidebarModulesUser() {
   // 使用useSidebar钩子获取刷新方法
   const { refreshUserConfig } = useSidebar();
 
-  // 如果没有边栏设置权限，不显示此组件
-  if (!permissionsLoading && !hasSidebarSettingsPermission()) {
-    return null;
-  }
+  // 用户个人左侧边栏模块设置
+  const [sidebarModulesUser, setSidebarModulesUser] = useState({});
 
-  // 权限加载中，显示加载状态
-  if (permissionsLoading) {
-    return null;
-  }
+  // 管理员全局配置
+  const [adminConfig, setAdminConfig] = useState(null);
 
   // 根据用户权限生成默认配置
   const generateDefaultConfig = () => {
@@ -112,12 +108,6 @@ export default function SettingsSidebarModulesUser() {
 
     return defaultConfig;
   };
-
-  // 用户个人左侧边栏模块设置
-  const [sidebarModulesUser, setSidebarModulesUser] = useState({});
-
-  // 管理员全局配置
-  const [adminConfig, setAdminConfig] = useState(null);
 
   // 处理区域级别开关变更
   function handleSectionChange(sectionKey) {
@@ -351,6 +341,16 @@ export default function SettingsSidebarModulesUser() {
         // 过滤掉没有可用模块的区域
         section.modules.length > 0 && isAllowedByAdmin(section.key),
     );
+
+  // 如果没有边栏设置权限，不显示此组件
+  if (!permissionsLoading && !hasSidebarSettingsPermission()) {
+    return null;
+  }
+
+  // 权限加载中，显示加载状态
+  if (permissionsLoading) {
+    return null;
+  }
 
   return (
     <Card className='!rounded-2xl shadow-sm border-0'>

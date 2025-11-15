@@ -19,10 +19,10 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useEffect, useState } from 'react';
 import { Card, Spin } from '@douyinfe/semi-ui';
-import SettingsGeneralPayment from '../../pages/Setting/Payment/SettingsGeneralPayment';
-import SettingsPaymentGateway from '../../pages/Setting/Payment/SettingsPaymentGateway';
-import SettingsPaymentGatewayStripe from '../../pages/Setting/Payment/SettingsPaymentGatewayStripe';
-import SettingsPaymentGatewayCreem from '../../pages/Setting/Payment/SettingsPaymentGatewayCreem';
+import SettingsGeneralPayment from '../../pages/Setting/Payment/SettingsGeneralPayment.jsx';
+import SettingsPaymentGateway from '../../pages/Setting/Payment/SettingsPaymentGateway.jsx';
+import SettingsPaymentGatewayStripe from '../../pages/Setting/Payment/SettingsPaymentGatewayStripe.jsx';
+import SettingsPaymentGatewayCreem from '../../pages/Setting/Payment/SettingsPaymentGatewayCreem.jsx';
 import { API, showError, toBoolean } from '../../helpers';
 import { useTranslation } from 'react-i18next';
 

@@ -19,9 +19,8 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useEffect, useState, useMemo, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Typography } from '@douyinfe/semi-ui';
-import { Link, useNavigate } from 'react-router-dom';
-import { getFooterHTML, getLogo, getSystemName } from '../../helpers';
+import { Typography } from '@douyinfe/semi-ui';
+import { getFooterHTML, getLogo, getSystemName } from '../../../helpers';
 import { StatusContext } from '../../context/Status';
 
 const FooterBar = () => {
@@ -30,144 +29,219 @@ const FooterBar = () => {
   const systemName = getSystemName();
   const logo = getLogo();
   const [statusState] = useContext(StatusContext);
-  const docsLink = statusState?.status?.docs_link || '';
-  const navigate = useNavigate();
+  const isDemoSiteMode = statusState?.status?.demo_site_enabled || false;
 
-  useEffect(() => {
-    const footerHtml = localStorage.getItem('footer_html');
-    if (footerHtml) {
-      setFooter(footerHtml);
+  const loadFooter = () => {
+    let footer_html = localStorage.getItem('footer_html');
+    if (footer_html) {
+      setFooter(footer_html);
     }
-  }, []);
-
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-
-  const quickLinks = useMemo(
-    () => [
-      { label: t('Home'), to: '/' },
-      { label: t('Console'), to: '/console' },
-      { label: t('Pricing'), to: '/pricing' },
-      { label: t('About'), to: '/about' },
-    ],
-    [t],
-  );
-
-  const resourceLinks = useMemo(() => {
-    const items = [];
-    if (docsLink) {
-      items.push({ label: t('Product guide'), href: docsLink });
-    }
-    items.push({ label: t('User agreement'), to: '/user-agreement' });
-    items.push({ label: t('Privacy policy'), to: '/privacy-policy' });
-    return items;
-  }, [docsLink, t]);
-
-  const supportContacts = useMemo(
-    () => [
-      { label: 'support@knight-omega.io', href: 'mailto:support@knight-omega.io' },
-      { label: 'status.knight-omega.io', href: 'https://status.knight-omega.io' },
-    ],
-    [],
-  );
-
-  const renderLink = (item) => {
-    if (item.to) {
-      return (
-        <Link key={item.label} to={item.to} className='footer-link'>
-          {item.label}
-        </Link>
-      );
-    }
-
-    return (
-      <a key={item.label} href={item.href} target='_blank' rel='noopener noreferrer' className='footer-link'>
-        {item.label}
-      </a>
-    );
   };
 
-  const renderCustomFooter = () => (
-    <footer className='footer-modern'>
-      <div className='footer-modern__orb footer-modern__orb--one' />
-      <div className='footer-modern__orb footer-modern__orb--two' />
+  const currentYear = new Date().getFullYear();
 
-      <div className='footer-modern__grid'>
-        <div className='footer-modern__brand'>
-          <div className='footer-modern__brand-row'>
-            {logo ? (
-              <img src={logo} alt={systemName} className='footer-modern__logo' />
-            ) : (
-              <div className='footer-modern__logo--placeholder'>{systemName?.charAt(0)}</div>
-            )}
-            <div>
-              <Typography.Title heading={5} className='footer-modern__title'>
-                {systemName || 'Knight Omega'}
-              </Typography.Title>
-              <Typography.Text className='footer-modern__tagline'>
-                {t('The all-in-one gateway for free tiers and $8 Pro monetisation')}
+  const customFooter = useMemo(
+    () => (
+      <footer className='relative w-full overflow-hidden border-t border-slate-200/70 bg-white/90 py-12 px-6 text-slate-600 backdrop-blur-xl dark:border-slate-800/60 dark:bg-slate-900/85 dark:text-slate-300'>
+        <div className='mx-auto w-full max-w-6xl'>
+          {isDemoSiteMode && (
+            <div className='mb-10 flex w-full flex-col gap-8 md:flex-row md:items-start md:justify-between'>
+              <div className='flex-shrink-0'>
+                <img
+                  src={logo}
+                  alt={systemName}
+                  className='h-16 w-16 rounded-full border border-slate-200/70 bg-white p-1.5 object-contain shadow-sm dark:border-white/15 dark:bg-white/10'
+                />
+              </div>
+
+              <div className='grid w-full grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4'>
+                <div className='text-left'>
+                  <p className='mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400'>
+                    {t('关于我们')}
+                  </p>
+                  <div className='flex flex-col gap-3 text-sm'>
+                    <a
+                      href='https://docs.newapi.pro/wiki/project-introduction/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      {t('关于项目')}
+                    </a>
+                    <a
+                      href='https://docs.newapi.pro/support/community-interaction/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      {t('联系我们')}
+                    </a>
+                    <a
+                      href='https://docs.newapi.pro/wiki/features-introduction/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      {t('功能特性')}
+                    </a>
+                  </div>
+                </div>
+
+                <div className='text-left'>
+                  <p className='mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400'>
+                    {t('文档')}
+                  </p>
+                  <div className='flex flex-col gap-3 text-sm'>
+                    <a
+                      href='https://docs.newapi.pro/getting-started/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      {t('快速开始')}
+                    </a>
+                    <a
+                      href='https://docs.newapi.pro/installation/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      {t('安装指南')}
+                    </a>
+                    <a
+                      href='https://docs.newapi.pro/api/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      {t('API 文档')}
+                    </a>
+                  </div>
+                </div>
+
+                <div className='text-left'>
+                  <p className='mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400'>
+                    {t('相关项目')}
+                  </p>
+                  <div className='flex flex-col gap-3 text-sm'>
+                    <a
+                      href='https://github.com/songquanpeng/one-api'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      One API
+                    </a>
+                    <a
+                      href='https://github.com/novicezk/midjourney-proxy'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      Midjourney-Proxy
+                    </a>
+                    <a
+                      href='https://github.com/Calcium-Ion/neko-api-key-tool'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      neko-api-key-tool
+                    </a>
+                  </div>
+                </div>
+
+                <div className='text-left'>
+                  <p className='mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400'>
+                    {t('友情链接')}
+                  </p>
+                  <div className='flex flex-col gap-3 text-sm'>
+                    <a
+                      href='https://github.com/Calcium-Ion/new-api-horizon'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      new-api-horizon
+                    </a>
+                    <a
+                      href='https://github.com/coaidev/coai'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      CoAI
+                    </a>
+                    <a
+                      href='https://www.gpt-load.com/'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='transition-colors hover:text-slate-900 dark:hover:text-white'
+                    >
+                      GPT-Load
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className='flex w-full flex-col items-center justify-between gap-6 border-t border-slate-200/70 pt-8 text-sm md:flex-row dark:border-slate-800/60'>
+            <div className='flex flex-wrap items-center gap-2 text-slate-500 dark:text-slate-400'>
+              <Typography.Text className='text-sm text-slate-500 dark:text-slate-400'>
+                © {currentYear} {systemName}. {t('版权所有')}
               </Typography.Text>
             </div>
-          </div>
 
-          <div className='footer-modern__cta'>
-            <Button size='large' theme='solid' type='primary' onClick={() => navigate('/console')}>
-              {t('Open control center')}
-            </Button>
-            <Button
-              size='large'
-              theme='borderless'
-              className='footer-modern__cta-secondary'
-              onClick={() => window.open('mailto:support@knight-omega.io')}
-            >
-              {t('Schedule a demo')}
-            </Button>
-          </div>
-        </div>
-
-        <div className='footer-modern__links'>
-          <div>
-            <p className='footer-modern__links-title'>{t('Site')}</p>
-            <div className='footer-modern__links-column'>{quickLinks.map(renderLink)}</div>
-          </div>
-
-          <div>
-            <p className='footer-modern__links-title'>{t('Resources')}</p>
-            <div className='footer-modern__links-column'>{resourceLinks.map(renderLink)}</div>
-          </div>
-
-          <div>
-            <p className='footer-modern__links-title'>{t('Support')}</p>
-            <div className='footer-modern__links-column'>
-              {supportContacts.map((item) => (
-                <a key={item.label} href={item.href} className='footer-link'>
-                  {item.label}
-                </a>
-              ))}
+            <div className='text-sm text-slate-500 dark:text-slate-400'>
+              <span>
+                {t('设计与开发由')}{' '}
+              </span>
+              <a
+                href='https://github.com/QuantumNous/new-api'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='font-medium text-slate-700 transition-colors hover:text-indigo-600 dark:text-slate-200 dark:hover:text-white'
+              >
+                Knight Omega
+              </a>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className='footer-modern__bottom'>
-        <Typography.Text className='footer-modern__legal'>
-          © {currentYear} {systemName || 'Knight Omega'}. {t('All rights reserved')}
-        </Typography.Text>
-        <Typography.Text className='footer-modern__legal'>
-          {t('Deliver secure AI access with premium routing, billing, and compliance guardrails')}
-        </Typography.Text>
-      </div>
-    </footer>
+      </footer>
+    ),
+    [logo, systemName, t, currentYear, isDemoSiteMode],
   );
 
-  if (footer) {
-    return (
-      <div className='w-full footer-custom-html'>
-        <div className='custom-footer' dangerouslySetInnerHTML={{ __html: footer }}></div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    loadFooter();
+  }, []);
 
-  return renderCustomFooter();
+  return (
+    <div className='w-full bg-white/90 text-slate-600 dark:bg-slate-900/85 dark:text-slate-300'>
+      {footer ? (
+        <div className='relative border-t border-slate-200/70 bg-white/90 backdrop-blur-xl dark:border-slate-800/60 dark:bg-slate-900/85'>
+          <div
+            className='custom-footer'
+            dangerouslySetInnerHTML={{ __html: footer }}
+          ></div>
+          <div className='absolute bottom-2 right-4 text-xs text-slate-500 dark:text-slate-400'>
+            <span>{t('设计与开发由')} </span>
+            <a
+              href='https://github.com/QuantumNous/new-api'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='font-medium text-indigo-600 transition-colors hover:text-indigo-500 dark:text-indigo-300 dark:hover:text-indigo-200'
+            >
+              Knight Omega
+            </a>
+          </div>
+        </div>
+      ) : (
+        customFooter
+      )}
+    </div>
+  );
 };
 
 export default FooterBar;

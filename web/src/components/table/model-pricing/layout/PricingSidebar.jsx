@@ -25,8 +25,8 @@ import PricingEndpointTypes from '../filter/PricingEndpointTypes';
 import PricingVendors from '../filter/PricingVendors';
 import PricingTags from '../filter/PricingTags';
 
-import { resetPricingFilters } from '../../../../helpers/utils';
-import { usePricingFilterCounts } from '../../../../hooks/model-pricing/usePricingFilterCounts';
+import { resetPricingFilters } from '../../../../helpers/index.js';
+import { usePricingFilterCounts } from '../../../hooks/model-pricing/usePricingFilterCounts';
 
 const PricingSidebar = ({
   showWithRecharge,

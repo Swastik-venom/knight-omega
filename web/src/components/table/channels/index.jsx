@@ -31,7 +31,7 @@ import ColumnSelectorModal from './modals/ColumnSelectorModal';
 import EditChannelModal from './modals/EditChannelModal';
 import EditTagModal from './modals/EditTagModal';
 import MultiKeyManageModal from './modals/MultiKeyManageModal';
-import { createCardProPagination } from '../../../helpers/utils';
+import { createCardProPagination } from '../../../helpers/index.js';
 
 const ChannelsPage = () => {
   const channelsData = useChannelsData();

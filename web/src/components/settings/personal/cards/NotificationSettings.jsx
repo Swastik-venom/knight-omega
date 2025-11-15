@@ -39,12 +39,12 @@ import {
   API,
   showSuccess,
   showError,
-} from '../../../../helpers';
-import CodeViewer from '../../../playground/CodeViewer';
-import { StatusContext } from '../../../../context/Status';
-import { UserContext } from '../../../../context/User';
-import { useUserPermissions } from '../../../../hooks/common/useUserPermissions';
-import { useSidebar } from '../../../../hooks/common/useSidebar';
+} from '../../../../helpers/index.js';
+import CodeViewer from '../../playground/CodeViewer';
+import { StatusContext } from '../../../context/Status';
+import { UserContext } from '../../../context/User';
+import { useUserPermissions } from '../../../hooks/common/useUserPermissions';
+import { useSidebar } from '../../../hooks/common/useSidebar';
 
 const NotificationSettings = ({
   t,

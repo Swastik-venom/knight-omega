@@ -45,7 +45,7 @@ import {
   onGitHubOAuthClicked,
   onOIDCClicked,
   onLinuxDOOAuthClicked,
-} from '../../../../helpers';
+} from '../../../../helpers/index.js';
 import TwoFASetting from '../components/TwoFASetting';
 
 const AccountManagement = ({

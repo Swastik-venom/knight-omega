@@ -21,11 +21,11 @@ import React, { useEffect, useState } from 'react';
 import { Card, Spin, Tabs } from '@douyinfe/semi-ui';
 import { useTranslation } from 'react-i18next';
 
-import GroupRatioSettings from '../../pages/Setting/Ratio/GroupRatioSettings';
-import ModelRatioSettings from '../../pages/Setting/Ratio/ModelRatioSettings';
-import ModelSettingsVisualEditor from '../../pages/Setting/Ratio/ModelSettingsVisualEditor';
-import ModelRatioNotSetEditor from '../../pages/Setting/Ratio/ModelRationNotSetEditor';
-import UpstreamRatioSync from '../../pages/Setting/Ratio/UpstreamRatioSync';
+import GroupRatioSettings from '../../pages/Setting/Ratio/GroupRatioSettings.jsx';
+import ModelRatioSettings from '../../pages/Setting/Ratio/ModelRatioSettings.jsx';
+import ModelSettingsVisualEditor from '../../pages/Setting/Ratio/ModelSettingsVisualEditor.jsx';
+import ModelRatioNotSetEditor from '../../pages/Setting/Ratio/ModelRationNotSetEditor.jsx';
+import UpstreamRatioSync from '../../pages/Setting/Ratio/UpstreamRatioSync.jsx';
 
 import { API, showError, toBoolean } from '../../helpers';
 

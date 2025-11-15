@@ -18,7 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
-import SelectableButtonGroup from '../../../common/ui/SelectableButtonGroup';
+import SelectableButtonGroup from '../../common/ui/SelectableButtonGroup';
 
 const PricingDisplaySettings = ({
   showWithRecharge,

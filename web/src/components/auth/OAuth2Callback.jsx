@@ -26,7 +26,7 @@ import {
   showSuccess,
   updateAPI,
   setUserData,
-} from '../../helpers';
+} from '../../../helpers';
 import { UserContext } from '../../context/User';
 import Loading from '../common/ui/Loading';
 

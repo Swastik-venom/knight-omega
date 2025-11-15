@@ -18,7 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
-import ChannelsTable from '../../components/table/channels';
+import ChannelsTable from '@/components/table/channels';
 
 const File = () => {
   return (

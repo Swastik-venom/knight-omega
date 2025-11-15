@@ -19,7 +19,7 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React from 'react';
 import { Modal } from '@douyinfe/semi-ui';
-import { resetPricingFilters } from '../../../../helpers/utils';
+import { resetPricingFilters } from '../../../../helpers/index.js';
 import FilterModalContent from './components/FilterModalContent';
 import FilterModalFooter from './components/FilterModalFooter';
 

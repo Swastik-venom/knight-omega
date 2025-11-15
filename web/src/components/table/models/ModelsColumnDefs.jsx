@@ -30,7 +30,7 @@ import {
   timestamp2string,
   getLobeHubIcon,
   stringToColor,
-} from '../../../helpers';
+} from '../../../helpers/index.js';
 import {
   renderLimitedItems,
   renderDescription,

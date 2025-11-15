@@ -39,7 +39,7 @@ import {
   renderAudioModelPrice,
   renderClaudeModelPrice,
   renderModelPrice,
-} from '../../../helpers';
+} from '../../../helpers/index.js';
 import { IconHelpCircle } from '@douyinfe/semi-icons';
 import { Route } from 'lucide-react';
 

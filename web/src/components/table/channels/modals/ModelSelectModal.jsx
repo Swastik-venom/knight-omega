@@ -35,7 +35,7 @@ import {
 } from '@douyinfe/semi-illustrations';
 import { IconSearch } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
-import { getModelCategories } from '../../../../helpers/render';
+import { getModelCategories } from '../../../../helpers/index.js';
 
 const ModelSelectModal = ({
   visible,

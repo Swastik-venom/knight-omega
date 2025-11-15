@@ -30,7 +30,7 @@ import {
   handleApiError,
   processThinkTags,
   processIncompleteThinkTags,
-} from '../../helpers';
+} from '../../../helpers';
 
 export const useApiRequest = (
   setMessage,

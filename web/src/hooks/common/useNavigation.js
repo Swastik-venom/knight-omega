@@ -35,24 +35,24 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
 
     const allLinks = [
       {
-        text: t('Home'),
+        text: t('首页'),
         itemKey: 'home',
         to: '/',
       },
       {
-        text: t('Console'),
+        text: t('控制台'),
         itemKey: 'console',
         to: '/console',
       },
       {
-        text: t('Pricing'),
+        text: t('模型广场'),
         itemKey: 'pricing',
         to: '/pricing',
       },
       ...(docsLink
         ? [
             {
-              text: t('Documentation'),
+              text: t('文档'),
               itemKey: 'docs',
               isExternal: true,
               externalLink: docsLink,
@@ -60,7 +60,7 @@ export const useNavigation = (t, docsLink, headerNavModules) => {
           ]
         : []),
       {
-        text: t('About'),
+        text: t('关于'),
         itemKey: 'about',
         to: '/about',
       },

@@ -39,8 +39,8 @@ import {
   TASK_ACTION_GENERATE,
   TASK_ACTION_REFERENCE_GENERATE,
   TASK_ACTION_TEXT_GENERATE,
-} from '../../../constants/common.constant';
-import { CHANNEL_OPTIONS } from '../../../constants/channel.constants';
+} from '../../constants/common.constant';
+import { CHANNEL_OPTIONS } from '../../constants/channel.constants';
 
 const colors = [
   'amber',

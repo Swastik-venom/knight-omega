@@ -37,42 +37,42 @@ const HeaderLogo = ({
     return null;
   }
 
-  const fallbackInitial = systemName ? systemName.charAt(0).toUpperCase() : 'K';
-  const showBadge = (isSelfUseMode || isDemoSiteMode) && !isLoading;
-
   return (
-    <Link to='/' className='glass-brand' aria-label={systemName || 'Home'}>
-      <div className='glass-brand__icon-wrapper'>
-        <div className='glass-brand__icon-glow' aria-hidden='true' />
+    <Link to='/' className='group flex items-center gap-2'>
+      <div className='relative w-8 h-8 md:w-8 md:h-8'>
         <SkeletonWrapper loading={isLoading || !logoLoaded} type='image' />
-        {logo ? (
-          <img
-            src={logo}
-            alt={systemName || 'logo'}
-            className={`glass-brand__image ${!isLoading && logoLoaded ? 'is-visible' : ''}`}
-          />
-        ) : (
-          <div className='glass-brand__fallback'>{fallbackInitial}</div>
-        )}
+        <img
+          src={logo}
+          alt='logo'
+          className={`absolute inset-0 w-full h-full transition-all duration-200 group-hover:scale-110 rounded-lg ${!isLoading && logoLoaded ? 'opacity-100' : 'opacity-0'}`}
+        />
       </div>
-
-      <div className='glass-brand__meta'>
-        <SkeletonWrapper loading={isLoading} type='title' width={120} height={24}>
-          <Typography.Title heading={5} className='glass-brand__title'>
-            {systemName}
-          </Typography.Title>
-        </SkeletonWrapper>
-
-        {showBadge && (
-          <Tag
-            color={isSelfUseMode ? 'purple' : 'blue'}
-            className='glass-brand__badge'
-            size='small'
-            shape='circle'
+      <div className='hidden md:flex items-center gap-2'>
+        <div className='flex items-center gap-2'>
+          <SkeletonWrapper
+            loading={isLoading}
+            type='title'
+            width={120}
+            height={24}
           >
-            {isSelfUseMode ? t('Private deployment') : t('Demo environment')}
-          </Tag>
-        )}
+            <Typography.Title
+              heading={4}
+              className='!text-lg !font-semibold !mb-0'
+            >
+              {systemName}
+            </Typography.Title>
+          </SkeletonWrapper>
+          {(isSelfUseMode || isDemoSiteMode) && !isLoading && (
+            <Tag
+              color={isSelfUseMode ? 'purple' : 'blue'}
+              className='text-xs px-1.5 py-0.5 rounded whitespace-nowrap shadow-sm'
+              size='small'
+              shape='circle'
+            >
+              {isSelfUseMode ? t('自用模式') : t('演示站点')}
+            </Tag>
+          )}
+        </div>
       </div>
     </Link>
   );

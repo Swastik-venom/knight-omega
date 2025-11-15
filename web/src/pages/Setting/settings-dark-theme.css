@@ -1,0 +1,755 @@
+/* Settings Pages Dark Theme - Matching Console/Dashboard Theme */
+
+/* Apply dark theme to all settings pages */
+.settings-page {
+  /* Background colors */
+  --semi-color-bg-0: rgb(17, 24, 39);
+  --semi-color-bg-1: rgb(31, 41, 55);
+  --semi-color-bg-2: rgb(55, 65, 81);
+  --semi-color-bg-3: rgb(75, 85, 99);
+  
+  /* Text colors - WHITE */
+  --semi-color-text-0: rgb(255, 255, 255);
+  --semi-color-text-1: rgb(243, 244, 246);
+  --semi-color-text-2: rgb(229, 231, 235);
+  --semi-color-text-3: rgb(209, 213, 219);
+  
+  /* Border colors */
+  --semi-color-border: rgb(55, 65, 81);
+  
+  /* Fill colors */
+  --semi-color-fill-0: rgb(31, 41, 55);
+  --semi-color-fill-1: rgb(55, 65, 81);
+  --semi-color-fill-2: rgb(75, 85, 99);
+  
+  /* Primary orange color */
+  --semi-color-primary: rgb(249, 115, 22);
+  --semi-color-primary-hover: rgb(234, 88, 12);
+  --semi-color-primary-active: rgb(194, 65, 12);
+}
+
+/* Main container background */
+.settings-page {
+  background: rgb(17, 24, 39) !important;
+  min-height: 100vh;
+}
+
+/* Card styling */
+.settings-page .semi-card {
+  background: linear-gradient(135deg, rgb(31, 41, 55) 0%, rgb(17, 24, 39) 100%) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-card-header {
+  background: transparent !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-card-body {
+  background: transparent !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Typography - ALL WHITE */
+.settings-page .semi-typography,
+.settings-page .semi-typography-paragraph,
+.settings-page .semi-typography-title,
+.settings-page .semi-typography-text,
+.settings-page h1,
+.settings-page h2,
+.settings-page h3,
+.settings-page h4,
+.settings-page h5,
+.settings-page h6,
+.settings-page p,
+.settings-page span,
+.settings-page div {
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-typography-secondary {
+  color: rgb(209, 213, 219) !important;
+}
+
+.settings-page .semi-typography-tertiary {
+  color: rgb(156, 163, 175) !important;
+}
+
+/* Form elements */
+.settings-page .semi-form-field-label {
+  color: rgb(255, 255, 255) !important;
+  font-weight: 500 !important;
+}
+
+.settings-page .semi-form-field-label-text {
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-input,
+.settings-page .semi-input-wrapper,
+.settings-page .semi-select,
+.settings-page .semi-textarea {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-input::placeholder,
+.settings-page .semi-textarea::placeholder {
+  color: rgb(107, 114, 128) !important;
+}
+
+.settings-page .semi-input:hover,
+.settings-page .semi-select:hover,
+.settings-page .semi-textarea:hover {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-input:focus,
+.settings-page .semi-select:focus,
+.settings-page .semi-textarea:focus {
+  border-color: rgb(249, 115, 22) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+}
+
+.settings-page .semi-input-default {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Input number */
+.settings-page .semi-input-number {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-input-number-button {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-input-number-button:hover {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+}
+
+/* Select dropdown */
+.semi-select-option-list {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+}
+
+.semi-select-option {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.semi-select-option:hover {
+  background: rgb(55, 65, 81) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.semi-select-option-selected {
+  background: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+.settings-page .semi-select-selection {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-select-selection-text {
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Switch */
+.settings-page .semi-switch {
+  background: rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-switch-checked {
+  background: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-switch-knob {
+  background: white !important;
+}
+
+/* Buttons */
+.settings-page .semi-button-primary {
+  background: linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12)) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+.settings-page .semi-button-primary:hover {
+  background: linear-gradient(135deg, rgb(234, 88, 12), rgb(194, 65, 12)) !important;
+  border-color: rgb(234, 88, 12) !important;
+}
+
+.settings-page .semi-button-secondary {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-button-secondary:hover {
+  background: rgb(75, 85, 99) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-button-tertiary {
+  background: transparent !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-button-tertiary:hover {
+  background: rgb(31, 41, 55) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-button-danger {
+  background: rgb(220, 38, 38) !important;
+  border-color: rgb(220, 38, 38) !important;
+  color: white !important;
+}
+
+.settings-page .semi-button-danger:hover {
+  background: rgb(185, 28, 28) !important;
+  border-color: rgb(185, 28, 28) !important;
+}
+
+/* Table styling */
+.settings-page .semi-table {
+  background: transparent !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-table-thead > .semi-table-row {
+  background: rgb(31, 41, 55) !important;
+  border-bottom: 2px solid rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-table-thead > .semi-table-row > .semi-table-row-head {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(249, 115, 22) !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-table-tbody > .semi-table-row {
+  background: rgb(17, 24, 39) !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+  transition: all 0.2s ease !important;
+}
+
+.settings-page .semi-table-tbody > .semi-table-row:hover {
+  background: rgb(31, 41, 55) !important;
+  box-shadow: 0 2px 4px rgba(249, 115, 22, 0.1) !important;
+}
+
+.settings-page .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
+  background: transparent !important;
+  color: rgb(255, 255, 255) !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+}
+
+/* Tags */
+.settings-page .semi-tag {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-tag-blue {
+  background: rgba(59, 130, 246, 0.2) !important;
+  border-color: rgb(59, 130, 246) !important;
+  color: rgb(147, 197, 253) !important;
+}
+
+.settings-page .semi-tag-green {
+  background: rgba(34, 197, 94, 0.2) !important;
+  border-color: rgb(34, 197, 94) !important;
+  color: rgb(134, 239, 172) !important;
+}
+
+.settings-page .semi-tag-orange {
+  background: rgba(249, 115, 22, 0.2) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: rgb(251, 146, 60) !important;
+}
+
+.settings-page .semi-tag-red {
+  background: rgba(239, 68, 68, 0.2) !important;
+  border-color: rgb(239, 68, 68) !important;
+  color: rgb(252, 165, 165) !important;
+}
+
+/* Tabs */
+.settings-page .semi-tabs-bar {
+  background: rgb(31, 41, 55) !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-tabs-tab {
+  color: rgb(209, 213, 219) !important;
+}
+
+.settings-page .semi-tabs-tab:hover {
+  color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-tabs-tab-active {
+  color: rgb(249, 115, 22) !important;
+  border-bottom-color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-tabs-bar-line {
+  background: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-tabs-content {
+  background: transparent !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Divider */
+.settings-page .semi-divider {
+  border-color: rgb(55, 65, 81) !important;
+}
+
+/* Avatar */
+.settings-page .semi-avatar {
+  background: linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12)) !important;
+  color: white !important;
+}
+
+/* Badge */
+.settings-page .semi-badge {
+  background: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+/* Checkbox */
+.settings-page .semi-checkbox {
+  border-color: rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-checkbox-checked {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-checkbox-inner {
+  color: white !important;
+}
+
+/* Radio */
+.settings-page .semi-radio {
+  border-color: rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-radio-checked {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-radio-inner {
+  background: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-radio-addon {
+  color: rgb(255, 255, 255) !important;
+}
+
+/* DatePicker */
+.settings-page .semi-datepicker {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-datepicker:hover {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+/* Modal */
+.semi-modal-content {
+  background: rgb(17, 24, 39) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.semi-modal-header {
+  background: rgb(31, 41, 55) !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.semi-modal-title {
+  color: rgb(255, 255, 255) !important;
+}
+
+.semi-modal-body {
+  background: rgb(17, 24, 39) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.semi-modal-footer {
+  background: rgb(31, 41, 55) !important;
+  border-top: 1px solid rgb(55, 65, 81) !important;
+}
+
+/* Tooltip */
+.semi-tooltip-wrapper {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Notification */
+.semi-notification {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Toast */
+.semi-toast {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Popover */
+.semi-popover-content {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Dropdown */
+.semi-dropdown-menu {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+}
+
+.semi-dropdown-item {
+  color: rgb(255, 255, 255) !important;
+}
+
+.semi-dropdown-item:hover {
+  background: rgb(55, 65, 81) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Collapse */
+.settings-page .semi-collapse {
+  background: transparent !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-collapse-header {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-collapse-content {
+  background: rgb(17, 24, 39) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Scrollbar */
+.settings-page ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.settings-page ::-webkit-scrollbar-track {
+  background: rgb(31, 41, 55);
+  border-radius: 4px;
+}
+
+.settings-page ::-webkit-scrollbar-thumb {
+  background: rgb(75, 85, 99);
+  border-radius: 4px;
+}
+
+.settings-page ::-webkit-scrollbar-thumb:hover {
+  background: rgb(249, 115, 22);
+}
+
+/* Spin (loading) */
+.settings-page .semi-spin-wrapper {
+  background: rgba(17, 24, 39, 0.8) !important;
+}
+
+/* Empty state */
+.settings-page .semi-empty {
+  color: rgb(156, 163, 175) !important;
+}
+
+.settings-page .semi-empty-description {
+  color: rgb(156, 163, 175) !important;
+}
+
+/* Progress */
+.settings-page .semi-progress-line-bg {
+  background: rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-progress-line-fill {
+  background: rgb(249, 115, 22) !important;
+}
+
+/* Slider */
+.settings-page .semi-slider-rail {
+  background: rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-slider-track {
+  background: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-slider-handle {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+}
+
+/* Rating */
+.settings-page .semi-rating-star {
+  color: rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-rating-star-active {
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Timeline */
+.settings-page .semi-timeline-item-head {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-timeline-item-tail {
+  background: rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-timeline-item-content {
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Steps */
+.settings-page .semi-steps-item-title {
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-steps-item-description {
+  color: rgb(209, 213, 219) !important;
+}
+
+.settings-page .semi-steps-item-icon {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-steps-item-finish .semi-steps-item-icon {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+}
+
+/* Tree */
+.settings-page .semi-tree-option {
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-tree-option:hover {
+  background: rgb(31, 41, 55) !important;
+}
+
+.settings-page .semi-tree-option-selected {
+  background: rgba(249, 115, 22, 0.2) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Transfer */
+.settings-page .semi-transfer-left,
+.settings-page .semi-transfer-right {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-transfer-item {
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-transfer-item:hover {
+  background: rgb(55, 65, 81) !important;
+}
+
+/* Upload */
+.settings-page .semi-upload-drag-area {
+  background: rgb(31, 41, 55) !important;
+  border: 2px dashed rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-upload-drag-area:hover {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+/* Descriptions */
+.settings-page .semi-descriptions {
+  background: transparent !important;
+}
+
+.settings-page .semi-descriptions-item {
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+}
+
+.settings-page .semi-descriptions-key {
+  color: rgb(209, 213, 219) !important;
+}
+
+.settings-page .semi-descriptions-value {
+  color: rgb(255, 255, 255) !important;
+}
+
+/* List */
+.settings-page .semi-list {
+  background: transparent !important;
+}
+
+.settings-page .semi-list-item {
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-list-item:hover {
+  background: rgb(31, 41, 55) !important;
+}
+
+/* Anchor */
+.settings-page .semi-anchor-link {
+  color: rgb(209, 213, 219) !important;
+}
+
+.settings-page .semi-anchor-link:hover {
+  color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-anchor-link-active {
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Breadcrumb */
+.settings-page .semi-breadcrumb-item {
+  color: rgb(209, 213, 219) !important;
+}
+
+.settings-page .semi-breadcrumb-item:hover {
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Navigation */
+.settings-page .semi-navigation {
+  background: rgb(31, 41, 55) !important;
+}
+
+.settings-page .semi-navigation-item {
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-navigation-item:hover {
+  background: rgb(55, 65, 81) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-navigation-item-selected {
+  background: rgba(249, 115, 22, 0.2) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Pagination */
+.settings-page .semi-page {
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-page-item {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-page-item:hover {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.settings-page .semi-page-item-active {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+/* Skeleton */
+.settings-page .semi-skeleton-title,
+.settings-page .semi-skeleton-paragraph-line {
+  background: rgb(55, 65, 81) !important;
+}
+
+/* Banner */
+.settings-page .semi-banner {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Highlight */
+.settings-page .semi-highlight {
+  background: rgba(249, 115, 22, 0.2) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Space */
+.settings-page .semi-space {
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Grid */
+.settings-page .semi-col {
+  color: rgb(255, 255, 255) !important;
+}
+
+/* Layout */
+.settings-page .semi-layout {
+  background: rgb(17, 24, 39) !important;
+}
+
+.settings-page .semi-layout-header {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-layout-sider {
+  background: rgb(31, 41, 55) !important;
+}
+
+.settings-page .semi-layout-content {
+  background: rgb(17, 24, 39) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.settings-page .semi-layout-footer {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(255, 255, 255) !important;
+}

@@ -32,19 +32,23 @@ import {
   MessageSquare,
   Palette,
   CreditCard,
+  User,
 } from 'lucide-react';
 
-import SystemSetting from '../../components/settings/SystemSetting';
-import { isRoot } from '../../helpers';
-import OtherSetting from '../../components/settings/OtherSetting';
-import OperationSetting from '../../components/settings/OperationSetting';
-import RateLimitSetting from '../../components/settings/RateLimitSetting';
-import ModelSetting from '../../components/settings/ModelSetting';
-import DashboardSetting from '../../components/settings/DashboardSetting';
-import RatioSetting from '../../components/settings/RatioSetting';
-import ChatsSetting from '../../components/settings/ChatsSetting';
-import DrawingSetting from '../../components/settings/DrawingSetting';
-import PaymentSetting from '../../components/settings/PaymentSetting';
+import SystemSetting from '../../components/settings/SystemSetting.jsx';
+import { isRoot } from '../../helpers/index.js';
+import OtherSetting from '../../components/settings/OtherSetting.jsx';
+import OperationSetting from '../../components/settings/OperationSetting.jsx';
+import RateLimitSetting from '../../components/settings/RateLimitSetting.jsx';
+import ModelSetting from '../../components/settings/ModelSetting.jsx';
+import DashboardSetting from '../../components/settings/DashboardSetting.jsx';
+import RatioSetting from '../../components/settings/RatioSetting.jsx';
+import ChatsSetting from '../../components/settings/ChatsSetting.jsx';
+import DrawingSetting from '../../components/settings/DrawingSetting.jsx';
+import PaymentSetting from '../../components/settings/PaymentSetting.jsx';
+import PersonalSetting from '../../components/settings/PersonalSetting.jsx';
+import './settings.css';
+import './settings-dark-theme.css';
 
 const Setting = () => {
   const { t } = useTranslation();
@@ -53,12 +57,13 @@ const Setting = () => {
   const [tabActiveKey, setTabActiveKey] = useState('1');
   let panes = [];
 
+  // Admin-only tabs
   if (isRoot()) {
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <Settings size={18} />
-          {t('运营设置')}
+          <span className='font-medium'>Operation Settings</span>
         </span>
       ),
       content: <OperationSetting />,
@@ -66,9 +71,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <LayoutDashboard size={18} />
-          {t('仪表盘设置')}
+          <span className='font-medium'>Dashboard Settings</span>
         </span>
       ),
       content: <DashboardSetting />,
@@ -76,9 +81,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <MessageSquare size={18} />
-          {t('聊天设置')}
+          <span className='font-medium'>Chat Settings</span>
         </span>
       ),
       content: <ChatsSetting />,
@@ -86,9 +91,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <Palette size={18} />
-          {t('绘图设置')}
+          <span className='font-medium'>Drawing Settings</span>
         </span>
       ),
       content: <DrawingSetting />,
@@ -96,9 +101,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <CreditCard size={18} />
-          {t('支付设置')}
+          <span className='font-medium'>Payment Settings</span>
         </span>
       ),
       content: <PaymentSetting />,
@@ -106,9 +111,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <Calculator size={18} />
-          {t('分组与模型定价设置')}
+          <span className='font-medium'>Pricing & Groups</span>
         </span>
       ),
       content: <RatioSetting />,
@@ -116,9 +121,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <Gauge size={18} />
-          {t('速率限制设置')}
+          <span className='font-medium'>Rate Limits</span>
         </span>
       ),
       content: <RateLimitSetting />,
@@ -126,9 +131,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <Shapes size={18} />
-          {t('模型相关设置')}
+          <span className='font-medium'>Model Settings</span>
         </span>
       ),
       content: <ModelSetting />,
@@ -136,9 +141,9 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <Cog size={18} />
-          {t('系统设置')}
+          <span className='font-medium'>System Settings</span>
         </span>
       ),
       content: <SystemSetting />,
@@ -146,46 +151,82 @@ const Setting = () => {
     });
     panes.push({
       tab: (
-        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+        <span className='flex items-center gap-2'>
           <MoreHorizontal size={18} />
-          {t('其他设置')}
+          <span className='font-medium'>Other Settings</span>
         </span>
       ),
       content: <OtherSetting />,
       itemKey: 'other',
     });
+  } else {
+    // Regular user tabs
+    panes.push({
+      tab: (
+        <span className='flex items-center gap-2'>
+          <User size={18} />
+          <span className='font-medium'>Personal Settings</span>
+        </span>
+      ),
+      content: <PersonalSetting />,
+      itemKey: 'personal',
+    });
   }
+
   const onChangeTab = (key) => {
     setTabActiveKey(key);
     navigate(`?tab=${key}`);
   };
+
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const tab = searchParams.get('tab');
     if (tab) {
       setTabActiveKey(tab);
     } else {
-      onChangeTab('operation');
+      onChangeTab(isRoot() ? 'operation' : 'personal');
     }
   }, [location.search]);
+
   return (
-    <div className='mt-[60px] px-2'>
-      <Layout>
-        <Layout.Content>
-          <Tabs
-            type='card'
-            collapsible
-            activeKey={tabActiveKey}
-            onChange={(key) => onChangeTab(key)}
-          >
-            {panes.map((pane) => (
-              <TabPane itemKey={pane.itemKey} tab={pane.tab} key={pane.itemKey}>
-                {tabActiveKey === pane.itemKey && pane.content}
-              </TabPane>
-            ))}
-          </Tabs>
-        </Layout.Content>
-      </Layout>
+    <div className='settings-page mt-16 px-4 pb-12'>
+      <div className='relative overflow-hidden rounded-3xl border border-slate-200/80 shadow-[0_32px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:shadow-[0_32px_80px_rgba(15,23,42,0.45)]'>
+        <div className='pointer-events-none absolute -top-32 right-[-120px] h-60 w-60 rounded-full bg-orange-200/60 blur-[140px] dark:bg-orange-500/30' />
+        <div className='pointer-events-none absolute -bottom-32 left-[-110px] h-56 w-56 rounded-full bg-amber-200/55 blur-[140px] dark:bg-amber-500/25' />
+        
+        <div className='relative p-6'>
+          <div className='mb-6'>
+            <h1 className='text-3xl font-bold text-slate-900 dark:text-white mb-2'>
+              {isRoot() ? 'Admin Settings' : 'Settings'}
+            </h1>
+            <p className='text-slate-600 dark:text-slate-400'>
+              {isRoot()
+                ? 'Manage system configuration and preferences'
+                : 'Manage your personal preferences and account settings'}
+            </p>
+          </div>
+
+          <Layout>
+            <Layout.Content>
+              <Tabs
+                type='line'
+                collapsible
+                activeKey={tabActiveKey}
+                onChange={(key) => onChangeTab(key)}
+                className='settings-tabs'
+              >
+                {panes.map((pane) => (
+                  <TabPane itemKey={pane.itemKey} tab={pane.tab} key={pane.itemKey}>
+                    <div className='mt-6'>
+                      {tabActiveKey === pane.itemKey && pane.content}
+                    </div>
+                  </TabPane>
+                ))}
+              </Tabs>
+            </Layout.Content>
+          </Layout>
+        </div>
+      </div>
     </div>
   );
 };

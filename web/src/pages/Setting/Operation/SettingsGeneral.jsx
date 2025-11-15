@@ -167,14 +167,30 @@ export default function GeneralSettings(props) {
           getFormApi={(formAPI) => (refForm.current = formAPI)}
           style={{ marginBottom: 15 }}
         >
-          <Form.Section text={t('通用设置')}>
+          <Form.Section>
+            <div className='mb-6'>
+              <div className='flex items-center gap-3 mb-4'>
+                <div className='p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg'>
+                  <Settings size={20} className='text-indigo-600 dark:text-indigo-400' />
+                </div>
+                <div>
+                  <h3 className='text-lg font-semibold text-slate-900 dark:text-white'>
+                    General Settings
+                  </h3>
+                  <Text type='secondary' className='text-sm'>
+                    Configure basic system parameters and display options
+                  </Text>
+                </div>
+              </div>
+            </div>
+
             <Row gutter={16}>
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Input
                   field={'TopUpLink'}
-                  label={t('充值链接')}
+                  label='Top-up Link'
                   initValue={''}
-                  placeholder={t('例如发卡网站的购买链接')}
+                  placeholder='e.g., Card issuing website purchase link'
                   onChange={handleFieldChange('TopUpLink')}
                   showClear
                 />
@@ -182,26 +198,25 @@ export default function GeneralSettings(props) {
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Input
                   field={'general_setting.docs_link'}
-                  label={t('文档地址')}
+                  label='Documentation Link'
                   initValue={''}
-                  placeholder={t('例如 https://docs.knightomega.pro')}
+                  placeholder='e.g., https://docs.newapi.pro'
                   onChange={handleFieldChange('general_setting.docs_link')}
                   showClear
                 />
               </Col>
-              {/* 单位美元额度已合入汇率组合控件（TOKENS 模式下编辑），不再单独展示 */}
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Input
                   field={'RetryTimes'}
-                  label={t('失败重试次数')}
+                  label='Failure Retry Count'
                   initValue={''}
-                  placeholder={t('失败重试次数')}
+                  placeholder='Number of retries on failure'
                   onChange={handleFieldChange('RetryTimes')}
                   showClear
                 />
               </Col>
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
-                <Form.Slot label={t('站点额度展示类型及汇率')}>
+                <Form.Slot label='Quota Display Type & Exchange Rate'>
                   <InputGroup style={{ width: '100%' }}>
                     <Input
                       prefix={'1 USD = '}
@@ -232,8 +247,8 @@ export default function GeneralSettings(props) {
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Input
                   field={'general_setting.custom_currency_symbol'}
-                  label={t('自定义货币符号')}
-                  placeholder={t('例如 €, £, Rp, ₩, ₹...')}
+                  label='Custom Currency Symbol'
+                  placeholder='e.g., €, £, Rp, ₩, ₹...'
                   onChange={handleFieldChange(
                     'general_setting.custom_currency_symbol',
                   )}
@@ -248,48 +263,53 @@ export default function GeneralSettings(props) {
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Switch
                   field={'DisplayTokenStatEnabled'}
-                  label={t('额度查询接口返回令牌额度而非用户额度')}
+                  label='Display Token Quota Instead of User Quota'
                   size='default'
-                  checkedText='｜'
-                  uncheckedText='〇'
+                  checkedText='ON'
+                  uncheckedText='OFF'
                   onChange={handleFieldChange('DisplayTokenStatEnabled')}
                 />
               </Col>
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Switch
                   field={'DefaultCollapseSidebar'}
-                  label={t('默认折叠侧边栏')}
+                  label='Default Collapse Sidebar'
                   size='default'
-                  checkedText='｜'
-                  uncheckedText='〇'
+                  checkedText='ON'
+                  uncheckedText='OFF'
                   onChange={handleFieldChange('DefaultCollapseSidebar')}
                 />
               </Col>
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Switch
                   field={'DemoSiteEnabled'}
-                  label={t('演示站点模式')}
+                  label='Demo Site Mode'
                   size='default'
-                  checkedText='｜'
-                  uncheckedText='〇'
+                  checkedText='ON'
+                  uncheckedText='OFF'
                   onChange={handleFieldChange('DemoSiteEnabled')}
                 />
               </Col>
               <Col xs={24} sm={12} md={8} lg={8} xl={8}>
                 <Form.Switch
                   field={'SelfUseModeEnabled'}
-                  label={t('自用模式')}
-                  extraText={t('开启后不限制：必须设置模型倍率')}
+                  label='Self-Use Mode'
+                  extraText='When enabled: no model ratio requirement'
                   size='default'
-                  checkedText='｜'
-                  uncheckedText='〇'
+                  checkedText='ON'
+                  uncheckedText='OFF'
                   onChange={handleFieldChange('SelfUseModeEnabled')}
                 />
               </Col>
             </Row>
-            <Row>
-              <Button size='default' onClick={onSubmit}>
-                {t('保存通用设置')}
+            <Row className='mt-6'>
+              <Button
+                size='large'
+                type='primary'
+                onClick={onSubmit}
+                className='!rounded-lg px-8'
+              >
+                Save General Settings
               </Button>
             </Row>
           </Form.Section>

@@ -24,9 +24,9 @@ import RedemptionsActions from './RedemptionsActions';
 import RedemptionsFilters from './RedemptionsFilters';
 import RedemptionsDescription from './RedemptionsDescription';
 import EditRedemptionModal from './modals/EditRedemptionModal';
-import { useRedemptionsData } from '../../../hooks/redemptions/useRedemptionsData';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
-import { createCardProPagination } from '../../../helpers/utils';
+import { useRedemptionsData } from '../../hooks/redemptions/useRedemptionsData';
+import { useIsMobile } from '../../hooks/common/useIsMobile';
+import { createCardProPagination } from '../../../helpers/index.js';
 
 const RedemptionsPage = () => {
   const redemptionsData = useRedemptionsData();

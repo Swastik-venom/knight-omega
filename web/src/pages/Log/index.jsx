@@ -18,10 +18,11 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React from 'react';
-import UsageLogsTable from '../../components/table/usage-logs';
+import UsageLogsTable from '@/components/table/usage-logs';
+import './log-styles.css';
 
 const Token = () => (
-  <div className='mt-[60px] px-2'>
+  <div className='mt-[60px] px-2 usage-log-page'>
     <UsageLogsTable />
   </div>
 );

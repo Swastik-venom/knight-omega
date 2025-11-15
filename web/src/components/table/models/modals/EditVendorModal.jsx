@@ -19,11 +19,11 @@ For commercial licensing, please contact support@quantumnous.com
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Modal, Form, Col, Row } from '@douyinfe/semi-ui';
-import { API, showError, showSuccess } from '../../../../helpers';
+import { API, showError, showSuccess } from '../../../../helpers/index.js';
 import { Typography } from '@douyinfe/semi-ui';
 import { IconLink } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../../../../hooks/common/useIsMobile';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
 
 const EditVendorModal = ({ visible, handleClose, refresh, editingVendor }) => {
   const { t } = useTranslation();

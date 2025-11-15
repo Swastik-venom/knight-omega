@@ -18,7 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React, { useState, useRef } from 'react';
-import { API, showError, showSuccess } from '../../../../helpers';
+import { API, showError, showSuccess } from '../../../../helpers/index.js';
 import { useIsMobile } from '../../../../hooks/common/useIsMobile';
 import {
   Button,

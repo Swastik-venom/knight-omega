@@ -39,7 +39,7 @@ import {
   renderQuota,
   getModelCategories,
   showError,
-} from '../../../helpers';
+} from '../../../helpers/index.js';
 import {
   IconTreeTriangleDown,
   IconCopy,

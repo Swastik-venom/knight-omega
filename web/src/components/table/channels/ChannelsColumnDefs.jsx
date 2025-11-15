@@ -37,7 +37,7 @@ import {
   renderQuotaWithAmount,
   showSuccess,
   showError,
-} from '../../../helpers';
+} from '../../../helpers/index.js';
 import { CHANNEL_OPTIONS } from '../../../constants';
 import { IconTreeTriangleDown, IconMore } from '@douyinfe/semi-icons';
 import { FaRandom } from 'react-icons/fa';

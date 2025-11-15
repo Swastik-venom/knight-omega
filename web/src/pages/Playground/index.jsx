@@ -48,7 +48,7 @@ import {
   getTextContent,
   buildApiPayload,
   encodeToBase64,
-} from '../../helpers';
+} from '../../../helpers';
 
 // Components
 import {

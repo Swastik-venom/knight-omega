@@ -31,7 +31,7 @@ import {
   isAdmin,
   renderQuota,
   stringToColor,
-} from '../../../../helpers';
+} from '../../../../helpers/index.js';
 import { Coins, BarChart2, Users } from 'lucide-react';
 
 const UserInfoHeader = ({ t, userState }) => {

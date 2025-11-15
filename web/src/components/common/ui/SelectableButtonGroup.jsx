@@ -18,8 +18,8 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useMinimumLoadingTime } from '../../../hooks/common/useMinimumLoadingTime';
-import { useContainerWidth } from '../../../hooks/common/useContainerWidth';
+import { useMinimumLoadingTime } from '../../hooks/common/useMinimumLoadingTime';
+import { useContainerWidth } from '../../hooks/common/useContainerWidth';
 import {
   Divider,
   Button,

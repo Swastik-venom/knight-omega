@@ -20,8 +20,8 @@ For commercial licensing, please contact support@quantumnous.com
 import React from 'react';
 import { Tabs, TabPane, Tag, Button, Dropdown, Modal } from '@douyinfe/semi-ui';
 import { IconEdit, IconDelete } from '@douyinfe/semi-icons';
-import { getLobeHubIcon, showError, showSuccess } from '../../../helpers';
-import { API } from '../../../helpers';
+import { getLobeHubIcon, showError, showSuccess } from '../../../helpers/index.js';
+import { API } from '../../../helpers/index.js';
 
 const ModelsTabs = ({
   activeVendorKey,

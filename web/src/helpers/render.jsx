@@ -51,12 +51,40 @@ import {
   Dify,
   Coze,
   SiliconCloud,
-  FastGPT,
-  Kling,
-  Jimeng,
   Perplexity,
   Replicate,
 } from '@lobehub/icons';
+
+// Create fallback components for icons not available in @lobehub/icons
+const createFallbackIcon = (letter, color = '#4A90E2') => ({
+  Color: ({ size = 14, ...props }) => (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect width="24" height="24" rx="4" fill={color} />
+      <text
+        x="12"
+        y="16"
+        fontSize="12"
+        fontWeight="bold"
+        fill="white"
+        textAnchor="middle"
+      >
+        {letter}
+      </text>
+    </svg>
+  ),
+});
+
+// Fallback icons for missing providers
+const Kling = LobeIcons.Kling || createFallbackIcon('K', '#FF6B6B');
+const Jimeng = LobeIcons.Jimeng || createFallbackIcon('J', '#4ECDC4');
+const FastGPT = LobeIcons.FastGPT || createFallbackIcon('F', '#95E1D3');
 
 import {
   LayoutDashboard,

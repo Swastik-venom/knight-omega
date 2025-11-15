@@ -18,7 +18,7 @@ For commercial licensing, please contact support@quantumnous.com
 */
 
 import React, { useContext, useEffect } from 'react';
-import { getRelativeTime } from '../../helpers';
+import { getRelativeTime } from '../../../helpers';
 import { UserContext } from '../../context/User';
 import { StatusContext } from '../../context/Status';
 
@@ -50,7 +50,7 @@ import {
   getUptimeStatusColor,
   getUptimeStatusText,
   renderMonitorList,
-} from '../../helpers/dashboard';
+} from '../../../helpers/dashboard';
 
 const Dashboard = () => {
   // ========== Context ==========

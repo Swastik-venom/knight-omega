@@ -22,7 +22,7 @@ import { Card, Spin } from '@douyinfe/semi-ui';
 
 import { API, showError, toBoolean } from '../../helpers';
 import { useTranslation } from 'react-i18next';
-import RequestRateLimit from '../../pages/Setting/RateLimit/SettingsRequestRateLimit';
+import RequestRateLimit from '../../pages/Setting/RateLimit/SettingsRequestRateLimit.jsx';
 
 const RateLimitSetting = () => {
   const { t } = useTranslation();

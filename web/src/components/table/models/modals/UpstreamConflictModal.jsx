@@ -29,8 +29,8 @@ import {
   Input,
 } from '@douyinfe/semi-ui';
 import { MousePointerClick } from 'lucide-react';
-import { useIsMobile } from '../../../../hooks/common/useIsMobile';
-import { MODEL_TABLE_PAGE_SIZE } from '../../../../constants';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { MODEL_TABLE_PAGE_SIZE } from '../../../constants';
 import { IconSearch } from '@douyinfe/semi-icons';
 
 const { Text } = Typography;

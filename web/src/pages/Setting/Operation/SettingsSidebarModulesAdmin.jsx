@@ -265,105 +265,63 @@ export default function SettingsSidebarModulesAdmin(props) {
   ];
 
   return (
-    <Card>
-      <Form.Section
-        text={t('侧边栏管理（全局控制）')}
-        extraText={t(
-          '全局控制侧边栏区域和功能显示，管理员隐藏的功能用户无法启用',
-        )}
-      >
+    <Card className='!rounded-2xl shadow-sm border-0'>
+      <Form.Section>
+        <div className='mb-6'>
+          <div className='flex items-center gap-3 mb-4'>
+            <div className='p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg'>
+              <Settings size={20} className='text-purple-600 dark:text-purple-400' />
+            </div>
+            <div>
+              <h3 className='text-lg font-semibold text-slate-900 dark:text-white'>
+                Sidebar Management (Global Control)
+              </h3>
+              <Text type='secondary' className='text-sm'>
+                Control sidebar areas and features globally. Hidden features cannot be enabled by users.
+              </Text>
+            </div>
+          </div>
+        </div>
         {sectionConfigs.map((section) => (
-          <div key={section.key} style={{ marginBottom: '32px' }}>
-            {/* 区域标题和总开关 */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '16px',
-                padding: '12px 16px',
-                backgroundColor: 'var(--semi-color-fill-0)',
-                borderRadius: '8px',
-                border: '1px solid var(--semi-color-border)',
-              }}
-            >
+          <div key={section.key} className='mb-8'>
+            {/* Section Header with Toggle */}
+            <div className='flex justify-between items-center mb-4 p-4 bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800/50 dark:to-slate-700/50 rounded-xl border border-slate-200 dark:border-slate-700'>
               <div>
-                <div
-                  style={{
-                    fontWeight: '600',
-                    fontSize: '16px',
-                    color: 'var(--semi-color-text-0)',
-                    marginBottom: '4px',
-                  }}
-                >
+                <div className='font-semibold text-base text-slate-900 dark:text-white mb-1'>
                   {section.title}
                 </div>
-                <Text
-                  type='secondary'
-                  size='small'
-                  style={{
-                    fontSize: '12px',
-                    color: 'var(--semi-color-text-2)',
-                    lineHeight: '1.4',
-                  }}
-                >
+                <Text className='text-xs text-slate-600 dark:text-slate-400'>
                   {section.description}
                 </Text>
               </div>
               <Switch
                 checked={sidebarModulesAdmin[section.key]?.enabled}
                 onChange={handleSectionChange(section.key)}
-                size='default'
+                size='large'
               />
             </div>
 
-            {/* 功能模块网格 */}
-            <Row gutter={[16, 16]}>
+            {/* Module Grid */}
+            <Row gutter={[12, 12]}>
               {section.modules.map((module) => (
                 <Col key={module.key} xs={24} sm={12} md={8} lg={6} xl={6}>
                   <Card
+                    className={`!rounded-xl border border-slate-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-200 ${
+                      sidebarModulesAdmin[section.key]?.enabled ? '' : 'opacity-50'
+                    }`}
                     bodyStyle={{ padding: '16px' }}
                     hoverable
-                    style={{
-                      opacity: sidebarModulesAdmin[section.key]?.enabled
-                        ? 1
-                        : 0.5,
-                      transition: 'opacity 0.2s',
-                    }}
                   >
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        height: '100%',
-                      }}
-                    >
-                      <div style={{ flex: 1, textAlign: 'left' }}>
-                        <div
-                          style={{
-                            fontWeight: '600',
-                            fontSize: '14px',
-                            color: 'var(--semi-color-text-0)',
-                            marginBottom: '4px',
-                          }}
-                        >
+                    <div className='flex justify-between items-center h-full'>
+                      <div className='flex-1 text-left'>
+                        <div className='font-semibold text-sm text-slate-900 dark:text-white mb-1'>
                           {module.title}
                         </div>
-                        <Text
-                          type='secondary'
-                          size='small'
-                          style={{
-                            fontSize: '12px',
-                            color: 'var(--semi-color-text-2)',
-                            lineHeight: '1.4',
-                            display: 'block',
-                          }}
-                        >
+                        <Text className='text-xs text-slate-600 dark:text-slate-400 leading-relaxed block'>
                           {module.description}
                         </Text>
                       </div>
-                      <div style={{ marginLeft: '16px' }}>
+                      <div className='ml-4'>
                         <Switch
                           checked={
                             sidebarModulesAdmin[section.key]?.[module.key]
@@ -381,39 +339,23 @@ export default function SettingsSidebarModulesAdmin(props) {
           </div>
         ))}
 
-        <div
-          style={{
-            display: 'flex',
-            gap: '12px',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            paddingTop: '8px',
-            borderTop: '1px solid var(--semi-color-border)',
-          }}
-        >
+        <div className='flex justify-end gap-3 mt-6 pt-4 border-t border-slate-200 dark:border-slate-700'>
           <Button
-            size='default'
+            size='large'
             type='tertiary'
             onClick={resetSidebarModules}
-            style={{
-              borderRadius: '6px',
-              fontWeight: '500',
-            }}
+            className='!rounded-lg'
           >
-            {t('重置为默认')}
+            Reset to Default
           </Button>
           <Button
-            size='default'
+            size='large'
             type='primary'
             onClick={onSubmit}
             loading={loading}
-            style={{
-              borderRadius: '6px',
-              fontWeight: '500',
-              minWidth: '100px',
-            }}
+            className='!rounded-lg px-8'
           >
-            {t('保存设置')}
+            Save Settings
           </Button>
         </div>
       </Form.Section>

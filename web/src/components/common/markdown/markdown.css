@@ -1,4 +1,4 @@
-/* 基础markdown样式 */
+/* Basic markdown styles */
 .markdown-body {
   font-family: inherit;
   line-height: 1.6;
@@ -8,7 +8,7 @@
   word-break: break-word;
 }
 
-/* 用户消息样式 - 白色字体适配蓝色背景 */
+/* User message styles - white font to adapt to blue background */
 .user-message {
   color: white !important;
 }
@@ -60,15 +60,15 @@
 
 .user-message a {
   color: #87ceeb !important;
-  /* 浅蓝色链接 */
+  /* Light blue link */
 }
 
 .user-message a:hover {
   color: #b0e0e6 !important;
-  /* hover时更浅的蓝色 */
+  /* Lighter blue on hover */
 }
 
-/* 表格在用户消息中的样式 */
+/* Table styles in user message */
 .user-message table {
   border-color: rgba(255, 255, 255, 0.3) !important;
 }
@@ -82,7 +82,7 @@
   border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
-/* 加载动画 */
+/* Loading animation */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -93,7 +93,7 @@
   }
 }
 
-/* 代码高亮主题 - 适配Semi Design */
+/* Code highlighting theme - adapted for Semi Design */
 .hljs {
   display: block;
   overflow-x: auto;
@@ -187,7 +187,7 @@
   font-weight: bold;
 }
 
-/* Mermaid容器样式 */
+/* Mermaid container styles */
 .mermaid-container {
   transition: all 0.2s ease;
 }
@@ -197,7 +197,7 @@
   transform: translateY(-1px);
 }
 
-/* 代码块样式增强 */
+/* Enhanced code block styles */
 pre {
   position: relative;
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
@@ -229,7 +229,7 @@ pre:hover .copy-code-button {
   cursor: pointer !important;
 }
 
-/* 确保按钮可点击 */
+/* Ensure button is clickable */
 .copy-code-button .semi-button {
   pointer-events: auto !important;
   cursor: pointer !important;
@@ -242,7 +242,7 @@ pre:hover .copy-code-button {
   transform: scale(1.05);
 }
 
-/* 表格响应式 */
+/* Responsive table */
 @media (max-width: 768px) {
   .markdown-body table {
     font-size: 12px;
@@ -254,7 +254,7 @@ pre:hover .copy-code-button {
   }
 }
 
-/* 数学公式样式 */
+/* Math formula styles */
 .katex {
   font-size: 1em;
 }
@@ -264,12 +264,12 @@ pre:hover .copy-code-button {
   text-align: center;
 }
 
-/* 链接hover效果 */
+/* Link hover effect */
 .markdown-body a {
   transition: all 0.2s ease;
 }
 
-/* 引用块样式增强 */
+/* Enhanced blockquote styles */
 .markdown-body blockquote {
   position: relative;
 }
@@ -284,7 +284,7 @@ pre:hover .copy-code-button {
   opacity: 0.3;
 }
 
-/* 列表样式增强 */
+/* Enhanced list styles */
 .markdown-body ul li::marker {
   color: var(--semi-color-primary);
 }
@@ -294,7 +294,7 @@ pre:hover .copy-code-button {
   font-weight: bold;
 }
 
-/* 分隔线样式 */
+/* Divider styles */
 .markdown-body hr {
   border: none;
   height: 1px;
@@ -307,7 +307,7 @@ pre:hover .copy-code-button {
   margin: 24px 0;
 }
 
-/* 图片样式 */
+/* Image styles */
 .markdown-body img {
   max-width: 100%;
   height: auto;
@@ -316,7 +316,7 @@ pre:hover .copy-code-button {
   margin: 12px 0;
 }
 
-/* 内联代码样式 */
+/* Inline code styles */
 .markdown-body code:not(pre code) {
   background-color: var(--semi-color-fill-1);
   padding: 2px 6px;
@@ -326,7 +326,7 @@ pre:hover .copy-code-button {
   border: 1px solid var(--semi-color-border);
 }
 
-/* 标题锚点样式 */
+/* Heading anchor styles */
 .markdown-body h1:hover,
 .markdown-body h2:hover,
 .markdown-body h3:hover,
@@ -336,7 +336,7 @@ pre:hover .copy-code-button {
   position: relative;
 }
 
-/* 任务列表样式 */
+/* Task list styles */
 .markdown-body input[type='checkbox'] {
   margin-right: 8px;
   transform: scale(1.1);
@@ -347,7 +347,7 @@ pre:hover .copy-code-button {
   margin-left: -20px;
 }
 
-/* 键盘按键样式 */
+/* Keyboard key styles */
 .markdown-body kbd {
   background-color: var(--semi-color-fill-0);
   border: 1px solid var(--semi-color-border);
@@ -363,7 +363,7 @@ pre:hover .copy-code-button {
   white-space: nowrap;
 }
 
-/* 详情折叠样式 */
+/* Details/summary styles */
 .markdown-body details {
   border: 1px solid var(--semi-color-border);
   border-radius: 6px;
@@ -382,7 +382,7 @@ pre:hover .copy-code-button {
   color: var(--semi-color-primary-hover);
 }
 
-/* 脚注样式 */
+/* Footnote styles */
 .markdown-body .footnote-ref {
   color: var(--semi-color-primary);
   text-decoration: none;
@@ -393,7 +393,7 @@ pre:hover .copy-code-button {
   text-decoration: underline;
 }
 
-/* 警告块样式 */
+/* Alert block styles */
 .markdown-body .warning {
   background-color: var(--semi-color-warning-light-default);
   border-left: 4px solid var(--semi-color-warning);

@@ -388,57 +388,61 @@ const SettingsAnnouncements = ({ options, refresh }) => {
 
   const renderHeader = () => (
     <div className='flex flex-col w-full'>
-      <div className='mb-2'>
-        <div className='flex items-center text-blue-500'>
-          <Bell size={16} className='mr-2' />
-          <Text>
-            {t(
-              '系统公告管理，可以发布系统通知和重要消息（最多100个，前端显示最新20条）',
-            )}
-          </Text>
+      <div className='mb-4'>
+        <div className='flex items-center gap-3 mb-2'>
+          <div className='p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg'>
+            <Bell size={20} className='text-blue-600 dark:text-blue-400' />
+          </div>
+          <div>
+            <h3 className='text-lg font-semibold text-slate-900 dark:text-white'>
+              System Announcements
+            </h3>
+            <Text type='secondary' className='text-sm'>
+              Manage system notifications and important messages (max 100, displays latest 20)
+            </Text>
+          </div>
         </div>
       </div>
 
-      <Divider margin='12px' />
+      <Divider margin='16px' />
 
       <div className='flex flex-col md:flex-row justify-between items-center gap-4 w-full'>
         <div className='flex gap-2 w-full md:w-auto order-2 md:order-1'>
           <Button
-            theme='light'
+            theme='solid'
             type='primary'
-            icon={<Plus size={14} />}
-            className='w-full md:w-auto'
+            icon={<Plus size={16} />}
+            className='w-full md:w-auto !rounded-lg'
             onClick={handleAddAnnouncement}
           >
-            {t('添加公告')}
+            Add Announcement
           </Button>
           <Button
-            icon={<Trash2 size={14} />}
+            icon={<Trash2 size={16} />}
             type='danger'
             theme='light'
             onClick={handleBatchDelete}
             disabled={selectedRowKeys.length === 0}
-            className='w-full md:w-auto'
+            className='w-full md:w-auto !rounded-lg'
           >
-            {t('批量删除')}{' '}
+            Batch Delete{' '}
             {selectedRowKeys.length > 0 && `(${selectedRowKeys.length})`}
           </Button>
           <Button
-            icon={<Save size={14} />}
+            icon={<Save size={16} />}
             onClick={submitAnnouncements}
             loading={loading}
             disabled={!hasChanges}
             type='secondary'
-            className='w-full md:w-auto'
+            className='w-full md:w-auto !rounded-lg'
           >
-            {t('保存设置')}
+            Save Settings
           </Button>
         </div>
 
-        {/* 启用开关 */}
-        <div className='order-1 md:order-2 flex items-center gap-2'>
-          <Switch checked={panelEnabled} onChange={handleToggleEnabled} />
-          <Text>{panelEnabled ? t('已启用') : t('已禁用')}</Text>
+        <div className='order-1 md:order-2 flex items-center gap-3 px-4 py-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg'>
+          <Switch checked={panelEnabled} onChange={handleToggleEnabled} size='large' />
+          <Text className='font-medium'>{panelEnabled ? 'Enabled' : 'Disabled'}</Text>
         </div>
       </div>
     </div>

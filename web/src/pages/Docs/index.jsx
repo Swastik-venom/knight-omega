@@ -1,363 +1,201 @@
-import React, { useState, useContext } from 'react';
-import { motion } from 'framer-motion';
-import { Card, Tabs, TabPane, Collapse } from '@douyinfe/semi-ui';
-import {
-  Book,
-  Code,
-  Zap,
-  Shield,
-  Settings,
-  Terminal,
-  FileText,
-  Rocket,
-  CheckCircle
-} from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { StatusContext } from '../../context/Status';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { BookOpen, Map, Rocket, FileCode, Cpu } from 'lucide-react';
+import TestimonialsSection from '../LandingPage/Testimonials';
 
-const Docs = () => {
-  const { t } = useTranslation();
-  const [statusState] = useContext(StatusContext);
-  const [activeTab, setActiveTab] = useState('getting-started');
-  
-  const serverAddress = statusState?.status?.server_address || `${window.location.origin}`;
+const guides = [
+  {
+    icon: <Rocket className='h-5 w-5' />,
+    title: 'Quickstart blueprints',
+    description:
+      'Bootstrap your workspace, connect providers, and ship your first flow in minutes with guided walkthroughs.',
+    href: '/docs/getting-started',
+  },
+  {
+    icon: <FileCode className='h-5 w-5' />,
+    title: 'API and SDK reference',
+    description:
+      'Deep dive into REST, WebSocket, and SDK integrations with annotated examples in TypeScript, Python, and Go.',
+    href: '/docs/api',
+  },
+  {
+    icon: <Cpu className='h-5 w-5' />,
+    title: 'Workflow recipes',
+    description:
+      'Model routing, guardrails, billing automation, and analytics dashboards built with production-ready snippets.',
+    href: '/docs/recipes',
+  },
+];
 
-  const sections = [
-    {
-      id: 'getting-started',
-      title: t('Getting Started'),
-      icon: <Rocket size={20} />,
-      content: (
-        <div className='space-y-6'>
-          <div>
-            <h3 className='text-2xl font-bold mb-4'>{t('Quick Start Guide')}</h3>
-            <p className='text-gray-600 dark:text-gray-400 mb-4'>
-              {t('Get up and running with Knight Omega in minutes. Follow these simple steps to start using our API gateway.')}
-            </p>
-          </div>
+const resources = [
+  {
+    title: 'Platform architecture',
+    description: 'Understand how Knight Omega brokers provider calls, secures credentials, and maintains observability.',
+  },
+  {
+    title: 'Provider compatibility matrix',
+    description: 'Compare coverage, response formats, and specific knobs supported for OpenAI, Anthropic, Gemini, and more.',
+  },
+  {
+    title: 'Governance playbook',
+    description: 'Roll out access policies, audit trails, and spending limits with templates that scale across teams.',
+  },
+  {
+    title: 'CLI & automation toolkit',
+    description: 'Script migrations, rotate keys, and manage environments with our opinionated command-line tooling.',
+  },
+];
 
-          <Card className='dashboard-card'>
-            <h4 className='text-xl font-semibold mb-3 flex items-center gap-2'>
-              <CheckCircle size={20} className='text-green-500' />
-              {t('Step 1: Create an Account')}
-            </h4>
-            <p className='text-gray-600 dark:text-gray-400 mb-3'>
-              {t('Sign up for a free account to get started. No credit card required.')}
-            </p>
-            <div className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg'>
-              <code className='text-sm'>
-                {t('Visit')}: <span className='text-blue-600'>{serverAddress}/register</span>
-              </code>
-            </div>
-          </Card>
-
-          <Card className='dashboard-card'>
-            <h4 className='text-xl font-semibold mb-3 flex items-center gap-2'>
-              <CheckCircle size={20} className='text-green-500' />
-              {t('Step 2: Get Your API Key')}
-            </h4>
-            <p className='text-gray-600 dark:text-gray-400 mb-3'>
-              {t('Navigate to the console and generate your first API key.')}
-            </p>
-            <div className='bg-gray-100 dark:bg-gray-800 p-4 rounded-lg'>
-              <code className='text-sm'>
-                Console → Tokens → Create New Token
-              </code>
-            </div>
-          </Card>
-
-          <Card className='dashboard-card'>
-            <h4 className='text-xl font-semibold mb-3 flex items-center gap-2'>
-              <CheckCircle size={20} className='text-green-500' />
-              {t('Step 3: Make Your First Request')}
-            </h4>
-            <p className='text-gray-600 dark:text-gray-400 mb-3'>
-              {t('Use your API key to make requests to any supported AI model.')}
-            </p>
-            <div className='bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto'>
-              <pre className='text-sm'>
-{`curl ${serverAddress}/v1/chat/completions \\
-  -H "Content-Type: application/json" \\
-  -H "Authorization: Bearer YOUR_API_KEY" \\
-  -d '{
-    "model": "gpt-4",
-    "messages": [
-      {"role": "user", "content": "Hello!"}
-    ]
-  }'`}
-              </pre>
-            </div>
-          </Card>
-        </div>
-      ),
-    },
-    {
-      id: 'api-reference',
-      title: t('API Reference'),
-      icon: <Code size={20} />,
-      content: (
-        <div className='space-y-6'>
-          <div>
-            <h3 className='text-2xl font-bold mb-4'>{t('API Endpoints')}</h3>
-            <p className='text-gray-600 dark:text-gray-400 mb-4'>
-              {t('Complete reference for all available API endpoints and their parameters.')}
-            </p>
-          </div>
-
-          <Collapse defaultActiveKey={['chat']}>
-            <Collapse.Panel header={t('Chat Completions')} itemKey='chat'>
-              <div className='space-y-4'>
-                <div>
-                  <h5 className='font-semibold mb-2'>POST /v1/chat/completions</h5>
-                  <p className='text-gray-600 dark:text-gray-400 mb-3'>
-                    {t('Create a chat completion with any supported model.')}
-                  </p>
-                  <div className='bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto'>
-                    <pre className='text-sm'>
-{`{
-  "model": "gpt-4",
-  "messages": [
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Hello!"}
-  ],
-  "temperature": 0.7,
-  "max_tokens": 150
-}`}
-                    </pre>
-                  </div>
-                </div>
-              </div>
-            </Collapse.Panel>
-
-            <Collapse.Panel header={t('Embeddings')} itemKey='embeddings'>
-              <div className='space-y-4'>
-                <div>
-                  <h5 className='font-semibold mb-2'>POST /v1/embeddings</h5>
-                  <p className='text-gray-600 dark:text-gray-400 mb-3'>
-                    {t('Generate embeddings for text input.')}
-                  </p>
-                  <div className='bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto'>
-                    <pre className='text-sm'>
-{`{
-  "model": "text-embedding-ada-002",
-  "input": "Your text here"
-}`}
-                    </pre>
-                  </div>
-                </div>
-              </div>
-            </Collapse.Panel>
-
-            <Collapse.Panel header={t('Image Generation')} itemKey='images'>
-              <div className='space-y-4'>
-                <div>
-                  <h5 className='font-semibold mb-2'>POST /v1/images/generations</h5>
-                  <p className='text-gray-600 dark:text-gray-400 mb-3'>
-                    {t('Generate images from text prompts.')}
-                  </p>
-                  <div className='bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto'>
-                    <pre className='text-sm'>
-{`{
-  "prompt": "A beautiful sunset over mountains",
-  "n": 1,
-  "size": "1024x1024"
-}`}
-                    </pre>
-                  </div>
-                </div>
-              </div>
-            </Collapse.Panel>
-          </Collapse>
-        </div>
-      ),
-    },
-    {
-      id: 'features',
-      title: t('Features'),
-      icon: <Zap size={20} />,
-      content: (
-        <div className='space-y-6'>
-          <div>
-            <h3 className='text-2xl font-bold mb-4'>{t('Platform Features')}</h3>
-          </div>
-
-          <div className='grid md:grid-cols-2 gap-6'>
-            <Card className='dashboard-card'>
-              <div className='flex items-start gap-4'>
-                <div className='p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg'>
-                  <Shield size={24} className='text-blue-600 dark:text-blue-400' />
-                </div>
-                <div>
-                  <h4 className='text-lg font-semibold mb-2'>{t('Multi-Provider Routing')}</h4>
-                  <p className='text-gray-600 dark:text-gray-400'>
-                    {t('Automatic failover across multiple AI providers ensures 99.95% uptime.')}
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className='dashboard-card'>
-              <div className='flex items-start gap-4'>
-                <div className='p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg'>
-                  <Zap size={24} className='text-purple-600 dark:text-purple-400' />
-                </div>
-                <div>
-                  <h4 className='text-lg font-semibold mb-2'>{t('Rate Limiting')}</h4>
-                  <p className='text-gray-600 dark:text-gray-400'>
-                    {t('Intelligent rate limiting protects your infrastructure and ensures fair usage.')}
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className='dashboard-card'>
-              <div className='flex items-start gap-4'>
-                <div className='p-3 bg-green-100 dark:bg-green-900/30 rounded-lg'>
-                  <Settings size={24} className='text-green-600 dark:text-green-400' />
-                </div>
-                <div>
-                  <h4 className='text-lg font-semibold mb-2'>{t('Usage Analytics')}</h4>
-                  <p className='text-gray-600 dark:text-gray-400'>
-                    {t('Detailed analytics help you understand usage patterns and optimize costs.')}
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className='dashboard-card'>
-              <div className='flex items-start gap-4'>
-                <div className='p-3 bg-orange-100 dark:bg-orange-900/30 rounded-lg'>
-                  <Terminal size={24} className='text-orange-600 dark:text-orange-400' />
-                </div>
-                <div>
-                  <h4 className='text-lg font-semibold mb-2'>{t('Developer Tools')}</h4>
-                  <p className='text-gray-600 dark:text-gray-400'>
-                    {t('Built-in playground, API testing tools, and comprehensive documentation.')}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      ),
-    },
-    {
-      id: 'pricing-info',
-      title: t('Pricing'),
-      icon: <FileText size={20} />,
-      content: (
-        <div className='space-y-6'>
-          <div>
-            <h3 className='text-2xl font-bold mb-4'>{t('Pricing Information')}</h3>
-            <p className='text-gray-600 dark:text-gray-400 mb-4'>
-              {t('Transparent pricing with no hidden fees. Start free, upgrade when you need more.')}
-            </p>
-          </div>
-
-          <div className='grid md:grid-cols-2 gap-6'>
-            <Card className='dashboard-card border-2 border-blue-500/30'>
-              <h4 className='text-xl font-bold mb-4'>{t('Free Tier')}</h4>
-              <div className='space-y-3'>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('10,000 tokens per month')}</span>
-                </div>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('Shared capacity pool')}</span>
-                </div>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('60 requests per minute')}</span>
-                </div>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('Community support')}</span>
-                </div>
-              </div>
-            </Card>
-
-            <Card className='dashboard-card border-2 border-purple-500/30'>
-              <h4 className='text-xl font-bold mb-4'>{t('Pro Plan - $8/month')}</h4>
-              <div className='space-y-3'>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('Everything in Free, plus:')}</span>
-                </div>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('Premium model access')}</span>
-                </div>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('300 requests per minute')}</span>
-                </div>
-                <div className='flex items-center gap-2'>
-                  <CheckCircle size={18} className='text-green-500' />
-                  <span>{t('Priority support')}</span>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </div>
-      ),
-    },
-  ];
-
+const DocsPage = () => {
   return (
-    <div className='min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 pt-20 pb-16'>
-      <div className='max-w-7xl mx-auto px-4'>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className='text-center mb-12'
-        >
-          <div className='flex items-center justify-center gap-3 mb-4'>
-            <Book size={40} className='text-blue-600' />
-            <h1 className='text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>
-              {t('Documentation')}
-            </h1>
-          </div>
-          <p className='text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto'>
-            {t('Everything you need to know about Knight Omega API Gateway')}
+    <div className='min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-white via-slate-50 to-indigo-50 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white'>
+      <section className='relative overflow-hidden pt-32 pb-24 sm:pt-36'>
+        <div className='absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.18),transparent_60%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,116,144,0.2),transparent_60%)]' />
+        <div className='mx-auto flex w-full max-w-6xl flex-col items-center gap-10 px-6 text-center'>
+          <span className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-slate-500 shadow-sm backdrop-blur-md dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
+            Documentation Hub
+          </span>
+          <h1 className='text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl dark:text-white'>
+            Discover, build, and scale with total clarity
+          </h1>
+          <p className='max-w-3xl text-base text-slate-600 dark:text-white/70'>
+            Knight Omega brings every provider workflow into a single playbook. Explore curated guides, API specs, and automation recipes that help your team ship faster with predictable excellence.
           </p>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <Card className='dashboard-card'>
-            <Tabs
-              activeKey={activeTab}
-              onChange={setActiveTab}
-              type='line'
-              size='large'
+          <div className='flex flex-wrap items-center justify-center gap-4'>
+            <Link
+              to='/docs/getting-started'
+              className='inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5'
             >
-              {sections.map((section) => (
-                <TabPane
-                  key={section.id}
-                  tab={
-                    <span className='flex items-center gap-2'>
-                      {section.icon}
-                      {section.title}
-                    </span>
-                  }
-                  itemKey={section.id}
-                >
-                  <div className='py-6'>
-                    {section.content}
-                  </div>
-                </TabPane>
+              Start with the quickstart
+            </Link>
+            <Link
+              to='/docs/changelog'
+              className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80'
+            >
+              View release notes
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className='relative mx-auto mb-24 w-full max-w-6xl px-6'>
+        <div className='grid gap-6 md:grid-cols-3'>
+          {guides.map((guide) => (
+            <Link
+              key={guide.title}
+              to={guide.href}
+              className='group relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white/95 p-8 text-left shadow-[0_20px_55px_rgba(15,23,42,0.08)] transition hover:-translate-y-1 hover:border-indigo-200 hover:shadow-[0_28px_70px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-900/70 dark:hover:border-indigo-400/30 dark:hover:shadow-[0_28px_70px_rgba(15,23,42,0.45)]'
+            >
+              <div className='absolute -top-24 right-0 h-36 w-36 rounded-full bg-indigo-200/40 blur-3xl transition-opacity group-hover:opacity-100 dark:bg-indigo-500/30' />
+              <div className='mb-4 inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-indigo-500/15 to-sky-500/15 p-3 text-indigo-500 dark:text-indigo-300'>
+                {guide.icon}
+              </div>
+              <h3 className='text-lg font-semibold text-slate-900 dark:text-white'>
+                {guide.title}
+              </h3>
+              <p className='mt-3 text-sm text-slate-600 dark:text-white/70'>
+                {guide.description}
+              </p>
+              <span className='mt-6 inline-flex items-center text-sm font-semibold text-indigo-600 transition group-hover:translate-x-1 dark:text-indigo-300'>
+                Explore guide →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className='relative mx-auto mb-24 w-full max-w-6xl rounded-3xl border border-slate-200/70 bg-white/95 px-6 py-16 shadow-[0_28px_70px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_28px_70px_rgba(15,23,42,0.45)] sm:px-10'>
+        <div className='flex flex-col gap-10 lg:flex-row'>
+          <div className='max-w-xl'>
+            <span className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-slate-500 dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
+              Field notes
+            </span>
+            <h2 className='mt-4 text-3xl font-semibold text-slate-900 dark:text-white'>
+              From architecture to automation in one place
+            </h2>
+            <p className='mt-4 text-sm leading-relaxed text-slate-600 dark:text-white/70'>
+              Each resource distils battle-tested playbooks drawn from real deployments. Whether you are orchestrating multi-region routing, rolling out billing guardrails, or establishing compliance baselines, the documentation connects the dots step by step.
+            </p>
+          </div>
+
+          <div className='grid flex-1 gap-6 sm:grid-cols-2'>
+            {resources.map((resource) => (
+              <div
+                key={resource.title}
+                className='relative overflow-hidden rounded-2xl border border-slate-200/70 bg-white/90 p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-white/10'
+              >
+                <Map className='h-4 w-4 text-indigo-500 dark:text-indigo-300' />
+                <h3 className='mt-4 text-base font-semibold text-slate-900 dark:text-white'>
+                  {resource.title}
+                </h3>
+                <p className='mt-2 text-sm text-slate-600 dark:text-white/70'>
+                  {resource.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className='relative mx-auto mb-24 w-full max-w-6xl px-6'>
+        <div className='grid items-center gap-10 rounded-3xl border border-slate-200/70 bg-white/95 p-10 shadow-[0_24px_60px_rgba(15,23,42,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_24px_60px_rgba(15,23,42,0.45)] md:grid-cols-[1.1fr_1fr]'>
+          <div>
+            <span className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/90 px-3 py-1 text-xs font-medium uppercase tracking-[0.35em] text-slate-500 dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
+              Navigate faster
+            </span>
+            <h2 className='mt-4 text-3xl font-semibold text-slate-900 dark:text-white'>
+              All roads lead to confident production launches
+            </h2>
+            <p className='mt-4 text-sm leading-relaxed text-slate-600 dark:text-white/70'>
+              Jump directly into curated maps for platform admins, product engineers, and operations teams. Each journey outlines prerequisites, success checkpoints, and metrics to watch.
+            </p>
+            <div className='mt-6 flex flex-wrap gap-3'>
+              <Link
+                to='/docs/architecture'
+                className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80'
+              >
+                Architecture overview
+              </Link>
+              <Link
+                to='/docs/cli'
+                className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80'
+              >
+                CLI handbook
+              </Link>
+              <Link
+                to='/docs/security'
+                className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80'
+              >
+                Security guide
+              </Link>
+            </div>
+          </div>
+
+          <div className='relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white/90 p-6 shadow-inner dark:border-white/10 dark:bg-white/10'>
+            <div className='mb-4 flex items-center gap-3 text-sm font-semibold text-slate-600 dark:text-white/70'>
+              <BookOpen className='h-4 w-4 text-indigo-500 dark:text-indigo-300' />
+              Learning paths
+            </div>
+            <div className='flex flex-col gap-4'>
+              {[
+                'Launch control plane in under 30 minutes',
+                'Apply fine-grained provider permissions',
+                'Instrument cost guardrails with alerting',
+              ].map((item) => (
+                <div key={item} className='flex items-start gap-3 rounded-2xl border border-slate-200/60 bg-white/80 px-4 py-3 text-left text-sm text-slate-600 shadow-sm dark:border-white/15 dark:bg-white/5 dark:text-white/70'>
+                  <div className='mt-1 h-2 w-2 rounded-full bg-indigo-500 dark:bg-indigo-300' />
+                  <span>{item}</span>
+                </div>
               ))}
-            </Tabs>
-          </Card>
-        </motion.div>
-      </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <TestimonialsSection />
     </div>
   );
 };
 
-export default Docs;
+export default DocsPage;

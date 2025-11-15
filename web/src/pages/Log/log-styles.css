@@ -1,0 +1,294 @@
+/* Usage Log Dark Theme Styles */
+
+/* Dark theme for the entire usage log page */
+.usage-log-page {
+  /* Card backgrounds */
+  --semi-color-bg-0: rgb(17, 24, 39);
+  --semi-color-bg-1: rgb(31, 41, 55);
+  --semi-color-bg-2: rgb(55, 65, 81);
+  --semi-color-bg-3: rgb(75, 85, 99);
+  
+  /* Text colors */
+  --semi-color-text-0: rgb(243, 244, 246);
+  --semi-color-text-1: rgb(229, 231, 235);
+  --semi-color-text-2: rgb(209, 213, 219);
+  
+  /* Border colors */
+  --semi-color-border: rgb(55, 65, 81);
+  
+  /* Table specific */
+  --semi-color-fill-0: rgb(31, 41, 55);
+  --semi-color-fill-1: rgb(55, 65, 81);
+  --semi-color-fill-2: rgb(75, 85, 99);
+}
+
+/* Card styling for dark theme */
+.usage-log-page .semi-card {
+  background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(31, 41, 55) 100%) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Table styling */
+.usage-log-page .semi-table {
+  background: transparent !important;
+  color: rgb(243, 244, 246) !important;
+}
+
+.usage-log-page .semi-table-thead > .semi-table-row {
+  background: rgb(31, 41, 55) !important;
+  border-bottom: 2px solid rgb(249, 115, 22) !important;
+}
+
+.usage-log-page .semi-table-thead > .semi-table-row > .semi-table-row-head {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(249, 115, 22) !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid rgb(249, 115, 22) !important;
+}
+
+.usage-log-page .semi-table-tbody > .semi-table-row {
+  background: rgb(17, 24, 39) !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+  transition: all 0.2s ease !important;
+}
+
+.usage-log-page .semi-table-tbody > .semi-table-row:hover {
+  background: rgb(31, 41, 55) !important;
+  box-shadow: 0 2px 4px rgba(249, 115, 22, 0.1) !important;
+}
+
+.usage-log-page .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
+  background: transparent !important;
+  color: rgb(229, 231, 235) !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+}
+
+/* Expanded row styling */
+.usage-log-page .semi-table-row-expand {
+  background: rgb(31, 41, 55) !important;
+}
+
+.usage-log-page .semi-table-row-expand .semi-descriptions {
+  background: transparent !important;
+}
+
+.usage-log-page .semi-table-row-expand .semi-descriptions-item {
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+}
+
+.usage-log-page .semi-table-row-expand .semi-descriptions-key {
+  color: rgb(156, 163, 175) !important;
+}
+
+.usage-log-page .semi-table-row-expand .semi-descriptions-value {
+  color: rgb(229, 231, 235) !important;
+}
+
+/* Pagination styling */
+.usage-log-page .semi-page {
+  color: rgb(229, 231, 235) !important;
+}
+
+.usage-log-page .semi-page-item {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+.usage-log-page .semi-page-item:hover {
+  background: rgb(55, 65, 81) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.usage-log-page .semi-page-item-active {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+/* Input and Select styling */
+.usage-log-page .semi-input,
+.usage-log-page .semi-select {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+.usage-log-page .semi-input:hover,
+.usage-log-page .semi-select:hover {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.usage-log-page .semi-input:focus,
+.usage-log-page .semi-select:focus {
+  border-color: rgb(249, 115, 22) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2) !important;
+}
+
+.usage-log-page .semi-input-wrapper {
+  background: rgb(31, 41, 55) !important;
+}
+
+/* Button styling */
+.usage-log-page .semi-button {
+  background: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+.usage-log-page .semi-button:hover {
+  background: rgb(234, 88, 12) !important;
+  border-color: rgb(234, 88, 12) !important;
+}
+
+.usage-log-page .semi-button-tertiary {
+  background: transparent !important;
+  border-color: rgb(55, 65, 81) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+.usage-log-page .semi-button-tertiary:hover {
+  background: rgb(31, 41, 55) !important;
+  border-color: rgb(249, 115, 22) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Tag styling */
+.usage-log-page .semi-tag {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+/* Divider styling */
+.usage-log-page .semi-divider {
+  border-color: rgb(55, 65, 81) !important;
+}
+
+/* Typography styling */
+.usage-log-page .semi-typography {
+  color: rgb(229, 231, 235) !important;
+}
+
+.usage-log-page .semi-typography-secondary {
+  color: rgb(156, 163, 175) !important;
+}
+
+/* Empty state styling */
+.usage-log-page .semi-empty {
+  color: rgb(156, 163, 175) !important;
+}
+
+/* Dropdown and Select options */
+.semi-select-option {
+  background: rgb(31, 41, 55) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+.semi-select-option:hover {
+  background: rgb(55, 65, 81) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+.semi-select-option-selected {
+  background: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+/* Scrollbar styling for dark theme */
+.usage-log-page ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.usage-log-page ::-webkit-scrollbar-track {
+  background: rgb(31, 41, 55);
+  border-radius: 4px;
+}
+
+.usage-log-page ::-webkit-scrollbar-thumb {
+  background: rgb(75, 85, 99);
+  border-radius: 4px;
+}
+
+.usage-log-page ::-webkit-scrollbar-thumb:hover {
+  background: rgb(249, 115, 22);
+}
+
+/* Mobile card styling */
+.usage-log-page .semi-card.shadow-sm {
+  background: linear-gradient(135deg, rgb(17, 24, 39) 0%, rgb(31, 41, 55) 100%) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+}
+
+/* Form styling */
+.usage-log-page .semi-form-field-label {
+  color: rgb(229, 231, 235) !important;
+}
+
+.usage-log-page .semi-form-field-error-message {
+  color: rgb(239, 68, 68) !important;
+}
+
+/* DatePicker styling */
+.usage-log-page .semi-datepicker {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+.usage-log-page .semi-datepicker:hover {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+/* Modal styling */
+.semi-modal-content {
+  background: rgb(17, 24, 39) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+.semi-modal-header {
+  background: rgb(31, 41, 55) !important;
+  border-bottom: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(243, 244, 246) !important;
+}
+
+.semi-modal-body {
+  background: rgb(17, 24, 39) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+.semi-modal-footer {
+  background: rgb(31, 41, 55) !important;
+  border-top: 1px solid rgb(55, 65, 81) !important;
+}
+
+/* Tooltip styling */
+.semi-tooltip-wrapper {
+  background: rgb(31, 41, 55) !important;
+  border: 1px solid rgb(55, 65, 81) !important;
+  color: rgb(229, 231, 235) !important;
+}
+
+/* Badge styling */
+.usage-log-page .semi-badge {
+  background: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+/* Avatar styling */
+.usage-log-page .semi-avatar {
+  background: rgb(249, 115, 22) !important;
+  color: white !important;
+}
+
+/* Spin (loading) styling */
+.usage-log-page .semi-spin-wrapper {
+  background: rgba(17, 24, 39, 0.8) !important;
+}
+
+.usage-log-page .semi-spin-children {
+  opacity: 0.5;
+}

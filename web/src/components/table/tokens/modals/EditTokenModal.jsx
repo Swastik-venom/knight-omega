@@ -27,8 +27,8 @@ import {
   renderQuotaWithPrompt,
   getModelCategories,
   selectFilter,
-} from '../../../../helpers';
-import { useIsMobile } from '../../../../hooks/common/useIsMobile';
+} from '../../../../helpers/index.js';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
 import {
   Button,
   SideSheet,
@@ -50,7 +50,7 @@ import {
   IconKey,
 } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
-import { StatusContext } from '../../../../context/Status';
+import { StatusContext } from '../../../context/Status';
 
 const { Text, Title } = Typography;
 

@@ -20,7 +20,7 @@ For commercial licensing, please contact support@quantumnous.com
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Button, Typography, Tag } from '@douyinfe/semi-ui';
-import { copy, showSuccess } from '../../../helpers';
+import { copy, showSuccess } from '../../../helpers/index.js';
 
 /**
  * 解析密钥数据，支持多种格式

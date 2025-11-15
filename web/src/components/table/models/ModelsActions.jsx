@@ -22,7 +22,7 @@ import MissingModelsModal from './modals/MissingModelsModal';
 import PrefillGroupManagement from './modals/PrefillGroupManagement';
 import EditPrefillGroupModal from './modals/EditPrefillGroupModal';
 import { Button, Modal, Popover, RadioGroup, Radio } from '@douyinfe/semi-ui';
-import { showSuccess, showError, copy } from '../../../helpers';
+import { showSuccess, showError, copy } from '../../../helpers/index.js';
 import CompactModeToggle from '../../common/ui/CompactModeToggle';
 import SelectionNotification from './components/SelectionNotification';
 import UpstreamConflictModal from './modals/UpstreamConflictModal';

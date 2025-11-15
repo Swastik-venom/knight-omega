@@ -25,7 +25,7 @@ import {
   showError,
   showSuccess,
   showWarning,
-} from '../../../helpers';
+} from '../../../helpers/index.js';
 import { useTranslation } from 'react-i18next';
 
 export default function SettingsDrawing(props) {
