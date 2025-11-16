@@ -165,18 +165,36 @@ const LoginPage = () => {
     }
     setOauthLoading(prev => ({ ...prev, [provider]: true }));
     try {
-      // For initiation, redirect to backend OAuth endpoint
+      // Step 1: Generate OAuth state from backend
+      const stateResponse = await fetch('/api/oauth/state', {
+        method: 'GET',
+        credentials: 'include', // Important: Include cookies for session
+      });
+      
+      if (!stateResponse.ok) {
+        throw new Error('Failed to generate OAuth state');
+      }
+      
+      const stateData = await stateResponse.json();
+      if (!stateData.success || !stateData.data) {
+        throw new Error('Invalid state response');
+      }
+      
+      const state = stateData.data;
+      
+      // Step 2: Redirect to backend OAuth endpoint with state
       const redirectUri = `${window.location.origin}/oauth/${provider}/callback`;
       const authUrl = new URL(`${window.location.origin}/api/oauth/${provider}`);
       authUrl.searchParams.set('redirect_uri', redirectUri);
+      authUrl.searchParams.set('state', state);
       window.location.href = authUrl.toString();
     } catch (error) {
+      console.error('OAuth initiation error:', error);
       toast({
         variant: "destructive",
         title: `${provider} Login Failed`,
-        description: "Please try again.",
+        description: error instanceof Error ? error.message : "Please try again.",
       });
-    } finally {
       setOauthLoading(prev => ({ ...prev, [provider]: false }));
     }
   };
