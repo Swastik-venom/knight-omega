@@ -8,7 +8,7 @@ import {
   showInfo,
   showSuccess,
   getSystemName,
-} from '../../../helpers';
+} from '@/helpers';
 import Turnstile from 'react-turnstile';
 import { Button, Card, Form, Typography } from '@douyinfe/semi-ui';
 import { IconMail } from '@douyinfe/semi-icons';

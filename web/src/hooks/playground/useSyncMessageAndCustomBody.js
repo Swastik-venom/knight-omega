@@ -1,7 +1,7 @@
 
 
 import { useCallback, useRef } from 'react';
-import { MESSAGE_ROLES } from '../../constants/playground.constants';
+import { MESSAGE_ROLES } from '@/constants/playground.constants';
 
 export const useSyncMessageAndCustomBody = (
   customRequestMode,

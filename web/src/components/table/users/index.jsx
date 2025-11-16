@@ -8,8 +8,8 @@ import UsersFilters from './UsersFilters';
 import UsersDescription from './UsersDescription';
 import AddUserModal from './modals/AddUserModal';
 import EditUserModal from './modals/EditUserModal';
-import { useUsersData } from '../../../hooks/users/useUsersData';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useUsersData } from '@/hooks/users/useUsersData';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 import { createCardProPagination } from '../../../helpers/index.js';
 
 const UsersPage = () => {

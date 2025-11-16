@@ -8,7 +8,7 @@ import {
   showNotice,
   getLogo,
   getSystemName,
-} from '../../../helpers';
+} from '@/helpers';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Button, Card, Form, Typography, Banner } from '@douyinfe/semi-ui';
 import { IconMail, IconLock, IconCopy } from '@douyinfe/semi-icons';

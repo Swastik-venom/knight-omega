@@ -1,7 +1,7 @@
 import React, { useMemo, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { StatusContext } from '../../context/Status';
-import { getSystemName } from '../../../helpers';
+import { getSystemName } from '@/helpers';
 
 const linkGroups = [
   {

@@ -19,7 +19,7 @@ import {
   prepareCredentialRequestOptions,
   buildAssertionResult,
   isPasskeySupported,
-} from '../../../helpers';
+} from '@/helpers';
 import Turnstile from 'react-turnstile';
 import { Button, Card, Checkbox, Divider, Form, Icon, Modal } from '@douyinfe/semi-ui';
 import Title from '@douyinfe/semi-ui/lib/es/typography/title';

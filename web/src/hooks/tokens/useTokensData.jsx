@@ -9,7 +9,7 @@ import {
   showError,
   showSuccess,
   encodeToBase64,
-} from '../../../helpers';
+} from '@/helpers';
 import { ITEMS_PER_PAGE } from '../../constants';
 import { useTableCompactMode } from '../common/useTableCompactMode';
 

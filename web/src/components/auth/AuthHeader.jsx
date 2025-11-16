@@ -2,7 +2,7 @@ import React, { useContext, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { StatusContext } from '../../context/Status';
-import { getLogo, getSystemName } from '../../../helpers';
+import { getLogo, getSystemName } from '@/helpers';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },

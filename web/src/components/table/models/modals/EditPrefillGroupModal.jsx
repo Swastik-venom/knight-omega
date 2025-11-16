@@ -1,7 +1,7 @@
 
 
 import React, { useState, useRef, useEffect } from 'react';
-import JSONEditor from '../../common/ui/JSONEditor';
+import JSONEditor from '../../../common/ui/JSONEditor';
 import {
   SideSheet,
   Button,
@@ -18,7 +18,7 @@ import {
 import { IconLayers, IconSave, IconClose } from '@douyinfe/semi-icons';
 import { API, showError, showSuccess } from '../../../../helpers/index.js';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 
 const { Text, Title } = Typography;
 

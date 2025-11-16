@@ -5,8 +5,8 @@ import { Layout, ImagePreview } from '@douyinfe/semi-ui';
 import PricingSidebar from './PricingSidebar';
 import PricingContent from './content/PricingContent';
 import ModelDetailSideSheet from '../modal/ModelDetailSideSheet';
-import { useModelPricingData } from '../../../hooks/model-pricing/useModelPricingData';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useModelPricingData } from '@/hooks/model-pricing/useModelPricingData';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 
 const PricingPage = () => {
   const pricingData = useModelPricingData();

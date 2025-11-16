@@ -413,7 +413,7 @@ const JSONEditor = ({
         {keyValuePairs.length === 0 && (
           <div className='text-center py-6 px-4'>
             <Text type='tertiary' className='text-gray-500 text-sm'>
-              {t('暂无数据，点击下方按钮添加键值对')}
+              {t('No data available.，点击下方按钮添加键值对')}
             </Text>
           </div>
         )}

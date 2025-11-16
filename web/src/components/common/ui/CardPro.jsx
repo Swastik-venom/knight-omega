@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Card, Divider, Typography, Button } from '@douyinfe/semi-ui';
 import PropTypes from 'prop-types';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 import { IconEyeOpened, IconEyeClosed } from '@douyinfe/semi-icons';
 
 const { Text } = Typography;

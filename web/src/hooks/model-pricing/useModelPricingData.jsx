@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useContext, useRef, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { API, copy, showError, showInfo, showSuccess } from '../../../helpers';
+import { API, copy, showError, showInfo, showSuccess } from '@/helpers';
 import { Modal } from '@douyinfe/semi-ui';
 import { UserContext } from '../../context/User';
 import { StatusContext } from '../../context/Status';
@@ -21,7 +21,8 @@ export const useModelPricingData = () => {
   const [filterQuotaType, setFilterQuotaType] = useState('all'); // 计费类型筛选: 'all' | 0 | 1
   const [filterEndpointType, setFilterEndpointType] = useState('all'); // 端点类型筛选: 'all' | string
   const [filterVendor, setFilterVendor] = useState('all'); // 供应商筛选: 'all' | 'unknown' | string
-  const [filterTag, setFilterTag] = useState('all'); // 模型标签筛选: 'all' | string
+  const [filterTag, setFilterTag] = useState('all'); // Model tag filter: 'all' | string
+  const [filterCategory, setFilterCategory] = useState('all'); // Category filter: 'all' | 'pro' | 'free' | 'standard'
   const [pageSize, setPageSize] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [currency, setCurrency] = useState('USD');
@@ -38,7 +39,7 @@ export const useModelPricingData = () => {
   const [statusState] = useContext(StatusContext);
   const [userState] = useContext(UserContext);
 
-  // 充值汇率（price）与美元兑人民币汇率（usd_exchange_rate）
+  // Recharge rate (price) and USD to CNY exchange rate (usd_exchange_rate)
   const priceRate = useMemo(
     () => statusState?.status?.price ?? 1,
     [statusState],
@@ -56,7 +57,7 @@ export const useModelPricingData = () => {
     [statusState],
   );
 
-  // 默认货币与站点展示类型同步（USD/CNY），TOKENS 时仍允许切换视图内货币
+  // Default currency syncs with site display type (USD/CNY), TOKENS still allows switching currency within view
   const siteDisplayType = useMemo(
     () => statusState?.status?.quota_display_type || 'USD',
     [statusState],
@@ -74,19 +75,24 @@ export const useModelPricingData = () => {
   const filteredModels = useMemo(() => {
     let result = models;
 
-    // 分组筛选
+    // Category filter (pro/free/standard)
+    if (filterCategory !== 'all') {
+      result = result.filter((model) => model.category === filterCategory);
+    }
+
+    // Group filter
     if (filterGroup !== 'all') {
       result = result.filter((model) =>
         model.enable_groups.includes(filterGroup),
       );
     }
 
-    // 计费类型筛选
+    // Billing type filter
     if (filterQuotaType !== 'all') {
       result = result.filter((model) => model.quota_type === filterQuotaType);
     }
 
-    // 端点类型筛选
+    // Endpoint type filter
     if (filterEndpointType !== 'all') {
       result = result.filter(
         (model) =>
@@ -95,7 +101,7 @@ export const useModelPricingData = () => {
       );
     }
 
-    // 供应商筛选
+    // Vendor filter
     if (filterVendor !== 'all') {
       if (filterVendor === 'unknown') {
         result = result.filter((model) => !model.vendor_name);
@@ -104,7 +110,7 @@ export const useModelPricingData = () => {
       }
     }
 
-    // 标签筛选
+    // Tag filter
     if (filterTag !== 'all') {
       const tagLower = filterTag.toLowerCase();
       result = result.filter((model) => {
@@ -118,13 +124,15 @@ export const useModelPricingData = () => {
       });
     }
 
-    // 搜索筛选
+    // Search filter
     if (searchValue.length > 0) {
       const searchTerm = searchValue.toLowerCase();
       result = result.filter(
         (model) =>
           (model.model_name &&
             model.model_name.toLowerCase().includes(searchTerm)) ||
+          (model.display_name &&
+            model.display_name.toLowerCase().includes(searchTerm)) ||
           (model.description &&
             model.description.toLowerCase().includes(searchTerm)) ||
           (model.tags && model.tags.toLowerCase().includes(searchTerm)) ||
@@ -142,6 +150,7 @@ export const useModelPricingData = () => {
     filterEndpointType,
     filterVendor,
     filterTag,
+    filterCategory,
   ]);
 
   const rowSelection = useMemo(
@@ -174,6 +183,19 @@ export const useModelPricingData = () => {
       m.key = m.model_name;
       m.group_ratio = groupRatio[m.model_name];
 
+      // Parse category from model name - check for pro/ or free/ prefix
+      if (m.model_name.startsWith('pro/')) {
+        m.category = 'pro';
+        m.display_name = m.model_name.substring(4); // Remove 'pro/' prefix
+      } else if (m.model_name.startsWith('free/')) {
+        m.category = 'free';
+        m.display_name = m.model_name.substring(5); // Remove 'free/' prefix
+      } else {
+        m.category = 'standard';
+        m.display_name = m.model_name;
+      }
+
+      // Add vendor information
       if (m.vendor_id && vendorMap[m.vendor_id]) {
         const vendor = vendorMap[m.vendor_id];
         m.vendor_name = vendor.name;
@@ -181,21 +203,20 @@ export const useModelPricingData = () => {
         m.vendor_description = vendor.description;
       }
     }
+    
+    // Sort by category first (pro > standard > free), then by quota type, then by name
     models.sort((a, b) => {
-      return a.quota_type - b.quota_type;
-    });
+      // Category priority: pro (0) > standard (1) > free (2)
+      const categoryOrder = { pro: 0, standard: 1, free: 2 };
+      const catCompare = categoryOrder[a.category] - categoryOrder[b.category];
+      if (catCompare !== 0) return catCompare;
 
-    models.sort((a, b) => {
-      if (a.model_name.startsWith('gpt') && !b.model_name.startsWith('gpt')) {
-        return -1;
-      } else if (
-        !a.model_name.startsWith('gpt') &&
-        b.model_name.startsWith('gpt')
-      ) {
-        return 1;
-      } else {
-        return a.model_name.localeCompare(b.model_name);
-      }
+      // Then by quota type
+      const quotaCompare = a.quota_type - b.quota_type;
+      if (quotaCompare !== 0) return quotaCompare;
+
+      // Finally by display name
+      return a.display_name.localeCompare(b.display_name);
     });
 
     setModels(models);
@@ -219,7 +240,7 @@ export const useModelPricingData = () => {
       setGroupRatio(group_ratio);
       setUsableGroup(usable_group);
       setSelectedGroup('all');
-      // 构建供应商 Map 方便查找
+      // Build vendor map for easy lookup
       const vendorMap = {};
       if (Array.isArray(vendors)) {
         vendors.forEach((v) => {
@@ -242,9 +263,9 @@ export const useModelPricingData = () => {
 
   const copyText = async (text) => {
     if (await copy(text)) {
-      showSuccess(t('已复制：') + text);
+      showSuccess(t('Copied: ') + text);
     } else {
-      Modal.error({ title: t('无法复制到剪贴板，请手动复制'), content: text });
+      Modal.error({ title: t('Unable to copy to clipboard, please copy manually'), content: text });
     }
   };
 
@@ -268,10 +289,10 @@ export const useModelPricingData = () => {
     setSelectedGroup(group);
     setFilterGroup(group);
     if (group === 'all') {
-      showInfo(t('已切换至最优倍率视图，每个模型使用其最低倍率分组'));
+      showInfo(t('Switched to optimal rate view, each model uses its lowest rate group'));
     } else {
       showInfo(
-        t('当前查看的分组为：{{group}}，倍率为：{{ratio}}', {
+        t('Current viewing group: {{group}}, rate: {{ratio}}', {
           group: group,
           ratio: groupRatio[group] ?? 1,
         }),
@@ -295,7 +316,7 @@ export const useModelPricingData = () => {
     refresh().then();
   }, []);
 
-  // 当筛选条件变化时重置到第一页
+  // Reset to first page when filter conditions change
   useEffect(() => {
     setCurrentPage(1);
   }, [
@@ -304,11 +325,12 @@ export const useModelPricingData = () => {
     filterEndpointType,
     filterVendor,
     filterTag,
+    filterCategory,
     searchValue,
   ]);
 
   return {
-    // 状态
+    // State
     searchValue,
     setSearchValue,
     selectedRowKeys,
@@ -333,6 +355,8 @@ export const useModelPricingData = () => {
     setFilterVendor,
     filterTag,
     setFilterTag,
+    filterCategory,
+    setFilterCategory,
     pageSize,
     setPageSize,
     currentPage,
@@ -350,20 +374,20 @@ export const useModelPricingData = () => {
     endpointMap,
     autoGroups,
 
-    // 计算属性
+    // Computed properties
     priceRate,
     usdExchangeRate,
     filteredModels,
     rowSelection,
 
-    // 供应商
+    // Vendors
     vendorsMap,
 
-    // 用户和状态
+    // User and status
     userState,
     statusState,
 
-    // 方法
+    // Methods
     displayPrice,
     refresh,
     copyText,
@@ -374,10 +398,10 @@ export const useModelPricingData = () => {
     openModelDetail,
     closeModelDetail,
 
-    // 引用
+    // References
     compositionRef,
 
-    // 国际化
+    // Internationalization
     t,
   };
 };

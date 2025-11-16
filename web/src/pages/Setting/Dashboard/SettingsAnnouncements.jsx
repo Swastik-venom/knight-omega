@@ -26,7 +26,7 @@ import {
   showSuccess,
   getRelativeTime,
   formatDateTimeString,
-} from '../../../helpers';
+} from '@/helpers';
 import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;

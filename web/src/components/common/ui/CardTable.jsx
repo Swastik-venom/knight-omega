@@ -13,8 +13,8 @@ import {
 } from '@douyinfe/semi-ui';
 import { IconChevronDown, IconChevronUp } from '@douyinfe/semi-icons';
 import PropTypes from 'prop-types';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
-import { useMinimumLoadingTime } from '../../../hooks/common/useMinimumLoadingTime';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
+import { useMinimumLoadingTime } from '@/hooks/common/useMinimumLoadingTime';
 
 /**
  * CardTable 响应式表格组件

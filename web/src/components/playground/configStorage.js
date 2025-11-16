@@ -3,7 +3,7 @@
 import {
   STORAGE_KEYS,
   DEFAULT_CONFIG,
-} from '../../constants/playground.constants';
+} from '@/constants/playground.constants';
 
 const MESSAGES_STORAGE_KEY = 'playground_messages';
 

@@ -12,7 +12,7 @@ import {
   updateAPI,
   getSystemName,
   setUserData,
-} from '../../../helpers';
+} from '@/helpers';
 import Turnstile from 'react-turnstile';
 import { Button, Card, Checkbox, Divider, Form, Icon, Modal } from '@douyinfe/semi-ui';
 import Title from '@douyinfe/semi-ui/lib/es/typography/title';
@@ -27,7 +27,7 @@ import {
   onGitHubOAuthClicked,
   onLinuxDOOAuthClicked,
   onOIDCClicked,
-} from '../../../helpers';
+} from '@/helpers';
 import OIDCIcon from '../common/logo/OIDCIcon';
 import LinuxDoIcon from '../common/logo/LinuxDoIcon';
 import WeChatIcon from '../common/logo/WeChatIcon';

@@ -20,6 +20,7 @@ export const usePricingFilterCounts = ({
   filterEndpointType = 'all',
   filterVendor = 'all',
   filterTag = 'all',
+  filterCategory = 'all',
   searchValue = '',
 }) => {
   // 均使用同一份模型列表，避免创建新引用
@@ -32,18 +33,23 @@ export const usePricingFilterCounts = ({
    * @returns {boolean}
    */
   const matchesFilters = (model, ignore = []) => {
-    // 分组
+    // Category filter
+    if (!ignore.includes('category') && filterCategory !== 'all') {
+      if (model.category !== filterCategory) return false;
+    }
+
+    // Group filter
     if (!ignore.includes('group') && filterGroup !== 'all') {
       if (!model.enable_groups || !model.enable_groups.includes(filterGroup))
         return false;
     }
 
-    // 计费类型
+    // Billing type filter
     if (!ignore.includes('quota') && filterQuotaType !== 'all') {
       if (model.quota_type !== filterQuotaType) return false;
     }
 
-    // 端点类型
+    // Endpoint type filter
     if (!ignore.includes('endpoint') && filterEndpointType !== 'all') {
       if (
         !model.supported_endpoint_types ||
@@ -52,7 +58,7 @@ export const usePricingFilterCounts = ({
         return false;
     }
 
-    // 供应商
+    // Vendor filter
     if (!ignore.includes('vendor') && filterVendor !== 'all') {
       if (filterVendor === 'unknown') {
         if (model.vendor_name) return false;
@@ -61,19 +67,21 @@ export const usePricingFilterCounts = ({
       }
     }
 
-    // 标签
+    // Tag filter
     if (!ignore.includes('tag') && filterTag !== 'all') {
       const tagsArr = normalizeTags(model.tags);
       if (!tagsArr.includes(filterTag.toLowerCase())) return false;
     }
 
-    // 搜索
+    // Search filter
     if (!ignore.includes('search') && searchValue) {
       const term = searchValue.toLowerCase();
       const tags = model.tags ? model.tags.toLowerCase() : '';
+      const displayName = model.display_name ? model.display_name.toLowerCase() : '';
       if (
         !(
           model.model_name.toLowerCase().includes(term) ||
+          displayName.includes(term) ||
           (model.description &&
             model.description.toLowerCase().includes(term)) ||
           tags.includes(term) ||
@@ -86,12 +94,26 @@ export const usePricingFilterCounts = ({
     return true;
   };
 
-  // 生成不同视图所需的模型集合
+  // Generate model sets for different views
+  const categoryModels = useMemo(
+    () => allModels.filter((m) => matchesFilters(m, ['category'])),
+    [
+      allModels,
+      filterGroup,
+      filterQuotaType,
+      filterEndpointType,
+      filterVendor,
+      filterTag,
+      searchValue,
+    ],
+  );
+
   const quotaTypeModels = useMemo(
     () => allModels.filter((m) => matchesFilters(m, ['quota'])),
     [
       allModels,
       filterGroup,
+      filterCategory,
       filterEndpointType,
       filterVendor,
       filterTag,
@@ -104,6 +126,7 @@ export const usePricingFilterCounts = ({
     [
       allModels,
       filterGroup,
+      filterCategory,
       filterQuotaType,
       filterVendor,
       filterTag,
@@ -116,6 +139,7 @@ export const usePricingFilterCounts = ({
     [
       allModels,
       filterGroup,
+      filterCategory,
       filterQuotaType,
       filterEndpointType,
       filterTag,
@@ -128,6 +152,7 @@ export const usePricingFilterCounts = ({
     [
       allModels,
       filterGroup,
+      filterCategory,
       filterQuotaType,
       filterEndpointType,
       filterVendor,
@@ -139,6 +164,7 @@ export const usePricingFilterCounts = ({
     () => allModels.filter((m) => matchesFilters(m, ['group'])),
     [
       allModels,
+      filterCategory,
       filterQuotaType,
       filterEndpointType,
       filterVendor,
@@ -148,6 +174,7 @@ export const usePricingFilterCounts = ({
   );
 
   return {
+    categoryModels,
     quotaTypeModels,
     endpointTypeModels,
     vendorModels,

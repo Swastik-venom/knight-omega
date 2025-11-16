@@ -12,6 +12,7 @@ import {
   Select,
   InputGroup,
   Input,
+  Typography,
 } from '@douyinfe/semi-ui';
 import {
   compareObjects,
@@ -19,8 +20,11 @@ import {
   showError,
   showSuccess,
   showWarning,
-} from '../../../helpers';
+} from '@/helpers';
 import { useTranslation } from 'react-i18next';
+import { Settings } from 'lucide-react';
+
+const { Text } = Typography;
 
 export default function GeneralSettings(props) {
   const { t } = useTranslation();

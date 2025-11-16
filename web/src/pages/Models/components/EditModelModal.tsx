@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form, Input, Select, InputNumber, Switch, Button } from '@douyinfe/semi-ui';
-import { API, showError, showSuccess } from '../../../helpers';
+import { API, showError, showSuccess } from '@/helpers';
 
 interface EditModelModalProps {
   visible: boolean;

@@ -8,7 +8,7 @@ import {
   renderQuota,
   modelToColor,
   getQuotaWithUnit,
-} from '../../../helpers';
+} from '@/helpers';
 import {
   processRawData,
   calculateTrendData,

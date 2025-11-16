@@ -9,7 +9,7 @@ import {
   showError,
   showSuccess,
   showWarning,
-} from '../../../helpers';
+} from '@/helpers';
 
 export default function SettingsCreditLimit(props) {
   const { t } = useTranslation();

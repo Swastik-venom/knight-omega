@@ -7,8 +7,8 @@ import {
   getTextContent,
   buildApiPayload,
   createLoadingAssistantMessage,
-} from '../../../helpers';
-import { MESSAGE_ROLES } from '../../constants/playground.constants';
+} from '@/helpers';
+import { MESSAGE_ROLES } from '@/constants/playground.constants';
 
 export const useMessageEdit = (
   setMessage,

@@ -20,7 +20,7 @@ import {
   IconSave,
   IconEdit,
 } from '@douyinfe/semi-icons';
-import { API, showError, showSuccess, getQuotaPerUnit } from '../../../helpers';
+import { API, showError, showSuccess, getQuotaPerUnit } from '@/helpers';
 import { useTranslation } from 'react-i18next';
 
 export default function ModelSettingsVisualEditor(props) {

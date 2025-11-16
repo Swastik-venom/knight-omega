@@ -21,8 +21,8 @@ import TokensActions from './TokensActions';
 import TokensFilters from './TokensFilters';
 import TokensDescription from './TokensDescription';
 import EditTokenModal from './modals/EditTokenModal';
-import { useTokensData } from '../../hooks/tokens/useTokensData';
-import { useIsMobile } from '../../hooks/common/useIsMobile';
+import { useTokensData } from '../../../hooks/tokens/useTokensData';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
 import { createCardProPagination } from '../../../helpers/index.js';
 
 function TokensPage() {
@@ -128,7 +128,7 @@ function TokensPage() {
               style={{ width: 320 }}
               showClear
               searchable
-              emptyContent={t('暂无数据')}
+              emptyContent={t('No data available.')}
             />
           </div>
           <Space>

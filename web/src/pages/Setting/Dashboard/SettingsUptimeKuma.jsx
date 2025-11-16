@@ -17,7 +17,7 @@ import {
   IllustrationNoResultDark,
 } from '@douyinfe/semi-illustrations';
 import { Plus, Edit, Trash2, Save, Activity } from 'lucide-react';
-import { API, showError, showSuccess } from '../../../helpers';
+import { API, showError, showSuccess } from '@/helpers';
 import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;

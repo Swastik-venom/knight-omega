@@ -18,7 +18,7 @@ import { Coins } from 'lucide-react';
 import { IconSearch } from '@douyinfe/semi-icons';
 import { API, timestamp2string } from '../../../helpers/index.js';
 import { isAdmin } from '../../../helpers/index.js';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 
 const { Text } = Typography;
 

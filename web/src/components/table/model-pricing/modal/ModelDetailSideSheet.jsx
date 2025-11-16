@@ -4,7 +4,7 @@ import React from 'react';
 import { SideSheet, Typography, Button } from '@douyinfe/semi-ui';
 import { IconClose } from '@douyinfe/semi-icons';
 
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 import ModelHeader from './components/ModelHeader';
 import ModelBasicInfo from './components/ModelBasicInfo';
 import ModelEndpoints from './components/ModelEndpoints';

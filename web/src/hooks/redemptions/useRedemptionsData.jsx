@@ -1,12 +1,12 @@
 
 
 import { useState, useEffect } from 'react';
-import { API, showError, showSuccess, copy } from '../../../helpers';
+import { API, showError, showSuccess, copy } from '@/helpers';
 import { ITEMS_PER_PAGE } from '../../constants';
 import {
   REDEMPTION_ACTIONS,
   REDEMPTION_STATUS,
-} from '../../constants/redemption.constants';
+} from '@/constants/redemption.constants';
 import { Modal } from '@douyinfe/semi-ui';
 import { useTranslation } from 'react-i18next';
 import { useTableCompactMode } from '../common/useTableCompactMode';

@@ -14,8 +14,8 @@ import {
 import { API, showSuccess, showError } from '../../../helpers/index.js';
 import { StatusContext } from '../../../context/Status';
 import { UserContext } from '../../../context/User';
-import { useUserPermissions } from '../../../hooks/common/useUserPermissions';
-import { useSidebar } from '../../../hooks/common/useSidebar';
+import { useUserPermissions } from '@/hooks/common/useUserPermissions';
+import { useSidebar } from '@/hooks/common/useSidebar';
 import { Settings } from 'lucide-react';
 
 const { Text } = Typography;

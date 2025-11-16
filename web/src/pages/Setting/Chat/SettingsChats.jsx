@@ -28,7 +28,7 @@ import {
   showSuccess,
   showWarning,
   verifyJSON,
-} from '../../../helpers';
+} from '@/helpers';
 import { useTranslation } from 'react-i18next';
 
 export default function SettingsChats(props) {

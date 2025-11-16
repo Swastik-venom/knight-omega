@@ -1,15 +1,15 @@
 
 
 import React from 'react';
-import CardPro from '../../common/ui/CardPro';
+import CardPro from '@/components/common/ui/CardPro';
 import RedemptionsTable from './RedemptionsTable';
 import RedemptionsActions from './RedemptionsActions';
 import RedemptionsFilters from './RedemptionsFilters';
 import RedemptionsDescription from './RedemptionsDescription';
 import EditRedemptionModal from './modals/EditRedemptionModal';
-import { useRedemptionsData } from '../../hooks/redemptions/useRedemptionsData';
-import { useIsMobile } from '../../hooks/common/useIsMobile';
-import { createCardProPagination } from '../../../helpers/index.js';
+import { useRedemptionsData } from '@/hooks/redemptions/useRedemptionsData';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
+import { createCardProPagination } from '@/helpers/index.js';
 
 const RedemptionsPage = () => {
   const redemptionsData = useRedemptionsData();

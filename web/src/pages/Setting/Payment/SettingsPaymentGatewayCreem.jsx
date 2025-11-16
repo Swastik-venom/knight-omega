@@ -18,7 +18,7 @@ import {
     API,
     showError,
     showSuccess,
-} from '../../../helpers';
+} from '@/helpers';
 import { useTranslation } from 'react-i18next';
 import { Plus, Trash2 } from 'lucide-react';
 

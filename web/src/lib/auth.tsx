@@ -41,7 +41,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     apiAuth.getSystemStatus()
       .then((response) => {
         if (response.success) {
-          setSystemStatus(response.data || {});
+          const statusData = response.data || {};
+          setSystemStatus(statusData);
+          
+          // Store important status data in localStorage for compatibility
+          if (statusData.chats) {
+            localStorage.setItem('chats', JSON.stringify(statusData.chats));
+          }
+          if (statusData.system_name) {
+            localStorage.setItem('system_name', statusData.system_name);
+          }
+          if (statusData.logo) {
+            localStorage.setItem('logo', statusData.logo);
+          }
+          if (statusData.server_address) {
+            localStorage.setItem('server_address', statusData.server_address);
+          }
         }
       })
       .catch((error) => {

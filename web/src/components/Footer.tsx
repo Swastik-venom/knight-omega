@@ -142,7 +142,7 @@ const Footer: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-indigo-600 hover:underline dark:text-indigo-400"
                 >
-                  One API
+                  Knight Omega
                 </a>
                 {' '}under AGPL v3.0 License
               </p>

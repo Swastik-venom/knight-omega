@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button } from '@douyinfe/semi-ui';
+import PricingCategories from '../filter/PricingCategories';
 import PricingGroups from '../filter/PricingGroups';
 import PricingQuotaTypes from '../filter/PricingQuotaTypes';
 import PricingEndpointTypes from '../filter/PricingEndpointTypes';
@@ -9,7 +10,7 @@ import PricingVendors from '../filter/PricingVendors';
 import PricingTags from '../filter/PricingTags';
 
 import { resetPricingFilters } from '../../../../helpers/index.js';
-import { usePricingFilterCounts } from '../../../hooks/model-pricing/usePricingFilterCounts';
+import { usePricingFilterCounts } from '@/hooks/model-pricing/usePricingFilterCounts';
 
 const PricingSidebar = ({
   showWithRecharge,
@@ -33,6 +34,8 @@ const PricingSidebar = ({
   setFilterVendor,
   filterTag,
   setFilterTag,
+  filterCategory,
+  setFilterCategory,
   currentPage,
   setCurrentPage,
   tokenUnit,
@@ -47,6 +50,7 @@ const PricingSidebar = ({
     vendorModels,
     tagModels,
     groupCountModels,
+    categoryModels,
   } = usePricingFilterCounts({
     models: categoryProps.models,
     filterGroup,
@@ -54,6 +58,7 @@ const PricingSidebar = ({
     filterEndpointType,
     filterVendor,
     filterTag,
+    filterCategory,
     searchValue: categoryProps.searchValue,
   });
 
@@ -69,6 +74,7 @@ const PricingSidebar = ({
       setFilterEndpointType,
       setFilterVendor,
       setFilterTag,
+      setFilterCategory,
       setCurrentPage,
       setTokenUnit,
     });
@@ -76,16 +82,24 @@ const PricingSidebar = ({
   return (
     <div className='p-2'>
       <div className='flex items-center justify-between mb-6'>
-        <div className='text-lg font-semibold text-gray-800'>{t('筛选')}</div>
+        <div className='text-lg font-semibold text-gray-800'>{t('Filters')}</div>
         <Button
           theme='outline'
           type='tertiary'
           onClick={handleResetFilters}
           className='text-gray-500 hover:text-gray-700'
         >
-          {t('重置')}
+          {t('Reset')}
         </Button>
       </div>
+
+      <PricingCategories
+        filterCategory={filterCategory}
+        setFilterCategory={setFilterCategory}
+        models={categoryModels || categoryProps.models}
+        loading={loading}
+        t={t}
+      />
 
       <PricingVendors
         filterVendor={filterVendor}

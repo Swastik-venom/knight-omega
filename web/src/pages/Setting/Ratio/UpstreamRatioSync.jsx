@@ -26,8 +26,8 @@ import {
   showSuccess,
   showWarning,
   stringToColor,
-} from '../../../helpers';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+} from '@/helpers';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 import { DEFAULT_ENDPOINT } from '../../../constants';
 import { useTranslation } from 'react-i18next';
 import {

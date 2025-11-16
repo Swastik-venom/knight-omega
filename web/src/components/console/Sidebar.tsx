@@ -13,7 +13,10 @@ import {
   ListChecks,
   Brain,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Ticket,
+  ShieldCheck,
+  MessageSquare
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -25,11 +28,22 @@ interface NavItem {
   adminOnly?: boolean
 }
 
-const navItems: NavItem[] = [
+interface NavSection {
+  title?: string
+  items: NavItem[]
+}
+
+// User navigation items
+const userNavItems: NavItem[] = [
   {
     title: 'Dashboard',
     href: '/console/dashboard',
     icon: LayoutDashboard,
+  },
+  {
+    title: 'Playground',
+    href: '/console/playground',
+    icon: MessageSquare,
   },
   {
     title: 'API Keys',
@@ -51,6 +65,16 @@ const navItems: NavItem[] = [
     href: '/console/settings',
     icon: Settings,
   },
+]
+
+// Admin navigation items
+const adminNavItems: NavItem[] = [
+  {
+    title: 'Channel',
+    href: '/console/channel',
+    icon: Server,
+    adminOnly: true,
+  },
   {
     title: 'Models',
     href: '/console/models',
@@ -58,15 +82,21 @@ const navItems: NavItem[] = [
     adminOnly: true,
   },
   {
-    title: 'Channels',
-    href: '/console/channels',
-    icon: Server,
+    title: 'Redemption',
+    href: '/console/redemption',
+    icon: Ticket,
     adminOnly: true,
   },
   {
-    title: 'Users',
-    href: '/console/users',
+    title: 'User',
+    href: '/console/user',
     icon: Users,
+    adminOnly: true,
+  },
+  {
+    title: 'Setting',
+    href: '/console/settings',
+    icon: Settings,
     adminOnly: true,
   },
 ]
@@ -80,10 +110,49 @@ export function Sidebar() {
   const logo = systemStatus?.logo || localStorage.getItem('logo') || '/logo.png'
   const systemName = systemStatus?.system_name || localStorage.getItem('system_name') || 'Knight-Omega'
   
-  const isAdmin = user?.Role && user.Role >= 10
+  // Check if user is admin - check both Role (capital) and role (lowercase) for compatibility
+  const isAdmin = (() => {
+    if (!user) return false;
+    // Try capital R first (Knight Omega format)
+    if (user.Role !== undefined) return user.Role >= 10;
+    // Try lowercase r (old format)
+    if (user.role !== undefined) return user.role >= 10;
+    // Fallback: check localStorage directly
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const parsed = JSON.parse(storedUser);
+        return (parsed.role >= 10) || (parsed.Role >= 10);
+      }
+    } catch (e) {
+      console.error('Failed to parse user from localStorage:', e);
+    }
+    return false;
+  })();
 
-  // Filter items based on admin status
-  const filteredItems = navItems.filter(item => !item.adminOnly || isAdmin)
+  const renderNavItem = (item: NavItem) => {
+    const Icon = item.icon
+    const isActive = location.pathname === item.href ||
+                     (item.href.includes('?')
+                       ? location.pathname + location.search === item.href
+                       : location.pathname.startsWith(item.href + '/'))
+    
+    return (
+      <Link
+        key={item.href}
+        to={item.href}
+        className={cn(
+          'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+          isActive
+            ? 'bg-primary/10 text-primary'
+            : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+        )}
+      >
+        <Icon className="h-5 w-5 flex-shrink-0" />
+        {!collapsed && <span>{item.title}</span>}
+      </Link>
+    )
+  }
 
   return (
     <div
@@ -120,26 +189,26 @@ export function Sidebar() {
 
         {/* Navigation */}
         <nav className="flex-1 space-y-1 overflow-y-auto p-2">
-          {filteredItems.map((item) => {
-            const Icon = item.icon
-            const isActive = location.pathname === item.href || location.pathname.startsWith(item.href + '/')
-            
-            return (
-              <Link
-                key={item.href}
-                to={item.href}
-                className={cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-                  isActive
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                )}
-              >
-                <Icon className="h-5 w-5 flex-shrink-0" />
-                {!collapsed && <span>{item.title}</span>}
-              </Link>
-            )
-          })}
+          {/* User Section */}
+          {userNavItems.map(renderNavItem)}
+          
+          {/* Admin Section */}
+          {isAdmin && (
+            <>
+              {!collapsed && (
+                <div className="px-3 py-2 mt-4 mb-2">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                    <ShieldCheck className="h-3 w-3" />
+                    <span>Admin</span>
+                  </div>
+                </div>
+              )}
+              {collapsed && (
+                <div className="border-t border-border/40 my-2" />
+              )}
+              {adminNavItems.map(renderNavItem)}
+            </>
+          )}
         </nav>
 
         {/* Collapse Button */}

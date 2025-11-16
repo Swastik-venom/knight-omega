@@ -8,7 +8,7 @@ import {
   REDEMPTION_STATUS,
   REDEMPTION_STATUS_MAP,
   REDEMPTION_ACTIONS,
-} from '../../constants/redemption.constants';
+} from '@/constants/redemption.constants';
 
 /**
  * Check if redemption code is expired

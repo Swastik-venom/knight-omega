@@ -43,7 +43,7 @@ const ModelsFilters = ({
           <Form.Input
             field='searchKeyword'
             prefix={<IconSearch />}
-            placeholder={t('搜索模型名称')}
+            placeholder={t('Search model name')}
             showClear
             pure
             size='small'
@@ -54,7 +54,7 @@ const ModelsFilters = ({
           <Form.Input
             field='searchVendor'
             prefix={<IconSearch />}
-            placeholder={t('搜索供应商')}
+            placeholder={t('Search vendor')}
             showClear
             pure
             size='small'
@@ -69,7 +69,7 @@ const ModelsFilters = ({
             className='flex-1 md:flex-initial md:w-auto'
             size='small'
           >
-            {t('查询')}
+            {t('Search')}
           </Button>
 
           <Button
@@ -78,7 +78,7 @@ const ModelsFilters = ({
             className='flex-1 md:flex-initial md:w-auto'
             size='small'
           >
-            {t('重置')}
+            {t('Reset')}
           </Button>
         </div>
       </div>

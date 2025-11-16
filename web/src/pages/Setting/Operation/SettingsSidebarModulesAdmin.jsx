@@ -11,8 +11,9 @@ import {
   Col,
   Typography,
 } from '@douyinfe/semi-ui';
-import { API, showSuccess, showError } from '../../../helpers';
+import { API, showSuccess, showError } from '@/helpers';
 import { StatusContext } from '../../../context/Status';
+import { Settings } from 'lucide-react';
 
 const { Text } = Typography;
 
@@ -293,7 +294,6 @@ export default function SettingsSidebarModulesAdmin(props) {
                       sidebarModulesAdmin[section.key]?.enabled ? '' : 'opacity-50'
                     }`}
                     bodyStyle={{ padding: '16px' }}
-                    hoverable
                   >
                     <div className='flex justify-between items-center h-full'>
                       <div className='flex-1 text-left'>

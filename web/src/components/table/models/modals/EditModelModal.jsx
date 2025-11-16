@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import JSONEditor from '../../common/ui/JSONEditor';
+import JSONEditor from '../../../common/ui/JSONEditor';
 import {
   SideSheet,
   Form,
@@ -19,7 +19,7 @@ import { Save, X, FileText } from 'lucide-react';
 import { IconLink } from '@douyinfe/semi-icons';
 import { API, showError, showSuccess } from '../../../../helpers/index.js';
 import { useTranslation } from 'react-i18next';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 
 const { Text, Title } = Typography;
 

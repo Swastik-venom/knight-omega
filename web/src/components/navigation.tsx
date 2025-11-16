@@ -32,6 +32,9 @@ export default function Navigation({ className = '' }: NavigationProps) {
   // Get logo and system name from system status or localStorage
   const logo = systemStatus?.logo || localStorage.getItem('logo') || '/logo.png'
   const systemName = systemStatus?.system_name || localStorage.getItem('system_name') || 'Knight-Omega'
+  
+  // Check if we're on a console page
+  const isConsolePage = location.pathname.startsWith('/console')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -223,7 +226,11 @@ export default function Navigation({ className = '' }: NavigationProps) {
       </header>
 
       {/* Mobile Header - Updated for consistency */}
-      <header className="pointer-events-auto sticky top-4 flex w-full items-center justify-between rounded-full border border-white/20 bg-white/10 px-4 py-3 shadow-[0_18px_46px_rgba(15,23,42,0.2)] backdrop-blur-xl transition-all duration-300 dark:border-white/10 dark:bg-white/10 md:hidden">
+      <header className={`pointer-events-auto sticky top-4 flex w-full items-center justify-between rounded-full backdrop-blur-xl transition-all duration-300 md:hidden ${
+        isConsolePage
+          ? "border border-slate-700/50 bg-slate-900/95 px-4 py-3 shadow-[0_18px_46px_rgba(0,0,0,0.3)]"
+          : "border border-white/20 bg-white/10 px-4 py-3 shadow-[0_18px_46px_rgba(15,23,42,0.2)] dark:border-white/10 dark:bg-white/10"
+      }`}>
         <Link to="/" className="flex items-center gap-2">
           <motion.div
             className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-white/35 bg-white/70 shadow-[0_10px_26px_rgba(15,23,42,0.2)] backdrop-blur dark:border-white/15 dark:bg-white/10"

@@ -9,7 +9,7 @@ import {
   showSuccess,
   showWarning,
   verifyJSON,
-} from '../../../helpers';
+} from '@/helpers';
 import { useTranslation } from 'react-i18next';
 import Text from '@douyinfe/semi-ui/lib/es/typography/text';
 

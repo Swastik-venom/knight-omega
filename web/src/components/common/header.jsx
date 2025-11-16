@@ -3,7 +3,7 @@ import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { UserContext } from '../../context/User';
 import { StatusContext } from '../../context/Status';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getLogo, getSystemName, API, showSuccess } from '../../../helpers';
+import { getLogo, getSystemName, API, showSuccess } from '@/helpers';
 import { useIsMobile } from '../../hooks/common/useIsMobile';
 import {
   ChevronRight,

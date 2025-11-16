@@ -16,7 +16,7 @@ import {
   removeTrailingSlash,
   showError,
   showSuccess,
-} from '../../../helpers';
+} from '@/helpers';
 import { useTranslation } from 'react-i18next';
 
 export default function SettingsPaymentGateway(props) {

@@ -3,7 +3,7 @@
 import React from 'react';
 import { Button } from '@douyinfe/semi-ui';
 import PropTypes from 'prop-types';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 
 /**
  * 紧凑模式切换按钮组件

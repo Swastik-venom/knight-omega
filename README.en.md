@@ -127,7 +127,7 @@ Knight Omega offers a wide range of features, please refer to [Features Introduc
 2. 🌍 Multi-language support
 3. 💰 Online recharge functionality, currently supports EPay and Stripe
 4. 🔍 Support for querying usage quotas with keys (works with [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool))
-5. 🔄 Compatible with the original One API database
+5. 🔄 Compatible with the original Knight Omega database
 6. 💵 Support for pay-per-use model pricing
 7. ⚖️ Support for weighted random channel selection
 8. 📈 Data dashboard (console)
@@ -287,7 +287,7 @@ For detailed API documentation, please refer to [API Documentation](https://docs
 - [Google Gemini Chat API](https://docs.newapi.pro/api/google-gemini-chat)
 
 ## Related Projects
-- [One API](https://github.com/songquanpeng/one-api): Original project
+- [Knight Omega](https://github.com/songquanpeng/one-api): Original project
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy): Midjourney interface support
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool): Query usage quota with key
 

@@ -10,7 +10,7 @@ import {
   showError,
   showSuccess,
   timestamp2string,
-} from '../../../helpers';
+} from '@/helpers';
 import { ITEMS_PER_PAGE } from '../../constants';
 import { useTableCompactMode } from '../common/useTableCompactMode';
 

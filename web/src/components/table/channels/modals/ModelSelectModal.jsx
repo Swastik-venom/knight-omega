@@ -211,7 +211,7 @@ const ModelSelectModal = ({
             <div className='grid grid-cols-2 gap-x-4'>
               {categoryData.models.map((model) => (
                 <Checkbox key={model} value={model} className='my-1'>
-                  {model}
+                  <span className='text-gray-900 dark:text-gray-100'>{model}</span>
                 </Checkbox>
               ))}
             </div>

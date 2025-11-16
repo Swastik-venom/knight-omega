@@ -50,7 +50,7 @@
 ## 📝 プロジェクト説明
 
 > [!NOTE]  
-> 本プロジェクトは、[One API](https://github.com/songquanpeng/one-api)をベースに二次開発されたオープンソースプロジェクトです
+> 本プロジェクトは、[Knight Omega](https://github.com/songquanpeng/one-api)をベースに二次開発されたオープンソースプロジェクトです
 
 > [!IMPORTANT]  
 > - 本プロジェクトは個人学習用のみであり、安定性の保証や技術サポートは提供しません。
@@ -178,7 +178,7 @@ Knight Omegaは豊富な機能を提供しています。詳細な機能につ�
 2. 🌍 多言語サポート
 3. 💰 オンラインチャージ機能をサポート、現在EPayとStripeをサポート
 4. 🔍 キーによる使用量クォータの照会をサポート（[neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)と連携）
-5. 🔄 オリジナルのOne APIデータベースと互換性あり
+5. 🔄 オリジナルのKnight Omegaデータベースと互換性あり
 6. 💵 モデルの従量課金をサポート
 7. ⚖️ チャネルの重み付けランダムをサポート
 8. 📈 データダッシュボード（コンソール）
@@ -323,7 +323,7 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 - [Google Geminiチャットインターフェース](https://docs.newapi.pro/api/google-gemini-chat)
 
 ## 関連プロジェクト
-- [One API](https://github.com/songquanpeng/one-api)：オリジナルプロジェクト
+- [Knight Omega](https://github.com/songquanpeng/one-api)：オリジナルプロジェクト
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy)：Midjourneyインターフェースサポート
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)：キーを使用して使用量クォータを照会
 

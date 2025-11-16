@@ -8,8 +8,8 @@ import TaskLogsActions from './TaskLogsActions';
 import TaskLogsFilters from './TaskLogsFilters';
 import ColumnSelectorModal from './modals/ColumnSelectorModal';
 import ContentModal from './modals/ContentModal';
-import { useTaskLogsData } from '../../hooks/task-logs/useTaskLogsData';
-import { useIsMobile } from '../../hooks/common/useIsMobile';
+import { useTaskLogsData } from '../../../hooks/task-logs/useTaskLogsData';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
 import { createCardProPagination } from '../../../helpers/index.js';
 
 const TaskLogsPage = () => {

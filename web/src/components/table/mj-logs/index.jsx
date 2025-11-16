@@ -8,8 +8,8 @@ import MjLogsActions from './MjLogsActions';
 import MjLogsFilters from './MjLogsFilters';
 import ColumnSelectorModal from './modals/ColumnSelectorModal';
 import ContentModal from './modals/ContentModal';
-import { useMjLogsData } from '../../hooks/mj-logs/useMjLogsData';
-import { useIsMobile } from '../../hooks/common/useIsMobile';
+import { useMjLogsData } from '../../../hooks/mj-logs/useMjLogsData';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
 import { createCardProPagination } from '../../../helpers/index.js';
 
 const MjLogsPage = () => {

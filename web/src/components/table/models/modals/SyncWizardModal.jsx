@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Modal, RadioGroup, Radio, Steps, Button } from '@douyinfe/semi-ui';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 
 const SyncWizardModal = ({ visible, onClose, onConfirm, loading, t }) => {
   const [step, setStep] = useState(0);

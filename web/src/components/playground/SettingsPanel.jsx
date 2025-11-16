@@ -4,7 +4,7 @@ import React from 'react';
 import { Card, Select, Typography, Button, Switch } from '@douyinfe/semi-ui';
 import { Sparkles, Users, ToggleLeft, X, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { renderGroupOption, selectFilter } from '../../../helpers';
+import { renderGroupOption, selectFilter } from '@/helpers';
 import ParameterControl from './ParameterControl';
 import ImageUrlInput from './ImageUrlInput';
 import ConfigManager from './ConfigManager';

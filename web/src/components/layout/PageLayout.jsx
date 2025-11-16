@@ -17,7 +17,7 @@ import {
   getSystemName,
   showError,
   setStatusData,
-} from '../../../helpers';
+} from '@/helpers';
 import { UserContext } from '../../context/User';
 import { StatusContext } from '../../context/Status';
 import { useLocation } from 'react-router-dom';

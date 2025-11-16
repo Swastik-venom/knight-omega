@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../../context/User';
 import { useTranslation } from 'react-i18next';
 import { StatusContext } from '../../context/Status';
-import { getLogo, getSystemName } from '../../../helpers';
+import { getLogo, getSystemName } from '@/helpers';
 import TestimonialsSection from './Testimonials';
 import {
   Layers,

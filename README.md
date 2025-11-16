@@ -50,7 +50,7 @@
 ## 📝 项目说明
 
 > [!NOTE]  
-> 本项目为开源项目，在[One API](https://github.com/songquanpeng/one-api)的基础上进行二次开发
+> 本项目为开源项目，在[Knight Omega](https://github.com/songquanpeng/one-api)的基础上进行二次开发
 
 > [!IMPORTANT]  
 > - 本项目仅供个人学习使用，不保证稳定性，且不提供任何技术支持
@@ -119,6 +119,21 @@
 也可访问AI生成的DeepWiki:
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
 
+### 🎮 控制台测试工具
+
+Knight Omega 提供了强大的浏览器控制台测试工具，让您可以直接在浏览器开发者工具中测试 AI 模型：
+
+```javascript
+// 在浏览器控制台中使用
+playground.help()                    // 显示帮助信息
+await playground.chat("Hello!")      // 简单对话
+await playground.listModels()        // 列出可用模型
+```
+
+📖 **详细文档：**
+- [控制台测试工具完整文档](./docs/CONSOLE_PLAYGROUND.md)
+- [快速参考指南](./docs/CONSOLE_PLAYGROUND_QUICK_REFERENCE.md)
+
 ## ✨ 主要特性
 
 Knight Omega提供了丰富的功能，详细特性请参考[特性说明](https://docs.newapi.pro/wiki/features-introduction)：
@@ -127,7 +142,7 @@ Knight Omega提供了丰富的功能，详细特性请参考[特性说明](https
 2. 🌍 多语言支持
 3. 💰 支持在线充值功能，当前支持易支付和Stripe
 4. 🔍 支持用key查询使用额度（配合[neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)）
-5. 🔄 兼容原版One API的数据库
+5. 🔄 兼容原版Knight Omega的数据库
 6. 💵 支持模型按次数收费
 7. ⚖️ 支持渠道加权随机
 8. 📈 数据看板（控制台）
@@ -273,7 +288,7 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 - [Google Gemini聊天接口](https://docs.newapi.pro/api/google-gemini-chat)
 
 ## 相关项目
-- [One API](https://github.com/songquanpeng/one-api)：原版项目
+- [Knight Omega](https://github.com/songquanpeng/one-api)：原版项目
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy)：Midjourney接口支持
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)：用key查询使用额度
 

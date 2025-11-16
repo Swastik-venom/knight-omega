@@ -12,7 +12,7 @@ import {
   IconTypograph,
   IconSend,
 } from '@douyinfe/semi-icons';
-import { renderQuota } from '../../../helpers';
+import { renderQuota } from '@/helpers';
 import { createSectionTitle } from '../../../helpers/dashboard';
 
 export const useDashboardStats = (

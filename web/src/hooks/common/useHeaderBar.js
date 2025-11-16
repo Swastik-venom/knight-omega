@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { UserContext } from '../../context/User';
 import { StatusContext } from '../../context/Status';
 import { useSetTheme, useTheme, useActualTheme } from '../../context/Theme';
-import { getLogo, getSystemName, API, showSuccess } from '../../../helpers';
+import { getLogo, getSystemName, API, showSuccess } from '@/helpers';
 import { useIsMobile } from './useIsMobile';
 import { useSidebarCollapsed } from './useSidebarCollapsed';
 import { useMinimumLoadingTime } from './useMinimumLoadingTime';

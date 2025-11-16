@@ -1,7 +1,7 @@
 
 
 import React, { useContext, useEffect } from 'react';
-import { getRelativeTime } from '../../../helpers';
+import { getRelativeTime } from '@/helpers';
 import { UserContext } from '../../context/User';
 import { StatusContext } from '../../context/Status';
 
@@ -25,7 +25,7 @@ import {
   ILLUSTRATION_SIZE,
   ANNOUNCEMENT_LEGEND_DATA,
   UPTIME_STATUS_MAP,
-} from '../../constants/dashboard.constants';
+} from '@/constants/dashboard.constants';
 import {
   getTrendSpec,
   handleCopyUrl,

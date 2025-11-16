@@ -19,7 +19,7 @@ import {
   showError,
   showSuccess,
   showWarning,
-} from '../../../helpers';
+} from '@/helpers';
 
 const { Text } = Typography;
 

@@ -7,8 +7,8 @@ import LogsActions from './UsageLogsActions';
 import LogsFilters from './UsageLogsFilters';
 import ColumnSelectorModal from './modals/ColumnSelectorModal';
 import UserInfoModal from './modals/UserInfoModal';
-import { useLogsData } from '../../../hooks/usage-logs/useUsageLogsData';
-import { useIsMobile } from '../../../hooks/common/useIsMobile';
+import { useLogsData } from '@/hooks/usage-logs/useUsageLogsData';
+import { useIsMobile } from '@/hooks/common/useIsMobile';
 import { createCardProPagination } from '../../../helpers/index.js';
 
 const LogsPage = () => {

@@ -4,7 +4,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { Button, Tooltip, Toast } from '@douyinfe/semi-ui';
 import { Copy, ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { copy } from '../../../helpers';
+import { copy } from '@/helpers';
 
 const PERFORMANCE_CONFIG = {
   MAX_DISPLAY_LENGTH: 50000, // 最大显示字符数
@@ -201,7 +201,7 @@ const CodeViewer = ({ content, title, language = 'json' }) => {
         preview: t('正在构造请求体预览...'),
         request: t('暂无请求数据'),
         response: t('暂无响应数据'),
-      }[title] || t('暂无数据');
+      }[title] || t('No data available.');
 
     return (
       <div style={codeThemeStyles.noContent}>

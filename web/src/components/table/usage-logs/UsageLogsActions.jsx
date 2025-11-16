@@ -4,7 +4,7 @@ import React from 'react';
 import { Tag, Space, Skeleton } from '@douyinfe/semi-ui';
 import { renderQuota } from '../../../helpers/index.js';
 import CompactModeToggle from '../../common/ui/CompactModeToggle';
-import { useMinimumLoadingTime } from '../../../hooks/common/useMinimumLoadingTime';
+import { useMinimumLoadingTime } from '@/hooks/common/useMinimumLoadingTime';
 
 const LogsActions = ({
   stat,

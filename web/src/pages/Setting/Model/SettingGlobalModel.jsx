@@ -9,7 +9,7 @@ import {
   showSuccess,
   showWarning,
   verifyJSON,
-} from '../../../helpers';
+} from '@/helpers';
 import { useTranslation } from 'react-i18next';
 
 const thinkingExample = JSON.stringify(

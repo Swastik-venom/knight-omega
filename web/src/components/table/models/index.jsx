@@ -8,8 +8,8 @@ import ModelsFilters from './ModelsFilters';
 import ModelsTabs from './ModelsTabs';
 import EditModelModal from './modals/EditModelModal';
 import EditVendorModal from './modals/EditVendorModal';
-import { useModelsData } from '../../hooks/models/useModelsData';
-import { useIsMobile } from '../../hooks/common/useIsMobile';
+import { useModelsData } from '../../../hooks/models/useModelsData';
+import { useIsMobile } from '../../../hooks/common/useIsMobile';
 import { createCardProPagination } from '../../../helpers/index.js';
 
 const ModelsPage = () => {

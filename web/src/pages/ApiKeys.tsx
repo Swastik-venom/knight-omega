@@ -48,7 +48,9 @@ export default function ApiKeysPage() {
       setLoading(true)
       const res = await api.get<any>("/api/token")
       if (res.success && res.data) {
-        setTokens(Array.isArray(res.data) ? res.data : [])
+        // Handle both response formats: direct array or paginated response
+        const items = res.data.items || res.data
+        setTokens(Array.isArray(items) ? items : [])
       }
     } catch (error) {
       console.error("Failed to fetch tokens:", error)
@@ -271,9 +273,9 @@ export default function ApiKeysPage() {
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Create New API Key</DialogTitle>
+            <DialogTitle>Create Knight Omega Key</DialogTitle>
             <DialogDescription>
-              Create a new API key to access the service programmatically.
+              Create a Knight Omega key to access the service programmatically.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">

@@ -21,7 +21,7 @@ import { useDataLoader } from '../../hooks/playground/useDataLoader';
 import {
   MESSAGE_ROLES,
   ERROR_MESSAGES,
-} from '../../constants/playground.constants';
+} from '@/constants/playground.constants';
 import {
   getLogo,
   stringToColor,
@@ -31,7 +31,7 @@ import {
   getTextContent,
   buildApiPayload,
   encodeToBase64,
-} from '../../../helpers';
+} from '@/helpers';
 
 // Components
 import {

@@ -6,14 +6,14 @@ import {
   DEFAULT_CONFIG,
   DEBUG_TABS,
   MESSAGE_STATUS,
-} from '../../constants/playground.constants';
+} from '@/constants/playground.constants';
 import {
   loadConfig,
   saveConfig,
   loadMessages,
   saveMessages,
 } from '../../components/playground/configStorage';
-import { processIncompleteThinkTags } from '../../../helpers';
+import { processIncompleteThinkTags } from '@/helpers';
 
 export const usePlaygroundState = () => {
   // 使用惰性初始化，确保只在组件首次挂载时加载配置和消息

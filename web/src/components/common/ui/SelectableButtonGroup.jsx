@@ -1,8 +1,8 @@
 
 
 import React, { useState, useRef, useEffect } from 'react';
-import { useMinimumLoadingTime } from '../../hooks/common/useMinimumLoadingTime';
-import { useContainerWidth } from '../../hooks/common/useContainerWidth';
+import { useMinimumLoadingTime } from '../../../hooks/common/useMinimumLoadingTime';
+import { useContainerWidth } from '../../../hooks/common/useContainerWidth';
 import {
   Divider,
   Button,
@@ -17,18 +17,18 @@ import {
 import { IconChevronDown, IconChevronUp } from '@douyinfe/semi-icons';
 
 /**
- * 通用可选择按钮组组件
+ * Generic selectable button group component
  *
- * @param {string} title 标题
- * @param {Array<{value:any,label:string,icon?:React.ReactNode,tagCount?:number}>} items 按钮项
- * @param {*|Array} activeValue 当前激活的值，可以是单个值或数组（多选）
- * @param {(value:any)=>void} onChange 选择改变回调
+ * @param {string} title Title
+ * @param {Array<{value:any,label:string,icon?:React.ReactNode,tagCount?:number}>} items Button items
+ * @param {*|Array} activeValue Currently active value, can be single value or array (multi-select)
+ * @param {(value:any)=>void} onChange Selection change callback
  * @param {function} t i18n
- * @param {object} style 额外样式
- * @param {boolean} collapsible 是否支持折叠，默认true
- * @param {number} collapseHeight 折叠时的高度，默认200
- * @param {boolean} withCheckbox 是否启用前缀 Checkbox 来控制激活状态
- * @param {boolean} loading 是否处于加载状态
+ * @param {object} style Additional styles
+ * @param {boolean} collapsible Whether to support collapse, default true
+ * @param {number} collapseHeight Height when collapsed, default 200
+ * @param {boolean} withCheckbox Whether to enable prefix Checkbox to control active state
+ * @param {boolean} loading Whether in loading state
  */
 const SelectableButtonGroup = ({
   title,
@@ -69,12 +69,12 @@ const SelectableButtonGroup = ({
     );
   };
 
-  // 基于容器宽度计算响应式列数和标签显示策略
+  // Calculate responsive column count and tag display strategy based on container width
   const getResponsiveConfig = () => {
-    if (containerWidth <= 280) return { columns: 1, showTags: true }; // 极窄：1列+标签
-    if (containerWidth <= 380) return { columns: 2, showTags: true }; // 窄屏：2列+标签
-    if (containerWidth <= 460) return { columns: 3, showTags: false }; // 中等：3列不加标签
-    return { columns: 3, showTags: true }; // 最宽：3列+标签
+    if (containerWidth <= 280) return { columns: 1, showTags: true }; // Very narrow: 1 column + tags
+    if (containerWidth <= 380) return { columns: 2, showTags: true }; // Narrow: 2 columns + tags
+    if (containerWidth <= 460) return { columns: 3, showTags: false }; // Medium: 3 columns without tags
+    return { columns: 3, showTags: true }; // Widest: 3 columns + tags
   };
 
   const { columns: perRow, showTags: shouldShowTags } = getResponsiveConfig();
@@ -82,10 +82,10 @@ const SelectableButtonGroup = ({
   const needCollapse = collapsible && items.length > perRow * maxVisibleRows;
   const showSkeleton = useMinimumLoadingTime(loading);
 
-  // 统一使用紧凑的网格间距
+  // Use consistent compact grid spacing
   const gutterSize = [4, 4];
 
-  // 计算 Semi UI Col 的 span 值
+  // Calculate Semi UI Col span value
   const getColSpan = () => {
     return Math.floor(24 / perRow);
   };
@@ -216,15 +216,25 @@ const SelectableButtonGroup = ({
               type={isActive ? 'primary' : 'tertiary'}
               disabled={isDisabled}
               className='sbg-button'
-              style={{ width: '100%' }}
+              style={{
+                width: '100%',
+                backgroundColor: isActive ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                borderColor: isActive ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)',
+                color: 'white',
+                backdropFilter: 'blur(12px)'
+              }}
             >
-              <div className='sbg-content'>
-                {item.icon && <span className='sbg-icon'>{item.icon}</span>}
+              <div className='sbg-content' style={{ color: 'white' }}>
+                {item.icon && <span className='sbg-icon' style={{ color: isActive ? 'white' : 'rgba(255, 255, 255, 0.7)' }}>{item.icon}</span>}
                 <ConditionalTooltipText text={item.label} />
                 {item.tagCount !== undefined && shouldShowTags && (
                   <Tag
                     className='sbg-tag'
-                    color='white'
+                    style={{
+                      backgroundColor: isActive ? 'rgba(99, 102, 241, 0.3)' : 'rgba(255, 255, 255, 0.15)',
+                      color: isActive ? 'rgb(199, 210, 254)' : 'rgba(255, 255, 255, 0.7)',
+                      border: 'none'
+                    }}
                     shape='circle'
                     size='small'
                   >
@@ -245,11 +255,11 @@ const SelectableButtonGroup = ({
       ref={containerRef}
     >
       {title && (
-        <Divider margin='12px' align='left'>
+        <Divider margin='12px' align='left' style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
           {showSkeleton ? (
             <Skeleton.Title active style={{ width: 80, height: 14 }} />
           ) : (
-            title
+            <span style={{ color: 'rgba(255, 255, 255, 0.7)', fontWeight: 500 }}>{title}</span>
           )}
         </Divider>
       )}
@@ -263,9 +273,9 @@ const SelectableButtonGroup = ({
             {contentElement}
           </Collapsible>
           {isOpen ? null : (
-            <div onClick={toggle} style={{ ...linkStyle }}>
+            <div onClick={toggle} style={{ ...linkStyle, color: 'rgba(255, 255, 255, 0.6)' }}>
               <IconChevronDown size='small' />
-              <span>{t('展开更多')}</span>
+              <span>{t('Show more')}</span>
             </div>
           )}
           {isOpen && (
@@ -276,10 +286,11 @@ const SelectableButtonGroup = ({
                 position: 'static',
                 marginTop: 8,
                 bottom: 'auto',
+                color: 'rgba(255, 255, 255, 0.6)'
               }}
             >
               <IconChevronUp size='small' />
-              <span>{t('收起')}</span>
+              <span>{t('Collapse')}</span>
             </div>
           )}
         </div>

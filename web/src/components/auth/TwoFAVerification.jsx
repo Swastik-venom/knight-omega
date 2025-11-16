@@ -1,5 +1,5 @@
 
-import { API, showError, showSuccess } from '../../../helpers';
+import { API, showError, showSuccess } from '@/helpers';
 import {
   Button,
   Card,

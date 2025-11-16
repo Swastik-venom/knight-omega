@@ -50,7 +50,7 @@
 ## 📝 Description du projet
 
 > [!NOTE]  
-> Il s'agit d'un projet open-source développé sur la base de [One API](https://github.com/songquanpeng/one-api)
+> Il s'agit d'un projet open-source développé sur la base de [Knight Omega](https://github.com/songquanpeng/one-api)
 
 > [!IMPORTANT]  
 > - Ce projet est uniquement destiné à des fins d'apprentissage personnel, sans garantie de stabilité ni de support technique.
@@ -178,7 +178,7 @@ Knight Omega offre un large éventail de fonctionnalités, veuillez vous référ
 2. 🌍 Prise en charge multilingue
 3. 💰 Fonctionnalité de recharge en ligne, prend actuellement en charge EPay et Stripe
 4. 🔍 Prise en charge de la recherche de quotas d'utilisation avec des clés (fonctionne avec [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool))
-5. 🔄 Compatible avec la base de données originale de One API
+5. 🔄 Compatible avec la base de données originale de Knight Omega
 6. 💵 Prise en charge de la tarification des modèles de paiement à l'utilisation
 7. ⚖️ Prise en charge de la sélection aléatoire pondérée des canaux
 8. 📈 Tableau de bord des données (console)
@@ -339,7 +339,7 @@ Pour une documentation détaillée de l'API, veuillez vous référer à [Documen
 - [API de discussion Google Gemini](https://docs.newapi.pro/api/google-gemini-chat)
 
 ## Projets connexes
-- [One API](https://github.com/songquanpeng/one-api) : Projet original
+- [Knight Omega](https://github.com/songquanpeng/one-api) : Projet original
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy) : Prise en charge de l'interface Midjourney
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool) : Interroger le quota d'utilisation avec une clé
 
