@@ -427,12 +427,29 @@ export const useChannelsData = () => {
     const { success, message } = res.data;
     if (success) {
       showSuccess(t('操作成功完成！'));
-      let channel = res.data.data;
-      let newChannels = [...channels];
-      if (action !== 'delete') {
-        record.status = channel.status;
+      if (action === 'delete') {
+        // For delete, refresh the entire list
+        await refresh();
+      } else {
+        // For other actions, update the specific channel in state
+        let channel = res.data.data;
+        const newChannels = channels.map(ch => {
+          if (ch.children !== undefined) {
+            // Handle tag mode
+            return {
+              ...ch,
+              children: ch.children.map(child =>
+                child.id === id ? { ...child, ...channel } : child
+              )
+            };
+          } else if (ch.id === id) {
+            // Handle normal mode
+            return { ...ch, ...channel };
+          }
+          return ch;
+        });
+        setChannels(newChannels);
       }
-      setChannels(newChannels);
     } else {
       showError(message);
     }
@@ -452,16 +469,17 @@ export const useChannelsData = () => {
     const { success, message } = res.data;
     if (success) {
       showSuccess('操作成功完成！');
-      let newChannels = [...channels];
-      for (let i = 0; i < newChannels.length; i++) {
-        if (newChannels[i].tag === tag) {
-          let status = action === 'enable' ? 1 : 2;
-          newChannels[i]?.children?.forEach((channel) => {
-            channel.status = status;
-          });
-          newChannels[i].status = status;
+      const status = action === 'enable' ? 1 : 2;
+      const newChannels = channels.map(ch => {
+        if (ch.tag === tag) {
+          return {
+            ...ch,
+            status,
+            children: ch.children?.map(child => ({ ...child, status }))
+          };
         }
-      }
+        return ch;
+      });
       setChannels(newChannels);
     } else {
       showError(message);

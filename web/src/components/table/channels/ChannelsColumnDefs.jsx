@@ -558,6 +558,7 @@ export const getChannelsColumns = ({
                   <Dropdown
                     trigger='click'
                     position='bottomRight'
+                    stopPropagation
                     menu={[
                       {
                         node: 'item',
@@ -573,6 +574,7 @@ export const getChannelsColumns = ({
                       type='tertiary'
                       size='small'
                       icon={<IconTreeTriangleDown />}
+                      onClick={(e) => e.stopPropagation()}
                     />
                   </Dropdown>
                 </SplitButtonGroup>
@@ -593,8 +595,14 @@ export const getChannelsColumns = ({
                 trigger='click'
                 position='bottomRight'
                 menu={moreMenuItems}
+                stopPropagation
               >
-                <Button icon={<IconMore />} type='tertiary' size='small' />
+                <Button
+                  icon={<IconMore />}
+                  type='tertiary'
+                  size='small'
+                  onClick={(e) => e.stopPropagation()}
+                />
               </Dropdown>
             </Space>
           );
