@@ -555,28 +555,28 @@ export const getChannelsColumns = ({
                   >
                     {t('编辑')}
                   </Button>
-                  <Dropdown
-                    trigger='click'
-                    position='bottomRight'
-                    stopPropagation
-                    menu={[
-                      {
-                        node: 'item',
-                        name: t('多密钥管理'),
-                        onClick: () => {
-                          setCurrentMultiKeyChannel(record);
-                          setShowMultiKeyManageModal(true);
+                  <div onClick={(e) => e.stopPropagation()}>
+                    <Dropdown
+                      trigger='click'
+                      position='bottomRight'
+                      menu={[
+                        {
+                          node: 'item',
+                          name: t('多密钥管理'),
+                          onClick: () => {
+                            setCurrentMultiKeyChannel(record);
+                            setShowMultiKeyManageModal(true);
+                          },
                         },
-                      },
-                    ]}
-                  >
-                    <Button
-                      type='tertiary'
-                      size='small'
-                      icon={<IconTreeTriangleDown />}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                  </Dropdown>
+                      ]}
+                    >
+                      <Button
+                        type='tertiary'
+                        size='small'
+                        icon={<IconTreeTriangleDown />}
+                      />
+                    </Dropdown>
+                  </div>
                 </SplitButtonGroup>
               ) : (
                 <Button
@@ -591,19 +591,19 @@ export const getChannelsColumns = ({
                 </Button>
               )}
 
-              <Dropdown
-                trigger='click'
-                position='bottomRight'
-                menu={moreMenuItems}
-                stopPropagation
-              >
-                <Button
-                  icon={<IconMore />}
-                  type='tertiary'
-                  size='small'
-                  onClick={(e) => e.stopPropagation()}
-                />
-              </Dropdown>
+              <div onClick={(e) => e.stopPropagation()}>
+                <Dropdown
+                  trigger='click'
+                  position='bottomRight'
+                  menu={moreMenuItems}
+                >
+                  <Button
+                    icon={<IconMore />}
+                    type='tertiary'
+                    size='small'
+                  />
+                </Dropdown>
+              </div>
             </Space>
           );
         } else {

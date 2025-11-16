@@ -510,7 +510,7 @@ func (user *User) ValidateAndFill() (err error) {
 	DB.Where("username = ? OR email = ?", username, username).First(user)
 	okay := common.ValidatePasswordAndHash(password, user.Password)
 	if !okay || user.Status != common.UserStatusEnabled {
-		return errors.New("用户名或密码错误，或用户已被封禁")
+		return errors.New("Username or password incorrect, or user has been banned.")
 	}
 	return nil
 }
