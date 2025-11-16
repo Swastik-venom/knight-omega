@@ -176,26 +176,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!response.success) {
         throw new Error(response.message || 'Registration failed');
       }
-      const { token: newToken, data: userDataRes } = response;
       
-      // Create user object with all necessary fields
-      const userObj = {
-        ...userDataRes,
-        token: newToken,
-        id: userDataRes.Id || userDataRes.id,
-        username: userDataRes.Username || userDataRes.username,
-        role: userDataRes.Role || userDataRes.role
-      };
-      
-      setToken(newToken);
-      setUser(userObj);
-      
-      // Store both token and user data like old implementation
-      localStorage.setItem('authToken', newToken);
-      localStorage.setItem('user', JSON.stringify(userObj));
-      
-      toast.success('Account created successfully!');
-      navigate('/console/dashboard');
+      // Registration successful - redirect to login page
+      toast.success('Account created successfully! Please sign in.');
+      navigate('/login');
     } catch (error: any) {
       console.error('Registration error:', error);
       toast.error(error.message || 'Registration failed');

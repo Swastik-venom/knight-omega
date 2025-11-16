@@ -268,7 +268,7 @@ func Register(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"success": true,
-		"message": "",
+		"message": "注册成功，请登录",
 	})
 	return
 }
