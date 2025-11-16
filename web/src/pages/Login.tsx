@@ -182,12 +182,47 @@ const LoginPage = () => {
       
       const state = stateData.data;
       
-      // Step 2: Redirect to backend OAuth endpoint with state
-      const redirectUri = `${window.location.origin}/oauth/${provider}/callback`;
-      const authUrl = new URL(`${window.location.origin}/api/oauth/${provider}`);
-      authUrl.searchParams.set('redirect_uri', redirectUri);
-      authUrl.searchParams.set('state', state);
-      window.location.href = authUrl.toString();
+      // Step 2: Redirect directly to OAuth provider (GitHub, OIDC, etc.)
+      // The callback URL should point to our backend which will handle the code exchange
+      const callbackUri = `${window.location.origin}/api/oauth/${provider}`;
+      
+      if (provider === 'github') {
+        // Get GitHub Client ID from system status
+        const githubClientId = systemStatus.github_client_id;
+        if (!githubClientId) {
+          throw new Error('GitHub OAuth is not properly configured');
+        }
+        
+        // Redirect to GitHub's authorization URL
+        const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
+        githubAuthUrl.searchParams.set('client_id', githubClientId);
+        githubAuthUrl.searchParams.set('redirect_uri', callbackUri);
+        githubAuthUrl.searchParams.set('state', state);
+        githubAuthUrl.searchParams.set('scope', 'user:email');
+        window.location.href = githubAuthUrl.toString();
+      } else if (provider === 'oidc') {
+        // For OIDC, redirect to backend which will handle the OIDC flow
+        const oidcAuthUrl = new URL(`${window.location.origin}/api/oauth/oidc`);
+        oidcAuthUrl.searchParams.set('state', state);
+        window.location.href = oidcAuthUrl.toString();
+      } else if (provider === 'linuxdo') {
+        // Get LinuxDO Client ID from system status
+        const linuxdoClientId = systemStatus.linuxdo_client_id;
+        if (!linuxdoClientId) {
+          throw new Error('LinuxDO OAuth is not properly configured');
+        }
+        
+        // Redirect to LinuxDO's authorization URL
+        const linuxdoAuthUrl = new URL('https://connect.linux.do/oauth2/authorize');
+        linuxdoAuthUrl.searchParams.set('client_id', linuxdoClientId);
+        linuxdoAuthUrl.searchParams.set('redirect_uri', callbackUri);
+        linuxdoAuthUrl.searchParams.set('state', state);
+        linuxdoAuthUrl.searchParams.set('response_type', 'code');
+        linuxdoAuthUrl.searchParams.set('scope', 'user:email');
+        window.location.href = linuxdoAuthUrl.toString();
+      } else {
+        throw new Error(`Unsupported OAuth provider: ${provider}`);
+      }
     } catch (error) {
       console.error('OAuth initiation error:', error);
       toast({
