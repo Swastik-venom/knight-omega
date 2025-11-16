@@ -11,7 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2, Mail, Lock, Key, User, Github, Shield } from "lucide-react";
+import { Loader2, Mail, Lock, Key, User, Github, Shield, MessageSquare } from "lucide-react";
+import { SiWechat, SiTelegram } from 'react-icons/si';
 import { useAuth } from '@/lib/auth';
 import Turnstile from 'react-turnstile';
 import TelegramLoginButton from 'react-telegram-login';
@@ -233,11 +234,11 @@ const LoginPage = () => {
         {systemStatus.wechat_login && (
           <Button
             variant="outline"
-            className="w-full justify-start space-x-2"
+            className="w-full justify-start space-x-2 hover:bg-green-50 hover:border-green-300 transition-colors"
             onClick={handleWeChatClick}
             disabled={wechatLoading}
           >
-            <Shield className="h-4 w-4" />
+            <SiWechat className="h-4 w-4 text-green-600" />
             <span>Continue with WeChat</span>
             {wechatLoading && <Loader2 className="h-4 w-4 animate-spin ml-auto" />}
           </Button>
@@ -246,7 +247,7 @@ const LoginPage = () => {
         {systemStatus.github_oauth && (
           <Button
             variant="outline"
-            className="w-full justify-start space-x-2"
+            className="w-full justify-start space-x-2 hover:bg-gray-50 hover:border-gray-400 transition-colors"
             onClick={() => handleOauthClick('github')}
             disabled={oauthLoading.github}
           >
@@ -259,11 +260,11 @@ const LoginPage = () => {
         {systemStatus.oidc_enabled && (
           <Button
             variant="outline"
-            className="w-full justify-start space-x-2"
+            className="w-full justify-start space-x-2 hover:bg-blue-50 hover:border-blue-300 transition-colors"
             onClick={() => handleOauthClick('oidc')}
             disabled={oauthLoading.oidc}
           >
-            <Shield className="h-4 w-4" />
+            <Shield className="h-4 w-4 text-blue-600" />
             <span>Continue with OIDC</span>
             {oauthLoading.oidc && <Loader2 className="h-4 w-4 animate-spin ml-auto" />}
           </Button>
@@ -272,23 +273,27 @@ const LoginPage = () => {
         {systemStatus.linuxdo_oauth && (
           <Button
             variant="outline"
-            className="w-full justify-start space-x-2"
+            className="w-full justify-start space-x-2 hover:bg-orange-50 hover:border-orange-300 transition-colors"
             onClick={() => handleOauthClick('linuxdo')}
             disabled={oauthLoading.linuxdo}
           >
-            <Shield className="h-4 w-4" />
+            <MessageSquare className="h-4 w-4 text-orange-600" />
             <span>Continue with LinuxDO</span>
             {oauthLoading.linuxdo && <Loader2 className="h-4 w-4 animate-spin ml-auto" />}
           </Button>
         )}
 
         {systemStatus.telegram_oauth && (
-          <div className="flex justify-center">
-            <TelegramLoginButton
-              dataOnauth={handleTelegramLogin}
-              botName={systemStatus.telegram_bot_name}
-            />
-          </div>
+          <Button
+            variant="outline"
+            className="w-full justify-start space-x-2 hover:bg-blue-50 hover:border-blue-400 transition-colors"
+            onClick={() => handleOauthClick('telegram')}
+            disabled={oauthLoading.telegram}
+          >
+            <SiTelegram className="h-4 w-4 text-blue-500" />
+            <span>Continue with Telegram</span>
+            {oauthLoading.telegram && <Loader2 className="h-4 w-4 animate-spin ml-auto" />}
+          </Button>
         )}
 
         {systemStatus.passkey_login && isPasskeySupported() && (

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { ArrowRight, Zap, Shield, Globe, Cpu, Code, Database, Lock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import Link from "next/link"
+import { Link } from "react-router-dom"
 
 export default function Hero() {
 
@@ -106,12 +106,12 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.4 }}
         >
-          <Link href="/signup">
+          <Link to="/signup">
             <Button className="bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-all duration-200">
               Get Started Free
             </Button>
           </Link>
-          <Link href="/docs">
+          <Link to="/docs">
             <Button variant="outline" className="border-white/20 text-white hover:bg-white/10">
               View Docs <ArrowRight className="ml-2 h-4 w-4" />
             </Button>

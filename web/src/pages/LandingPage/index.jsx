@@ -143,17 +143,17 @@ const LandingPage = () => {
             className='mt-10 flex flex-col items-center gap-4 sm:flex-row'
           >
             <Link
-              to='/register'
-              className='inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5'
+              to='/signup'
+              className='inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(79,70,229,0.45)]'
             >
               {t('Get started now')}
               <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><path d='M5 12h14'></path><path d='m12 5 7 7-7 7'></path></svg>
             </Link>
             <Link
-              to='/docs'
-              className='inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80'
+              to='/console/playground'
+              className='inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/90 px-6 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 hover:shadow-md dark:border-white/15 dark:bg-white/10 dark:text-white/80'
             >
-              {t('View documentation')}
+              {t('Try Playground')}
             </Link>
           </motion.div>
 
@@ -282,8 +282,8 @@ const LandingPage = () => {
                 </Link>
               ) : (
                 <Link
-                  to='/register'
-                  className='inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5'
+                  to='/signup'
+                  className='inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(79,70,229,0.45)]'
                 >
                   {t('Create your workspace')}
                   <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'><path d='M5 12h14'></path><path d='m12 5 7 7-7 7'></path></svg>
