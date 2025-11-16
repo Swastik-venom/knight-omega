@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Progress, Tag, Typography } from '@douyinfe/semi-ui';
+import { Progress, Tag, Typography } from '@douyinfe/semi-ui-19';
 import {
   Music,
   FileText,

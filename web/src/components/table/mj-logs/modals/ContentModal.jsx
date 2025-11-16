@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Modal, ImagePreview } from '@douyinfe/semi-ui';
+import { Modal, ImagePreview } from '@douyinfe/semi-ui-19';
 
 const ContentModal = ({
   isModalOpen,

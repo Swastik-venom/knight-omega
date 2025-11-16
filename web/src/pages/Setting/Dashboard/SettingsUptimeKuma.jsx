@@ -11,7 +11,7 @@ import {
   Divider,
   Modal,
   Switch,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import {
   IllustrationNoResult,
   IllustrationNoResultDark,

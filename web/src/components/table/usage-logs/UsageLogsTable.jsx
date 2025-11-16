@@ -1,7 +1,7 @@
 
 
 import React, { useMemo } from 'react';
-import { Empty, Descriptions } from '@douyinfe/semi-ui';
+import { Empty, Descriptions } from '@douyinfe/semi-ui-19';
 import CardTable from '../../common/ui/CardTable';
 import {
   IllustrationNoResult,

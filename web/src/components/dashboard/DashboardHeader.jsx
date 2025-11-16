@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Button } from '@douyinfe/semi-ui';
+import { Button } from '@douyinfe/semi-ui-19';
 import { RefreshCw, Search, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 

@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState, useRef } from 'react';
-import { Button, Form, Spin } from '@douyinfe/semi-ui';
+import { Button, Form, Spin } from '@douyinfe/semi-ui-19';
 import {
   API,
   removeTrailingSlash,

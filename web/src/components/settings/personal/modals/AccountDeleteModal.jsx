@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Banner, Input, Modal, Typography } from '@douyinfe/semi-ui';
+import { Banner, Input, Modal, Typography } from '@douyinfe/semi-ui-19';
 import { IconDelete, IconUser } from '@douyinfe/semi-icons';
 import Turnstile from 'react-turnstile';
 

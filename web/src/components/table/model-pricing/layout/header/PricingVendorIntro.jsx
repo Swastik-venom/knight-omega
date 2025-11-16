@@ -8,7 +8,7 @@ import {
   Typography,
   Tooltip,
   Modal,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import { getLobeHubIcon } from '../../../../../helpers/index.js';
 import SearchActions from './SearchActions';
 

@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Modal, Button, Space } from '@douyinfe/semi-ui';
+import { Modal, Button, Space } from '@douyinfe/semi-ui-19';
 
 const CopyTokensModal = ({ visible, onCancel, selectedKeys, copyText, t }) => {
   // Handle copy with name and key format

@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Space, Tag, Typography, Popover } from '@douyinfe/semi-ui';
+import { Space, Tag, Typography, Popover } from '@douyinfe/semi-ui-19';
 
 const { Text } = Typography;
 

@@ -8,7 +8,7 @@ import {
   Switch,
   Typography,
   Select,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import CompactModeToggle from '../../common/ui/CompactModeToggle';
 
 const ChannelsActions = ({

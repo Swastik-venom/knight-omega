@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Tag, Button, Popconfirm, Tooltip } from '@douyinfe/semi-ui';
+import { Table, Tag, Button, Popconfirm, Tooltip } from '@douyinfe/semi-ui-19';
 import { IconEdit, IconDelete, IconCopy, IconEyeOpened } from '@douyinfe/semi-icons';
 import { motion } from 'framer-motion';
 

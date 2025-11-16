@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Layout } from '@douyinfe/semi-ui';
+import { Layout } from '@douyinfe/semi-ui-19';
 import CardPro from '../../common/ui/CardPro';
 import MjLogsTable from './MjLogsTable';
 import MjLogsActions from './MjLogsActions';

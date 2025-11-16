@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Modal, Badge } from '@douyinfe/semi-ui';
+import { Modal, Badge } from '@douyinfe/semi-ui-19';
 import { renderQuota, renderNumber } from '../../../../helpers/index.js';
 
 const UserInfoModal = ({

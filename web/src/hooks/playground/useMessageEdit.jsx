@@ -1,7 +1,7 @@
 
 
 import { useCallback, useState, useRef } from 'react';
-import { Toast, Modal } from '@douyinfe/semi-ui';
+import { Toast, Modal } from '@douyinfe/semi-ui-19';
 import { useTranslation } from 'react-i18next';
 import {
   getTextContent,

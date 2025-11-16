@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Card, Tabs, TabPane } from '@douyinfe/semi-ui';
+import { Card, Tabs, TabPane } from '@douyinfe/semi-ui-19';
 import { PieChart } from 'lucide-react';
 import { VChart } from '@visactor/react-vchart';
 

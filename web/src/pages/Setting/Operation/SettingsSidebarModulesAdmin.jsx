@@ -10,7 +10,7 @@ import {
   Row,
   Col,
   Typography,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import { API, showSuccess, showError } from '@/helpers';
 import { StatusContext } from '../../../context/Status';
 import { Settings } from 'lucide-react';

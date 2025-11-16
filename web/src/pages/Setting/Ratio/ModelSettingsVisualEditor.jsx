@@ -12,7 +12,7 @@ import {
   Radio,
   Checkbox,
   Tag,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import {
   IconDelete,
   IconPlus,

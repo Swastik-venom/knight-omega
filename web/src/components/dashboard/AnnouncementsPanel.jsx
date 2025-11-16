@@ -1,7 +1,7 @@
 
 
 import React, { useMemo } from 'react';
-import { Card, Tag, Empty } from '@douyinfe/semi-ui';
+import { Card, Tag, Empty } from '@douyinfe/semi-ui-19';
 import { Bell } from 'lucide-react';
 import { marked } from 'marked';
 import {

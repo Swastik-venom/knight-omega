@@ -1,7 +1,7 @@
 
 
 import React, { useRef } from 'react';
-import { Modal, Form } from '@douyinfe/semi-ui';
+import { Modal, Form } from '@douyinfe/semi-ui-19';
 
 const SearchModal = ({
   searchModalVisible,

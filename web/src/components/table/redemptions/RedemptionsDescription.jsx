@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Typography } from '@douyinfe/semi-ui';
+import { Typography } from '@douyinfe/semi-ui-19';
 import { Ticket } from 'lucide-react';
 import CompactModeToggle from '../../common/ui/CompactModeToggle';
 

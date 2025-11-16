@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tooltip } from '@douyinfe/semi-ui';
+import { Tooltip } from '@douyinfe/semi-ui-19';
 import { IconPlus, IconSync, IconSetting, IconDelete } from '@douyinfe/semi-icons';
 import { motion } from 'framer-motion';
 

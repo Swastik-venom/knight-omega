@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Typography, Toast, Avatar } from '@douyinfe/semi-ui';
+import { Typography, Toast, Avatar } from '@douyinfe/semi-ui-19';
 import { getLobeHubIcon } from '../../../../../helpers/index.js';
 
 const { Paragraph } = Typography;

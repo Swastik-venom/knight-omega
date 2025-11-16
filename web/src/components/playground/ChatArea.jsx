@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Card, Chat, Typography, Button } from '@douyinfe/semi-ui';
+import { Card, Chat, Typography, Button } from '@douyinfe/semi-ui-19';
 import { MessageSquare, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import CustomInputRender from './CustomInputRender';

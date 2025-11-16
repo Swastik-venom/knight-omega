@@ -1,5 +1,5 @@
 import React from 'react';
-import { Collapse } from '@douyinfe/semi-ui';
+import { Collapse } from '@douyinfe/semi-ui-19';
 
 // Glass effect accordion components
 const { Panel } = Collapse;

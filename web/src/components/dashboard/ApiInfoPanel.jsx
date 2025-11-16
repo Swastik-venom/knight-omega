@@ -1,7 +1,7 @@
 
 
 import React, { useCallback } from 'react';
-import { Card, Divider, Empty, Button } from '@douyinfe/semi-ui';
+import { Card, Divider, Empty, Button } from '@douyinfe/semi-ui-19';
 import { Server, RotateCcw, Copy, ExternalLink as ExternalLinkIcon } from 'lucide-react';
 import { IllustrationConstruction, IllustrationConstructionDark } from '@douyinfe/semi-illustrations';
 import ScrollableContainer from '../common/ui/ScrollableContainer';

@@ -8,7 +8,7 @@ import {
   Tooltip,
   Popover,
   Typography,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import {
   timestamp2string,
   renderGroup,

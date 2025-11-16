@@ -24,7 +24,7 @@ import {
   Form,
   Col,
   Row,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import {
   IconCreditCard,
   IconLink,

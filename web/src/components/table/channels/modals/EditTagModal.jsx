@@ -21,7 +21,7 @@ import {
   Tag,
   Avatar,
   Form,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import {
   IconSave,
   IconClose,

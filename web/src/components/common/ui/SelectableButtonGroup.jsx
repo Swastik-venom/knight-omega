@@ -13,7 +13,7 @@ import {
   Checkbox,
   Skeleton,
   Tooltip,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import { IconChevronDown, IconChevronUp } from '@douyinfe/semi-icons';
 
 /**

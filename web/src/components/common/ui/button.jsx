@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button as SemiButton } from '@douyinfe/semi-ui';
+import { Button as SemiButton } from '@douyinfe/semi-ui-19';
 
 // Modern glass effect button component with skiper-ui-clone design
 const GlassButton = ({ variant = 'primary', size = 'default', className = '', children, ...props }) => {

@@ -8,7 +8,7 @@ import {
   Typography,
   Modal,
   Tooltip,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import {
   timestamp2string,
   getLobeHubIcon,

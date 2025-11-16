@@ -9,7 +9,7 @@ import {
   TabPane,
   Tag,
   Empty,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import { Gauge, RefreshCw } from 'lucide-react';
 import {
   IllustrationConstruction,

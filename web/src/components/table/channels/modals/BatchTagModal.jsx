@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Modal, Input, Typography } from '@douyinfe/semi-ui';
+import { Modal, Input, Typography } from '@douyinfe/semi-ui-19';
 
 const BatchTagModal = ({
   showBatchSetTag,

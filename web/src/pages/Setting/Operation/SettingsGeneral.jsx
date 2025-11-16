@@ -13,7 +13,7 @@ import {
   InputGroup,
   Input,
   Typography,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import {
   compareObjects,
   API,

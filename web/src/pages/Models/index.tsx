@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useModelPricingData } from '../../hooks/model-pricing/useModelPricingData';
 import PricingCategories from '../../components/table/model-pricing/filter/PricingCategories';
-import { Input, Spin, Empty, Tag } from '@douyinfe/semi-ui';
+import { Input, Spin, Empty, Tag } from '@douyinfe/semi-ui-19';
 import { IconSearch, IconServer, IconLink, IconUser } from '@douyinfe/semi-icons';
 import { Crown, Gift, Package, Sparkles } from 'lucide-react';
 

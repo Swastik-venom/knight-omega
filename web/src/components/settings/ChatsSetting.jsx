@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from '@douyinfe/semi-ui';
+import { Card, Spin } from '@douyinfe/semi-ui-19';
 import SettingsChats from '../../pages/Setting/Chat/SettingsChats.jsx';
 import { API, showError, toBoolean } from '../../helpers';
 

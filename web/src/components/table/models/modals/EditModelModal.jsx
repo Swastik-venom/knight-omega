@@ -14,7 +14,7 @@ import {
   Avatar,
   Col,
   Row,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import { Save, X, FileText } from 'lucide-react';
 import { IconLink } from '@douyinfe/semi-icons';
 import { API, showError, showSuccess } from '../../../../helpers/index.js';

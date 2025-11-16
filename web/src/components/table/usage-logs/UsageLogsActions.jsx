@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Tag, Space, Skeleton } from '@douyinfe/semi-ui';
+import { Tag, Space, Skeleton } from '@douyinfe/semi-ui-19';
 import { renderQuota } from '../../../helpers/index.js';
 import CompactModeToggle from '../../common/ui/CompactModeToggle';
 import { useMinimumLoadingTime } from '@/hooks/common/useMinimumLoadingTime';

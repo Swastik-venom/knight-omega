@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tag } from '@douyinfe/semi-ui';
+import { Tag } from '@douyinfe/semi-ui-19';
 
 // Modern glass effect badge component with skiper-ui-clone design
 const GlassBadge = ({ variant = 'default', className = '', children, ...props }) => {

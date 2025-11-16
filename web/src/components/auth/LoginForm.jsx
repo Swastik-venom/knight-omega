@@ -21,8 +21,8 @@ import {
   isPasskeySupported,
 } from '@/helpers';
 import Turnstile from 'react-turnstile';
-import { Button, Card, Checkbox, Divider, Form, Icon, Modal } from '@douyinfe/semi-ui';
-import Title from '@douyinfe/semi-ui/lib/es/typography/title';
+import { Button, Card, Checkbox, Divider, Form, Icon, Modal } from '@douyinfe/semi-ui-19';
+import Title from '@douyinfe/semi-ui-19/lib/es/typography/title';
 import TelegramLoginButton from 'react-telegram-login';
 
 import {

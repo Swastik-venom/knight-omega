@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Input, Slider, Typography, Button, Tag } from '@douyinfe/semi-ui';
+import { Input, Slider, Typography, Button, Tag } from '@douyinfe/semi-ui-19';
 import {
   Hash,
   Thermometer,

@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from '@douyinfe/semi-ui';
+import { Card, Spin } from '@douyinfe/semi-ui-19';
 import SettingsGeneral from '../../pages/Setting/Operation/SettingsGeneral.jsx';
 import SettingsHeaderNavModules from '../../pages/Setting/Operation/SettingsHeaderNavModules.jsx';
 import SettingsSidebarModulesAdmin from '../../pages/Setting/Operation/SettingsSidebarModulesAdmin.jsx';

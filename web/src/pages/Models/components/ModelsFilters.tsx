@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Select } from '@douyinfe/semi-ui';
+import { Input, Select } from '@douyinfe/semi-ui-19';
 import { IconSearch } from '@douyinfe/semi-icons';
 import { motion } from 'framer-motion';
 

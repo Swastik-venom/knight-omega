@@ -19,13 +19,13 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'semi-ui': ['@douyinfe/semi-ui', '@douyinfe/semi-icons'],
+          'semi-ui': ['@douyinfe/semi-ui-19', '@douyinfe/semi-icons'],
         },
       },
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', '@douyinfe/semi-ui'],
+    include: ['react', 'react-dom', '@douyinfe/semi-ui-19'],
     esbuildOptions: {
       target: 'es2020',
     },

@@ -1,9 +1,9 @@
 
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Modal, Form, Col, Row } from '@douyinfe/semi-ui';
+import { Modal, Form, Col, Row } from '@douyinfe/semi-ui-19';
 import { API, showError, showSuccess } from '../../../../helpers/index.js';
-import { Typography } from '@douyinfe/semi-ui';
+import { Typography } from '@douyinfe/semi-ui-19';
 import { IconLink } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
 import { useIsMobile } from '@/hooks/common/useIsMobile';

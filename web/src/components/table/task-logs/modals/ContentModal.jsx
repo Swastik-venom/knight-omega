@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Typography, Spin } from '@douyinfe/semi-ui';
+import { Modal, Button, Typography, Spin } from '@douyinfe/semi-ui-19';
 import { IconExternalOpen, IconCopy } from '@douyinfe/semi-icons';
 
 const { Text } = Typography;

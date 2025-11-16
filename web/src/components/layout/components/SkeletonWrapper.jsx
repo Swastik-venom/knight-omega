@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Skeleton } from '@douyinfe/semi-ui';
+import { Skeleton } from '@douyinfe/semi-ui-19';
 
 const SkeletonWrapper = ({
   loading = false,

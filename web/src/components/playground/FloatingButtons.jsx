@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Button } from '@douyinfe/semi-ui';
+import { Button } from '@douyinfe/semi-ui-19';
 import { Settings, Eye, EyeOff } from 'lucide-react';
 
 const FloatingButtons = ({

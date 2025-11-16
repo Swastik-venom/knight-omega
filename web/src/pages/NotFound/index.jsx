@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Empty } from '@douyinfe/semi-ui';
+import { Empty } from '@douyinfe/semi-ui-19';
 import {
   IllustrationNotFound,
   IllustrationNotFoundDark,

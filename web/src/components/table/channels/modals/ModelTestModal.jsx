@@ -9,7 +9,7 @@ import {
   Tag,
   Typography,
   Select,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import { IconSearch } from '@douyinfe/semi-icons';
 import { copy, showError, showInfo, showSuccess } from '../../../../helpers/index.js';
 import { MODEL_TABLE_PAGE_SIZE } from '../../../../constants';

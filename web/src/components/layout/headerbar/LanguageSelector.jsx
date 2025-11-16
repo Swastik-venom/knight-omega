@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Button, Dropdown } from '@douyinfe/semi-ui';
+import { Button, Dropdown } from '@douyinfe/semi-ui-19';
 import { Languages } from 'lucide-react';
 import { CN, GB, FR, RU, JP } from 'country-flag-icons/react/3x2';
 

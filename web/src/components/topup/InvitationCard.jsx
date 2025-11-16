@@ -9,7 +9,7 @@ import {
   Input,
   Badge,
   Space,
-} from '@douyinfe/semi-ui';
+} from '@douyinfe/semi-ui-19';
 import { Copy, Users, BarChart2, TrendingUp, Gift, Zap } from 'lucide-react';
 
 const { Text } = Typography;

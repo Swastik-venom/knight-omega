@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form, Input, Button } from '@douyinfe/semi-ui';
+import { Modal, Form, Input, Button } from '@douyinfe/semi-ui-19';
 import { API, showError, showSuccess } from '@/helpers';
 
 interface EditVendorModalProps {

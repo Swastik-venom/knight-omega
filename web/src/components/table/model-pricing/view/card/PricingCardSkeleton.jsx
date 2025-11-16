@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Card, Skeleton } from '@douyinfe/semi-ui';
+import { Card, Skeleton } from '@douyinfe/semi-ui-19';
 
 const PricingCardSkeleton = ({
   skeletonCount = 100,

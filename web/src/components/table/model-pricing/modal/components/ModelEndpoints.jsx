@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Card, Avatar, Typography, Badge } from '@douyinfe/semi-ui';
+import { Card, Avatar, Typography, Badge } from '@douyinfe/semi-ui-19';
 import { IconLink } from '@douyinfe/semi-icons';
 
 const { Text } = Typography;

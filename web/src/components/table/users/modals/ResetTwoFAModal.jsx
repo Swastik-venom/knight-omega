@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Modal } from '@douyinfe/semi-ui';
+import { Modal } from '@douyinfe/semi-ui-19';
 
 const ResetTwoFAModal = ({ visible, onCancel, onConfirm, user, t }) => {
   return (

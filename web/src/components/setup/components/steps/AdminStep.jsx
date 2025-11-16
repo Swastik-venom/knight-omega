@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Banner, Form } from '@douyinfe/semi-ui';
+import { Banner, Form } from '@douyinfe/semi-ui-19';
 import { IconUser, IconLock } from '@douyinfe/semi-icons';
 
 /**

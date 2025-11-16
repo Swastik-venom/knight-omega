@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card as SemiCard } from '@douyinfe/semi-ui';
+import { Card as SemiCard } from '@douyinfe/semi-ui-19';
 
 // GlassCard component with enhanced styling and functionality
 const GlassCard = ({ 

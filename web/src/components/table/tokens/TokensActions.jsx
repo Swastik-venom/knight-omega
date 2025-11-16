@@ -1,7 +1,7 @@
 
 
 import React, { useState } from 'react';
-import { Button, Space } from '@douyinfe/semi-ui';
+import { Button, Space } from '@douyinfe/semi-ui-19';
 import { showError } from '../../../helpers/index.js';
 import CopyTokensModal from './modals/CopyTokensModal';
 import DeleteTokensModal from './modals/DeleteTokensModal';

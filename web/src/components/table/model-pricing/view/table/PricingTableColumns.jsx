@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Tag, Space, Tooltip } from '@douyinfe/semi-ui';
+import { Tag, Space, Tooltip } from '@douyinfe/semi-ui-19';
 import { IconHelpCircle } from '@douyinfe/semi-icons';
 import {
   renderModelTag,

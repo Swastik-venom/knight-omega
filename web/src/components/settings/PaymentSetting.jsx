@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from '@douyinfe/semi-ui';
+import { Card, Spin } from '@douyinfe/semi-ui-19';
 import SettingsGeneralPayment from '../../pages/Setting/Payment/SettingsGeneralPayment.jsx';
 import SettingsPaymentGateway from '../../pages/Setting/Payment/SettingsPaymentGateway.jsx';
 import SettingsPaymentGatewayStripe from '../../pages/Setting/Payment/SettingsPaymentGatewayStripe.jsx';
