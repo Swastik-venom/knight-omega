@@ -1,7 +1,7 @@
 
 
 import { useEffect, useState } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
 import { useAuth } from '@/lib/auth'
@@ -12,8 +12,8 @@ interface OAuthCallbackProps {
 }
 
 export default function OAuthCallback({ type }: OAuthCallbackProps) {
-  const searchParams = useSearchParams()
-  const router = useRouter()
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
   const { handleOAuthCallback } = useAuth()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
   const [errorMessage, setErrorMessage] = useState('')

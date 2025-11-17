@@ -33,6 +33,9 @@ import { StatusProvider } from "@/context/Status"
 import FeaturesPage from "@/features/page"
 import LoginPage from "@/pages/Login"
 import SignupPage from "@/pages/Signup"
+import GitHubOAuthPage from "@/oauth/github/page"
+import OIDCOAuthPage from "@/oauth/oidc/page"
+import LinuxDOOAuthPage from "@/oauth/linuxdo/page"
 import "./globals.css"
 
 function AppContent() {
@@ -133,6 +136,11 @@ function AppContent() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/setup" element={<SetupPage />} />
+        
+        {/* OAuth callback routes */}
+        <Route path="/oauth/github" element={<GitHubOAuthPage />} />
+        <Route path="/oauth/oidc" element={<OIDCOAuthPage />} />
+        <Route path="/oauth/linuxdo" element={<LinuxDOOAuthPage />} />
         
         {/* Console routes - wrapped with ConsoleLayout */}
         <Route path="/console" element={

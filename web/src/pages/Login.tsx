@@ -183,8 +183,9 @@ const LoginPage = () => {
       const state = stateData.data;
       
       // Step 2: Redirect directly to OAuth provider (GitHub, OIDC, etc.)
-      // The callback URL should point to our backend which will handle the code exchange
-      const callbackUri = `${window.location.origin}/api/oauth/${provider}`;
+      // The callback URL must match what's registered in the OAuth app settings
+      // For GitHub: https://knight-omega.duckdns.org/oauth/github (without /api)
+      const callbackUri = `${window.location.origin}/oauth/${provider}`;
       
       if (provider === 'github') {
         // Get GitHub Client ID from system status
