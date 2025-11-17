@@ -26,10 +26,16 @@ export default function OAuthCallback({ type }: OAuthCallbackProps) {
         const error = searchParams.get('error')
         const errorDescription = searchParams.get('error_description')
 
-        // Handle OAuth errors
+        // Handle OAuth errors from provider
         if (error) {
           setStatus('error')
-          const errorMsg = errorDescription || error || 'OAuth authorization failed'
+          let errorMsg = errorDescription || error || 'OAuth authorization failed'
+          
+          // Translate common error messages
+          if (errorMsg.includes('access_denied')) {
+            errorMsg = 'Access denied. You cancelled the authorization or denied permission.'
+          }
+          
           setErrorMessage(errorMsg)
           toast.error(errorMsg)
           return
@@ -50,17 +56,41 @@ export default function OAuthCallback({ type }: OAuthCallbackProps) {
         
         setStatus('success')
         toast.success('OAuth login successful!')
+        
+        // Redirect after short delay
+        setTimeout(() => {
+          navigate('/console/dashboard')
+        }, 1500)
       } catch (error) {
         console.error('OAuth callback error:', error)
         setStatus('error')
-        const errorMsg = error instanceof Error ? error.message : 'OAuth authorization failed'
+        
+        let errorMsg = error instanceof Error ? error.message : 'OAuth authorization failed'
+        
+        // Additional error message translations
+        if (errorMsg.includes('已被绑定')) {
+          errorMsg = 'This account has already been linked to another user'
+        } else if (errorMsg.includes('用户字段为空')) {
+          errorMsg = 'Failed to retrieve user information. Please try again later'
+        } else if (errorMsg.includes('管理员未开启')) {
+          errorMsg = 'OAuth login is not enabled by the administrator'
+        } else if (errorMsg.includes('管理员关闭了新用户注册')) {
+          errorMsg = 'New user registration is disabled by the administrator'
+        } else if (errorMsg.includes('用户已被封禁')) {
+          errorMsg = 'This user account has been banned'
+        } else if (errorMsg.includes('用户已注销')) {
+          errorMsg = 'This user account has been deleted'
+        } else if (errorMsg.includes('state is empty or not same')) {
+          errorMsg = 'Invalid OAuth state. Please try logging in again'
+        }
+        
         setErrorMessage(errorMsg)
         toast.error(errorMsg)
       }
     }
 
     handleOAuthCallbackFlow()
-  }, [searchParams, type, handleOAuthCallback])
+  }, [searchParams, type, handleOAuthCallback, navigate])
 
   const handleRetry = () => {
     window.location.href = '/login'

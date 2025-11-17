@@ -31,30 +31,80 @@ const OAuth2Callback = (props) => {
       const { success, message, data } = resData;
 
       if (!success) {
-        throw new Error(message || 'OAuth2 callback error');
+        // Translate common Chinese error messages to English
+        let errorMessage = message || 'OAuth2 callback error';
+        
+        if (errorMessage.includes('已被绑定')) {
+          errorMessage = 'This account has already been linked to another user';
+        } else if (errorMessage.includes('用户字段为空')) {
+          errorMessage = 'Failed to retrieve user information. Please try again later';
+        } else if (errorMessage.includes('管理员未开启')) {
+          errorMessage = 'OAuth login is not enabled by the administrator';
+        } else if (errorMessage.includes('管理员关闭了新用户注册')) {
+          errorMessage = 'New user registration is disabled by the administrator';
+        } else if (errorMessage.includes('用户已被封禁')) {
+          errorMessage = 'This user account has been banned';
+        } else if (errorMessage.includes('用户已注销')) {
+          errorMessage = 'This user account has been deleted';
+        } else if (errorMessage.includes('state is empty or not same')) {
+          errorMessage = 'Invalid OAuth state. Please try logging in again';
+        }
+        
+        throw new Error(errorMessage);
       }
 
       if (message === 'bind') {
-        showSuccess(t('绑定成功！'));
+        showSuccess(t('Account linked successfully!'));
         navigate('/console/personal');
       } else {
-        userDispatch({ type: 'login', payload: data });
-        localStorage.setItem('user', JSON.stringify(data));
-        setUserData(data);
+        // Ensure user data has proper structure
+        const userData = {
+          ...data,
+          id: data.Id || data.id,
+          username: data.Username || data.username,
+          role: data.Role || data.role
+        };
+        
+        userDispatch({ type: 'login', payload: userData });
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUserData(userData);
         updateAPI();
-        showSuccess(t('登录成功！'));
+        showSuccess(t('Login successful!'));
         navigate('/console/token');
       }
     } catch (error) {
-      if (retry < MAX_RETRIES) {
-        // 递增的退避等待
+      // Don't retry on specific errors
+      const noRetryErrors = [
+        '已被绑定',
+        'already been linked',
+        '管理员未开启',
+        'not enabled',
+        '管理员关闭',
+        'disabled',
+        '用户已被封禁',
+        'banned',
+        '用户已注销',
+        'deleted',
+        'state is empty'
+      ];
+      
+      const shouldRetry = !noRetryErrors.some(err =>
+        error.message.toLowerCase().includes(err.toLowerCase())
+      );
+      
+      if (shouldRetry && retry < MAX_RETRIES) {
+        // Exponential backoff
         await new Promise((resolve) => setTimeout(resolve, (retry + 1) * 2000));
         return sendCode(code, state, retry + 1);
       }
 
-      // 重试次数耗尽，提示错误并返回设置页面
-      showError(error.message || t('授权失败'));
-      navigate('/console/personal');
+      // Show error and redirect
+      showError(error.message || t('Authorization failed'));
+      
+      // Redirect to login page after showing error
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     }
   };
 

@@ -226,20 +226,62 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       if (!response.success) {
-        throw new Error(response.message || 'OAuth login failed');
+        // Handle specific error messages
+        let errorMessage = response.message || 'OAuth login failed';
+        
+        // Translate common Chinese error messages to English
+        if (errorMessage.includes('已被绑定')) {
+          errorMessage = 'This account has already been linked to another user';
+        } else if (errorMessage.includes('用户字段为空')) {
+          errorMessage = 'Failed to retrieve user information. Please try again later';
+        } else if (errorMessage.includes('管理员未开启')) {
+          errorMessage = 'OAuth login is not enabled by the administrator';
+        } else if (errorMessage.includes('管理员关闭了新用户注册')) {
+          errorMessage = 'New user registration is disabled by the administrator';
+        } else if (errorMessage.includes('用户已被封禁')) {
+          errorMessage = 'This user account has been banned';
+        } else if (errorMessage.includes('用户已注销')) {
+          errorMessage = 'This user account has been deleted';
+        }
+        
+        throw new Error(errorMessage);
       }
-      const { token: newToken, data: userData } = response;
       
-      setToken(newToken);
-      setUser(userData);
-      localStorage.setItem('authToken', newToken);
+      // Handle both token-based and session-based responses
+      const userData = response.data;
+      
+      // Check if this is a bind operation
+      if (response.message === 'bind') {
+        toast.success('Account linked successfully!');
+        navigate('/console/personal');
+        return;
+      }
+      
+      // For login, create user object with proper fields
+      const userObj = {
+        ...userData,
+        id: userData.Id || userData.id,
+        username: userData.Username || userData.username,
+        role: userData.Role || userData.role
+      };
+      
+      setUser(userObj);
+      localStorage.setItem('user', JSON.stringify(userObj));
+      
+      // Token might not be in response for session-based auth
+      // The session cookie will handle authentication
       
       toast.success(`Successfully signed in with ${provider}`);
       navigate('/console/dashboard');
     } catch (error: any) {
       console.error('OAuth callback error:', error);
-      toast.error(error?.message || `Failed to sign in with ${provider}`);
-      navigate('/login');
+      const errorMessage = error?.message || `Failed to sign in with ${provider}`;
+      toast.error(errorMessage);
+      
+      // Redirect to login after a short delay to show the error
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
     } finally {
       setLoading(false);
     }
