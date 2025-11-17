@@ -172,6 +172,7 @@ const EditChannelModal = (props) => {
   const [useManualInput, setUseManualInput] = useState(false); // 是否使用手动输入模式
   const [keyMode, setKeyMode] = useState('append'); // 密钥模式：replace（覆盖）或 append（追加）
   const [isEnterpriseAccount, setIsEnterpriseAccount] = useState(false); // 是否为企业账户
+  const [doubaoApiEditUnlocked, setDoubaoApiEditUnlocked] = useState(false); // 豆包渠道自定义 API 地址隐藏入口
 
   // 密钥显示状态
   const [keyDisplayState, setKeyDisplayState] = useState({
@@ -201,6 +202,7 @@ const EditChannelModal = (props) => {
     'channelExtraSettings',
   ];
   const formContainerRef = useRef(null);
+  const doubaoApiClickCountRef = useRef(0);
 
   // 2FA状态更新辅助函数
   const updateTwoFAState = (updates) => {
@@ -287,6 +289,20 @@ const EditChannelModal = (props) => {
 
     setCurrentSectionIndex(newIndex);
     scrollToSection(availableSections[newIndex]);
+  };
+
+  const handleApiConfigSecretClick = () => {
+    if (inputs.type !== 45) return;
+    const next = doubaoApiClickCountRef.current + 1;
+    doubaoApiClickCountRef.current = next;
+    if (next >= 10) {
+      setDoubaoApiEditUnlocked((unlocked) => {
+        if (!unlocked) {
+          showInfo(t('已解锁豆包自定义 API 地址编辑'));
+        }
+        return true;
+      });
+    }
   };
 
   // 渠道额外设置状态
@@ -708,6 +724,13 @@ const EditChannelModal = (props) => {
   };
 
   useEffect(() => {
+    if (inputs.type !== 45) {
+      doubaoApiClickCountRef.current = 0;
+      setDoubaoApiEditUnlocked(false);
+    }
+  }, [inputs.type]);
+
+  useEffect(() => {
     const modelMap = new Map();
 
     originModelOptions.forEach((option) => {
@@ -806,6 +829,9 @@ const EditChannelModal = (props) => {
     setKeyMode('append');
     // 重置企业账户状态
     setIsEnterpriseAccount(false);
+    // 重置豆包隐藏入口状态
+    setDoubaoApiEditUnlocked(false);
+    doubaoApiClickCountRef.current = 0;
     // 清空表单中的key_mode字段
     if (formApiRef.current) {
       formApiRef.current.setValue('key_mode', undefined);
@@ -1942,7 +1968,10 @@ const EditChannelModal = (props) => {
                   <div ref={(el) => (formSectionRefs.current.apiConfig = el)}>
                     <Card className='!rounded-2xl shadow-sm border-0 mb-6'>
                       {/* Header: API Config */}
-                      <div className='flex items-center mb-2'>
+                      <div
+                        className='flex items-center mb-2'
+                        onClick={handleApiConfigSecretClick}
+                      >
                         <Avatar
                           size='small'
                           color='green'
@@ -2077,7 +2106,7 @@ const EditChannelModal = (props) => {
                         inputs.type !== 8 &&
                         inputs.type !== 22 &&
                         inputs.type !== 36 &&
-                        inputs.type !== 45 && (
+                        (inputs.type !== 45 || doubaoApiEditUnlocked) && (
                           <div>
                             <Form.Input
                               field='base_url'
@@ -2130,7 +2159,7 @@ const EditChannelModal = (props) => {
                         </div>
                       )}
 
-                      {inputs.type === 45 && (
+                      {inputs.type === 45 && !doubaoApiEditUnlocked && (
                         <div>
                           <Form.Select
                             field='base_url'
@@ -2150,6 +2179,10 @@ const EditChannelModal = (props) => {
                                 label:
                                   'https://ark.ap-southeast.bytepluses.com',
                               },
+                                {
+                                    value: 'doubao-coding-plan',
+                                    label: 'Doubao Coding Plan',
+                                },
                             ]}
                             defaultValue='https://ark.cn-beijing.volces.com'
                           />
