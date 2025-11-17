@@ -226,25 +226,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       
       if (!response.success) {
-        // Handle specific error messages
-        let errorMessage = response.message || 'OAuth login failed';
-        
-        // Translate common Chinese error messages to English
-        if (errorMessage.includes('已被绑定')) {
-          errorMessage = 'This account has already been linked to another user';
-        } else if (errorMessage.includes('用户字段为空')) {
-          errorMessage = 'Failed to retrieve user information. Please try again later';
-        } else if (errorMessage.includes('管理员未开启')) {
-          errorMessage = 'OAuth login is not enabled by the administrator';
-        } else if (errorMessage.includes('管理员关闭了新用户注册')) {
-          errorMessage = 'New user registration is disabled by the administrator';
-        } else if (errorMessage.includes('用户已被封禁')) {
-          errorMessage = 'This user account has been banned';
-        } else if (errorMessage.includes('用户已注销')) {
-          errorMessage = 'This user account has been deleted';
-        }
-        
-        throw new Error(errorMessage);
+        throw new Error(response.message || 'OAuth login failed');
       }
       
       // Handle both token-based and session-based responses
@@ -268,17 +250,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(userObj);
       localStorage.setItem('user', JSON.stringify(userObj));
       
-      // Token might not be in response for session-based auth
-      // The session cookie will handle authentication
-      
       toast.success(`Successfully signed in with ${provider}`);
       navigate('/console/dashboard');
     } catch (error: any) {
       console.error('OAuth callback error:', error);
-      const errorMessage = error?.message || `Failed to sign in with ${provider}`;
-      toast.error(errorMessage);
-      
-      // Redirect to login after a short delay to show the error
+      toast.error(error?.message || `Failed to sign in with ${provider}`);
       setTimeout(() => {
         navigate('/login');
       }, 2000);
