@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CheckCircle, XCircle, Loader2 } from 'lucide-react'
-import { useAuth } from '@/lib/auth'
 import { toast } from 'sonner'
+import { api } from '@/lib/api'
 
 interface OAuthCallbackProps {
   type: 'github' | 'oidc' | 'linuxdo'
@@ -14,11 +14,66 @@ interface OAuthCallbackProps {
 export default function OAuthCallback({ type }: OAuthCallbackProps) {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
-  const { handleOAuthCallback } = useAuth()
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading')
   const [errorMessage, setErrorMessage] = useState('')
 
+  // Maximum retry attempts (matching legacy implementation)
+  const MAX_RETRIES = 3
+
   useEffect(() => {
+    let isMounted = true;
+    
+    const sendCode = async (code: string, state: string | null, retry = 0): Promise<void> => {
+      try {
+        // Backend-proxied OAuth flow - send code to backend API
+        const response = await api.get(`/api/oauth/${type}?code=${code}&state=${state || ''}`)
+        
+        const { success, message, data } = response
+
+        if (!success) {
+          throw new Error(message || 'OAuth2 callback error')
+        }
+
+        if (isMounted) {
+          // Check if this is a bind operation
+          if (message === 'bind') {
+            setStatus('success')
+            toast.success('Account linked successfully!')
+            setTimeout(() => {
+              navigate('/console/personal')
+            }, 1500)
+          } else {
+            // Login successful - store user data
+            const userData = data
+            localStorage.setItem('user', JSON.stringify(userData))
+            localStorage.setItem('authToken', userData.token || '')
+            
+            setStatus('success')
+            toast.success('Login successful!')
+            setTimeout(() => {
+              navigate('/console/token')
+            }, 1500)
+          }
+        }
+      } catch (error) {
+        // Retry logic with exponential backoff (matching legacy implementation)
+        if (retry < MAX_RETRIES) {
+          // Incremental backoff wait time
+          await new Promise((resolve) => setTimeout(resolve, (retry + 1) * 2000))
+          return sendCode(code, state, retry + 1)
+        }
+
+        // Max retries exhausted, show error
+        console.error('OAuth callback error:', error)
+        if (isMounted) {
+          setStatus('error')
+          const errorMsg = error instanceof Error ? error.message : 'Authorization failed'
+          setErrorMessage(errorMsg)
+          toast.error(errorMsg)
+        }
+      }
+    }
+
     const handleOAuthCallbackFlow = async () => {
       try {
         const code = searchParams.get('code')
@@ -28,44 +83,53 @@ export default function OAuthCallback({ type }: OAuthCallbackProps) {
 
         // Handle OAuth errors from provider
         if (error) {
-          setStatus('error')
-          const errorMsg = errorDescription || error || 'OAuth authorization failed'
-          setErrorMessage(errorMsg)
-          toast.error(errorMsg)
+          if (isMounted) {
+            setStatus('error')
+            const errorMsg = errorDescription || error || 'OAuth authorization failed'
+            setErrorMessage(errorMsg)
+            toast.error(errorMsg)
+            // Redirect to personal settings after error
+            setTimeout(() => {
+              navigate('/console/personal')
+            }, 3000)
+          }
           return
         }
 
         // Handle missing code
         if (!code) {
-          setStatus('error')
-          const errorMsg = 'Authorization code not received, please try again'
-          setErrorMessage(errorMsg)
-          toast.error(errorMsg)
+          if (isMounted) {
+            setStatus('error')
+            const errorMsg = 'Authorization code not received'
+            setErrorMessage(errorMsg)
+            toast.error(errorMsg)
+            setTimeout(() => {
+              navigate('/console/personal')
+            }, 3000)
+          }
           return
         }
 
-        // Exchange code for token using our auth context
-        setStatus('loading')
-        await handleOAuthCallback(type, code, state || undefined)
-        
-        setStatus('success')
-        toast.success('OAuth login successful!')
-        
-        // Redirect after short delay
-        setTimeout(() => {
-          navigate('/console/dashboard')
-        }, 1500)
+        // Send code to backend with retry logic
+        await sendCode(code, state)
       } catch (error) {
-        console.error('OAuth callback error:', error)
-        setStatus('error')
-        const errorMsg = error instanceof Error ? error.message : 'OAuth authorization failed'
-        setErrorMessage(errorMsg)
-        toast.error(errorMsg)
+        console.error('OAuth callback flow error:', error)
+        if (isMounted) {
+          setStatus('error')
+          const errorMsg = error instanceof Error ? error.message : 'OAuth authorization failed'
+          setErrorMessage(errorMsg)
+          toast.error(errorMsg)
+        }
       }
     }
 
     handleOAuthCallbackFlow()
-  }, [searchParams, type, handleOAuthCallback, navigate])
+    
+    return () => {
+      isMounted = false;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type])
 
   const handleRetry = () => {
     window.location.href = '/login'

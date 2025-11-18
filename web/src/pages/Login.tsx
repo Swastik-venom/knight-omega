@@ -165,65 +165,14 @@ const LoginPage = () => {
     }
     setOauthLoading(prev => ({ ...prev, [provider]: true }));
     try {
-      // Step 1: Generate OAuth state from backend
-      const stateResponse = await fetch('/api/oauth/state', {
-        method: 'GET',
-        credentials: 'include', // Important: Include cookies for session
-      });
+      // Backend-proxied OAuth flow - redirect to backend API endpoint
+      // Backend will handle OAuth state generation and provider redirect
+      const redirectUri = `${window.location.origin}/oauth/${provider}`;
+      const authUrl = new URL(`${window.location.origin}/api/oauth/${provider}`);
+      authUrl.searchParams.set('redirect_uri', redirectUri);
       
-      if (!stateResponse.ok) {
-        throw new Error('Failed to generate OAuth state');
-      }
-      
-      const stateData = await stateResponse.json();
-      if (!stateData.success || !stateData.data) {
-        throw new Error('Invalid state response');
-      }
-      
-      const state = stateData.data;
-      
-      // Step 2: Redirect directly to OAuth provider (GitHub, OIDC, etc.)
-      // The callback URL must match what's registered in the OAuth app settings
-      // For GitHub: https://knight-omega.duckdns.org/oauth/github (without /api)
-      const callbackUri = `${window.location.origin}/oauth/${provider}`;
-      
-      if (provider === 'github') {
-        // Get GitHub Client ID from system status
-        const githubClientId = systemStatus.github_client_id;
-        if (!githubClientId) {
-          throw new Error('GitHub OAuth is not properly configured');
-        }
-        
-        // Redirect to GitHub's authorization URL
-        const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
-        githubAuthUrl.searchParams.set('client_id', githubClientId);
-        githubAuthUrl.searchParams.set('redirect_uri', callbackUri);
-        githubAuthUrl.searchParams.set('state', state);
-        githubAuthUrl.searchParams.set('scope', 'user:email');
-        window.location.href = githubAuthUrl.toString();
-      } else if (provider === 'oidc') {
-        // For OIDC, redirect to backend which will handle the OIDC flow
-        const oidcAuthUrl = new URL(`${window.location.origin}/api/oauth/oidc`);
-        oidcAuthUrl.searchParams.set('state', state);
-        window.location.href = oidcAuthUrl.toString();
-      } else if (provider === 'linuxdo') {
-        // Get LinuxDO Client ID from system status
-        const linuxdoClientId = systemStatus.linuxdo_client_id;
-        if (!linuxdoClientId) {
-          throw new Error('LinuxDO OAuth is not properly configured');
-        }
-        
-        // Redirect to LinuxDO's authorization URL
-        const linuxdoAuthUrl = new URL('https://connect.linux.do/oauth2/authorize');
-        linuxdoAuthUrl.searchParams.set('client_id', linuxdoClientId);
-        linuxdoAuthUrl.searchParams.set('redirect_uri', callbackUri);
-        linuxdoAuthUrl.searchParams.set('state', state);
-        linuxdoAuthUrl.searchParams.set('response_type', 'code');
-        linuxdoAuthUrl.searchParams.set('scope', 'user:email');
-        window.location.href = linuxdoAuthUrl.toString();
-      } else {
-        throw new Error(`Unsupported OAuth provider: ${provider}`);
-      }
+      // Redirect to backend OAuth endpoint
+      window.location.href = authUrl.toString();
     } catch (error) {
       console.error('OAuth initiation error:', error);
       toast({

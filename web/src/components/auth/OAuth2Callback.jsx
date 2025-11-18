@@ -32,29 +32,19 @@ const OAuth2Callback = (props) => {
       }
 
       if (message === 'bind') {
-        showSuccess(t('Account linked successfully!'));
+        showSuccess(t('绑定成功！'));
         navigate('/console/personal');
       } else {
-        // Ensure user data has proper structure
-        const userData = {
-          ...data,
-          id: data.Id || data.id,
-          username: data.Username || data.username,
-          role: data.Role || data.role
-        };
-        
-        userDispatch({ type: 'login', payload: userData });
-        localStorage.setItem('user', JSON.stringify(userData));
-        setUserData(userData);
+        userDispatch({ type: 'login', payload: data });
+        localStorage.setItem('user', JSON.stringify(data));
+        setUserData(data);
         updateAPI();
-        showSuccess(t('Login successful!'));
+        showSuccess(t('登录成功！'));
         navigate('/console/token');
       }
     } catch (error) {
-      showError(error.message || t('Authorization failed'));
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
+      showError(error.message || t('授权失败'));
+      navigate('/console/personal');
     }
   };
 
@@ -62,7 +52,6 @@ const OAuth2Callback = (props) => {
     const code = searchParams.get('code');
     const state = searchParams.get('state');
 
-    // 参数缺失直接返回
     if (!code) {
       showError(t('未获取到授权码'));
       navigate('/console/personal');

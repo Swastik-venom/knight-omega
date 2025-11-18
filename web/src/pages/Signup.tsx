@@ -245,17 +245,21 @@ const SignupPage = () => {
     }
     setOauthLoading(prev => ({ ...prev, [provider]: true }));
     try {
-      const redirectUri = `${window.location.origin}/oauth/${provider}/callback`;
+      // Backend-proxied OAuth flow - redirect to backend API endpoint
+      // Backend will handle OAuth state generation and provider redirect
+      const redirectUri = `${window.location.origin}/oauth/${provider}`;
       const authUrl = new URL(`${window.location.origin}/api/oauth/${provider}`);
       authUrl.searchParams.set('redirect_uri', redirectUri);
+      
+      // Redirect to backend OAuth endpoint
       window.location.href = authUrl.toString();
     } catch (error) {
+      console.error('OAuth initiation error:', error);
       toast({
         variant: "destructive",
         title: `${provider} Signup Failed`,
         description: "Please try again.",
       });
-    } finally {
       setOauthLoading(prev => ({ ...prev, [provider]: false }));
     }
   };
