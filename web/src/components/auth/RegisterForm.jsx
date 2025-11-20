@@ -1,7 +1,6 @@
 
 
 import React, { useContext, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   API,
@@ -69,6 +68,9 @@ const RegisterForm = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [hasUserAgreement, setHasUserAgreement] = useState(false);
   const [hasPrivacyPolicy, setHasPrivacyPolicy] = useState(false);
+  const [githubButtonText, setGithubButtonText] = useState('使用 GitHub 继续');
+  const [githubButtonDisabled, setGithubButtonDisabled] = useState(false);
+  const githubTimeoutRef = useRef(null);
 
   const logo = getLogo();
   const systemName = getSystemName();
@@ -116,6 +118,14 @@ const RegisterForm = () => {
     }
     return () => clearInterval(countdownInterval); // Clean up on unmount
   }, [disableButton, countdown]);
+
+  useEffect(() => {
+    return () => {
+      if (githubTimeoutRef.current) {
+        clearTimeout(githubTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const onWeChatLoginClicked = () => {
     setWechatLoading(true);
@@ -221,7 +231,20 @@ const RegisterForm = () => {
   };
 
   const handleGitHubClick = () => {
+    if (githubButtonDisabled) {
+      return;
+    }
     setGithubLoading(true);
+    setGithubButtonDisabled(true);
+    setGithubButtonText(t('正在跳转 GitHub...'));
+    if (githubTimeoutRef.current) {
+      clearTimeout(githubTimeoutRef.current);
+    }
+    githubTimeoutRef.current = setTimeout(() => {
+      setGithubLoading(false);
+      setGithubButtonText(t('请求超时，请刷新页面后重新发起 GitHub 登录'));
+      setGithubButtonDisabled(true);
+    }, 20000);
     try {
       onGitHubOAuthClicked(status.github_client_id);
     } finally {
@@ -337,8 +360,9 @@ const RegisterForm = () => {
                     icon={<IconGithubLogo size='large' />}
                     onClick={handleGitHubClick}
                     loading={githubLoading}
+                    disabled={githubButtonDisabled}
                   >
-                    <span className='ml-3'>{t('Continue with GitHub')}</span>
+                    <span className='ml-3'>{t('使用 GitHub 继续')}</span>
                   </Button>
                 )}
 
