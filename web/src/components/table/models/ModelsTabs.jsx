@@ -1,10 +1,11 @@
 
 
 import React from 'react';
-import { Tabs, TabPane, Tag, Button, Dropdown, Modal } from '@douyinfe/semi-ui-19';
+import { Tabs, TabPane, Tag, Button, Modal } from '@douyinfe/semi-ui-19';
 import { IconEdit, IconDelete } from '@douyinfe/semi-icons';
 import { getLobeHubIcon, showError, showSuccess } from '../../../helpers/index.js';
 import { API } from '../../../helpers/index.js';
+import ActionDropdown from '../../common/ui/ActionDropdown';
 
 const ModelsTabs = ({
   activeVendorKey,
@@ -104,51 +105,47 @@ const ModelsTabs = ({
                 >
                   {count}
                 </Tag>
-                <Dropdown
-                  trigger='click'
-                  position='bottomRight'
-                  render={
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        icon={<IconEdit />}
-                        onClick={(e) => handleEditVendor(vendor, e)}
-                      >
-                        {t('Edit')}
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        type='danger'
-                        icon={<IconDelete />}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          Modal.confirm({
-                            title: t('Confirm Delete'),
-                            content: t(
-                              'Are you sure you want to delete vendor "{{name}}"? This action cannot be undone.',
-                              { name: vendor.name },
-                            ),
-                            onOk: () => handleDeleteVendor(vendor, e),
-                            okText: t('Delete'),
-                            cancelText: t('Cancel'),
-                            type: 'warning',
-                            okType: 'danger',
-                          });
-                        }}
-                      >
-                        {t('Delete')}
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
+                <ActionDropdown
+                  menu={[
+                    {
+                      node: 'item',
+                      name: t('Edit'),
+                      icon: <IconEdit />,
+                      onClick: () => handleEditVendor(vendor, { stopPropagation: () => {} }),
+                    },
+                    {
+                      node: 'item',
+                      name: t('Delete'),
+                      type: 'danger',
+                      icon: <IconDelete />,
+                      onClick: () => {
+                        Modal.confirm({
+                          title: t('Confirm Delete'),
+                          content: t(
+                            'Are you sure you want to delete vendor "{{name}}"? This action cannot be undone.',
+                            { name: vendor.name },
+                          ),
+                          onOk: () => handleDeleteVendor(vendor, { stopPropagation: () => {} }),
+                          okText: t('Delete'),
+                          cancelText: t('Cancel'),
+                          type: 'warning',
+                          okType: 'danger',
+                        });
+                      },
+                    },
+                  ]}
+                  trigger={
+                    <Button
+                      size='small'
+                      type='tertiary'
+                      theme='outline'
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {t('Actions')}
+                    </Button>
                   }
-                  onClickOutSide={(e) => e.stopPropagation()}
-                >
-                  <Button
-                    size='small'
-                    type='tertiary'
-                    theme='outline'
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {t('Actions')}
-                  </Button>
-                </Dropdown>
+                  position='bottomRight'
+                />
               </span>
             }
           />

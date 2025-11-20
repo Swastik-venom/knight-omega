@@ -1,14 +1,14 @@
 
 
 import React from 'react';
-import { Tag, Button, Space, Popover, Dropdown } from '@douyinfe/semi-ui-19';
-import { IconMore } from '@douyinfe/semi-icons';
+import { Tag, Button, Space, Popover } from '@douyinfe/semi-ui-19';
 import { renderQuota, timestamp2string } from '../../../helpers/index.js';
 import {
   REDEMPTION_STATUS,
   REDEMPTION_STATUS_MAP,
   REDEMPTION_ACTIONS,
 } from '@/constants/redemption.constants';
+import ActionDropdown from '../../common/ui/ActionDropdown';
 
 /**
  * Check if redemption code is expired
@@ -190,13 +190,12 @@ export const getRedemptionsColumns = ({
             >
               {t('编辑')}
             </Button>
-            <Dropdown
-              trigger='click'
-              position='bottomRight'
+            <ActionDropdown
               menu={moreMenuItems}
-            >
-              <Button type='tertiary' size='small' icon={<IconMore />} />
-            </Dropdown>
+              position='bottomRight'
+              size='small'
+              variant='tertiary'
+            />
           </Space>
         );
       },

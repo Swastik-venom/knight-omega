@@ -9,10 +9,9 @@ import {
   Progress,
   Popover,
   Typography,
-  Dropdown,
 } from '@douyinfe/semi-ui-19';
-import { IconMore } from '@douyinfe/semi-icons';
 import { renderGroup, renderNumber, renderQuota } from '../../../helpers/index.js';
+import ActionDropdown from '../../common/ui/ActionDropdown';
 
 /**
  * Render user role
@@ -262,19 +261,12 @@ const renderOperations = (
       >
         {t('降级')}
       </Button>
-      <div onClick={(e) => e.stopPropagation()}>
-        <Dropdown
-          menu={moreMenu}
-          trigger='click'
-          position='bottomRight'
-        >
-          <Button
-            type='tertiary'
-            size='small'
-            icon={<IconMore />}
-          />
-        </Dropdown>
-      </div>
+      <ActionDropdown
+        menu={moreMenu}
+        position='bottomRight'
+        size='small'
+        variant='tertiary'
+      />
     </Space>
   );
 };

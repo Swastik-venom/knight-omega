@@ -3,7 +3,6 @@
 import React from 'react';
 import {
   Button,
-  Dropdown,
   InputNumber,
   Modal,
   Space,
@@ -22,8 +21,9 @@ import {
   showError,
 } from '../../../helpers/index.js';
 import { CHANNEL_OPTIONS } from '../../../constants';
-import { IconTreeTriangleDown, IconMore } from '@douyinfe/semi-icons';
+import { IconTreeTriangleDown } from '@douyinfe/semi-icons';
 import { FaRandom } from 'react-icons/fa';
+import ActionDropdown from '../../common/ui/ActionDropdown';
 
 // Render functions
 const renderType = (type, channelInfo = undefined, t) => {
@@ -555,28 +555,26 @@ export const getChannelsColumns = ({
                   >
                     {t('编辑')}
                   </Button>
-                  <div onClick={(e) => e.stopPropagation()}>
-                    <Dropdown
-                      trigger='click'
-                      position='bottomRight'
-                      menu={[
-                        {
-                          node: 'item',
-                          name: t('多密钥管理'),
-                          onClick: () => {
-                            setCurrentMultiKeyChannel(record);
-                            setShowMultiKeyManageModal(true);
-                          },
+                  <ActionDropdown
+                    menu={[
+                      {
+                        node: 'item',
+                        name: t('多密钥管理'),
+                        onClick: () => {
+                          setCurrentMultiKeyChannel(record);
+                          setShowMultiKeyManageModal(true);
                         },
-                      ]}
-                    >
+                      },
+                    ]}
+                    trigger={
                       <Button
                         type='tertiary'
                         size='small'
                         icon={<IconTreeTriangleDown />}
                       />
-                    </Dropdown>
-                  </div>
+                    }
+                    position='bottomRight'
+                  />
                 </SplitButtonGroup>
               ) : (
                 <Button
@@ -591,19 +589,12 @@ export const getChannelsColumns = ({
                 </Button>
               )}
 
-              <div onClick={(e) => e.stopPropagation()}>
-                <Dropdown
-                  trigger='click'
-                  position='bottomRight'
-                  menu={moreMenuItems}
-                >
-                  <Button
-                    icon={<IconMore />}
-                    type='tertiary'
-                    size='small'
-                  />
-                </Dropdown>
-              </div>
+              <ActionDropdown
+                menu={moreMenuItems}
+                position='bottomRight'
+                size='small'
+                variant='tertiary'
+              />
             </Space>
           );
         } else {

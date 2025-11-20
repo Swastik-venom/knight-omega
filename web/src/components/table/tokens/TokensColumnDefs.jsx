@@ -3,7 +3,6 @@
 import React from 'react';
 import {
   Button,
-  Dropdown,
   Space,
   SplitButtonGroup,
   Tag,
@@ -29,6 +28,7 @@ import {
   IconEyeOpened,
   IconEyeClosed,
 } from '@douyinfe/semi-icons';
+import ActionDropdown from '../../common/ui/ActionDropdown';
 
 // progress color helper
 const getProgressColor = (pct) => {
@@ -342,13 +342,17 @@ const renderOperations = (
         >
           {t('聊天')}
         </Button>
-        <Dropdown trigger='click' position='bottomRight' menu={chatsArray}>
-          <Button
-            type='tertiary'
-            icon={<IconTreeTriangleDown />}
-            size='small'
-          ></Button>
-        </Dropdown>
+        <ActionDropdown
+          menu={chatsArray}
+          trigger={
+            <Button
+              type='tertiary'
+              icon={<IconTreeTriangleDown />}
+              size='small'
+            />
+          }
+          position='bottomRight'
+        />
       </SplitButtonGroup>
 
       {record.status === 1 ? (

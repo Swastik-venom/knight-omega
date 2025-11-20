@@ -3,13 +3,13 @@
 import React from 'react';
 import {
   Button,
-  Dropdown,
   Modal,
   Switch,
   Typography,
   Select,
 } from '@douyinfe/semi-ui-19';
 import CompactModeToggle from '../../common/ui/CompactModeToggle';
+import ActionDropdown from '../../common/ui/ActionDropdown';
 
 const ChannelsActions = ({
   enableBatchDelete,
@@ -69,96 +69,77 @@ const ChannelsActions = ({
             {t('批量设置标签')}
           </Button>
 
-          <Dropdown
-            size='small'
-            trigger='click'
-            render={
-              <Dropdown.Menu>
-                <Dropdown.Item>
-                  <Button
-                    size='small'
-                    type='tertiary'
-                    className='w-full'
-                    onClick={() => {
-                      Modal.confirm({
-                        title: t('确定？'),
-                        content: t('确定要测试所有通道吗？'),
-                        onOk: () => testAllChannels(),
-                        size: 'small',
-                        centered: true,
-                      });
-                    }}
-                  >
-                    {t('测试所有通道')}
-                  </Button>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <Button
-                    size='small'
-                    className='w-full'
-                    onClick={() => {
-                      Modal.confirm({
-                        title: t('确定是否要修复数据库一致性？'),
-                        content: t(
-                          '进行该操作时，可能导致渠道访问错误，请仅在数据库出现问题时使用',
-                        ),
-                        onOk: () => fixChannelsAbilities(),
-                        size: 'sm',
-                        centered: true,
-                      });
-                    }}
-                  >
-                    {t('修复数据库一致性')}
-                  </Button>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <Button
-                    size='small'
-                    type='secondary'
-                    className='w-full'
-                    onClick={() => {
-                      Modal.confirm({
-                        title: t('确定？'),
-                        content: t('确定要更新所有已启用通道余额吗？'),
-                        onOk: () => updateAllChannelsBalance(),
-                        size: 'sm',
-                        centered: true,
-                      });
-                    }}
-                  >
-                    {t('更新所有已启用通道余额')}
-                  </Button>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                  <Button
-                    size='small'
-                    type='danger'
-                    className='w-full'
-                    onClick={() => {
-                      Modal.confirm({
-                        title: t('确定是否要删除禁用通道？'),
-                        content: t('此修改将不可逆'),
-                        onOk: () => deleteAllDisabledChannels(),
-                        size: 'sm',
-                        centered: true,
-                      });
-                    }}
-                  >
-                    {t('删除禁用通道')}
-                  </Button>
-                </Dropdown.Item>
-              </Dropdown.Menu>
+          <ActionDropdown
+            menu={[
+              {
+                node: 'item',
+                name: t('测试所有通道'),
+                onClick: () => {
+                  Modal.confirm({
+                    title: t('确定？'),
+                    content: t('确定要测试所有通道吗？'),
+                    onOk: () => testAllChannels(),
+                    size: 'small',
+                    centered: true,
+                  });
+                },
+              },
+              {
+                node: 'item',
+                name: t('修复数据库一致性'),
+                onClick: () => {
+                  Modal.confirm({
+                    title: t('确定是否要修复数据库一致性？'),
+                    content: t(
+                      '进行该操作时，可能导致渠道访问错误，请仅在数据库出现问题时使用',
+                    ),
+                    onOk: () => fixChannelsAbilities(),
+                    size: 'sm',
+                    centered: true,
+                  });
+                },
+              },
+              {
+                node: 'item',
+                name: t('更新所有已启用通道余额'),
+                type: 'secondary',
+                onClick: () => {
+                  Modal.confirm({
+                    title: t('确定？'),
+                    content: t('确定要更新所有已启用通道余额吗？'),
+                    onOk: () => updateAllChannelsBalance(),
+                    size: 'sm',
+                    centered: true,
+                  });
+                },
+              },
+              {
+                node: 'item',
+                name: t('删除禁用通道'),
+                type: 'danger',
+                onClick: () => {
+                  Modal.confirm({
+                    title: t('确定是否要删除禁用通道？'),
+                    content: t('此修改将不可逆'),
+                    onOk: () => deleteAllDisabledChannels(),
+                    size: 'sm',
+                    centered: true,
+                  });
+                },
+              },
+            ]}
+            trigger={
+              <Button
+                size='small'
+                theme='light'
+                type='tertiary'
+                className='w-full md:w-auto'
+              >
+                {t('批量操作')}
+              </Button>
             }
-          >
-            <Button
-              size='small'
-              theme='light'
-              type='tertiary'
-              className='w-full md:w-auto'
-            >
-              {t('批量操作')}
-            </Button>
-          </Dropdown>
+            position='bottomRight'
+          />
 
           <CompactModeToggle
             compactMode={compactMode}
