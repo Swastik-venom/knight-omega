@@ -22,11 +22,11 @@ import {
   calculateModelPrice,
   formatPriceInfo,
   getLobeHubIcon,
-} from '../../../../../helpers/index.js';
+} from '../../../../../../helpers/index.js';
 import PricingCardSkeleton from './PricingCardSkeleton';
-import { useMinimumLoadingTime } from '../../../../hooks/common/useMinimumLoadingTime';
-import { renderLimitedItems } from '../../../common/ui/RenderUtils';
-import { useIsMobile } from '../../../../hooks/common/useIsMobile';
+import { useMinimumLoadingTime } from '../../../../../hooks/common/useMinimumLoadingTime';
+import { renderLimitedItems } from '../../../../common/ui/RenderUtils';
+import { useIsMobile } from '../../../../../hooks/common/useIsMobile';
 
 const CARD_STYLES = {
   container:

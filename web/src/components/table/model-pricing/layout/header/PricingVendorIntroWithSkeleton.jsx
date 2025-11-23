@@ -3,7 +3,7 @@
 import React, { memo } from 'react';
 import PricingVendorIntro from './PricingVendorIntro';
 import PricingVendorIntroSkeleton from './PricingVendorIntroSkeleton';
-import { useMinimumLoadingTime } from '../../../../hooks/common/useMinimumLoadingTime';
+import { useMinimumLoadingTime } from '../../../../../hooks/common/useMinimumLoadingTime';
 
 const PricingVendorIntroWithSkeleton = memo(
   ({ loading = false, filterVendor, ...restProps }) => {

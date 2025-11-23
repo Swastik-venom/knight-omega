@@ -7,7 +7,7 @@ import PricingQuotaTypes from '../../filter/PricingQuotaTypes';
 import PricingEndpointTypes from '../../filter/PricingEndpointTypes';
 import PricingVendors from '../../filter/PricingVendors';
 import PricingTags from '../../filter/PricingTags';
-import { usePricingFilterCounts } from '../../../../hooks/model-pricing/usePricingFilterCounts';
+import { usePricingFilterCounts } from '../../../../../hooks/model-pricing/usePricingFilterCounts';
 
 const FilterModalContent = ({ sidebarProps, t }) => {
   const {

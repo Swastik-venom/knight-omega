@@ -8,12 +8,12 @@ import {
   stringToColor,
   calculateModelPrice,
   getLobeHubIcon,
-} from '../../../../../helpers/index.js';
+} from '../../../../../../helpers/index.js';
 import {
   renderLimitedItems,
   renderDescription,
-} from '../../../common/ui/RenderUtils';
-import { useIsMobile } from '../../../../hooks/common/useIsMobile';
+} from '../../../../common/ui/RenderUtils';
+import { useIsMobile } from '../../../../../hooks/common/useIsMobile';
 
 function renderQuotaType(type, t) {
   switch (type) {
