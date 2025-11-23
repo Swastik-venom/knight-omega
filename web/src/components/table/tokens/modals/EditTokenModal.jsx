@@ -33,7 +33,7 @@ import {
   IconKey,
 } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
-import { StatusContext } from '../../../context/Status';
+import { StatusContext } from '@/context/Status';
 
 const { Text, Title } = Typography;
 
