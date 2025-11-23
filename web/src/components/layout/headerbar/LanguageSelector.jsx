@@ -3,7 +3,7 @@
 import React from 'react';
 import { Button, Dropdown } from '@douyinfe/semi-ui-19';
 import { Languages } from 'lucide-react';
-import { CN, GB, FR, RU, JP } from 'country-flag-icons/react/3x2';
+import { CN, GB, FR, RU, JP, VN } from 'country-flag-icons/react/3x2';
 
 const LanguageSelector = ({ currentLang, onLanguageChange, t }) => {
   return (
@@ -47,6 +47,13 @@ const LanguageSelector = ({ currentLang, onLanguageChange, t }) => {
           >
             <RU title='Русский' className='!w-5 !h-auto' />
             <span>Русский</span>
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => onLanguageChange('vi')}
+            className={`!flex !items-center !gap-2 !px-3 !py-1.5 !text-sm !text-semi-color-text-0 dark:!text-gray-200 ${currentLang === 'vi' ? '!bg-semi-color-primary-light-default dark:!bg-blue-600 !font-semibold' : 'hover:!bg-semi-color-fill-1 dark:hover:!bg-gray-600'}`}
+          >
+            <VN title='Tiếng Việt' className='!w-5 !h-auto' />
+            <span>Tiếng Việt</span>
           </Dropdown.Item>
         </Dropdown.Menu>
       }

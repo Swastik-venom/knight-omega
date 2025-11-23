@@ -1,6 +1,6 @@
 
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { UserContext } from '../../context/User';
 import {
@@ -13,6 +13,7 @@ import {
   getSystemName,
   setUserData,
   onGitHubOAuthClicked,
+  onDiscordOAuthClicked,
   onOIDCClicked,
   onLinuxDOOAuthClicked,
   prepareCredentialRequestOptions,
@@ -36,6 +37,7 @@ import LinuxDoIcon from '../common/logo/LinuxDoIcon';
 import TwoFAVerification from './TwoFAVerification';
 import AuthFooter from './AuthFooter';
 import { useTranslation } from 'react-i18next';
+import { SiDiscord }from 'react-icons/si';
 
 const LoginForm = () => {
   let navigate = useNavigate();
@@ -56,6 +58,7 @@ const LoginForm = () => {
   const [showEmailLogin, setShowEmailLogin] = useState(false);
   const [wechatLoading, setWechatLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
+  const [discordLoading, setDiscordLoading] = useState(false);
   const [oidcLoading, setOidcLoading] = useState(false);
   const [linuxdoLoading, setLinuxdoLoading] = useState(false);
   const [emailLoginLoading, setEmailLoginLoading] = useState(false);
@@ -286,6 +289,21 @@ const LoginForm = () => {
     }
   };
 
+  // 包装的Discord登录点击处理
+  const handleDiscordClick = () => {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      return;
+    }
+    setDiscordLoading(true);
+    try {
+      onDiscordOAuthClicked(status.discord_client_id);
+    } finally {
+      // 由于重定向，这里不会执行到，但为了完整性添加
+      setTimeout(() => setDiscordLoading(false), 3000);
+    }
+  };
+
   // OIDC login handler
   const handleOIDCClick = () => {
     if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
@@ -458,6 +476,19 @@ const LoginForm = () => {
                     disabled={githubButtonDisabled}
                   >
                     <span className='ml-3'>{t('使用 GitHub 继续')}</span>
+                  </Button>
+                )}
+
+                {status.discord_oauth && (
+                  <Button
+                    theme='outline'
+                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    type='tertiary'
+                    icon={<SiDiscord style={{ color: '#5865F2', width: '20px', height: '20px' }} />}
+                    onClick={handleDiscordClick}
+                    loading={discordLoading}
+                  >
+                    <span className='ml-3'>{t('使用 Discord 继续')}</span>
                   </Button>
                 )}
 
@@ -725,6 +756,7 @@ const LoginForm = () => {
               </Form>
 
               {(status.github_oauth ||
+                status.discord_oauth ||
                 status.oidc_enabled ||
                 status.wechat_login ||
                 status.linuxdo_oauth ||
@@ -845,80 +877,30 @@ const LoginForm = () => {
   };
 
   return (
-    <div className='relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f4f7ff] via-white to-[#ecf3ff] text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white'>
-      <div className='absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.18),transparent_60%),radial-gradient(circle_at_bottom,_rgba(45,212,191,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(147,51,234,0.2),transparent_60%)]' />
-      <div className='absolute -top-44 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-sky-200/60 blur-[160px] dark:bg-indigo-600/25' />
-      <div className='absolute -bottom-48 right-[-180px] h-[520px] w-[520px] rounded-full bg-purple-200/40 blur-[180px] dark:bg-blue-500/25' />
-
-      <main className='relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 pb-16 pt-24 lg:flex-row lg:items-center lg:justify-between lg:pt-28'>
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className='flex-1 space-y-8'
-        >
-          <div className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/80 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-500 shadow-sm backdrop-blur-xl dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
-            <span className='h-2 w-2 rounded-full bg-emerald-400' />
-            Secure Access Portal
-          </div>
-
-          <div className='flex items-center gap-4'>
-            <div className='relative flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200/70 bg-white shadow-[0_18px_40px_rgba(15,23,42,0.12)] dark:border-white/20 dark:bg-white/10'>
-              {logo ? (
-                <img src={logo} alt={systemName} className='h-12 w-12 rounded-full object-cover' />
-              ) : (
-                <span className='text-2xl font-semibold text-slate-800 dark:text-white'>KΩ</span>
-              )}
-            </div>
-            <div>
-              <p className='text-sm uppercase tracking-[0.3em] text-slate-500 dark:text-white/60'>Knight Omega</p>
-              <h1 className='text-4xl font-semibold text-slate-900 sm:text-5xl dark:text-white'>Welcome back to {systemName}</h1>
-            </div>
-          </div>
-
-          <p className='max-w-xl text-base text-slate-600 sm:text-lg dark:text-white/70'>
-            Manage keys, monitor usage, and orchestrate teams with a refined control surface connected to 50+ premium AI providers.
-          </p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className='grid gap-4 sm:grid-cols-3'
-          >
-            {heroHighlights.map((item) => (
-              <div
-                key={item.label}
-                className='rounded-3xl border border-slate-200/80 bg-white/90 px-4 py-4 text-slate-700 shadow-[0_14px_30px_rgba(15,23,42,0.08)] backdrop-blur-lg dark:border-white/15 dark:bg-white/10 dark:text-white'
-              >
-                <p className='text-xs uppercase tracking-widest text-slate-500 dark:text-white/60'>{item.label}</p>
-                <p className='mt-2 text-2xl font-semibold text-slate-900 dark:text-white'>{item.value}</p>
-              </div>
-            ))}
-          </motion.div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-          className='w-full max-w-lg'
-        >
-          {showEmailLogin ||
-          !(
-            status.github_oauth ||
-            status.oidc_enabled ||
-            status.wechat_login ||
-            status.linuxdo_oauth ||
-            status.telegram_oauth
-          )
-            ? renderEmailLoginForm()
-            : renderOAuthOptions()}
-        </motion.section>
-      </main>
-
-      {renderWeChatLoginModal()}
-      {render2FAModal()}
+    <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
+      {/* 背景模糊晕染球 */}
+      <div
+        className='blur-ball blur-ball-indigo'
+        style={{ top: '-80px', right: '-80px', transform: 'none' }}
+      />
+      <div
+        className='blur-ball blur-ball-teal'
+        style={{ top: '50%', left: '-120px' }}
+      />
+      <div className='w-full max-w-sm mt-[60px]'>
+        {showEmailLogin ||
+        !(
+          status.github_oauth ||
+          status.discord_oauth ||
+          status.oidc_enabled ||
+          status.wechat_login ||
+          status.linuxdo_oauth ||
+          status.telegram_oauth
+        )
+          ? renderEmailLoginForm()
+          : renderOAuthOptions()}
+        {renderWeChatLoginModal()}
+        {render2FAModal()}
 
       {turnstileEnabled && (
         <div className='relative z-10 flex justify-center pb-12'>

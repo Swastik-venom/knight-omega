@@ -9,6 +9,7 @@ import frTranslation from './locales/fr.json';
 import zhTranslation from './locales/zh.json';
 import ruTranslation from './locales/ru.json';
 import jaTranslation from './locales/ja.json';
+import viTranslation from './locales/vi.json';
 
 i18n
   .use(LanguageDetector)
@@ -21,6 +22,7 @@ i18n
       fr: frTranslation,
       ru: ruTranslation,
       ja: jaTranslation,
+      vi: viTranslation,
     },
     fallbackLng: 'en', // Changed from 'zh' to 'en'
     lng: 'en', // Set default language to English

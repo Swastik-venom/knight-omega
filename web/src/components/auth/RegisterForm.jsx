@@ -1,6 +1,4 @@
-
-
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   API,
@@ -11,7 +9,7 @@ import {
   updateAPI,
   getSystemName,
   setUserData,
-} from '@/helpers';
+} from '../../helpers';
 import Turnstile from 'react-turnstile';
 import { Button, Card, Checkbox, Divider, Form, Icon, Modal } from '@douyinfe/semi-ui-19';
 import Title from '@douyinfe/semi-ui-19/lib/es/typography/title';
@@ -26,6 +24,7 @@ import {
   onGitHubOAuthClicked,
   onLinuxDOOAuthClicked,
   onOIDCClicked,
+  onDiscordOAuthClicked,
 } from '@/helpers';
 import OIDCIcon from '../common/logo/OIDCIcon';
 import LinuxDoIcon from '../common/logo/LinuxDoIcon';
@@ -33,6 +32,7 @@ import WeChatIcon from '../common/logo/WeChatIcon';
 import TelegramLoginButton from 'react-telegram-login/src';
 import { UserContext } from '../../context/User';
 import { useTranslation } from 'react-i18next';
+import { SiDiscord } from 'react-icons/si';
 import AuthFooter from './AuthFooter';
 
 const RegisterForm = () => {
@@ -55,6 +55,7 @@ const RegisterForm = () => {
   const [showEmailRegister, setShowEmailRegister] = useState(false);
   const [wechatLoading, setWechatLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
+  const [discordLoading, setDiscordLoading] = useState(false);
   const [oidcLoading, setOidcLoading] = useState(false);
   const [linuxdoLoading, setLinuxdoLoading] = useState(false);
   const [emailRegisterLoading, setEmailRegisterLoading] = useState(false);
@@ -71,6 +72,16 @@ const RegisterForm = () => {
   const [githubButtonText, setGithubButtonText] = useState('使用 GitHub 继续');
   const [githubButtonDisabled, setGithubButtonDisabled] = useState(false);
   const githubTimeoutRef = useRef(null);
+
+  const mustAgreeToTerms = () => {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(
+        t('Please read and agree to the Terms of Service and Privacy Policy first.'),
+      );
+      return true;
+    }
+    return false;
+  };
 
   const logo = getLogo();
   const systemName = getSystemName();
@@ -128,6 +139,9 @@ const RegisterForm = () => {
   }, []);
 
   const onWeChatLoginClicked = () => {
+    if (mustAgreeToTerms()) {
+      return;
+    }
     setWechatLoading(true);
     setShowWeChatLoginModal(true);
     setWechatLoading(false);
@@ -231,6 +245,9 @@ const RegisterForm = () => {
   };
 
   const handleGitHubClick = () => {
+    if (mustAgreeToTerms()) {
+      return;
+    }
     if (githubButtonDisabled) {
       return;
     }
@@ -252,7 +269,22 @@ const RegisterForm = () => {
     }
   };
 
+  const handleDiscordClick = () => {
+    if (mustAgreeToTerms()) {
+      return;
+    }
+    setDiscordLoading(true);
+    try {
+      onDiscordOAuthClicked(status.discord_client_id);
+    } finally {
+      setTimeout(() => setDiscordLoading(false), 3000);
+    }
+  };
+
   const handleOIDCClick = () => {
+    if (mustAgreeToTerms()) {
+      return;
+    }
     setOidcLoading(true);
     try {
       onOIDCClicked(status.oidc_authorization_endpoint, status.oidc_client_id);
@@ -262,6 +294,9 @@ const RegisterForm = () => {
   };
 
   const handleLinuxDOClick = () => {
+    if (mustAgreeToTerms()) {
+      return;
+    }
     setLinuxdoLoading(true);
     try {
       onLinuxDOOAuthClicked(status.linuxdo_client_id);
@@ -283,6 +318,9 @@ const RegisterForm = () => {
   };
 
   const onTelegramLoginClicked = async (response) => {
+    if (mustAgreeToTerms()) {
+      return;
+    }
     const fields = [
       'id',
       'first_name',
@@ -366,6 +404,19 @@ const RegisterForm = () => {
                   </Button>
                 )}
 
+                {status.discord_oauth && (
+                  <Button
+                    theme='outline'
+                    className='w-full h-12 flex items-center justify-center !rounded-full border border-gray-200 hover:bg-gray-50 transition-colors'
+                    type='tertiary'
+                    icon={<SiDiscord style={{ color: '#5865F2', width: '20px', height: '20px' }} />}
+                    onClick={handleDiscordClick}
+                    loading={discordLoading}
+                  >
+                    <span className='ml-3'>{t('使用 Discord 继续')}</span>
+                  </Button>
+                )}
+
                 {status.oidc_enabled && (
                   <Button
                     theme='solid'
@@ -424,6 +475,45 @@ const RegisterForm = () => {
                   <span className='ml-3'>{t('Continue with Email or Username')}</span>
                 </Button>
               </div>
+
+              {(hasUserAgreement || hasPrivacyPolicy) && (
+                <div className='mt-6 text-xs text-slate-600 dark:text-white/70'>
+                  <Checkbox
+                    checked={agreedToTerms}
+                    onChange={(e) => setAgreedToTerms(e.target.checked)}
+                    className='text-slate-700 dark:text-white'
+                  >
+                    <span>
+                      {t('I have read and agree to the')}
+                      {hasUserAgreement && (
+                        <>
+                          <a
+                            href='/user-agreement'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='mx-1 text-slate-900 font-medium hover:text-slate-600 dark:text-white dark:hover:text-white/80'
+                          >
+                            {t('Terms of Service')}
+                          </a>
+                        </>
+                      )}
+                      {hasUserAgreement && hasPrivacyPolicy && t('and')}
+                      {hasPrivacyPolicy && (
+                        <>
+                          <a
+                            href='/privacy-policy'
+                            target='_blank'
+                            rel='noopener noreferrer'
+                            className='mx-1 text-slate-900 font-medium hover:text-slate-600 dark:text-white dark:hover:text-white/80'
+                          >
+                            {t('Privacy Policy')}
+                          </a>
+                        </>
+                      )}
+                    </span>
+                  </Checkbox>
+                </div>
+              )}
 
               <div className='mt-6 text-center text-sm text-slate-600 dark:text-white/70'>
                 {t("Already have an account?")}{' '}
@@ -590,6 +680,7 @@ const RegisterForm = () => {
               </Form>
 
               {(status.github_oauth ||
+                status.discord_oauth ||
                 status.oidc_enabled ||
                 status.wechat_login ||
                 status.linuxdo_oauth ||
@@ -669,79 +760,29 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className='relative min-h-screen overflow-hidden bg-gradient-to-br from-[#f5f7ff] via-white to-[#f0fdf4] text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white'>
-      <div className='absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.16),transparent_60%),radial-gradient(circle_at_bottom,_rgba(34,197,94,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,116,144,0.22),transparent_60%)]' />
-      <div className='absolute -top-40 right-[-140px] h-[460px] w-[460px] rounded-full bg-indigo-200/50 blur-[170px] dark:bg-indigo-600/25' />
-      <div className='absolute -bottom-48 left-[-160px] h-[520px] w-[520px] rounded-full bg-emerald-200/45 blur-[180px] dark:bg-emerald-500/20' />
-
-      <main className='relative z-20 mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 pb-16 pt-24 lg:flex-row lg:items-center lg:justify-between lg:pt-28'>
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className='flex-1 space-y-8'
-        >
-          <div className='inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/85 px-4 py-2 text-xs uppercase tracking-[0.35em] text-slate-500 shadow-sm backdrop-blur-xl dark:border-white/20 dark:bg-white/10 dark:text-white/70'>
-            <span className='h-2 w-2 rounded-full bg-emerald-500' />
-            Launch in minutes
-          </div>
-
-          <div className='flex items-center gap-4'>
-            <div className='relative flex h-16 w-16 items-center justify-center rounded-2xl border border-slate-200/70 bg-white shadow-[0_18px_40px_rgba(15,23,42,0.12)] dark:border-white/20 dark:bg-white/10'>
-              {logo ? (
-                <img src={logo} alt={systemName} className='h-12 w-12 rounded-full object-cover' />
-              ) : (
-                <span className='text-2xl font-semibold text-slate-800 dark:text-white'>KΩ</span>
-              )}
-            </div>
-            <div>
-              <p className='text-sm uppercase tracking-[0.3em] text-slate-500 dark:text-white/60'>Knight Omega</p>
-              <h1 className='text-4xl font-semibold text-slate-900 sm:text-5xl dark:text-white'>Create your {systemName} workspace</h1>
-            </div>
-          </div>
-
-          <p className='max-w-xl text-base text-slate-600 sm:text-lg dark:text-white/70'>
-            Spin up collaborative environments, manage team access, and monitor usage across every AI provider with a unified control plane.
-          </p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className='grid gap-4 sm:grid-cols-3'
-          >
-            {heroHighlights.map((item) => (
-              <div
-                key={item.label}
-                className='rounded-3xl border border-slate-200/80 bg-white/90 px-4 py-4 text-slate-700 shadow-[0_14px_30px_rgba(15,23,42,0.08)] backdrop-blur-lg dark:border-white/15 dark:bg-white/10 dark:text-white'
-              >
-                <p className='text-xs uppercase tracking-widest text-slate-500 dark:text-white/60'>{item.label}</p>
-                <p className='mt-2 text-2xl font-semibold text-slate-900 dark:text-white'>{item.value}</p>
-              </div>
-            ))}
-          </motion.div>
-        </motion.section>
-
-        <motion.section
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-          className='w-full max-w-lg'
-        >
-          {showEmailRegister ||
-          !(
-            status.github_oauth ||
-            status.oidc_enabled ||
-            status.wechat_login ||
-            status.linuxdo_oauth ||
-            status.telegram_oauth
-          )
-            ? renderEmailRegisterForm()
-            : renderOAuthOptions()}
-        </motion.section>
-      </main>
-
-      {renderWeChatLoginModal()}
+    <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
+      {/* 背景模糊晕染球 */}
+      <div
+        className='blur-ball blur-ball-indigo'
+        style={{ top: '-80px', right: '-80px', transform: 'none' }}
+      />
+      <div
+        className='blur-ball blur-ball-teal'
+        style={{ top: '50%', left: '-120px' }}
+      />
+      <div className='w-full max-w-sm mt-[60px]'>
+        {showEmailRegister ||
+        !(
+          status.github_oauth ||
+          status.discord_oauth ||
+          status.oidc_enabled ||
+          status.wechat_login ||
+          status.linuxdo_oauth ||
+          status.telegram_oauth
+        )
+          ? renderEmailRegisterForm()
+          : renderOAuthOptions()}
+        {renderWeChatLoginModal()}
 
       {turnstileEnabled && (
         <div className='relative z-10 flex justify-center pb-12'>

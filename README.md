@@ -136,81 +136,113 @@ await playground.listModels()        // 列出可用模型
 
 ## ✨ 主要特性
 
-Knight Omega提供了丰富的功能，详细特性请参考[特性说明](https://docs.newapi.pro/wiki/features-introduction)：
+> 详细特性请参考 [特性说明](https://docs.newapi.pro/wiki/features-introduction)
 
-1. 🎨 全新的UI界面
-2. 🌍 多语言支持
-3. 💰 支持在线充值功能，当前支持易支付和Stripe
-4. 🔍 支持用key查询使用额度（配合[neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)）
-5. 🔄 兼容原版Knight Omega的数据库
-6. 💵 支持模型按次数收费
-7. ⚖️ 支持渠道加权随机
-8. 📈 数据看板（控制台）
-9. 🔒 令牌分组、模型限制
-10. 🤖 支持更多授权登陆方式（LinuxDO,Telegram、OIDC）
-11. 🔄 支持Rerank模型（Cohere和Jina），[接口文档](https://docs.newapi.pro/api/jinaai-rerank)
-12. ⚡ 支持OpenAI Realtime API（包括Azure渠道），[接口文档](https://docs.newapi.pro/api/openai-realtime)
-13. ⚡ 支持 **OpenAI Responses** 格式，[接口文档](https://docs.newapi.pro/api/openai-responses)
-14. ⚡ 支持 **Claude Messages** 格式，[接口文档](https://docs.newapi.pro/api/anthropic-chat)
-15. ⚡ 支持 **Google Gemini** 格式，[接口文档](https://docs.newapi.pro/api/google-gemini-chat/)
-16. 🧠 支持通过模型名称后缀设置 reasoning effort：
-    1. OpenAI o系列模型
-        - 添加后缀 `-high` 设置为 high reasoning effort (例如: `o3-mini-high`)
-        - 添加后缀 `-medium` 设置为 medium reasoning effort (例如: `o3-mini-medium`)
-        - 添加后缀 `-low` 设置为 low reasoning effort (例如: `o3-mini-low`)
-    2. Claude 思考模型
-        - 添加后缀 `-thinking` 启用思考模式 (例如: `claude-3-7-sonnet-20250219-thinking`)
-17. 🔄 思考转内容功能
-18. 🔄 针对用户的模型限流功能
-19. 🔄 请求格式转换功能，支持以下三种格式转换：
-    1. OpenAI Chat Completions => Claude Messages （OpenAI格式调用Claude模型）
-    2. Clade Messages => OpenAI Chat Completions (可用于Claude Code调用第三方模型)
-    3. OpenAI Chat Completions => Gemini Chat （OpenAI格式调用Gemini模型）
-20. 💰 缓存计费支持，开启后可以在缓存命中时按照设定的比例计费：
-    1. 在 `系统设置-运营设置` 中设置 `提示缓存倍率` 选项
-    2. 在渠道中设置 `提示缓存倍率`，范围 0-1，例如设置为 0.5 表示缓存命中时按照 50% 计费
-    3. 支持的渠道：
-        - [x] OpenAI
-        - [x] Azure
-        - [x] DeepSeek
-        - [x] Claude
+### 🎨 核心功能
 
-## 模型支持
+| 特性 | 说明 |
+|------|------|
+| 🎨 全新 UI | 现代化的用户界面设计 |
+| 🌍 多语言 | 支持中文、英文、法语、日语 |
+| 🔄 数据兼容 | 完全兼容原版 One API 数据库 |
+| 📈 数据看板 | 可视化控制台与统计分析 |
+| 🔒 权限管理 | 令牌分组、模型限制、用户管理 |
 
-此版本支持多种模型，详情请参考[接口文档-中继接口](https://docs.newapi.pro/api)：
+### 💰 支付与计费
 
-1. 第三方模型 **gpts** （gpt-4-gizmo-*）
-2. 第三方渠道[Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy)接口，[接口文档](https://docs.newapi.pro/api/midjourney-proxy-image)
-3. 第三方渠道[Suno API](https://github.com/Suno-API/Suno-API)接口，[接口文档](https://docs.newapi.pro/api/suno-music)
-4. 自定义渠道，支持填入完整调用地址
-5. Rerank模型（[Cohere](https://cohere.ai/)和[Jina](https://jina.ai/)），[接口文档](https://docs.newapi.pro/api/jinaai-rerank)
-6. Claude Messages 格式，[接口文档](https://docs.newapi.pro/api/anthropic-chat)
-7. Google Gemini格式，[接口文档](https://docs.newapi.pro/api/google-gemini-chat/)
-8. Dify，当前仅支持chatflow
-9. 更多接口请参考[接口文档](https://docs.newapi.pro/api)
+- ✅ 在线充值（易支付、Stripe）
+- ✅ 模型按次数收费
+- ✅ 缓存计费支持（OpenAI、Azure、DeepSeek、Claude、Qwen等所有支持的模型）
+- ✅ 灵活的计费策略配置
 
-## 环境变量配置
+### 🔐 授权与安全
 
-详细配置说明请参考[安装指南-环境变量配置](https://docs.newapi.pro/installation/environment-variables)：
+- 🤖 LinuxDO 授权登录
+- 📱 Telegram 授权登录
+- 🔑 OIDC 统一认证
+- 🔍 Key 查询使用额度（配合 [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)）
 
-- `GENERATE_DEFAULT_TOKEN`：是否为新注册用户生成初始令牌，默认为 `false`
-- `STREAMING_TIMEOUT`：流式回复超时时间，默认300秒
-- `DIFY_DEBUG`：Dify渠道是否输出工作流和节点信息，默认 `true`
-- `GET_MEDIA_TOKEN`：是否统计图片token，默认 `true`
-- `GET_MEDIA_TOKEN_NOT_STREAM`：非流情况下是否统计图片token，默认 `true`
-- `UPDATE_TASK`：是否更新异步任务（Midjourney、Suno），默认 `true`
-- `GEMINI_VISION_MAX_IMAGE_NUM`：Gemini模型最大图片数量，默认 `16`
-- `MAX_FILE_DOWNLOAD_MB`: 最大文件下载大小，单位MB，默认 `20`
-- `CRYPTO_SECRET`：加密密钥，用于加密Redis数据库内容
-- `AZURE_DEFAULT_API_VERSION`：Azure渠道默认API版本，默认 `2025-04-01-preview`
-- `NOTIFICATION_LIMIT_DURATION_MINUTE`：邮件等通知限制持续时间，默认 `10`分钟
-- `NOTIFY_LIMIT_COUNT`：用户通知在指定持续时间内的最大数量，默认 `2`
-- `ERROR_LOG_ENABLED=true`: 是否记录并显示错误日志，默认`false`
-- `TASK_PRICE_PATCH=sora-2-all,sora-2-pro-all`: 异步任务设置某些模型按次计费，多个模型用逗号分隔，例如`sora-2-all,sora-2-pro-all`，表示sora-2-all和sora-2-pro-all模型异步任务仅按次计费，不按秒等计费。
+### 🚀 高级功能
 
-## 部署
+**API 格式支持：**
+- ⚡ [OpenAI Responses](https://docs.newapi.pro/api/openai-responses)
+- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/api/openai-realtime)（含 Azure）
+- ⚡ [Claude Messages](https://docs.newapi.pro/api/anthropic-chat)
+- ⚡ [Google Gemini](https://docs.newapi.pro/api/google-gemini-chat/)
+- 🔄 [Rerank 模型](https://docs.newapi.pro/api/jinaai-rerank)（Cohere、Jina）
 
-详细部署指南请参考[安装指南-部署方式](https://docs.newapi.pro/installation)：
+**智能路由：**
+- ⚖️ 渠道加权随机
+- 🔄 失败自动重试
+- 🚦 用户级别模型限流
+
+**格式转换：**
+- 🔄 OpenAI ⇄ Claude Messages
+- 🔄 OpenAI ⇄ Gemini Chat
+- 🔄 思考转内容功能
+
+**Reasoning Effort 支持：**
+
+<details>
+<summary>查看详细配置</summary>
+
+**OpenAI 系列模型：**
+- `o3-mini-high` - High reasoning effort
+- `o3-mini-medium` - Medium reasoning effort
+- `o3-mini-low` - Low reasoning effort
+- `gpt-5-high` - High reasoning effort
+- `gpt-5-medium` - Medium reasoning effort
+- `gpt-5-low` - Low reasoning effort
+
+**Claude 思考模型：**
+- `claude-3-7-sonnet-20250219-thinking` - 启用思考模式
+
+**Google Gemini 系列模型：**
+- `gemini-2.5-flash-thinking` - 启用思考模式
+- `gemini-2.5-flash-nothinking` - 禁用思考模式
+- `gemini-2.5-pro-thinking` - 启用思考模式
+- `gemini-2.5-pro-thinking-128` - 启用思考模式，并设置思考预算为128tokens
+
+</details>
+
+---
+
+## 🤖 模型支持
+
+> 详情请参考 [接口文档 - 中继接口](https://docs.newapi.pro/api)
+
+| 模型类型 | 说明 | 文档 |
+|---------|------|------|
+| 🤖 OpenAI GPTs | gpt-4-gizmo-* 系列 | - |
+| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [文档](https://docs.newapi.pro/api/midjourney-proxy-image) |
+| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [文档](https://docs.newapi.pro/api/suno-music) |
+| 🔄 Rerank | Cohere、Jina | [文档](https://docs.newapi.pro/api/jinaai-rerank) |
+| 💬 Claude | Messages 格式 | [文档](https://docs.newapi.pro/api/anthropic-chat) |
+| 🌐 Gemini | Google Gemini 格式 | [文档](https://docs.newapi.pro/api/google-gemini-chat/) |
+| 🔧 Dify | ChatFlow 模式 | - |
+| 🎯 自定义 | 支持完整调用地址 | - |
+
+### 📡 支持的接口
+
+<details>
+<summary>查看完整接口列表</summary>
+
+- [聊天接口 (Chat Completions)](https://docs.newapi.pro/api/openai-chat)
+- [响应接口 (Responses)](https://docs.newapi.pro/api/openai-responses)
+- [图像接口 (Image)](https://docs.newapi.pro/api/openai-image)
+- [音频接口 (Audio)](https://docs.newapi.pro/api/openai-audio)
+- [视频接口 (Video)](https://docs.newapi.pro/api/openai-video)
+- [嵌入接口 (Embeddings)](https://docs.newapi.pro/api/openai-embeddings)
+- [重排序接口 (Rerank)](https://docs.newapi.pro/api/jinaai-rerank)
+- [实时对话 (Realtime)](https://docs.newapi.pro/api/openai-realtime)
+- [Claude 聊天](https://docs.newapi.pro/api/anthropic-chat)
+- [Google Gemini 聊天](https://docs.newapi.pro/api/google-gemini-chat)
+
+</details>
+
+---
+
+## 🚢 部署
 
 > [!TIP]
 > **最新版 Docker 镜像：** `calciumion/new-api:latest`

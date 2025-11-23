@@ -121,80 +121,112 @@ You can also access the AI-generated DeepWiki:
 
 ## ✨ Key Features
 
-Knight Omega offers a wide range of features, please refer to [Features Introduction](https://docs.newapi.pro/wiki/features-introduction) for details:
+> For detailed features, please refer to [Features Introduction](https://docs.newapi.pro/wiki/features-introduction)
 
-1. 🎨 Brand new UI interface
-2. 🌍 Multi-language support
-3. 💰 Online recharge functionality, currently supports EPay and Stripe
-4. 🔍 Support for querying usage quotas with keys (works with [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool))
-5. 🔄 Compatible with the original Knight Omega database
-6. 💵 Support for pay-per-use model pricing
-7. ⚖️ Support for weighted random channel selection
-8. 📈 Data dashboard (console)
-9. 🔒 Token grouping and model restrictions
-10. 🤖 Support for more authorization login methods (LinuxDO, Telegram, OIDC)
-11. 🔄 Support for Rerank models (Cohere and Jina), [API Documentation](https://docs.newapi.pro/api/jinaai-rerank)
-12. ⚡ Support for OpenAI Realtime API (including Azure channels), [API Documentation](https://docs.newapi.pro/api/openai-realtime)
-13. ⚡ Support for **OpenAI Responses** format, [API Documentation](https://docs.newapi.pro/api/openai-responses)
-14. ⚡ Support for **Claude Messages** format, [API Documentation](https://docs.newapi.pro/api/anthropic-chat)
-15. ⚡ Support for **Google Gemini** format, [API Documentation](https://docs.newapi.pro/api/google-gemini-chat/)
-16. 🧠 Support for setting reasoning effort through model name suffixes:
-    1. OpenAI o-series models
-        - Add `-high` suffix for high reasoning effort (e.g.: `o3-mini-high`)
-        - Add `-medium` suffix for medium reasoning effort (e.g.: `o3-mini-medium`)
-        - Add `-low` suffix for low reasoning effort (e.g.: `o3-mini-low`)
-    2. Claude thinking models
-        - Add `-thinking` suffix to enable thinking mode (e.g.: `claude-3-7-sonnet-20250219-thinking`)
-17. 🔄 Thinking-to-content functionality
-18. 🔄 Model rate limiting for users
-19. 🔄 Request format conversion functionality, supporting the following three format conversions:
-    1. OpenAI Chat Completions => Claude Messages
-    2. Claude Messages => OpenAI Chat Completions (can be used for Claude Code to call third-party models)
-    3. OpenAI Chat Completions => Gemini Chat
-20. 💰 Cache billing support, which allows billing at a set ratio when cache is hit:
-    1. Set the `Prompt Cache Ratio` option in `System Settings-Operation Settings`
-    2. Set `Prompt Cache Ratio` in the channel, range 0-1, e.g., setting to 0.5 means billing at 50% when cache is hit
-    3. Supported channels:
-        - [x] OpenAI
-        - [x] Azure
-        - [x] DeepSeek
-        - [x] Claude
+### 🎨 Core Functions
 
-## Model Support
+| Feature | Description |
+|------|------|
+| 🎨 New UI | Modern user interface design |
+| 🌍 Multi-language | Supports Chinese, English, French, Japanese |
+| 🔄 Data Compatibility | Fully compatible with the original One API database |
+| 📈 Data Dashboard | Visual console and statistical analysis |
+| 🔒 Permission Management | Token grouping, model restrictions, user management |
 
-This version supports multiple models, please refer to [API Documentation-Relay Interface](https://docs.newapi.pro/api) for details:
+### 💰 Payment and Billing
 
-1. Third-party models **gpts** (gpt-4-gizmo-*)
-2. Third-party channel [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) interface, [API Documentation](https://docs.newapi.pro/api/midjourney-proxy-image)
-3. Third-party channel [Suno API](https://github.com/Suno-API/Suno-API) interface, [API Documentation](https://docs.newapi.pro/api/suno-music)
-4. Custom channels, supporting full call address input
-5. Rerank models ([Cohere](https://cohere.ai/) and [Jina](https://jina.ai/)), [API Documentation](https://docs.newapi.pro/api/jinaai-rerank)
-6. Claude Messages format, [API Documentation](https://docs.newapi.pro/api/anthropic-chat)
-7. Google Gemini format, [API Documentation](https://docs.newapi.pro/api/google-gemini-chat/)
-8. Dify, currently only supports chatflow
-9. For more interfaces, please refer to [API Documentation](https://docs.newapi.pro/api)
+- ✅ Online recharge (EPay, Stripe)
+- ✅ Pay-per-use model pricing
+- ✅ Cache billing support (OpenAI, Azure, DeepSeek, Claude, Qwen and all supported models)
+- ✅ Flexible billing policy configuration
 
-## Environment Variable Configuration
+### 🔐 Authorization and Security
 
-For detailed configuration instructions, please refer to [Installation Guide-Environment Variables Configuration](https://docs.newapi.pro/installation/environment-variables):
+- 🤖 LinuxDO authorization login
+- 📱 Telegram authorization login
+- 🔑 OIDC unified authentication
 
-- `GENERATE_DEFAULT_TOKEN`: Whether to generate initial tokens for newly registered users, default is `false`
-- `STREAMING_TIMEOUT`: Streaming response timeout, default is 300 seconds
-- `DIFY_DEBUG`: Whether to output workflow and node information for Dify channels, default is `true`
-- `GET_MEDIA_TOKEN`: Whether to count image tokens, default is `true`
-- `GET_MEDIA_TOKEN_NOT_STREAM`: Whether to count image tokens in non-streaming cases, default is `true`
-- `UPDATE_TASK`: Whether to update asynchronous tasks (Midjourney, Suno), default is `true`
-- `GEMINI_VISION_MAX_IMAGE_NUM`: Maximum number of images for Gemini models, default is `16`
-- `MAX_FILE_DOWNLOAD_MB`: Maximum file download size in MB, default is `20`
-- `CRYPTO_SECRET`: Encryption key used for encrypting Redis database content
-- `AZURE_DEFAULT_API_VERSION`: Azure channel default API version, default is `2025-04-01-preview`
-- `NOTIFICATION_LIMIT_DURATION_MINUTE`: Notification limit duration, default is `10` minutes
-- `NOTIFY_LIMIT_COUNT`: Maximum number of user notifications within the specified duration, default is `2`
-- `ERROR_LOG_ENABLED=true`: Whether to record and display error logs, default is `false`
+### 🚀 Advanced Features
 
-## Deployment
+**API Format Support:**
+- ⚡ [OpenAI Responses](https://docs.newapi.pro/api/openai-responses)
+- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/api/openai-realtime) (including Azure)
+- ⚡ [Claude Messages](https://docs.newapi.pro/api/anthropic-chat)
+- ⚡ [Google Gemini](https://docs.newapi.pro/api/google-gemini-chat/)
+- 🔄 [Rerank Models](https://docs.newapi.pro/api/jinaai-rerank) (Cohere, Jina)
 
-For detailed deployment guides, please refer to [Installation Guide-Deployment Methods](https://docs.newapi.pro/installation):
+**Intelligent Routing:**
+- ⚖️ Channel weighted random
+- 🔄 Automatic retry on failure
+- 🚦 User-level model rate limiting
+
+**Format Conversion:**
+- 🔄 OpenAI ⇄ Claude Messages
+- 🔄 OpenAI ⇄ Gemini Chat
+- 🔄 Thinking-to-content functionality
+
+**Reasoning Effort Support:**
+
+<details>
+<summary>View detailed configuration</summary>
+
+**OpenAI series models:**
+- `o3-mini-high` - High reasoning effort
+- `o3-mini-medium` - Medium reasoning effort
+- `o3-mini-low` - Low reasoning effort
+- `gpt-5-high` - High reasoning effort
+- `gpt-5-medium` - Medium reasoning effort
+- `gpt-5-low` - Low reasoning effort
+
+**Claude thinking models:**
+- `claude-3-7-sonnet-20250219-thinking` - Enable thinking mode
+
+**Google Gemini series models:**
+- `gemini-2.5-flash-thinking` - Enable thinking mode
+- `gemini-2.5-flash-nothinking` - Disable thinking mode
+- `gemini-2.5-pro-thinking` - Enable thinking mode
+- `gemini-2.5-pro-thinking-128` - Enable thinking mode with thinking budget of 128 tokens
+
+</details>
+
+---
+
+## 🤖 Model Support
+
+> For details, please refer to [API Documentation - Relay Interface](https://docs.newapi.pro/api)
+
+| Model Type | Description | Documentation |
+|---------|------|------|
+| 🤖 OpenAI GPTs | gpt-4-gizmo-* series | - |
+| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [Documentation](https://docs.newapi.pro/api/midjourney-proxy-image) |
+| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [Documentation](https://docs.newapi.pro/api/suno-music) |
+| 🔄 Rerank | Cohere, Jina | [Documentation](https://docs.newapi.pro/api/jinaai-rerank) |
+| 💬 Claude | Messages format | [Documentation](https://docs.newapi.pro/api/anthropic-chat) |
+| 🌐 Gemini | Google Gemini format | [Documentation](https://docs.newapi.pro/api/google-gemini-chat/) |
+| 🔧 Dify | ChatFlow mode | - |
+| 🎯 Custom | Supports complete call address | - |
+
+### 📡 Supported Interfaces
+
+<details>
+<summary>View complete interface list</summary>
+
+- [Chat Interface (Chat Completions)](https://docs.newapi.pro/api/openai-chat)
+- [Response Interface (Responses)](https://docs.newapi.pro/api/openai-responses)
+- [Image Interface (Image)](https://docs.newapi.pro/api/openai-image)
+- [Audio Interface (Audio)](https://docs.newapi.pro/api/openai-audio)
+- [Video Interface (Video)](https://docs.newapi.pro/api/openai-video)
+- [Embedding Interface (Embeddings)](https://docs.newapi.pro/api/openai-embeddings)
+- [Rerank Interface (Rerank)](https://docs.newapi.pro/api/jinaai-rerank)
+- [Realtime Conversation (Realtime)](https://docs.newapi.pro/api/openai-realtime)
+- [Claude Chat](https://docs.newapi.pro/api/anthropic-chat)
+- [Google Gemini Chat](https://docs.newapi.pro/api/google-gemini-chat/)
+
+</details>
+
+---
+
+## 🚢 Deployment
 
 > [!TIP]
 > **Latest Docker image:** `calciumion/new-api:latest`
