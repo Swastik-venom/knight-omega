@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import SelectableButtonGroup from '../../common/ui/SelectableButtonGroup';
+import SelectableButtonGroup from '@/components/common/ui/SelectableButtonGroup';
 
 /**
  * 分组筛选组件
