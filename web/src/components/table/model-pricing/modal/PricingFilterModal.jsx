@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Modal } from '@douyinfe/semi-ui-19';
-import { resetPricingFilters } from '../../../../../helpers/index.js';
+import { resetPricingFilters } from '../../../../helpers/index.js';
 import FilterModalContent from './components/FilterModalContent';
 import FilterModalFooter from './components/FilterModalFooter';
 

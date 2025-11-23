@@ -8,7 +8,7 @@ import {
   stringToColor,
   calculateModelPrice,
   getLobeHubIcon,
-} from '../../../../../../helpers/index.js';
+} from '../../../../../helpers/index.js';
 import {
   renderLimitedItems,
   renderDescription,

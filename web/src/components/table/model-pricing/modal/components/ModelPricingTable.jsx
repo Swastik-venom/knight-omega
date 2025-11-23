@@ -3,7 +3,7 @@
 import React from 'react';
 import { Card, Avatar, Typography, Table, Tag } from '@douyinfe/semi-ui-19';
 import { IconCoinMoneyStroked } from '@douyinfe/semi-icons';
-import { calculateModelPrice } from '../../../../../../helpers/index.js';
+import { calculateModelPrice } from '../../../../../helpers/index.js';
 
 const { Text } = Typography;
 

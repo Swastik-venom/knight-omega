@@ -3,7 +3,7 @@
 import React from 'react';
 import { Card, Avatar, Typography, Tag, Space } from '@douyinfe/semi-ui-19';
 import { IconInfoCircle } from '@douyinfe/semi-icons';
-import { stringToColor } from '../../../../../../helpers/index.js';
+import { stringToColor } from '../../../../../helpers/index.js';
 
 const { Text } = Typography;
 
