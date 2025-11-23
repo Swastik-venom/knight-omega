@@ -29,7 +29,7 @@ import {
 import OIDCIcon from '../common/logo/OIDCIcon';
 import LinuxDoIcon from '../common/logo/LinuxDoIcon';
 import WeChatIcon from '../common/logo/WeChatIcon';
-import TelegramLoginButton from 'react-telegram-login/src';
+import TelegramLoginButton from 'react-telegram-login';
 import { UserContext } from '../../context/User';
 import { useTranslation } from 'react-i18next';
 import { SiDiscord } from 'react-icons/si';
