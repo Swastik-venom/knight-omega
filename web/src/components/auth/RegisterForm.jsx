@@ -783,6 +783,7 @@ const RegisterForm = () => {
           ? renderEmailRegisterForm()
           : renderOAuthOptions()}
         {renderWeChatLoginModal()}
+      </div>
 
       {turnstileEnabled && (
         <div className='relative z-10 flex justify-center pb-12'>

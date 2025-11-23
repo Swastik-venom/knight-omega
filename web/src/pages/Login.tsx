@@ -15,8 +15,7 @@ import { Loader2, Mail, Lock, Key, User, Github, Shield, MessageSquare } from "l
 import { SiWechat, SiTelegram } from 'react-icons/si';
 import { useAuth } from '@/lib/auth';
 import Turnstile from 'react-turnstile';
-import TelegramLoginButton from 'react-telegram-login';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import AuthFooter from '@/components/AuthFooter';
 

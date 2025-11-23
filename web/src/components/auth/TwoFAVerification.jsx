@@ -5,7 +5,6 @@ import {
   Card,
   Divider,
   Form,
-  Input,
   Typography,
 } from '@douyinfe/semi-ui-19';
 import React, { useState } from 'react';
