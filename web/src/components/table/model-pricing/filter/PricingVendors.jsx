@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import SelectableButtonGroup from '../../common/ui/SelectableButtonGroup';
+import SelectableButtonGroup from '../../../common/ui/SelectableButtonGroup';
 import { getLobeHubIcon } from '../../../../helpers/index.js';
 
 /**

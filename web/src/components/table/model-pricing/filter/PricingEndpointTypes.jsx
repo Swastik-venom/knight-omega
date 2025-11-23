@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import SelectableButtonGroup from '../../common/ui/SelectableButtonGroup';
+import SelectableButtonGroup from '../../../common/ui/SelectableButtonGroup';
 
 /**
  * 端点类型筛选组件
