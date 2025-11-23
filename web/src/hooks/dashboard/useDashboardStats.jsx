@@ -13,7 +13,7 @@ import {
   IconSend,
 } from '@douyinfe/semi-icons';
 import { renderQuota } from '@/helpers';
-import { createSectionTitle } from '../../../helpers/dashboard';
+import { createSectionTitle } from '@/helpers/dashboard';
 
 export const useDashboardStats = (
   userState,

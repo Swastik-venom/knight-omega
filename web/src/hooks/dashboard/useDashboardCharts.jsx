@@ -17,7 +17,7 @@ import {
   updateChartSpec,
   updateMapValue,
   initializeMaps,
-} from '../../../helpers/dashboard';
+} from '@/helpers/dashboard';
 
 export const useDashboardCharts = (
   dataExportDefaultTime,

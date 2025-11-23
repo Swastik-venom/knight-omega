@@ -1,7 +1,7 @@
 
 
 import { useEffect, useState } from 'react';
-import { fetchTokenKeys, getServerAddress } from '../../../helpers/token';
+import { fetchTokenKeys, getServerAddress } from '@/helpers/token';
 import { showError } from '@/helpers';
 
 export function useTokenKeys(id) {
