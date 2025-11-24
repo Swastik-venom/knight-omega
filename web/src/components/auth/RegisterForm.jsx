@@ -1,5 +1,8 @@
+
+
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { UserContext } from '../../context/User';
 import {
   API,
   getLogo,
@@ -9,63 +12,64 @@ import {
   updateAPI,
   getSystemName,
   setUserData,
-} from '../../helpers';
+  onGitHubOAuthClicked,
+  onDiscordOAuthClicked,
+  onOIDCClicked,
+  onLinuxDOOAuthClicked,
+  prepareCredentialRequestOptions,
+  buildAssertionResult,
+  isPasskeySupported,
+} from '@/helpers';
 import Turnstile from 'react-turnstile';
 import { Button, Card, Checkbox, Divider, Form, Icon, Modal } from '@douyinfe/semi-ui-19';
 import Title from '@douyinfe/semi-ui-19/lib/es/typography/title';
+import TelegramLoginButton from 'react-telegram-login';
+
 import {
   IconGithubLogo,
   IconMail,
-  IconUser,
   IconLock,
   IconKey,
 } from '@douyinfe/semi-icons';
-import {
-  onGitHubOAuthClicked,
-  onLinuxDOOAuthClicked,
-  onOIDCClicked,
-  onDiscordOAuthClicked,
-} from '@/helpers';
 import OIDCIcon from '../common/logo/OIDCIcon';
-import LinuxDoIcon from '../common/logo/LinuxDoIcon';
 import WeChatIcon from '../common/logo/WeChatIcon';
-import TelegramLoginButton from 'react-telegram-login';
-import { UserContext } from '../../context/User';
+import LinuxDoIcon from '../common/logo/LinuxDoIcon';
+import TwoFAVerification from './TwoFAVerification';
+import AuthFooter from './AuthFooter';
 import { useTranslation } from 'react-i18next';
 import { SiDiscord } from 'react-icons/si';
-import AuthFooter from './AuthFooter';
 
-const RegisterForm = () => {
+const LoginForm = () => {
   let navigate = useNavigate();
   const { t } = useTranslation();
   const [inputs, setInputs] = useState({
     username: '',
     password: '',
-    password2: '',
-    email: '',
-    verification_code: '',
     wechat_verification_code: '',
   });
-  const { username, password, password2 } = inputs;
+  const { username, password } = inputs;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [submitted, setSubmitted] = useState(false);
   const [userState, userDispatch] = useContext(UserContext);
   const [turnstileEnabled, setTurnstileEnabled] = useState(false);
   const [turnstileSiteKey, setTurnstileSiteKey] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
   const [showWeChatLoginModal, setShowWeChatLoginModal] = useState(false);
-  const [showEmailRegister, setShowEmailRegister] = useState(false);
+  const [showEmailLogin, setShowEmailLogin] = useState(false);
   const [wechatLoading, setWechatLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
   const [discordLoading, setDiscordLoading] = useState(false);
   const [oidcLoading, setOidcLoading] = useState(false);
   const [linuxdoLoading, setLinuxdoLoading] = useState(false);
-  const [emailRegisterLoading, setEmailRegisterLoading] = useState(false);
-  const [registerLoading, setRegisterLoading] = useState(false);
-  const [verificationCodeLoading, setVerificationCodeLoading] = useState(false);
-  const [otherRegisterOptionsLoading, setOtherRegisterOptionsLoading] =
+  const [emailLoginLoading, setEmailLoginLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [resetPasswordLoading, setResetPasswordLoading] = useState(false);
+  const [otherLoginOptionsLoading, setOtherLoginOptionsLoading] =
     useState(false);
   const [wechatCodeSubmitLoading, setWechatCodeSubmitLoading] = useState(false);
-  const [disableButton, setDisableButton] = useState(false);
-  const [countdown, setCountdown] = useState(30);
+  const [showTwoFA, setShowTwoFA] = useState(false);
+  const [passkeySupported, setPasskeySupported] = useState(false);
+  const [passkeyLoading, setPasskeyLoading] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [hasUserAgreement, setHasUserAgreement] = useState(false);
   const [hasPrivacyPolicy, setHasPrivacyPolicy] = useState(false);
@@ -73,22 +77,12 @@ const RegisterForm = () => {
   const [githubButtonDisabled, setGithubButtonDisabled] = useState(false);
   const githubTimeoutRef = useRef(null);
 
-  const mustAgreeToTerms = () => {
-    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
-      showInfo(
-        t('Please read and agree to the Terms of Service and Privacy Policy first.'),
-      );
-      return true;
-    }
-    return false;
-  };
-
   const logo = getLogo();
   const systemName = getSystemName();
   const heroHighlights = [
-    { label: 'Setup time', value: '<2 min' },
-    { label: 'Team seats', value: 'Unlimited' },
-    { label: 'Providers', value: '50+' },
+    { label: 'Live latency', value: '<120ms' },
+    { label: 'Global regions', value: '12' },
+    { label: 'Active teams', value: '8K+' },
   ];
 
   let affCode = new URLSearchParams(window.location.search).get('aff');
@@ -101,36 +95,22 @@ const RegisterForm = () => {
     return savedStatus ? JSON.parse(savedStatus) : {};
   });
 
-  const [showEmailVerification, setShowEmailVerification] = useState(() => {
-    return status.email_verification ?? false;
-  });
-
+  // Load Turnstile configuration and agreement settings from status
   useEffect(() => {
-    setShowEmailVerification(status.email_verification);
     if (status.turnstile_check) {
       setTurnstileEnabled(true);
       setTurnstileSiteKey(status.turnstile_site_key);
     }
-
-    // Track whether legal agreements are enabled in status
+    
     setHasUserAgreement(status.user_agreement_enabled || false);
     setHasPrivacyPolicy(status.privacy_policy_enabled || false);
   }, [status]);
 
   useEffect(() => {
-    let countdownInterval = null;
-    if (disableButton && countdown > 0) {
-      countdownInterval = setInterval(() => {
-        setCountdown(countdown - 1);
-      }, 1000);
-    } else if (countdown === 0) {
-      setDisableButton(false);
-      setCountdown(30);
-    }
-    return () => clearInterval(countdownInterval); // Clean up on unmount
-  }, [disableButton, countdown]);
+    isPasskeySupported()
+      .then(setPasskeySupported)
+      .catch(() => setPasskeySupported(false));
 
-  useEffect(() => {
     return () => {
       if (githubTimeoutRef.current) {
         clearTimeout(githubTimeoutRef.current);
@@ -138,8 +118,15 @@ const RegisterForm = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (searchParams.get('expired')) {
+      showError(t('You are not logged in or your session has expired, please sign in again.'));
+    }
+  }, []);
+
   const onWeChatLoginClicked = () => {
-    if (mustAgreeToTerms()) {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     setWechatLoading(true);
@@ -167,7 +154,7 @@ const RegisterForm = () => {
         showSuccess('Signed in successfully!');
         setShowWeChatLoginModal(false);
       } else {
-        showError(message);
+      showError(message);
       }
     } catch (error) {
       showError('Sign in failed, please try again.');
@@ -181,144 +168,63 @@ const RegisterForm = () => {
   }
 
   async function handleSubmit(e) {
-    if (password.length < 8) {
-      showInfo('Password must be at least 8 characters long.');
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
-    if (password !== password2) {
-      showInfo('Passwords do not match.');
-      return;
-    }
-    if (username && password) {
-      if (turnstileEnabled && turnstileToken === '') {
-        showInfo('Please wait a moment - Turnstile is verifying your environment.');
-        return;
-      }
-      setRegisterLoading(true);
-      try {
-        if (!affCode) {
-          affCode = localStorage.getItem('aff');
-        }
-        inputs.aff_code = affCode;
-        const res = await API.post(
-          `/api/user/register?turnstile=${turnstileToken}`,
-          inputs,
-        );
-        const { success, message } = res.data;
-        if (success) {
-          navigate('/login');
-          showSuccess('Account created successfully!');
-        } else {
-          showError(message);
-        }
-      } catch (error) {
-        showError('Sign up failed, please try again.');
-      } finally {
-        setRegisterLoading(false);
-      }
-    }
-  }
-
-  const sendVerificationCode = async () => {
-    if (inputs.email === '') return;
     if (turnstileEnabled && turnstileToken === '') {
       showInfo('Please wait a moment - Turnstile is verifying your environment.');
       return;
     }
-    setVerificationCodeLoading(true);
+    setSubmitted(true);
+    setLoginLoading(true);
     try {
-      const res = await API.get(
-        `/api/verification?email=${inputs.email}&turnstile=${turnstileToken}`,
-      );
-      const { success, message } = res.data;
-      if (success) {
-        showSuccess('Verification code sent, please check your inbox.');
-        setDisableButton(true); // Disable button after sending successfully and start countdown
+      if (username && password) {
+        const res = await API.post(
+          `/api/user/login?turnstile=${turnstileToken}`,
+          {
+            username,
+            password,
+          },
+        );
+        const { success, message, data } = res.data;
+        if (success) {
+          // If 2FA is required, show the verification modal
+          if (data && data.require_2fa) {
+            setShowTwoFA(true);
+            setLoginLoading(false);
+            return;
+          }
+
+          userDispatch({ type: 'login', payload: data });
+          setUserData(data);
+          updateAPI();
+          showSuccess('Signed in successfully!');
+          if (username === 'root' && password === '123456') {
+            Modal.error({
+              title: 'You are using the default password!',
+              content: 'Please change the default password immediately!',
+              centered: true,
+            });
+          }
+          navigate('/console');
+        } else {
+          showError(message);
+        }
       } else {
-        showError(message);
+        showError('Please enter your username and password.');
       }
     } catch (error) {
-      showError('Failed to send verification code, please try again.');
+      showError('Sign in failed, please try again.');
     } finally {
-      setVerificationCodeLoading(false);
+      setLoginLoading(false);
     }
-  };
+  }
 
-  const handleGitHubClick = () => {
-    if (mustAgreeToTerms()) {
-      return;
-    }
-    if (githubButtonDisabled) {
-      return;
-    }
-    setGithubLoading(true);
-    setGithubButtonDisabled(true);
-    setGithubButtonText(t('正在跳转 GitHub...'));
-    if (githubTimeoutRef.current) {
-      clearTimeout(githubTimeoutRef.current);
-    }
-    githubTimeoutRef.current = setTimeout(() => {
-      setGithubLoading(false);
-      setGithubButtonText(t('请求超时，请刷新页面后重新发起 GitHub 登录'));
-      setGithubButtonDisabled(true);
-    }, 20000);
-    try {
-      onGitHubOAuthClicked(status.github_client_id);
-    } finally {
-      setTimeout(() => setGithubLoading(false), 3000);
-    }
-  };
-
-  const handleDiscordClick = () => {
-    if (mustAgreeToTerms()) {
-      return;
-    }
-    setDiscordLoading(true);
-    try {
-      onDiscordOAuthClicked(status.discord_client_id);
-    } finally {
-      setTimeout(() => setDiscordLoading(false), 3000);
-    }
-  };
-
-  const handleOIDCClick = () => {
-    if (mustAgreeToTerms()) {
-      return;
-    }
-    setOidcLoading(true);
-    try {
-      onOIDCClicked(status.oidc_authorization_endpoint, status.oidc_client_id);
-    } finally {
-      setTimeout(() => setOidcLoading(false), 3000);
-    }
-  };
-
-  const handleLinuxDOClick = () => {
-    if (mustAgreeToTerms()) {
-      return;
-    }
-    setLinuxdoLoading(true);
-    try {
-      onLinuxDOOAuthClicked(status.linuxdo_client_id);
-    } finally {
-      setTimeout(() => setLinuxdoLoading(false), 3000);
-    }
-  };
-
-  const handleEmailRegisterClick = () => {
-    setEmailRegisterLoading(true);
-    setShowEmailRegister(true);
-    setEmailRegisterLoading(false);
-  };
-
-  const handleOtherRegisterOptionsClick = () => {
-    setOtherRegisterOptionsLoading(true);
-    setShowEmailRegister(false);
-    setOtherRegisterOptionsLoading(false);
-  };
-
+  // Telegram login handler
   const onTelegramLoginClicked = async (response) => {
-    if (mustAgreeToTerms()) {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
       return;
     }
     const fields = [
@@ -355,6 +261,175 @@ const RegisterForm = () => {
     }
   };
 
+  // GitHub login handler
+  const handleGitHubClick = () => {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
+      return;
+    }
+    if (githubButtonDisabled) {
+      return;
+    }
+    setGithubLoading(true);
+    setGithubButtonDisabled(true);
+    setGithubButtonText(t('正在跳转 GitHub...'));
+    if (githubTimeoutRef.current) {
+      clearTimeout(githubTimeoutRef.current);
+    }
+    githubTimeoutRef.current = setTimeout(() => {
+      setGithubLoading(false);
+      setGithubButtonText(t('请求超时，请刷新页面后重新发起 GitHub 登录'));
+      setGithubButtonDisabled(true);
+    }, 20000);
+    try {
+      onGitHubOAuthClicked(status.github_client_id);
+    } finally {
+      // This won't execute due to the redirect, included for completeness
+      setTimeout(() => setGithubLoading(false), 3000);
+    }
+  };
+
+  // 包装的Discord登录点击处理
+  const handleDiscordClick = () => {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('请先阅读并同意用户协议和隐私政策'));
+      return;
+    }
+    setDiscordLoading(true);
+    try {
+      onDiscordOAuthClicked(status.discord_client_id);
+    } finally {
+      // 由于重定向，这里不会执行到，但为了完整性添加
+      setTimeout(() => setDiscordLoading(false), 3000);
+    }
+  };
+
+  // OIDC login handler
+  const handleOIDCClick = () => {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
+      return;
+    }
+    setOidcLoading(true);
+    try {
+      onOIDCClicked(status.oidc_authorization_endpoint, status.oidc_client_id);
+    } finally {
+      // This won't execute due to the redirect, included for completeness
+      setTimeout(() => setOidcLoading(false), 3000);
+    }
+  };
+
+  // LinuxDO login handler
+  const handleLinuxDOClick = () => {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
+      return;
+    }
+    setLinuxdoLoading(true);
+    try {
+      onLinuxDOOAuthClicked(status.linuxdo_client_id);
+    } finally {
+      // This won't execute due to the redirect, included for completeness
+      setTimeout(() => setLinuxdoLoading(false), 3000);
+    }
+  };
+
+  // Email login option handler
+  const handleEmailLoginClick = () => {
+    setEmailLoginLoading(true);
+    setShowEmailLogin(true);
+    setEmailLoginLoading(false);
+  };
+
+  const handlePasskeyLogin = async () => {
+    if ((hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms) {
+      showInfo(t('Please read and agree to the Terms of Service and Privacy Policy first.'));
+      return;
+    }
+    if (!passkeySupported) {
+      showInfo('Passkey sign-in is not available in this environment.');
+      return;
+    }
+    if (!window.PublicKeyCredential) {
+      showInfo('Your browser does not support Passkey.');
+      return;
+    }
+
+    setPasskeyLoading(true);
+    try {
+      const beginRes = await API.post('/api/user/passkey/login/begin');
+      const { success, message, data } = beginRes.data;
+      if (!success) {
+        showError(message || 'Unable to start Passkey sign-in.');
+        return;
+      }
+
+      const publicKeyOptions = prepareCredentialRequestOptions(
+        data?.options || data?.publicKey || data,
+      );
+      const assertion = await navigator.credentials.get({
+        publicKey: publicKeyOptions,
+      });
+      const payload = buildAssertionResult(assertion);
+      if (!payload) {
+        showError('Passkey verification failed, please try again.');
+        return;
+      }
+
+      const finishRes = await API.post(
+        '/api/user/passkey/login/finish',
+        payload,
+      );
+      const finish = finishRes.data;
+      if (finish.success) {
+        userDispatch({ type: 'login', payload: finish.data });
+        setUserData(finish.data);
+        updateAPI();
+        showSuccess('Signed in successfully!');
+        navigate('/console');
+      } else {
+        showError(finish.message || 'Passkey sign-in failed, please try again.');
+      }
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        showInfo('Passkey sign-in canceled.');
+      } else {
+        showError('Passkey sign-in failed, please try again.');
+      }
+    } finally {
+      setPasskeyLoading(false);
+    }
+  };
+
+  // Reset password handler
+  const handleResetPasswordClick = () => {
+    setResetPasswordLoading(true);
+    navigate('/reset');
+    setResetPasswordLoading(false);
+  };
+
+  // Other login options handler
+  const handleOtherLoginOptionsClick = () => {
+    setOtherLoginOptionsLoading(true);
+    setShowEmailLogin(false);
+    setOtherLoginOptionsLoading(false);
+  };
+
+  // 2FA success handler
+  const handle2FASuccess = (data) => {
+    userDispatch({ type: 'login', payload: data });
+    setUserData(data);
+    updateAPI();
+    showSuccess('Signed in successfully!');
+    navigate('/console');
+  };
+
+  // Reset login state
+  const handleBackToLogin = () => {
+    setShowTwoFA(false);
+    setInputs({ username: '', password: '', wechat_verification_code: '' });
+  };
+
   const renderOAuthOptions = () => {
     return (
       <div className='flex flex-col items-center'>
@@ -369,11 +444,11 @@ const RegisterForm = () => {
           <Card className='border border-slate-200 !bg-white/95 !backdrop-blur-2xl !rounded-[28px] overflow-hidden !shadow-[0_25px_60px_rgba(15,23,42,0.15)] dark:border-white/15 dark:!bg-white/10'>
             <div className='flex justify-center pt-6 pb-2'>
               <Title heading={3} className='!text-slate-900 dark:!text-white'>
-                {t('Sign Up')}
+                {t('Sign In')}
               </Title>
             </div>
             <div className='relative px-6 py-8'>
-              <div className='pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-br from-white/45 via-transparent to-white/15 opacity-90 dark:from-white/25 dark:to-white/10' />
+              <div className='pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-br from-white/25 via-transparent to-white/10 opacity-80' />
               <div className='relative space-y-3'>
                 {status.wechat_login && (
                   <Button
@@ -460,6 +535,19 @@ const RegisterForm = () => {
                   </div>
                 )}
 
+                {status.passkey_login && passkeySupported && (
+                  <Button
+                    theme='solid'
+                    className='w-full h-12 flex items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
+                    type='tertiary'
+                    icon={<IconKey size='large' />}
+                    onClick={handlePasskeyLogin}
+                    loading={passkeyLoading}
+                  >
+                    <span className='ml-3'>{t('Sign in with Passkey')}</span>
+                  </Button>
+                )}
+
                 <Divider margin='12px' align='center' className='!border-slate-200 !text-slate-400 dark:!border-white/10 dark:!text-white/60'>
                   {t('OR')}
                 </Divider>
@@ -469,8 +557,8 @@ const RegisterForm = () => {
                   type='primary'
                   className='w-full h-12 flex items-center justify-center bg-gradient-to-r from-indigo-500 to-purple-500 text-white !rounded-full shadow-[0_15px_35px_rgba(99,102,241,0.35)] hover:opacity-90 transition-opacity'
                   icon={<IconMail size='large' />}
-                  onClick={handleEmailRegisterClick}
-                  loading={emailRegisterLoading}
+                  onClick={handleEmailLoginClick}
+                  loading={emailLoginLoading}
                 >
                   <span className='ml-3'>{t('Continue with Email or Username')}</span>
                 </Button>
@@ -515,15 +603,17 @@ const RegisterForm = () => {
                 </div>
               )}
 
-              <div className='mt-6 text-center text-sm text-slate-600 dark:text-white/70'>
-                {t("Already have an account?")}{' '}
-                <Link
-                  to='/login'
-                  className='font-medium text-slate-900 hover:text-slate-600 dark:text-white dark:hover:text-white/80'
-                >
-                  {t('Sign In')}
-                </Link>
-              </div>
+              {!status.self_use_mode_enabled && (
+                <div className='mt-6 text-center text-sm text-slate-600 dark:text-white/70'>
+                  {t("Don't have an account?")}{' '}
+                  <Link
+                    to='/register'
+                    className='font-medium text-slate-900 hover:text-slate-600 dark:text-white dark:hover:text-white/80'
+                  >
+                    {t('Sign Up')}
+                  </Link>
+                </div>
+              )}
             </div>
           </Card>
         </div>
@@ -531,12 +621,16 @@ const RegisterForm = () => {
     );
   };
 
-  const renderEmailRegisterForm = () => {
+  const renderEmailLoginForm = () => {
     return (
       <div className='flex flex-col items-center'>
         <div className='w-full max-w-md'>
-          <div className='flex items-center justify-center mb-6 gap-2'>
-            <img src={logo} alt='Logo' className='h-10 rounded-full border border-slate-200 bg-white p-1 shadow-sm dark:border-white/30 dark:bg-white/10' />
+          <div className='mb-6 flex items-center justify-center gap-2'>
+            <img
+              src={logo}
+              alt='Logo'
+              className='h-10 rounded-full border border-slate-200 bg-white p-1 shadow-sm dark:border-white/30 dark:bg-white/10'
+            />
             <Title heading={3} className='!text-slate-900 dark:!text-white'>
               {systemName}
             </Title>
@@ -545,85 +639,57 @@ const RegisterForm = () => {
           <Card className='border border-slate-200 !bg-white/95 !backdrop-blur-2xl !rounded-[28px] overflow-hidden !shadow-[0_25px_60px_rgba(15,23,42,0.15)] dark:border-white/15 dark:!bg-white/10'>
             <div className='flex justify-center pt-6 pb-2'>
               <Title heading={3} className='!text-slate-900 dark:!text-white'>
-                {t('Sign Up')}
+                {t('Sign In')}
               </Title>
             </div>
+
             <div className='relative px-6 py-8'>
               <div className='pointer-events-none absolute inset-0 rounded-[26px] bg-gradient-to-br from-white/45 via-transparent to-white/15 opacity-90 dark:from-white/25 dark:to-white/10' />
+
+              {status.passkey_login && passkeySupported && (
+                <Button
+                  theme='solid'
+                  type='tertiary'
+                  className='mb-4 flex h-12 w-full items-center justify-center !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
+                  icon={<IconKey size='large' />}
+                  onClick={handlePasskeyLogin}
+                  loading={passkeyLoading}
+                >
+                  <span className='ml-3'>{t('Sign in with Passkey')}</span>
+                </Button>
+              )}
+
               <Form className='relative space-y-3'>
                 <Form.Input
                   field='username'
-                  label={t('Username')}
-                  placeholder={t('Enter a username')}
+                  label={t('Username or Email')}
+                  placeholder={t('Enter your username or email address')}
                   name='username'
                   onChange={(value) => handleChange('username', value)}
-                  prefix={<IconUser />}
+                  prefix={<IconMail />}
                   className='!text-slate-900 dark:!text-white'
-                  style={{ background: 'rgba(248,250,252,0.92)', borderColor: 'rgba(148,163,184,0.35)', color: '#0f172a' }}
+                  style={{
+                    background: 'rgba(248,250,252,0.92)',
+                    borderColor: 'rgba(148,163,184,0.35)',
+                    color: '#0f172a',
+                  }}
                 />
 
                 <Form.Input
                   field='password'
                   label={t('Password')}
-                  placeholder={t('Enter a password (8-20 characters)')}
+                  placeholder={t('Enter your password')}
                   name='password'
                   mode='password'
                   onChange={(value) => handleChange('password', value)}
                   prefix={<IconLock />}
                   className='!text-slate-900 dark:!text-white'
-                  style={{ background: 'rgba(248,250,252,0.92)', borderColor: 'rgba(148,163,184,0.35)', color: '#0f172a' }}
+                  style={{
+                    background: 'rgba(248,250,252,0.92)',
+                    borderColor: 'rgba(148,163,184,0.35)',
+                    color: '#0f172a',
+                  }}
                 />
-
-                <Form.Input
-                  field='password2'
-                  label={t('Confirm password')}
-                  placeholder={t('Re-enter your password')}
-                  name='password2'
-                  mode='password'
-                  onChange={(value) => handleChange('password2', value)}
-                  prefix={<IconLock />}
-                  className='!text-slate-900 dark:!text-white'
-                  style={{ background: 'rgba(248,250,252,0.92)', borderColor: 'rgba(148,163,184,0.35)', color: '#0f172a' }}
-                />
-
-                {showEmailVerification && (
-                  <>
-                    <Form.Input
-                      field='email'
-                      label={t('Email')}
-                      placeholder={t('Enter your email address')}
-                      name='email'
-                      type='email'
-                      onChange={(value) => handleChange('email', value)}
-                      prefix={<IconMail />}
-                      className='!text-slate-900 dark:!text-white'
-                      style={{ background: 'rgba(248,250,252,0.92)', borderColor: 'rgba(148,163,184,0.35)', color: '#0f172a' }}
-                      suffix={
-                        <Button
-                          onClick={sendVerificationCode}
-                          loading={verificationCodeLoading}
-                          disabled={disableButton || verificationCodeLoading}
-                        >
-                          {disableButton
-                            ? `${t('Resend')} (${countdown})`
-                            : t('Get verification code')}
-                        </Button>
-                      }
-                    />
-                    <Form.Input
-                      field='verification_code'
-                      label={t('Verification code')}
-                      placeholder={t('Enter verification code')}
-                      name='verification_code'
-                      onChange={(value) =>
-                        handleChange('verification_code', value)
-                      }
-                      prefix={<IconKey />}
-                      className='!text-slate-900 dark:!text-white'
-                      style={{ background: 'rgba(248,250,252,0.92)', borderColor: 'rgba(148,163,184,0.35)', color: '#0f172a' }}
-                    />
-                  </>
-                )}
 
                 {(hasUserAgreement || hasPrivacyPolicy) && (
                   <div className='pt-4'>
@@ -632,7 +698,7 @@ const RegisterForm = () => {
                       onChange={(e) => setAgreedToTerms(e.target.checked)}
                       className='text-slate-700 dark:text-white'
                     >
-                      <span className='text-slate-600 text-xs sm:text-sm dark:text-white/70'>
+                      <span className='text-xs text-slate-600 sm:text-sm dark:text-white/70'>
                         {t('I have read and agree to the')}
                         {hasUserAgreement && (
                           <>
@@ -671,10 +737,20 @@ const RegisterForm = () => {
                     type='primary'
                     htmlType='submit'
                     onClick={handleSubmit}
-                    loading={registerLoading}
+                    loading={loginLoading}
                     disabled={(hasUserAgreement || hasPrivacyPolicy) && !agreedToTerms}
                   >
-                    {t('Sign Up')}
+                    {t('Continue')}
+                  </Button>
+
+                  <Button
+                    theme='borderless'
+                    type='tertiary'
+                    className='w-full !rounded-full !text-slate-600 hover:!text-slate-900 dark:!text-white/70 dark:hover:!text-white'
+                    onClick={handleResetPasswordClick}
+                    loading={resetPasswordLoading}
+                  >
+                    {t('Forgot password?')}
                   </Button>
                 </div>
               </Form>
@@ -695,24 +771,26 @@ const RegisterForm = () => {
                       theme='solid'
                       type='tertiary'
                       className='w-full !rounded-full !border-slate-200 !bg-white !text-slate-700 hover:!bg-slate-50 transition-all duration-300 dark:!border-white/20 dark:!bg-white/10 dark:!text-white dark:hover:!bg-white/20'
-                      onClick={handleOtherRegisterOptionsClick}
-                      loading={otherRegisterOptionsLoading}
+                      onClick={handleOtherLoginOptionsClick}
+                      loading={otherLoginOptionsLoading}
                     >
-                      {t('Other sign-up options')}
+                      {t('Other sign-in options')}
                     </Button>
                   </div>
                 </>
               )}
 
-              <div className='mt-6 text-center text-sm text-slate-600 dark:text-white/70'>
-                {t("Already have an account?")}{' '}
-                <Link
-                  to='/login'
-                  className='font-medium text-slate-900 hover:text-slate-600 dark:text-white dark:hover:text-white/80'
-                >
-                  {t('Sign In')}
-                </Link>
-              </div>
+              {!status.self_use_mode_enabled && (
+                <div className='mt-6 text-center text-sm text-slate-600 dark:text-white/70'>
+                  {t("Don't have an account?")}{' '}
+                  <Link
+                    to='/register'
+                    className='font-medium text-slate-900 hover:text-slate-600 dark:text-white dark:hover:text-white/80'
+                  >
+                    {t('Sign Up')}
+                  </Link>
+                </div>
+              )}
             </div>
           </Card>
         </div>
@@ -720,6 +798,7 @@ const RegisterForm = () => {
     );
   };
 
+  // WeChat login modal
   const renderWeChatLoginModal = () => {
     return (
       <Modal
@@ -759,6 +838,44 @@ const RegisterForm = () => {
     );
   };
 
+  // Two-factor modal
+  const render2FAModal = () => {
+    return (
+      <Modal
+        title={
+          <div className='flex items-center'>
+            <div className='w-8 h-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center mr-3'>
+              <svg
+                className='w-4 h-4 text-green-600 dark:text-green-400'
+                fill='currentColor'
+                viewBox='0 0 20 20'
+              >
+                <path
+                  fillRule='evenodd'
+                  d='M6 8a2 2 0 11-4 0 2 2 0 014 0zM8 7a1 1 0 100 2h8a1 1 0 100-2H8zM6 14a2 2 0 11-4 0 2 2 0 014 0zM8 13a1 1 0 100 2h8a1 1 0 100-2H8z'
+                  clipRule='evenodd'
+                />
+              </svg>
+            </div>
+            {t('Two-factor verification')}
+          </div>
+        }
+        visible={showTwoFA}
+        onCancel={handleBackToLogin}
+        footer={null}
+        width={450}
+        centered
+      >
+        <TwoFAVerification
+          onSuccess={handle2FASuccess}
+          onBack={handleBackToLogin}
+          isModal={true}
+          turnstileToken={turnstileToken}
+        />
+      </Modal>
+    );
+  };
+
   return (
     <div className='relative overflow-hidden bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8'>
       {/* 背景模糊晕染球 */}
@@ -771,7 +888,7 @@ const RegisterForm = () => {
         style={{ top: '50%', left: '-120px' }}
       />
       <div className='w-full max-w-sm mt-[60px]'>
-        {showEmailRegister ||
+        {showEmailLogin ||
         !(
           status.github_oauth ||
           status.discord_oauth ||
@@ -780,9 +897,10 @@ const RegisterForm = () => {
           status.linuxdo_oauth ||
           status.telegram_oauth
         )
-          ? renderEmailRegisterForm()
+          ? renderEmailLoginForm()
           : renderOAuthOptions()}
         {renderWeChatLoginModal()}
+        {render2FAModal()}
       </div>
 
       {turnstileEnabled && (
@@ -799,6 +917,7 @@ const RegisterForm = () => {
       <AuthFooter />
     </div>
   );
+
 };
 
-export default RegisterForm;
+export default LoginForm;
