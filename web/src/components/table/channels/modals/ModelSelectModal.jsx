@@ -1,6 +1,6 @@
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useIsMobile } from '../../../../hooks/common/useIsMobile';
 import {
   Modal,
@@ -11,12 +11,12 @@ import {
   Empty,
   Tabs,
   Collapse,
-} from '@douyinfe/semi-ui-19';
+} from '@douyinfe/semi-ui';
 import {
   IllustrationNoResult,
   IllustrationNoResultDark,
 } from '@douyinfe/semi-illustrations';
-import { IconSearch } from '@douyinfe/semi-icons';
+import { IconSearch, IconInfoCircle } from '@douyinfe/semi-icons';
 import { useTranslation } from 'react-i18next';
 import { getModelCategories } from '../../../../helpers/index.js';
 
@@ -24,6 +24,7 @@ const ModelSelectModal = ({
   visible,
   models = [],
   selected = [],
+  redirectModels = [],
   onConfirm,
   onCancel,
 }) => {
@@ -33,15 +34,54 @@ const ModelSelectModal = ({
   const [activeTab, setActiveTab] = useState('new');
 
   const isMobile = useIsMobile();
+  const normalizeModelName = (model) =>
+    typeof model === 'string' ? model.trim() : '';
+  const normalizedRedirectModels = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          (redirectModels || [])
+            .map((model) => normalizeModelName(model))
+            .filter(Boolean),
+        ),
+      ),
+    [redirectModels],
+  );
+  const normalizedSelectedSet = useMemo(() => {
+    const set = new Set();
+    (selected || []).forEach((model) => {
+      const normalized = normalizeModelName(model);
+      if (normalized) {
+        set.add(normalized);
+      }
+    });
+    return set;
+  }, [selected]);
+  const classificationSet = useMemo(() => {
+    const set = new Set(normalizedSelectedSet);
+    normalizedRedirectModels.forEach((model) => set.add(model));
+    return set;
+  }, [normalizedSelectedSet, normalizedRedirectModels]);
+  const redirectOnlySet = useMemo(() => {
+    const set = new Set();
+    normalizedRedirectModels.forEach((model) => {
+      if (!normalizedSelectedSet.has(model)) {
+        set.add(model);
+      }
+    });
+    return set;
+  }, [normalizedRedirectModels, normalizedSelectedSet]);
 
   const filteredModels = models.filter((m) =>
-    m.toLowerCase().includes(keyword.toLowerCase()),
+    String(m || '').toLowerCase().includes(keyword.toLowerCase()),
   );
 
   // 分类模型：新获取的模型和已有模型
-  const newModels = filteredModels.filter((model) => !selected.includes(model));
+  const isExistingModel = (model) =>
+    classificationSet.has(normalizeModelName(model));
+  const newModels = filteredModels.filter((model) => !isExistingModel(model));
   const existingModels = filteredModels.filter((model) =>
-    selected.includes(model),
+    isExistingModel(model),
   );
 
   // 同步外部选中值
@@ -211,7 +251,7 @@ const ModelSelectModal = ({
             <div className='grid grid-cols-2 gap-x-4'>
               {categoryData.models.map((model) => (
                 <Checkbox key={model} value={model} className='my-1'>
-                  <span className='text-gray-900 dark:text-gray-100'>{model}</span>
+                  {model}
                 </Checkbox>
               ))}
             </div>
