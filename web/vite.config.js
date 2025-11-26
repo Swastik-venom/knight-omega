@@ -31,9 +31,17 @@ export default defineConfig({
     },
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'semi-ui': ['@douyinfe/semi-ui-19', '@douyinfe/semi-icons'],
+        manualChunks(id) {
+          // Keep mermaid in its own chunk to avoid Prism issues
+          if (id.includes('node_modules/mermaid')) {
+            return 'mermaid';
+          }
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
+            return 'react-vendor';
+          }
+          if (id.includes('node_modules/@douyinfe/semi-ui') || id.includes('node_modules/@douyinfe/semi-icons')) {
+            return 'semi-ui';
+          }
         },
       },
     },
