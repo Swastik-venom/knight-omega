@@ -13,22 +13,22 @@ const Footer: React.FC = () => {
 
   const footerLinks = {
     product: [
-      { name: 'Features', to: '/features' },
+      { name: 'Features', to: '/#features' },
       { name: 'Pricing', to: '/pricing' },
       { name: 'Models', to: '/models' },
-      { name: 'Documentation', to: '/docs' },
+      { name: 'Testimonials', to: '/#testimonials' },
     ],
     company: [
       { name: 'About Us', to: '/about' },
-      { name: 'Contact', to: '/contact' },
-      { name: 'Privacy Policy', to: '/privacy' },
-      { name: 'Terms of Service', to: '/terms' },
+      { name: 'Privacy Policy', to: '/privacy-policy' },
+      { name: 'User Agreement', to: '/user-agreement' },
+      { name: 'FAQ', to: '/#faq' },
     ],
     resources: [
-      { name: 'API Documentation', to: '/docs' },
+      { name: 'Console', to: '/console' },
       { name: 'GitHub', href: 'https://github.com/Calcium-Ion/new-api' },
       { name: 'Community', href: 'https://github.com/Calcium-Ion/new-api/discussions' },
-      { name: 'Support', to: '/support' },
+      { name: 'Login', to: '/login' },
     ],
   };
 

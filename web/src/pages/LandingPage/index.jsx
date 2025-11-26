@@ -143,7 +143,7 @@ const LandingPage = () => {
             className='mt-10 flex flex-col items-center gap-4 sm:flex-row'
           >
             <Link
-              to='/signup'
+              to='/register'
               className='inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(79,70,229,0.45)]'
             >
               {t('Get started now')}
@@ -282,7 +282,7 @@ const LandingPage = () => {
                 </Link>
               ) : (
                 <Link
-                  to='/signup'
+                  to='/register'
                   className='inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(79,70,229,0.45)]'
                 >
                   {t('Create your workspace')}

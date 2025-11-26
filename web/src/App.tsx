@@ -135,6 +135,7 @@ function AppContent() {
         <Route path="/models/showcase" element={<ModelsShowcase />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/register" element={<SignupPage />} />
         <Route path="/setup" element={<SetupPage />} />
         
         {/* OAuth callback routes */}

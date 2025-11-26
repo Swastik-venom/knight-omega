@@ -52,9 +52,9 @@ export default function Header() {
   const navItems = useMemo(
     () => [
       { key: 'home', label: 'Home', path: '/' },
+      { key: 'features', label: 'Features', path: '/#features' },
       { key: 'pricing', label: 'Pricing', path: '/pricing' },
-      { key: 'about', label: 'About', path: '/about' },
-      { key: 'docs', label: 'Docs', path: '/docs' },
+      { key: 'models', label: 'Models', path: '/models' },
     ],
     [],
   );

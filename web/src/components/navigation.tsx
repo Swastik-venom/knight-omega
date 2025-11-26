@@ -47,17 +47,17 @@ export default function Navigation({ className = '' }: NavigationProps) {
 
   const navigationItems = [
     { to: '/', label: 'Home', icon: Home },
-    { to: '/features', label: 'Features' },
+    { to: '/#features', label: 'Features' },
     { to: '/pricing', label: 'Pricing' },
-    { to: '/testimonials', label: 'Testimonials' },
+    { to: '/#testimonials', label: 'Testimonials' },
     { to: '/models', label: 'Models' },
   ]
 
   const authenticatedItems = [
     { to: '/console/dashboard', label: 'Dashboard', icon: BarChart3 },
-    { to: '/console/api-keys', label: 'API Keys', icon: Key },
+    { to: '/console/token', label: 'API Keys', icon: Key },
     { to: '/console/topup', label: 'Wallet', icon: CreditCard },
-    { to: '/console/settings', label: 'Settings', icon: Settings },
+    { to: '/console/setting', label: 'Settings', icon: Settings },
   ]
 
   const isActive = (to: string) => {
