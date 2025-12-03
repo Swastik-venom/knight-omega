@@ -172,80 +172,118 @@ docker run --name new-api -d --restart always \
 
 ## ✨ 主な機能
 
-Knight Omegaは豊富な機能を提供しています。詳細な機能については[機能説明](https://docs.newapi.pro/wiki/features-introduction)を参照してください：
+> 詳細な機能については[機能説明](https://docs.newapi.pro/wiki/features-introduction)を参照してください。
 
-1. 🎨 全く新しいUIインターフェース
-2. 🌍 多言語サポート
-3. 💰 オンラインチャージ機能をサポート、現在EPayとStripeをサポート
-4. 🔍 キーによる使用量クォータの照会をサポート（[neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)と連携）
-5. 🔄 オリジナルのKnight Omegaデータベースと互換性あり
-6. 💵 モデルの従量課金をサポート
-7. ⚖️ チャネルの重み付けランダムをサポート
-8. 📈 データダッシュボード（コンソール）
-9. 🔒 トークングループ化、モデル制限
-10. 🤖 より多くの認証ログイン方法をサポート（LinuxDO、Telegram、OIDC）
-11. 🔄 Rerankモデルをサポート（CohereとJina）、[API ドキュメント](https://docs.newapi.pro/api/jinaai-rerank)
-12. ⚡ OpenAI Realtime APIをサポート（Azureチャネルを含む）、[APIドキュメント](https://docs.newapi.pro/api/openai-realtime)
-13. ⚡ **OpenAI Responses**形式をサポート、[APIドキュメント](https://docs.newapi.pro/api/openai-responses)
-14. ⚡ **Claude Messages**形式をサポート、[APIドキュメント](https://docs.newapi.pro/api/anthropic-chat)
-15. ⚡ **Google Gemini**形式をサポート、[APIドキュメント](https://docs.newapi.pro/api/google-gemini-chat/)
-16. 🧠 モデル名のサフィックスを通じてreasoning effortを設定することをサポート：
-    1. OpenAI oシリーズモデル
-        - `-high`サフィックスを追加してhigh reasoning effortに設定（例：`o3-mini-high`）
-        - `-medium`サフィックスを追加してmedium reasoning effortに設定（例：`o3-mini-medium`）
-        - `-low`サフィックスを追加してlow reasoning effortに設定（例：`o3-mini-low`）
-    2. Claude思考モデル
-        - `-thinking`サフィックスを追加して思考モードを有効にする（例：`claude-3-7-sonnet-20250219-thinking`）
-17. 🔄 思考からコンテンツへの機能
-18. 🔄 ユーザーに対するモデルレート制限機能
-19. 🔄 リクエストフォーマット変換機能、以下の3つのフォーマット変換をサポート：
-    1. OpenAI Chat Completions => Claude Messages
-    2. Claude Messages => OpenAI Chat Completions（Claude Codeがサードパーティモデルを呼び出す際に使用可能）
-    3. OpenAI Chat Completions => Gemini Chat
-20. 💰 キャッシュ課金サポート、有効にするとキャッシュがヒットした際に設定された比率で課金できます：
-    1. `システム設定-運営設定`で`プロンプトキャッシュ倍率`オプションを設定
-    2. チャネルで`プロンプトキャッシュ倍率`を設定、範囲は0-1、例えば0.5に設定するとキャッシュがヒットした際に50%で課金
-    3. サポートされているチャネル：
-        - [x] OpenAI
-        - [x] Azure
-        - [x] DeepSeek
-        - [x] Claude
+### 🎨 コア機能
 
-## モデルサポート
+| 機能 | 説明 |
+|------|------|
+| 🎨 新しいUI | モダンなユーザーインターフェースデザイン |
+| 🌍 多言語 | 中国語、英語、フランス語、日本語をサポート |
+| 🔄 データ互換性 | オリジナルのOne APIデータベースと完全に互換性あり |
+| 📈 データダッシュボード | ビジュアルコンソールと統計分析 |
+| 🔒 権限管理 | トークングループ化、モデル制限、ユーザー管理 |
 
-このバージョンは複数のモデルをサポートしています。詳細は[APIドキュメント-中継インターフェース](https://docs.newapi.pro/api)を参照してください：
+### 💰 支払いと課金
 
-1. サードパーティモデル **gpts**（gpt-4-gizmo-*）
-2. サードパーティチャネル[Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy)インターフェース、[APIドキュメント](https://docs.newapi.pro/api/midjourney-proxy-image)
-3. サードパーティチャネル[Suno API](https://github.com/Suno-API/Suno-API)インターフェース、[APIドキュメント](https://docs.newapi.pro/api/suno-music)
-4. カスタムチャネル、完全な呼び出しアドレスの入力をサポート
-5. Rerankモデル（[Cohere](https://cohere.ai/)と[Jina](https://jina.ai/)）、[APIドキュメント](https://docs.newapi.pro/api/jinaai-rerank)
-6. Claude Messages形式、[APIドキュメント](https://docs.newapi.pro/api/anthropic-chat)
-7. Google Gemini形式、[APIドキュメント](https://docs.newapi.pro/api/google-gemini-chat/)
-8. Dify、現在はchatflowのみをサポート
-9. その他のインターフェースについては[APIドキュメント](https://docs.newapi.pro/api)を参照してください
+- ✅ オンライン充電（EPay、Stripe）
+- ✅ モデルの従量課金
+- ✅ キャッシュ課金サポート（OpenAI、Azure、DeepSeek、Claude、Qwenなどすべてのサポートされているモデル）
+- ✅ 柔軟な課金ポリシー設定
 
-## 環境変数設定
+### 🔐 認証とセキュリティ
 
-詳細な設定説明については[インストールガイド-環境変数設定](https://docs.newapi.pro/installation/environment-variables)を参照してください：
+- 🤖 LinuxDO認証ログイン
+- 📱 Telegram認証ログイン
+- 🔑 OIDC統一認証
 
-- `GENERATE_DEFAULT_TOKEN`：新規登録ユーザーに初期トークンを生成するかどうか、デフォルトは`false`
-- `STREAMING_TIMEOUT`：ストリーミング応答のタイムアウト時間、デフォルトは300秒
-- `DIFY_DEBUG`：Difyチャネルがワークフローとノード情報を出力するかどうか、デフォルトは`true`
-- `GET_MEDIA_TOKEN`：画像トークンを統計するかどうか、デフォルトは`true`
-- `GET_MEDIA_TOKEN_NOT_STREAM`：非ストリーミングの場合に画像トークンを統計するかどうか、デフォルトは`true`
-- `UPDATE_TASK`：非同期タスク（Midjourney、Suno）を更新するかどうか、デフォルトは`true`
-- `GEMINI_VISION_MAX_IMAGE_NUM`：Geminiモデルの最大画像数、デフォルトは`16`
-- `MAX_FILE_DOWNLOAD_MB`: 最大ファイルダウンロードサイズ、単位MB、デフォルトは`20`
-- `CRYPTO_SECRET`：暗号化キー、Redisデータベースの内容を暗号化するために使用
-- `AZURE_DEFAULT_API_VERSION`：Azureチャネルのデフォルトのバージョン、デフォルトは`2025-04-01-preview`
-- `NOTIFICATION_LIMIT_DURATION_MINUTE`：メールなどの通知制限の継続時間、デフォルトは`10`分
-- `NOTIFY_LIMIT_COUNT`：指定された継続時間内のユーザー通知の最大数、デフォルトは`2`
-- `ERROR_LOG_ENABLED=true`: エラーログを記録して表示するかどうか、デフォルトは`false`
 
-## デプロイ
 
-詳細なデプロイガイドについては[インストールガイド-デプロイ方法](https://docs.newapi.pro/installation)を参照してください：
+### 🚀 高度な機能
+
+**APIフォーマットサポート:**
+- ⚡ [OpenAI Responses](https://docs.newapi.pro/api/openai-responses)
+- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/api/openai-realtime)（Azureを含む）
+- ⚡ [Claude Messages](https://docs.newapi.pro/api/anthropic-chat)
+- ⚡ [Google Gemini](https://docs.newapi.pro/api/google-gemini-chat/)
+- 🔄 [Rerankモデル](https://docs.newapi.pro/api/jinaai-rerank)
+- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/api/openai-realtime)
+- ⚡ [Claude Messages](https://docs.newapi.pro/api/anthropic-chat)
+- ⚡ [Google Gemini](https://docs.newapi.pro/api/google-gemini-chat/)
+- 🔄 [Rerankモデル](https://docs.newapi.pro/api/jinaai-rerank)（Cohere、Jina）
+
+**インテリジェントルーティング:**
+- ⚖️ チャネル重み付けランダム
+- 🔄 失敗自動リトライ
+- 🚦 ユーザーレベルモデルレート制限
+
+**フォーマット変換:**
+- 🔄 OpenAI ⇄ Claude Messages
+- 🔄 OpenAI ⇄ Gemini Chat
+- 🔄 思考からコンテンツへの機能
+
+**Reasoning Effort サポート:**
+
+<details>
+<summary>詳細設定を表示</summary>
+
+**OpenAIシリーズモデル:**
+- `o3-mini-high` - 高思考努力
+- `o3-mini-medium` - 中思考努力
+- `o3-mini-low` - 低思考努力
+- `gpt-5-high` - 高思考努力
+- `gpt-5-medium` - 中思考努力
+- `gpt-5-low` - 低思考努力
+
+**Claude思考モデル:**
+- `claude-3-7-sonnet-20250219-thinking` - 思考モードを有効にする
+
+**Google Geminiシリーズモデル:**
+- `gemini-2.5-flash-thinking` - 思考モードを有効にする
+- `gemini-2.5-flash-nothinking` - 思考モードを無効にする
+- `gemini-2.5-pro-thinking` - 思考モードを有効にする
+- `gemini-2.5-pro-thinking-128` - 思考モードを有効にし、思考予算を128トークンに設定する
+
+</details>
+
+---
+
+## 🤖 モデルサポート
+
+> 詳細については[APIドキュメント - 中継インターフェース](https://docs.newapi.pro/api)
+
+| モデルタイプ | 説明 | ドキュメント |
+|---------|------|------|
+| 🤖 OpenAI GPTs | gpt-4-gizmo-* シリーズ | - |
+| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [ドキュメント](https://docs.newapi.pro/api/midjourney-proxy-image) |
+| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [ドキュメント](https://docs.newapi.pro/api/suno-music) |
+| 🔄 Rerank | Cohere、Jina | [ドキュメント](https://docs.newapi.pro/api/jinaai-rerank) |
+| 💬 Claude | Messagesフォーマット | [ドキュメント](https://docs.newapi.pro/api/suno-music) |
+| 🌐 Gemini | Google Geminiフォーマット | [ドキュメント](https://docs.newapi.pro/api/google-gemini-chat/) |
+| 🔧 Dify | ChatFlowモード | - |
+| 🎯 カスタム | 完全な呼び出しアドレスの入力をサポート | - |
+
+### 📡 サポートされているインターフェース
+
+<details>
+<summary>完全なインターフェースリストを表示</summary>
+
+- [チャットインターフェース (Chat Completions)](https://docs.newapi.pro/api/openai-chat)
+- [レスポンスインターフェース (Responses)](https://docs.newapi.pro/api/openai-responses)
+- [イメージインターフェース (Image)](https://docs.newapi.pro/api/openai-image)
+- [オーディオインターフェース (Audio)](https://docs.newapi.pro/api/openai-audio)
+- [ビデオインターフェース (Video)](https://docs.newapi.pro/api/openai-video)
+- [エンベッドインターフェース (Embeddings)](https://docs.newapi.pro/api/openai-embeddings)
+- [再ランク付けインターフェース (Rerank)](https://docs.newapi.pro/api/jinaai-rerank)
+- [リアルタイム対話インターフェース (Realtime)](https://docs.newapi.pro/api/openai-realtime)
+- [Claudeチャット](https://docs.newapi.pro/api/anthropic-chat)
+- [Google Geminiチャット](https://docs.newapi.pro/api/google-gemini-chat/)
+
+</details>
+
+---
+
+## 🚢 デプロイ
 
 > [!TIP]
 > **最新のDockerイメージ:** `calciumion/new-api:latest`
@@ -270,6 +308,7 @@ Knight Omegaは豊富な機能を提供しています。詳細な機能につ�
 | `SQL_DSN** | データベース接続文字列 | - |
 | `REDIS_CONN_STRING` | Redis接続文字列 | - |
 | `STREAMING_TIMEOUT` | ストリーミング応答のタイムアウト時間（秒） | `300` |
+| `STREAM_SCANNER_MAX_BUFFER_MB` | ストリームスキャナの1行あたりバッファ上限（MB）。4K画像など巨大なbase64 `data:` ペイロードを扱う場合は値を増加させてください | `64` |
 | `AZURE_DEFAULT_API_VERSION` | Azure APIバージョン | `2025-04-01-preview` |
 | `ERROR_LOG_ENABLED` | エラーログスイッチ | `false` |
 

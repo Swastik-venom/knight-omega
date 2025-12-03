@@ -172,46 +172,74 @@ docker run --name new-api -d --restart always \
 
 ## ✨ Fonctionnalités clés
 
-Knight Omega offre un large éventail de fonctionnalités, veuillez vous référer à [Présentation des fonctionnalités](https://docs.newapi.pro/wiki/features-introduction) pour plus de détails :
+> Pour les fonctionnalités détaillées, veuillez vous référer à [Présentation des fonctionnalités](https://docs.newapi.pro/wiki/features-introduction) |
 
-1. 🎨 Nouvelle interface utilisateur
-2. 🌍 Prise en charge multilingue
-3. 💰 Fonctionnalité de recharge en ligne, prend actuellement en charge EPay et Stripe
-4. 🔍 Prise en charge de la recherche de quotas d'utilisation avec des clés (fonctionne avec [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool))
-5. 🔄 Compatible avec la base de données originale de Knight Omega
-6. 💵 Prise en charge de la tarification des modèles de paiement à l'utilisation
-7. ⚖️ Prise en charge de la sélection aléatoire pondérée des canaux
-8. 📈 Tableau de bord des données (console)
-9. 🔒 Regroupement de jetons et restrictions de modèles
-10. 🤖 Prise en charge de plus de méthodes de connexion par autorisation (LinuxDO, Telegram, OIDC)
-11. 🔄 Prise en charge des modèles Rerank (Cohere et Jina), [Documentation de l'API](https://docs.newapi.pro/api/jinaai-rerank)
-12. ⚡ Prise en charge de l'API OpenAI Realtime (y compris les canaux Azure), [Documentation de l'API](https://docs.newapi.pro/api/openai-realtime)
-13. ⚡ Prise en charge du format **OpenAI Responses**, [Documentation de l'API](https://docs.newapi.pro/api/openai-responses)
-14. ⚡ Prise en charge du format **Claude Messages**, [Documentation de l'API](https://docs.newapi.pro/api/anthropic-chat)
-15. ⚡ Prise en charge du format **Google Gemini**, [Documentation de l'API](https://docs.newapi.pro/api/google-gemini-chat/)
-16. 🧠 Prise en charge de la définition de l'effort de raisonnement via les suffixes de nom de modèle :
-    1. Modèles de la série o d'OpenAI
-        - Ajouter le suffixe `-high` pour un effort de raisonnement élevé (par exemple : `o3-mini-high`)
-        - Ajouter le suffixe `-medium` pour un effort de raisonnement moyen (par exemple : `o3-mini-medium`)
-        - Ajouter le suffixe `-low` pour un effort de raisonnement faible (par exemple : `o3-mini-low`)
-    2. Modèles de pensée de Claude
-        - Ajouter le suffixe `-thinking` pour activer le mode de pensée (par exemple : `claude-3-7-sonnet-20250219-thinking`)
-17. 🔄 Fonctionnalité de la pensée au contenu
-18. 🔄 Limitation du débit du modèle pour les utilisateurs
-19. 🔄 Fonctionnalité de conversion de format de requête, prenant en charge les trois conversions de format suivantes :
-    1. OpenAI Chat Completions => Claude Messages
-    2. Claude Messages => OpenAI Chat Completions (peut être utilisé pour Claude Code pour appeler des modèles tiers)
-    3. OpenAI Chat Completions => Gemini Chat
-20. 💰 Prise en charge de la facturation du cache, qui permet de facturer à un ratio défini lorsque le cache est atteint :
-    1. Définir l'option `Ratio de cache d'invite` dans `Paramètres système->Paramètres de fonctionnement`
-    2. Définir le `Ratio de cache d'invite` dans le canal, plage de 0 à 1, par exemple, le définir sur 0,5 signifie facturer à 50 % lorsque le cache est atteint
-    3. Canaux pris en charge :
-        - [x] OpenAI
-        - [x] Azure
-        - [x] DeepSeek
-        - [x] Claude
+### 🎨 Fonctions principales
 
-## Prise en charge des modèles
+| Fonctionnalité | Description |
+|------|------|
+| 🎨 Nouvelle interface utilisateur | Conception d'interface utilisateur moderne |
+| 🌍 Multilingue | Prend en charge le chinois, l'anglais, le français, le japonais |
+| 🔄 Compatibilité des données | Complètement compatible avec la base de données originale de One API |
+| 📈 Tableau de bord des données | Console visuelle et analyse statistique |
+| 🔒 Gestion des permissions | Regroupement de jetons, restrictions de modèles, gestion des utilisateurs |
+
+### 💰 Paiement et facturation
+
+- ✅ Recharge en ligne (EPay, Stripe)
+- ✅ Tarification des modèles de paiement à l'utilisation
+- ✅ Prise en charge de la facturation du cache (OpenAI, Azure, DeepSeek, Claude, Qwen et tous les modèles pris en charge)
+- ✅ Configuration flexible des politiques de facturation
+
+### 🔐 Autorisation et sécurité
+
+- 🤖 Connexion par autorisation LinuxDO
+- 📱 Connexion par autorisation Telegram
+- 🔑 Authentification unifiée OIDC
+
+### 🚀 Fonctionnalités avancées
+
+**Prise en charge des formats d'API:**
+- ⚡ [OpenAI Responses](https://docs.newapi.pro/api/openai-responses)
+- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/api/openai-realtime) (y compris Azure)
+- ⚡ [Claude Messages](https://docs.newapi.pro/api/anthropic-chat)
+- ⚡ [Google Gemini](https://docs.newapi.pro/api/google-gemini-chat/)
+- 🔄 [Modèles Rerank](https://docs.newapi.pro/api/jinaai-rerank) (Cohere, Jina)
+
+**Routage intelligent:**
+- ⚖️ Sélection aléatoire pondérée des canaux
+- 🔄 Nouvelle tentative automatique en cas d'échec
+- 🚦 Limitation du débit du modèle pour les utilisateurs
+
+**Conversion de format:**
+- 🔄 OpenAI ⇄ Claude Messages
+- 🔄 OpenAI ⇄ Gemini Chat
+- 🔄 Fonctionnalité de la pensée au contenu
+
+**Prise en charge de l'effort de raisonnement:**
+
+<details>
+<summary>Voir la configuration détaillée</summary>
+
+**Modèles de la série o d'OpenAI:**
+- `o3-mini-high` - Effort de raisonnement élevé
+- `o3-mini-medium` - Effort de raisonnement moyen
+- `o3-mini-low` - Effort de raisonnement faible
+
+**Modèles de pensée de Claude:**
+- `claude-3-7-sonnet-20250219-thinking` - Activer le mode de pensée
+
+**Modèles de la série Google Gemini:**
+- `gemini-2.5-flash-thinking` - Activer le mode de pensée
+- `gemini-2.5-flash-nothinking` - Désactiver le mode de pensée
+- `gemini-2.5-pro-thinking` - Activer le mode de pensée
+- `gemini-2.5-pro-thinking-128` - Activer le mode de pensée avec budget de pensée de 128 tokens
+
+</details>
+
+---
+
+## 🤖 Prise en charge des modèles
 
 > Pour les détails, veuillez vous référer à [Documentation de l'API - Interface de relais](https://docs.newapi.pro/api)
 
@@ -271,6 +299,7 @@ Knight Omega offre un large éventail de fonctionnalités, veuillez vous référ
 | `SQL_DSN` | Chaine de connexion à la base de données | - |
 | `REDIS_CONN_STRING` | Chaine de connexion Redis | - |
 | `STREAMING_TIMEOUT` | Délai d'expiration du streaming (secondes) | `300` |
+| `STREAM_SCANNER_MAX_BUFFER_MB` | Taille max du buffer par ligne (Mo) pour le scanner SSE ; à augmenter quand les sorties image/base64 sont très volumineuses (ex. images 4K) | `64` |
 | `AZURE_DEFAULT_API_VERSION` | Version de l'API Azure | `2025-04-01-preview` |
 | `ERROR_LOG_ENABLED` | Interrupteur du journal d'erreurs | `false` |
 
