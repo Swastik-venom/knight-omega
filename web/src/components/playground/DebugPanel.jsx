@@ -1,4 +1,21 @@
+/*
+Copyright (C) 2025 QuantumNous
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -8,10 +25,11 @@ import {
   TabPane,
   Button,
   Dropdown,
-} from '@douyinfe/semi-ui-19';
+} from '@douyinfe/semi-ui';
 import { Code, Zap, Clock, X, Eye, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import CodeViewer from './CodeViewer';
+import SSEViewer from './SSEViewer';
 
 const DebugPanel = ({
   debugData,
@@ -128,7 +146,7 @@ const DebugPanel = ({
                 {t('预览请求体')}
                 {customRequestMode && (
                   <span className='px-1.5 py-0.5 text-xs bg-orange-100 text-orange-600 rounded-full'>
-                    自定义
+                    {t('自定义')}
                   </span>
                 )}
               </div>
@@ -163,15 +181,27 @@ const DebugPanel = ({
               <div className='flex items-center gap-2'>
                 <Zap size={16} />
                 {t('响应')}
+                {debugData.sseMessages && debugData.sseMessages.length > 0 && (
+                  <span className='px-1.5 py-0.5 text-xs bg-blue-100 text-blue-600 rounded-full'>
+                    SSE ({debugData.sseMessages.length})
+                  </span>
+                )}
               </div>
             }
             itemKey='response'
           >
-            <CodeViewer
-              content={debugData.response}
-              title='response'
-              language='json'
-            />
+            {debugData.sseMessages && debugData.sseMessages.length > 0 ? (
+              <SSEViewer
+                sseData={debugData.sseMessages}
+                title='response'
+              />
+            ) : (
+              <CodeViewer
+                content={debugData.response}
+                title='response'
+                language='json'
+              />
+            )}
           </TabPane>
         </Tabs>
       </div>

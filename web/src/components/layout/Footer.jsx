@@ -108,7 +108,7 @@ const FooterBar = () => {
                   </p>
                   <div className='flex flex-col gap-3 text-sm'>
                     <a
-                      href='https://github.com/songquanpeng/one-api'
+                      href='https://github.com/songquanpeng/knight-omega'
                       target='_blank'
                       rel='noopener noreferrer'
                       className='transition-colors hover:text-slate-900 dark:hover:text-white'

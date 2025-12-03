@@ -1,10 +1,27 @@
+/*
+Copyright (C) 2025 QuantumNous
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
 
 import React from 'react';
-import { Card, Select, Typography, Button, Switch } from '@douyinfe/semi-ui-19';
+import { Card, Select, Typography, Button, Switch } from '@douyinfe/semi-ui';
 import { Sparkles, Users, ToggleLeft, X, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { renderGroupOption, selectFilter } from '@/helpers';
+import { renderGroupOption, selectFilter } from '../../helpers';
 import ParameterControl from './ParameterControl';
 import ImageUrlInput from './ImageUrlInput';
 import ConfigManager from './ConfigManager';
@@ -105,7 +122,7 @@ const SettingsPanel = ({
             </Typography.Text>
             {customRequestMode && (
               <Typography.Text className='text-xs text-orange-600'>
-                (已在自定义模式中忽略)
+                ({t('已在自定义模式中忽略')})
               </Typography.Text>
             )}
           </div>
@@ -137,7 +154,7 @@ const SettingsPanel = ({
             </Typography.Text>
             {customRequestMode && (
               <Typography.Text className='text-xs text-orange-600'>
-                (已在自定义模式中忽略)
+                ({t('已在自定义模式中忽略')})
               </Typography.Text>
             )}
           </div>
@@ -189,19 +206,19 @@ const SettingsPanel = ({
             <div className='flex items-center gap-2'>
               <ToggleLeft size={16} className='text-gray-500' />
               <Typography.Text strong className='text-sm'>
-                流式输出
+                {t('流式输出')}
               </Typography.Text>
               {customRequestMode && (
                 <Typography.Text className='text-xs text-orange-600'>
-                  (已在自定义模式中忽略)
+                  ({t('已在自定义模式中忽略')})
                 </Typography.Text>
               )}
             </div>
             <Switch
               checked={inputs.stream}
               onChange={(checked) => onInputChange('stream', checked)}
-              checkedText='开'
-              uncheckedText='关'
+              checkedText={t('开')}
+              uncheckedText={t('关')}
               size='small'
               disabled={customRequestMode}
             />

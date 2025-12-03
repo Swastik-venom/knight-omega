@@ -9,7 +9,7 @@ build
 logs
 web/dist
 .env
-one-api
+knight-omega
 new-api
 /__debug_bin*
 .DS_Store

@@ -7,7 +7,7 @@ const linkGroups = [
   {
     title: 'Product',
     links: [
-      { label: 'Features', href: '/' },
+      { label: 'Features', href: '/#features' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'Documentation', href: '/docs' },
     ],
@@ -16,7 +16,7 @@ const linkGroups = [
     title: 'Company',
     links: [
       { label: 'About', href: '/about' },
-      { label: 'Careers', href: '/careers' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
       { label: 'Contact', href: 'mailto:support@quantumnous.com', external: true },
     ],
   },

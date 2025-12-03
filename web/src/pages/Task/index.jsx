@@ -2,11 +2,12 @@
 
 import React from 'react';
 import TaskLogsTable from '../../components/table/task-logs';
+import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const Task = () => (
-  <div className='mt-[60px] px-2'>
+  <ConsolePageWrapper>
     <TaskLogsTable />
-  </div>
+  </ConsolePageWrapper>
 );
 
 export default Task;

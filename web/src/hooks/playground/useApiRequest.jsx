@@ -1,4 +1,21 @@
+/*
+Copyright (C) 2025 QuantumNous
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
 
 import { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,13 +24,13 @@ import {
   API_ENDPOINTS,
   MESSAGE_STATUS,
   DEBUG_TABS,
-} from '@/constants/playground.constants';
+} from '../../constants/playground.constants';
 import {
   getUserIdFromLocalStorage,
   handleApiError,
   processThinkTags,
   processIncompleteThinkTags,
-} from '@/helpers';
+} from '../../helpers';
 
 export const useApiRequest = (
   setMessage,
@@ -162,6 +179,8 @@ export const useApiRequest = (
         request: payload,
         timestamp: new Date().toISOString(),
         response: null,
+        sseMessages: null, // 非流式请求清除 SSE 消息
+        isStreaming: false,
       }));
       setActiveDebugTab(DEBUG_TABS.REQUEST);
 
@@ -274,6 +293,8 @@ export const useApiRequest = (
         request: payload,
         timestamp: new Date().toISOString(),
         response: null,
+        sseMessages: [], // 新增：存储 SSE 消息数组
+        isStreaming: true, // 新增：标记流式状态
       }));
       setActiveDebugTab(DEBUG_TABS.REQUEST);
 
@@ -297,7 +318,12 @@ export const useApiRequest = (
           isStreamComplete = true; // 标记流正常完成
           source.close();
           sseSourceRef.current = null;
-          setDebugData((prev) => ({ ...prev, response: responseData }));
+          setDebugData((prev) => ({ 
+            ...prev, 
+            response: responseData,
+            sseMessages: [...(prev.sseMessages || []), '[DONE]'], // 添加 DONE 标记
+            isStreaming: false,
+          }));
           completeMessage();
           return;
         }
@@ -310,6 +336,12 @@ export const useApiRequest = (
             setActiveDebugTab(DEBUG_TABS.RESPONSE);
             hasReceivedFirstResponse = true;
           }
+
+          // 新增：将 SSE 消息添加到数组
+          setDebugData((prev) => ({
+            ...prev,
+            sseMessages: [...(prev.sseMessages || []), e.data],
+          }));
 
           const delta = payload.choices?.[0]?.delta;
           if (delta) {
@@ -330,6 +362,8 @@ export const useApiRequest = (
           setDebugData((prev) => ({
             ...prev,
             response: responseData + `\n\nError: ${errorInfo}`,
+            sseMessages: [...(prev.sseMessages || []), e.data], // 即使解析失败也保存原始数据
+            isStreaming: false,
           }));
           setActiveDebugTab(DEBUG_TABS.RESPONSE);
 

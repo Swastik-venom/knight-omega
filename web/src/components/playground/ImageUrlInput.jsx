@@ -1,9 +1,27 @@
+/*
+Copyright (C) 2025 QuantumNous
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
 
 import React from 'react';
-import { Input, Typography, Button, Switch } from '@douyinfe/semi-ui-19';
+import { Input, Typography, Button, Switch } from '@douyinfe/semi-ui';
 import { IconFile } from '@douyinfe/semi-icons';
 import { FileText, Plus, X, Image } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const ImageUrlInput = ({
   imageUrls,
@@ -12,6 +30,7 @@ const ImageUrlInput = ({
   onImageEnabledChange,
   disabled = false,
 }) => {
+  const { t } = useTranslation();
   const handleAddImageUrl = () => {
     const newUrls = [...imageUrls, ''];
     onImageUrlsChange(newUrls);
@@ -39,11 +58,11 @@ const ImageUrlInput = ({
             }
           />
           <Typography.Text strong className='text-sm'>
-            图片地址
+            {t('图片地址')}
           </Typography.Text>
           {disabled && (
             <Typography.Text className='text-xs text-orange-600'>
-              (已在自定义模式中忽略)
+              ({t('已在自定义模式中忽略')})
             </Typography.Text>
           )}
         </div>
@@ -51,8 +70,8 @@ const ImageUrlInput = ({
           <Switch
             checked={imageEnabled}
             onChange={onImageEnabledChange}
-            checkedText='启用'
-            uncheckedText='停用'
+            checkedText={t('启用')}
+            uncheckedText={t('停用')}
             size='small'
             className='flex-shrink-0'
             disabled={disabled}
@@ -72,19 +91,19 @@ const ImageUrlInput = ({
       {!imageEnabled ? (
         <Typography.Text className='text-xs text-gray-500 mb-2 block'>
           {disabled
-            ? '图片功能在自定义请求体模式下不可用'
-            : '启用后可添加图片URL进行多模态对话'}
+            ? t('图片功能在自定义请求体模式下不可用')
+            : t('启用后可添加图片URL进行多模态对话')}
         </Typography.Text>
       ) : imageUrls.length === 0 ? (
         <Typography.Text className='text-xs text-gray-500 mb-2 block'>
           {disabled
-            ? '图片功能在自定义请求体模式下不可用'
-            : '点击 + 按钮添加图片URL进行多模态对话'}
+            ? t('图片功能在自定义请求体模式下不可用')
+            : t('点击 + 按钮添加图片URL进行多模态对话')}
         </Typography.Text>
       ) : (
         <Typography.Text className='text-xs text-gray-500 mb-2 block'>
-          已添加 {imageUrls.length} 张图片
-          {disabled ? ' (自定义模式下不可用)' : ''}
+          {t('已添加')} {imageUrls.length} {t('张图片')}
+          {disabled ? ` (${t('自定义模式下不可用')})` : ''}
         </Typography.Text>
       )}
 

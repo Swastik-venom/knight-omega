@@ -26,8 +26,8 @@ const Footer: React.FC = () => {
     ],
     resources: [
       { name: 'Console', to: '/console' },
-      { name: 'GitHub', href: 'https://github.com/Calcium-Ion/new-api' },
-      { name: 'Community', href: 'https://github.com/Calcium-Ion/new-api/discussions' },
+      { name: 'GitHub', href: 'https://github.com/QuantumNous/knight-omega' },
+      { name: 'Community', href: 'https://github.com/QuantumNous/knight-omega/discussions' },
       { name: 'Login', to: '/login' },
     ],
   };
@@ -135,9 +135,9 @@ const Footer: React.FC = () => {
                 © {currentYear} Knight Omega. All rights reserved.
               </p>
               <p className="mt-1">
-                Based on{' '}
+                Powered by{' '}
                 <a
-                  href="https://github.com/songquanpeng/one-api"
+                  href="https://github.com/QuantumNous/knight-omega"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-indigo-600 hover:underline dark:text-indigo-400"
@@ -151,7 +151,7 @@ const Footer: React.FC = () => {
             {/* Social Links */}
             <div className="flex items-center gap-4">
               <a
-                href="https://github.com/Calcium-Ion/new-api"
+                href="https://github.com/QuantumNous/knight-omega"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200/70 bg-white/50 text-slate-600 transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/70 dark:hover:text-indigo-400"

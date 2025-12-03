@@ -1,10 +1,27 @@
+/*
+Copyright (C) 2025 QuantumNous
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
 
 import React, { useState, useMemo, useCallback } from 'react';
-import { Button, Tooltip, Toast } from '@douyinfe/semi-ui-19';
+import { Button, Tooltip, Toast } from '@douyinfe/semi-ui';
 import { Copy, ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { copy } from '@/helpers';
+import { copy } from '../../helpers';
 
 const PERFORMANCE_CONFIG = {
   MAX_DISPLAY_LENGTH: 50000, // 最大显示字符数
@@ -201,7 +218,7 @@ const CodeViewer = ({ content, title, language = 'json' }) => {
         preview: t('正在构造请求体预览...'),
         request: t('暂无请求数据'),
         response: t('暂无响应数据'),
-      }[title] || t('No data available.');
+      }[title] || t('暂无数据');
 
     return (
       <div style={codeThemeStyles.noContent}>

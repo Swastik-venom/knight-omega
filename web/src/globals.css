@@ -107,3 +107,292 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ==========================================
+   Semi-UI Dark Mode Overrides
+   ========================================== */
+
+/* Card Component Dark Mode */
+.dark .semi-card {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-card-header-title {
+  color: #ffffff !important;
+}
+
+.dark .semi-card-body {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Table Component Dark Mode */
+.dark .semi-table {
+  background-color: transparent !important;
+}
+
+.dark .semi-table-thead > .semi-table-row > .semi-table-row-head {
+  background-color: rgba(30, 41, 59, 0.9) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.dark .semi-table-tbody > .semi-table-row-selected > .semi-table-row-cell {
+  background-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Form Input Dark Mode */
+.dark .semi-input-wrapper {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-input-wrapper:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.dark .semi-input-wrapper-focus {
+  border-color: rgba(99, 102, 241, 0.6) !important;
+}
+
+.dark .semi-input {
+  color: #ffffff !important;
+}
+
+.dark .semi-input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Select Component Dark Mode */
+.dark .semi-select {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-select:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.dark .semi-select-selection-text {
+  color: #ffffff !important;
+}
+
+.dark .semi-select-selection-placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.dark .semi-select-option-list {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-select-option {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-select-option:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-select-option-selected {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+}
+
+/* Modal Component Dark Mode */
+.dark .semi-modal-content {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-modal-header {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-modal-title {
+  color: #ffffff !important;
+}
+
+.dark .semi-modal-body {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-modal-footer {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Typography Dark Mode */
+.dark .semi-typography {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-typography-secondary {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Button Dark Mode */
+.dark .semi-button-tertiary {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-button-tertiary:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Tabs Dark Mode */
+.dark .semi-tabs-tab {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-tabs-tab-active {
+  color: #ffffff !important;
+}
+
+.dark .semi-tabs-ink-bar {
+  background-color: rgba(99, 102, 241, 0.8) !important;
+}
+
+/* Pagination Dark Mode */
+.dark .semi-page-item {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark .semi-page-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-page-item-active {
+  background-color: rgba(99, 102, 241, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* Notification Dark Mode */
+.dark .semi-notification-notice {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Toast Dark Mode */
+.dark .semi-toast-wrapper {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Tooltip Dark Mode */
+.dark .semi-tooltip-wrapper {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Divider Dark Mode */
+.dark .semi-divider {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Checkbox Dark Mode */
+.dark .semi-checkbox-inner-display {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark .semi-checkbox-addon {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Radio Dark Mode */
+.dark .semi-radio-inner-display {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark .semi-radio-addon {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Tag Dark Mode */
+.dark .semi-tag {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Dropdown Dark Mode */
+.dark .semi-dropdown-menu {
+  background-color: rgba(30, 41, 59, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-dropdown-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Form Label Dark Mode */
+.dark .semi-form-field-label-text {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Spin Dark Mode */
+.dark .semi-spin-wrapper {
+  color: rgba(99, 102, 241, 0.8) !important;
+}
+
+/* Empty State Dark Mode */
+.dark .semi-empty-title {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-empty-description {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* TextArea Dark Mode */
+.dark .semi-input-textarea-wrapper {
+  background-color: rgba(30, 41, 59, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-input-textarea {
+  color: #ffffff !important;
+}
+
+.dark .semi-input-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Switch Dark Mode */
+.dark .semi-switch {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .semi-switch-checked {
+  background-color: rgba(99, 102, 241, 0.8) !important;
+}
+
+/* ==========================================
+   Glass Apple Styling Classes
+   ========================================== */
+
+.glass-apple-heavy {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(203, 213, 225, 0.8);
+  box-shadow: 0 32px 80px rgba(15, 23, 42, 0.08);
+}
+
+.dark .glass-apple-heavy {
+  background-color: rgba(15, 23, 42, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 32px 80px rgba(15, 23, 42, 0.45);
+}

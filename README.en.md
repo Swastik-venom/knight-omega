@@ -50,7 +50,7 @@
 ## 📝 Project Description
 
 > [!NOTE]  
-> This is an open-source project developed based on [Knight Omega](https://github.com/songquanpeng/one-api)
+> This is an open-source project developed based on [Knight Omega](https://github.com/songquanpeng/knight-omega)
 
 > [!IMPORTANT]  
 > - This project is for personal learning purposes only, with no guarantee of stability or technical support
@@ -319,7 +319,7 @@ For detailed API documentation, please refer to [API Documentation](https://docs
 - [Google Gemini Chat API](https://docs.newapi.pro/api/google-gemini-chat)
 
 ## Related Projects
-- [Knight Omega](https://github.com/songquanpeng/one-api): Original project
+- [Knight Omega](https://github.com/songquanpeng/knight-omega): Original project
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy): Midjourney interface support
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool): Query usage quota with key
 

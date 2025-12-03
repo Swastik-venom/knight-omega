@@ -2,11 +2,12 @@
 
 import React from 'react';
 import MjLogsTable from '../../components/table/mj-logs';
+import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const Midjourney = () => (
-  <div className='mt-[60px] px-2'>
+  <ConsolePageWrapper>
     <MjLogsTable />
-  </div>
+  </ConsolePageWrapper>
 );
 
 export default Midjourney;

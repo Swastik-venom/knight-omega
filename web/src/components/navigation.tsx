@@ -50,7 +50,7 @@ export default function Navigation({ className = '' }: NavigationProps) {
     { to: '/#features', label: 'Features' },
     { to: '/pricing', label: 'Pricing' },
     { to: '/#testimonials', label: 'Testimonials' },
-    { to: '/models', label: 'Models' },
+    { to: '/about', label: 'About' },
   ]
 
   const authenticatedItems = [

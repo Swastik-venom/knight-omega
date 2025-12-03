@@ -50,7 +50,7 @@
 ## 📝 プロジェクト説明
 
 > [!NOTE]  
-> 本プロジェクトは、[Knight Omega](https://github.com/songquanpeng/one-api)をベースに二次開発されたオープンソースプロジェクトです
+> 本プロジェクトは、[Knight Omega](https://github.com/songquanpeng/knight-omega)をベースに二次開発されたオープンソースプロジェクトです
 
 > [!IMPORTANT]  
 > - 本プロジェクトは個人学習用のみであり、安定性の保証や技術サポートは提供しません。
@@ -323,7 +323,7 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 - [Google Geminiチャットインターフェース](https://docs.newapi.pro/api/google-gemini-chat)
 
 ## 関連プロジェクト
-- [Knight Omega](https://github.com/songquanpeng/one-api)：オリジナルプロジェクト
+- [Knight Omega](https://github.com/songquanpeng/knight-omega)：オリジナルプロジェクト
 - [Midjourney-Proxy](https://github.com/novicezk/midjourney-proxy)：Midjourneyインターフェースサポート
 - [neko-api-key-tool](https://github.com/Calcium-Ion/neko-api-key-tool)：キーを使用して使用量クォータを照会
 

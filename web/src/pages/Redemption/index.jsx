@@ -2,12 +2,13 @@
 
 import React from 'react';
 import RedemptionsTable from '../../components/table/redemptions';
+import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const Redemption = () => {
   return (
-    <div className='mt-[60px] px-2'>
+    <ConsolePageWrapper>
       <RedemptionsTable />
-    </div>
+    </ConsolePageWrapper>
   );
 };
 

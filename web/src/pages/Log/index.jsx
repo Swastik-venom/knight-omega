@@ -2,12 +2,13 @@
 
 import React from 'react';
 import UsageLogsTable from '@/components/table/usage-logs';
+import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 import './log-styles.css';
 
-const Token = () => (
-  <div className='mt-[60px] px-2 usage-log-page'>
+const Log = () => (
+  <ConsolePageWrapper className='usage-log-page'>
     <UsageLogsTable />
-  </div>
+  </ConsolePageWrapper>
 );
 
-export default Token;
+export default Log;

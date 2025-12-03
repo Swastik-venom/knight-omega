@@ -2,13 +2,14 @@
 
 import React from 'react';
 import ChannelsTable from '@/components/table/channels';
+import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
-const File = () => {
+const Channel = () => {
   return (
-    <div className='mt-[60px] px-2'>
+    <ConsolePageWrapper>
       <ChannelsTable />
-    </div>
+    </ConsolePageWrapper>
   );
 };
 
-export default File;
+export default Channel;

@@ -1,9 +1,26 @@
+/*
+Copyright (C) 2025 QuantumNous
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+For commercial licensing, please contact support@quantumnous.com
+*/
 
 import React, { useContext, useEffect, useCallback, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Layout, Toast, Modal } from '@douyinfe/semi-ui-19';
+import { Layout, Toast, Modal } from '@douyinfe/semi-ui';
 
 // Context
 import { UserContext } from '../../context/User';
@@ -21,7 +38,7 @@ import { useDataLoader } from '../../hooks/playground/useDataLoader';
 import {
   MESSAGE_ROLES,
   ERROR_MESSAGES,
-} from '@/constants/playground.constants';
+} from '../../constants/playground.constants';
 import {
   getLogo,
   stringToColor,
@@ -31,7 +48,7 @@ import {
   getTextContent,
   buildApiPayload,
   encodeToBase64,
-} from '@/helpers';
+} from '../../helpers';
 
 // Components
 import {
@@ -42,6 +59,7 @@ import {
 } from '../../components/playground/OptimizedComponents';
 import ChatArea from '../../components/playground/ChatArea';
 import FloatingButtons from '../../components/playground/FloatingButtons';
+import { PlaygroundProvider } from '../../contexts/PlaygroundContext';
 
 // 生成头像
 const generateAvatarDataUrl = (username) => {
@@ -419,8 +437,26 @@ const Playground = () => {
     setTimeout(() => saveMessagesImmediately([]), 0);
   }, [setMessage, saveMessagesImmediately]);
 
+  // 处理粘贴图片
+  const handlePasteImage = useCallback((base64Data) => {
+    if (!inputs.imageEnabled) {
+      return;
+    }
+    // 添加图片到 imageUrls 数组
+    const newUrls = [...(inputs.imageUrls || []), base64Data];
+    handleInputChange('imageUrls', newUrls);
+  }, [inputs.imageEnabled, inputs.imageUrls, handleInputChange]);
+
+  // Playground Context 值
+  const playgroundContextValue = {
+    onPasteImage: handlePasteImage,
+    imageUrls: inputs.imageUrls || [],
+    imageEnabled: inputs.imageEnabled || false,
+  };
+
   return (
-    <div className='h-full'>
+    <PlaygroundProvider value={playgroundContextValue}>
+      <div className='h-full'>
       <Layout className='h-full bg-transparent flex flex-col md:flex-row'>
         {(showSettings || !isMobile) && (
           <Layout.Sider
@@ -428,7 +464,7 @@ const Playground = () => {
               bg-transparent border-r-0 flex-shrink-0 overflow-auto mt-[60px]
               ${
                 isMobile
-                  ? 'fixed top-0 left-0 right-0 bottom-0 z-[1000] w-full h-auto bg-white shadow-lg'
+                  ? 'fixed top-0 left-0 right-0 bottom-0 z-[1000] w-full h-auto bg-white dark:bg-slate-900 shadow-lg'
                   : 'relative z-[1] w-80 h-[calc(100vh-66px)]'
               }
             `}
@@ -495,7 +531,7 @@ const Playground = () => {
 
           {/* 调试面板 - 移动端覆盖层 */}
           {showDebugPanel && isMobile && (
-            <div className='fixed top-0 left-0 right-0 bottom-0 z-[1000] bg-white overflow-auto shadow-lg'>
+            <div className='fixed top-0 left-0 right-0 bottom-0 z-[1000] bg-white dark:bg-slate-900 overflow-auto shadow-lg'>
               <OptimizedDebugPanel
                 debugData={debugData}
                 activeDebugTab={activeDebugTab}
@@ -519,6 +555,7 @@ const Playground = () => {
         </Layout.Content>
       </Layout>
     </div>
+    </PlaygroundProvider>
   );
 };
 
