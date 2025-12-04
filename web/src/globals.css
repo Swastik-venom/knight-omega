@@ -53,38 +53,38 @@
 }
 
 .dark {
-  --background: 240 10% 3.9%;
+  --background: 0 0% 0%;
   --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
+  --card: 0 0% 5%;
   --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
+  --popover: 0 0% 5%;
   --popover-foreground: 0 0% 98%;
   --primary: 25 95% 53%; /* orange in dark */
   --primary-foreground: 60 4.8% 95.9%;
-  --secondary: 240 3.7% 15.9%;
+  --secondary: 0 0% 10%;
   --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 0 0% 10%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 10% 3.9%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 0 0% 20%;
   --chart-1: 220 70% 50%;
   --chart-2: 160 60% 45%;
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
-  --sidebar: 240 10% 3.9%;
+  --sidebar: 0 0% 0%;
   --sidebar-foreground: 0 0% 98%;
   --sidebar-primary: 25 95% 53%; /* orange in dark */
   --sidebar-primary-foreground: 60 4.8% 95.9%;
-  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent: 0 0% 10%;
   --sidebar-accent-foreground: 0 0% 98%;
-  --sidebar-border: 240 3.7% 15.9%;
-  --sidebar-ring: 240 10% 3.9%;
+  --sidebar-border: 0 0% 15%;
+  --sidebar-ring: 0 0% 20%;
   --orange: 25 95% 53%;
   --orange-foreground: 60 4.8% 95.9%;
   --violet: 263.1 70% 40%;
@@ -93,9 +93,9 @@
   --blue-foreground: 210 40% 98%;
   --yellow: 44 100% 52%;
   --yellow-foreground: 30 10% 45%;
-  --dark: 240 10% 3.9%;
+  --dark: 0 0% 0%;
   --dark-foreground: 0 0% 98%;
-  --gateway: 240 3.7% 15.9%; /* AI API Gateway background in dark */
+  --gateway: 0 0% 5%; /* AI API Gateway background in dark */
   --gateway-foreground: 0 0% 98%;
 }
 
@@ -109,12 +109,17 @@
 }
 
 /* ==========================================
-   Semi-UI Dark Mode Overrides
+   Semi-UI Dark Mode Overrides - Black Theme
    ========================================== */
 
 /* Card Component Dark Mode */
 .dark .semi-card {
-  background-color: rgba(15, 23, 42, 0.8) !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(12px);
+}
+
+.dark .semi-card-header {
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -131,10 +136,15 @@
   background-color: transparent !important;
 }
 
+.dark .semi-table-wrapper {
+  background-color: transparent !important;
+}
+
 .dark .semi-table-thead > .semi-table-row > .semi-table-row-head {
-  background-color: rgba(30, 41, 59, 0.9) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
   color: rgba(255, 255, 255, 0.9) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+  font-weight: 600;
 }
 
 .dark .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
@@ -148,21 +158,28 @@
 }
 
 .dark .semi-table-tbody > .semi-table-row-selected > .semi-table-row-cell {
-  background-color: rgba(99, 102, 241, 0.15) !important;
+  background-color: rgba(249, 115, 22, 0.15) !important;
+}
+
+.dark .semi-table-pagination-outer {
+  background-color: transparent !important;
 }
 
 /* Form Input Dark Mode */
 .dark .semi-input-wrapper {
-  background-color: rgba(30, 41, 59, 0.6) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   border-color: rgba(255, 255, 255, 0.15) !important;
+  transition: all 0.2s ease;
 }
 
 .dark .semi-input-wrapper:hover {
   border-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .dark .semi-input-wrapper-focus {
-  border-color: rgba(99, 102, 241, 0.6) !important;
+  border-color: rgba(249, 115, 22, 0.6) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.1) !important;
 }
 
 .dark .semi-input {
@@ -175,12 +192,13 @@
 
 /* Select Component Dark Mode */
 .dark .semi-select {
-  background-color: rgba(30, 41, 59, 0.6) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 .dark .semi-select:hover {
   border-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .dark .semi-select-selection-text {
@@ -192,8 +210,9 @@
 }
 
 .dark .semi-select-option-list {
-  background-color: rgba(30, 41, 59, 0.95) !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
 }
 
 .dark .semi-select-option {
@@ -205,13 +224,14 @@
 }
 
 .dark .semi-select-option-selected {
-  background-color: rgba(99, 102, 241, 0.2) !important;
+  background-color: rgba(249, 115, 22, 0.2) !important;
 }
 
 /* Modal Component Dark Mode */
 .dark .semi-modal-content {
-  background-color: rgba(15, 23, 42, 0.95) !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
 }
 
 .dark .semi-modal-header {
@@ -241,6 +261,10 @@
 }
 
 /* Button Dark Mode */
+.dark .semi-button {
+  transition: all 0.2s ease;
+}
+
 .dark .semi-button-tertiary {
   color: rgba(255, 255, 255, 0.85) !important;
 }
@@ -249,9 +273,27 @@
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
+.dark .semi-button-primary {
+  background-color: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-button-primary:hover {
+  background-color: rgb(234, 88, 12) !important;
+  transform: translateY(-1px);
+}
+
 /* Tabs Dark Mode */
+.dark .semi-tabs-bar {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
 .dark .semi-tabs-tab {
   color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-tabs-tab:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 .dark .semi-tabs-tab-active {
@@ -259,39 +301,49 @@
 }
 
 .dark .semi-tabs-ink-bar {
-  background-color: rgba(99, 102, 241, 0.8) !important;
+  background-color: rgb(249, 115, 22) !important;
 }
 
 /* Pagination Dark Mode */
+.dark .semi-page {
+  background-color: transparent !important;
+}
+
 .dark .semi-page-item {
   color: rgba(255, 255, 255, 0.7) !important;
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .semi-page-item:hover {
   background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 .dark .semi-page-item-active {
-  background-color: rgba(99, 102, 241, 0.2) !important;
+  background-color: rgba(249, 115, 22, 0.2) !important;
+  border-color: rgba(249, 115, 22, 0.5) !important;
   color: #ffffff !important;
 }
 
 /* Notification Dark Mode */
 .dark .semi-notification-notice {
-  background-color: rgba(30, 41, 59, 0.95) !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
   color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(20px);
 }
 
 /* Toast Dark Mode */
 .dark .semi-toast-wrapper {
-  background-color: rgba(30, 41, 59, 0.95) !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
   color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(20px);
 }
 
 /* Tooltip Dark Mode */
 .dark .semi-tooltip-wrapper {
-  background-color: rgba(30, 41, 59, 0.95) !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
@@ -303,6 +355,12 @@
 /* Checkbox Dark Mode */
 .dark .semi-checkbox-inner-display {
   border-color: rgba(255, 255, 255, 0.3) !important;
+  background-color: transparent !important;
+}
+
+.dark .semi-checkbox-checked .semi-checkbox-inner-display {
+  background-color: rgb(249, 115, 22) !important;
+  border-color: rgb(249, 115, 22) !important;
 }
 
 .dark .semi-checkbox-addon {
@@ -312,6 +370,15 @@
 /* Radio Dark Mode */
 .dark .semi-radio-inner-display {
   border-color: rgba(255, 255, 255, 0.3) !important;
+  background-color: transparent !important;
+}
+
+.dark .semi-radio-checked .semi-radio-inner-display {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-radio-checked .semi-radio-inner-display::after {
+  background-color: rgb(249, 115, 22) !important;
 }
 
 .dark .semi-radio-addon {
@@ -322,12 +389,32 @@
 .dark .semi-tag {
   background-color: rgba(255, 255, 255, 0.1) !important;
   color: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-tag-orange {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+  color: rgb(251, 146, 60) !important;
+  border-color: rgba(249, 115, 22, 0.3) !important;
+}
+
+.dark .semi-tag-green {
+  background-color: rgba(34, 197, 94, 0.2) !important;
+  color: rgb(74, 222, 128) !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+.dark .semi-tag-red {
+  background-color: rgba(239, 68, 68, 0.2) !important;
+  color: rgb(252, 129, 129) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
 }
 
 /* Dropdown Dark Mode */
 .dark .semi-dropdown-menu {
-  background-color: rgba(30, 41, 59, 0.95) !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
 }
 
 .dark .semi-dropdown-item {
@@ -343,9 +430,13 @@
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
+.dark .semi-form-field-extra {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
 /* Spin Dark Mode */
 .dark .semi-spin-wrapper {
-  color: rgba(99, 102, 241, 0.8) !important;
+  color: rgb(249, 115, 22) !important;
 }
 
 /* Empty State Dark Mode */
@@ -359,8 +450,13 @@
 
 /* TextArea Dark Mode */
 .dark .semi-input-textarea-wrapper {
-  background-color: rgba(30, 41, 59, 0.6) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
   border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-input-textarea-wrapper:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .dark .semi-input-textarea {
@@ -377,7 +473,71 @@
 }
 
 .dark .semi-switch-checked {
-  background-color: rgba(99, 102, 241, 0.8) !important;
+  background-color: rgb(249, 115, 22) !important;
+}
+
+/* Collapse/Collapsible Dark Mode */
+.dark .semi-collapse {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-collapse-header {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Popover Dark Mode */
+.dark .semi-popover {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
+}
+
+/* Skeleton Dark Mode */
+.dark .semi-skeleton-title,
+.dark .semi-skeleton-paragraph-row {
+  background: linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.06) 75%) !important;
+  background-size: 200% 100% !important;
+}
+
+/* SideSheet Dark Mode */
+.dark .semi-sidesheet-inner {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+.dark .semi-sidesheet-header {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-sidesheet-title {
+  color: #ffffff !important;
+}
+
+/* Banner Dark Mode */
+.dark .semi-banner {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-banner-content {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* DatePicker Dark Mode */
+.dark .semi-datepicker-month-grid-wrapper {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+}
+
+.dark .semi-datepicker-day {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-datepicker-day:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-datepicker-day-selected {
+  background-color: rgb(249, 115, 22) !important;
 }
 
 /* ==========================================

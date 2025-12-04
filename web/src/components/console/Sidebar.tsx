@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuth } from '@/lib/auth'
+import { motion } from 'framer-motion'
 import {
   LayoutDashboard,
   Key,
@@ -138,57 +139,74 @@ export function Sidebar() {
                        : location.pathname.startsWith(item.href + '/'))
     
     return (
-      <Link
+      <motion.div
         key={item.href}
-        to={item.href}
-        className={cn(
-          'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
-          isActive
-            ? 'bg-primary/10 text-primary'
-            : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-        )}
+        whileHover={{ x: 4 }}
+        whileTap={{ scale: 0.98 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
-        <Icon className="h-5 w-5 flex-shrink-0" />
-        {!collapsed && <span>{item.title}</span>}
-      </Link>
+        <Link
+          to={item.href}
+          className={cn(
+            'flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
+            isActive
+              ? 'bg-white/10 text-white border border-white/15 shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
+              : 'text-white/60 hover:bg-white/5 hover:text-white/90'
+          )}
+        >
+          <Icon className="h-5 w-5 flex-shrink-0" />
+          {!collapsed && <span>{item.title}</span>}
+        </Link>
+      </motion.div>
     )
   }
 
   return (
-    <div
+    <motion.div
       className={cn(
-        'fixed left-0 top-0 z-40 h-screen border-r border-border/40 bg-card/95 backdrop-blur-xl transition-all duration-300',
+        'fixed left-0 top-0 z-40 h-screen border-r border-white/10 bg-black/95 backdrop-blur-2xl transition-all duration-300',
         collapsed ? 'w-16' : 'w-64'
       )}
+      initial={{ x: -20, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
     >
       <div className="flex h-full flex-col">
         {/* Logo */}
-        <div className="flex h-16 items-center border-b border-border/40 px-4">
+        <div className="flex h-16 items-center border-b border-white/10 px-4">
           {!collapsed && (
-            <Link to="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg overflow-hidden bg-primary/10">
+            <Link to="/" className="flex items-center gap-2 group">
+              <motion.div
+                className="flex h-8 w-8 items-center justify-center rounded-xl overflow-hidden bg-white/10 border border-white/20"
+                whileHover={{ rotate: 4, scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              >
                 {logo ? (
                   <img src={logo} alt={systemName} className="h-full w-full object-cover" />
                 ) : (
-                  <span className="text-sm font-bold text-primary">KΩ</span>
+                  <span className="text-sm font-bold text-white">KΩ</span>
                 )}
-              </div>
-              <span className="font-semibold">{systemName}</span>
+              </motion.div>
+              <span className="font-semibold text-white group-hover:text-white/90 transition-colors">{systemName}</span>
             </Link>
           )}
           {collapsed && (
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg overflow-hidden bg-primary/10 mx-auto">
+            <motion.div
+              className="flex h-8 w-8 items-center justify-center rounded-xl overflow-hidden bg-white/10 border border-white/20 mx-auto"
+              whileHover={{ rotate: 4, scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            >
               {logo ? (
                 <img src={logo} alt={systemName} className="h-full w-full object-cover" />
               ) : (
-                <span className="text-sm font-bold text-primary">KΩ</span>
+                <span className="text-sm font-bold text-white">KΩ</span>
               )}
-            </div>
+            </motion.div>
           )}
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-1 overflow-y-auto p-2">
+        <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           {/* User Section */}
           {userNavItems.map(renderNavItem)}
           
@@ -196,15 +214,15 @@ export function Sidebar() {
           {isAdmin && (
             <>
               {!collapsed && (
-                <div className="px-3 py-2 mt-4 mb-2">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                <div className="px-3 py-2 mt-6 mb-2">
+                  <div className="flex items-center gap-2 text-xs font-semibold text-white/40 uppercase tracking-wider">
                     <ShieldCheck className="h-3 w-3" />
                     <span>Admin</span>
                   </div>
                 </div>
               )}
               {collapsed && (
-                <div className="border-t border-border/40 my-2" />
+                <div className="border-t border-white/10 my-4" />
               )}
               {adminNavItems.map(renderNavItem)}
             </>
@@ -212,24 +230,29 @@ export function Sidebar() {
         </nav>
 
         {/* Collapse Button */}
-        <div className="border-t border-border/40 p-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-full justify-center"
-            onClick={() => setCollapsed(!collapsed)}
+        <div className="border-t border-white/10 p-3">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            {collapsed ? (
-              <ChevronRight className="h-4 w-4" />
-            ) : (
-              <>
-                <ChevronLeft className="h-4 w-4 mr-2" />
-                <span>Collapse</span>
-              </>
-            )}
-          </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-center text-white/60 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10 transition-all duration-200"
+              onClick={() => setCollapsed(!collapsed)}
+            >
+              {collapsed ? (
+                <ChevronRight className="h-4 w-4" />
+              ) : (
+                <>
+                  <ChevronLeft className="h-4 w-4 mr-2" />
+                  <span>Collapse</span>
+                </>
+              )}
+            </Button>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

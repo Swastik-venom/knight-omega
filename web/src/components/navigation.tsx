@@ -47,9 +47,10 @@ export default function Navigation({ className = '' }: NavigationProps) {
 
   const navigationItems = [
     { to: '/', label: 'Home', icon: Home },
-    { to: '/#features', label: 'Features' },
+    { to: '/features', label: 'Features' },
+    { to: '/models', label: 'Models' },
     { to: '/pricing', label: 'Pricing' },
-    { to: '/#testimonials', label: 'Testimonials' },
+    { to: '/testimonials', label: 'Testimonials' },
     { to: '/about', label: 'About' },
   ]
 

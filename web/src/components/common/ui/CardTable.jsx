@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { motion } from 'framer-motion';
 import {
   Table,
   Card,
@@ -98,7 +99,7 @@ const CardTable = ({
       );
 
       return (
-        <Card key={key} className='!rounded-2xl shadow-sm'>
+        <Card key={key} className='!rounded-2xl shadow-sm !bg-black/60 !border-white/10'>
           <Skeleton loading={true} active placeholder={placeholder}></Skeleton>
         </Card>
       );
@@ -122,68 +123,73 @@ const CardTable = ({
       (!tableProps.rowExpandable || tableProps.rowExpandable(record));
 
     return (
-      <Card key={rowKeyVal} className='!rounded-2xl shadow-sm'>
-        {columns.map((col, colIdx) => {
-          if (
-            tableProps?.visibleColumns &&
-            !tableProps.visibleColumns[col.key]
-          ) {
-            return null;
-          }
+      <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2, delay: index * 0.05 }}
+      >
+        <Card key={rowKeyVal} className='!rounded-2xl shadow-lg !bg-black/60 !border-white/10 backdrop-blur-xl'>
+          {columns.map((col, colIdx) => {
+            if (
+              tableProps?.visibleColumns &&
+              !tableProps.visibleColumns[col.key]
+            ) {
+              return null;
+            }
 
-          const title = col.title;
-          const cellContent = col.render
-            ? col.render(record[col.dataIndex], record, index)
-            : record[col.dataIndex];
+            const title = col.title;
+            const cellContent = col.render
+              ? col.render(record[col.dataIndex], record, index)
+              : record[col.dataIndex];
 
-          if (!title) {
+            if (!title) {
+              return (
+                <div key={col.key || colIdx} className='mt-2 flex justify-end'>
+                  {cellContent}
+                </div>
+              );
+            }
+
             return (
-              <div key={col.key || colIdx} className='mt-2 flex justify-end'>
-                {cellContent}
+              <div
+                key={col.key || colIdx}
+                className='flex justify-between items-start py-1.5 border-b last:border-b-0 border-dashed border-white/10'
+              >
+                <span className='font-medium text-white/50 mr-2 whitespace-nowrap select-none text-sm'>
+                  {title}
+                </span>
+                <div className='flex-1 break-all flex justify-end items-center gap-1 text-white/90'>
+                  {cellContent !== undefined && cellContent !== null
+                    ? cellContent
+                    : '-'}
+                </div>
               </div>
             );
-          }
+          })}
 
-          return (
-            <div
-              key={col.key || colIdx}
-              className='flex justify-between items-start py-1 border-b last:border-b-0 border-dashed'
-              style={{ borderColor: 'var(--semi-color-border)' }}
-            >
-              <span className='font-medium text-gray-600 mr-2 whitespace-nowrap select-none'>
-                {title}
-              </span>
-              <div className='flex-1 break-all flex justify-end items-center gap-1'>
-                {cellContent !== undefined && cellContent !== null
-                  ? cellContent
-                  : '-'}
-              </div>
-            </div>
-          );
-        })}
-
-        {hasDetails && (
-          <>
-            <Button
-              theme='borderless'
-              size='small'
-              className='w-full flex justify-center mt-2'
-              icon={showDetails ? <IconChevronUp /> : <IconChevronDown />}
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDetails(!showDetails);
-              }}
-            >
-              {showDetails ? t('收起') : t('详情')}
-            </Button>
-            <Collapsible isOpen={showDetails} keepDOM>
-              <div className='pt-2'>
-                {tableProps.expandedRowRender(record, index)}
-              </div>
-            </Collapsible>
-          </>
-        )}
-      </Card>
+          {hasDetails && (
+            <>
+              <Button
+                theme='borderless'
+                size='small'
+                className='w-full flex justify-center mt-2 !text-white/60 hover:!text-white hover:!bg-white/10 transition-colors'
+                icon={showDetails ? <IconChevronUp /> : <IconChevronDown />}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDetails(!showDetails);
+                }}
+              >
+                {showDetails ? t('收起') : t('详情')}
+              </Button>
+              <Collapsible isOpen={showDetails} keepDOM>
+                <div className='pt-2'>
+                  {tableProps.expandedRowRender(record, index)}
+                </div>
+              </Collapsible>
+            </>
+          )}
+        </Card>
+      </motion.div>
     );
   };
 

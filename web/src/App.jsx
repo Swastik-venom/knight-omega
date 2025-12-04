@@ -54,6 +54,9 @@ const About = lazy(() => import('./pages/About'));
 const Docs = lazy(() => import('./pages/Docs'));
 const UserAgreement = lazy(() => import('./pages/UserAgreement'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Features = lazy(() => import('./features/page'));
+const Models = lazy(() => import('./models/page'));
+const Testimonials = lazy(() => import('./pages/Testimonials'));
 
 function App() {
   const location = useLocation();
@@ -302,6 +305,30 @@ function App() {
                 <Pricing />
               </Suspense>
             )
+          }
+        />
+        <Route
+          path='/features'
+          element={
+            <Suspense fallback={<Loading></Loading>} key={location.pathname}>
+              <Features />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/models'
+          element={
+            <Suspense fallback={<Loading></Loading>} key={location.pathname}>
+              <Models />
+            </Suspense>
+          }
+        />
+        <Route
+          path='/testimonials'
+          element={
+            <Suspense fallback={<Loading></Loading>} key={location.pathname}>
+              <Testimonials />
+            </Suspense>
           }
         />
         <Route

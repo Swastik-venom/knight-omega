@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Card, Divider, Typography, Button } from '@douyinfe/semi-ui-19';
 import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/common/useIsMobile';
 import { IconEyeOpened, IconEyeClosed } from '@douyinfe/semi-icons';
 
@@ -142,17 +143,23 @@ const CardPro = ({
   const footerContent = renderFooter();
 
   return (
-    <Card
-      className={`table-scroll-card !rounded-2xl dark:bg-slate-900/80 dark:border-white/10 dark:text-white ${className}`}
-      title={headerContent}
-      footer={footerContent}
-      shadows={shadows}
-      bordered={bordered}
-      style={style}
-      {...props}
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      {children}
-    </Card>
+      <Card
+        className={`table-scroll-card !rounded-2xl !bg-black/70 !border-white/10 text-white backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.4)] ${className}`}
+        title={headerContent}
+        footer={footerContent}
+        shadows={shadows}
+        bordered={bordered}
+        style={style}
+        {...props}
+      >
+        {children}
+      </Card>
+    </motion.div>
   );
 };
 
