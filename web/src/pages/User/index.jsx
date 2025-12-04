@@ -6,7 +6,7 @@ import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const User = () => {
   return (
-    <ConsolePageWrapper>
+    <ConsolePageWrapper noBackground>
       <UsersTable />
     </ConsolePageWrapper>
   );

@@ -6,7 +6,7 @@ import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const Channel = () => {
   return (
-    <ConsolePageWrapper>
+    <ConsolePageWrapper noBackground>
       <ChannelsTable />
     </ConsolePageWrapper>
   );

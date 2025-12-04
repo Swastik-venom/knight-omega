@@ -5,7 +5,7 @@ import TaskLogsTable from '../../components/table/task-logs';
 import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const Task = () => (
-  <ConsolePageWrapper>
+  <ConsolePageWrapper noBackground>
     <TaskLogsTable />
   </ConsolePageWrapper>
 );

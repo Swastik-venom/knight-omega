@@ -6,7 +6,7 @@ import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const Token = () => {
   return (
-    <ConsolePageWrapper>
+    <ConsolePageWrapper noBackground>
       <TokensTable />
     </ConsolePageWrapper>
   );

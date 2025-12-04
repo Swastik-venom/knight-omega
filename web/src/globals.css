@@ -131,37 +131,198 @@
   color: rgba(255, 255, 255, 0.9) !important;
 }
 
-/* Table Component Dark Mode */
+/* Table Component Dark Mode - Comprehensive Overrides */
 .dark .semi-table {
   background-color: transparent !important;
+  background: transparent !important;
 }
 
 .dark .semi-table-wrapper {
   background-color: transparent !important;
+  background: transparent !important;
 }
 
+.dark .semi-table-container {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.dark .semi-table-body {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.dark .semi-table-header {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.dark .semi-table-content {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.dark .semi-table-inner {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.dark .semi-table-middle {
+  background-color: transparent !important;
+}
+
+.dark .semi-table-fixed {
+  background-color: transparent !important;
+}
+
+.dark .semi-table-fixed-left,
+.dark .semi-table-fixed-right {
+  background-color: transparent !important;
+}
+
+/* Table Header Cells */
 .dark .semi-table-thead > .semi-table-row > .semi-table-row-head {
-  background-color: rgba(0, 0, 0, 0.6) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
   color: rgba(255, 255, 255, 0.9) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
   font-weight: 600;
+}
+
+.dark .semi-table-thead > .semi-table-row > .semi-table-row-head-ellipsis {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Table Body Cells */
+.dark .semi-table-tbody {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.dark .semi-table-tbody > .semi-table-row {
+  background-color: transparent !important;
+  background: transparent !important;
 }
 
 .dark .semi-table-tbody > .semi-table-row > .semi-table-row-cell {
   background-color: transparent !important;
+  background: transparent !important;
   color: rgba(255, 255, 255, 0.85) !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.dark .semi-table-tbody > .semi-table-row:hover {
+  background-color: rgba(255, 255, 255, 0.04) !important;
 }
 
 .dark .semi-table-tbody > .semi-table-row:hover > .semi-table-row-cell {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+.dark .semi-table-tbody > .semi-table-row-selected {
+  background-color: rgba(249, 115, 22, 0.12) !important;
 }
 
 .dark .semi-table-tbody > .semi-table-row-selected > .semi-table-row-cell {
-  background-color: rgba(249, 115, 22, 0.15) !important;
+  background-color: rgba(249, 115, 22, 0.12) !important;
 }
 
+/* Table Fixed Columns Shadow */
+.dark .semi-table-row-cell-fixed-left-last::after,
+.dark .semi-table-row-cell-fixed-right-first::after {
+  box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark .semi-table-row-head-fixed-left-last::after,
+.dark .semi-table-row-head-fixed-right-first::after {
+  box-shadow: inset 10px 0 8px -8px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Table Scroll */
+.dark .semi-table-scroll {
+  background-color: transparent !important;
+}
+
+/* Table Empty State */
+.dark .semi-table-empty {
+  background-color: transparent !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Table Loading Overlay */
+.dark .semi-table-loading-wrapper {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Table Pagination */
 .dark .semi-table-pagination-outer {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Table Footer */
+.dark .semi-table-footer {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Table Column Sorter & Filter */
+.dark .semi-table-column-sorter {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .semi-table-column-sorter:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark .semi-table-column-sorter-up-active,
+.dark .semi-table-column-sorter-down-active {
+  color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-table-column-filter {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .semi-table-column-filter:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark .semi-table-column-filter-active {
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Table Resizer */
+.dark .semi-table-resize-handle {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .semi-table-resize-handle:hover {
+  background-color: rgb(249, 115, 22) !important;
+}
+
+/* Table Expand Icon */
+.dark .semi-table-expand-icon {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-table-expand-icon:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Table Selection */
+.dark .semi-table-selection-wrap {
+  background-color: transparent !important;
+}
+
+/* Force all table backgrounds to transparent in dark mode */
+.dark table,
+.dark table tr,
+.dark table th,
+.dark table td {
   background-color: transparent !important;
 }
 
@@ -540,6 +701,515 @@
   background-color: rgb(249, 115, 22) !important;
 }
 
+/* InputNumber Dark Mode */
+.dark .semi-input-number {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-input-number:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.dark .semi-input-number-focused {
+  border-color: rgba(249, 115, 22, 0.6) !important;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.1) !important;
+}
+
+.dark .semi-input-number-input {
+  color: #ffffff !important;
+}
+
+.dark .semi-input-number-step-button {
+  color: rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-input-number-step-button:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* AutoComplete Dark Mode */
+.dark .semi-autocomplete {
+  background-color: transparent !important;
+}
+
+.dark .semi-autocomplete-option-list {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
+}
+
+.dark .semi-autocomplete-option {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-autocomplete-option:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-autocomplete-option-selected {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+/* TimePicker Dark Mode */
+.dark .semi-timepicker-panel {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-timepicker-panel-list-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-timepicker-panel-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-timepicker-panel-list-item-selected {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+  color: #ffffff !important;
+}
+
+/* DatePicker Enhancements */
+.dark .semi-datepicker {
+  background-color: transparent !important;
+}
+
+.dark .semi-datepicker-panel-wrapper {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
+}
+
+.dark .semi-datepicker-navigation {
+  background-color: transparent !important;
+}
+
+.dark .semi-datepicker-navigation-month,
+.dark .semi-datepicker-navigation-year {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-datepicker-navigation-left,
+.dark .semi-datepicker-navigation-right {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-datepicker-navigation-left:hover,
+.dark .semi-datepicker-navigation-right:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.dark .semi-datepicker-weeks-header-day {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .semi-datepicker-day-other {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.dark .semi-datepicker-day-today {
+  border-color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-datepicker-day-inrange {
+  background-color: rgba(249, 115, 22, 0.15) !important;
+}
+
+.dark .semi-datepicker-footer {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Transfer Dark Mode */
+.dark .semi-transfer {
+  background-color: transparent !important;
+}
+
+.dark .semi-transfer-panel {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-transfer-header {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-transfer-item {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-transfer-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-transfer-item-selected {
+  background-color: rgba(249, 115, 22, 0.15) !important;
+}
+
+/* TreeSelect Dark Mode */
+.dark .semi-tree-select {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-tree-select:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.dark .semi-tree-option-list {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
+}
+
+.dark .semi-tree-option {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-tree-option:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-tree-option-selected {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+/* Cascader Dark Mode */
+.dark .semi-cascader {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-cascader:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.dark .semi-cascader-option-lists {
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px);
+}
+
+.dark .semi-cascader-option-list {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-cascader-option {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-cascader-option:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-cascader-option-selected {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+}
+
+/* Slider Dark Mode */
+.dark .semi-slider-rail {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .semi-slider-track {
+  background-color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-slider-handle {
+  border-color: rgb(249, 115, 22) !important;
+  background-color: #ffffff !important;
+}
+
+.dark .semi-slider-handle:hover {
+  border-color: rgb(234, 88, 12) !important;
+}
+
+/* Progress Dark Mode */
+.dark .semi-progress-line-track {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-progress-line-stroke {
+  background-color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-progress-circle-track {
+  stroke: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-progress-circle-stroke {
+  stroke: rgb(249, 115, 22) !important;
+}
+
+/* Avatar Dark Mode */
+.dark .semi-avatar {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Badge Dark Mode */
+.dark .semi-badge-dot {
+  background-color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-badge-count {
+  background-color: rgb(239, 68, 68) !important;
+}
+
+/* List Dark Mode */
+.dark .semi-list {
+  background-color: transparent !important;
+}
+
+.dark .semi-list-item {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Description Dark Mode */
+.dark .semi-descriptions {
+  background-color: transparent !important;
+}
+
+.dark .semi-descriptions-item-label {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-descriptions-item-value {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-descriptions-row {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Anchor Dark Mode */
+.dark .semi-anchor {
+  background-color: transparent !important;
+}
+
+.dark .semi-anchor-link {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-anchor-link:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-anchor-link-active {
+  color: rgb(249, 115, 22) !important;
+}
+
+.dark .semi-anchor-slide {
+  background-color: rgb(249, 115, 22) !important;
+}
+
+/* Timeline Dark Mode */
+.dark .semi-timeline-item-content {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-timeline-item-time {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .semi-timeline-item-dot {
+  border-color: rgb(249, 115, 22) !important;
+  background-color: transparent !important;
+}
+
+.dark .semi-timeline-item-tail {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Steps Dark Mode */
+.dark .semi-steps-item-title {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.dark .semi-steps-item-description {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .semi-steps-item-icon {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-steps-item-process .semi-steps-item-icon {
+  background-color: rgb(249, 115, 22) !important;
+  color: #ffffff !important;
+}
+
+.dark .semi-steps-item-finish .semi-steps-item-icon {
+  background-color: rgba(249, 115, 22, 0.2) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Card Footer in Dark Mode */
+.dark .semi-card-footer {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Breadcrumb Dark Mode */
+.dark .semi-breadcrumb-item {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.dark .semi-breadcrumb-item:hover {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-breadcrumb-item-active {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.dark .semi-breadcrumb-separator {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Nav/Navigation Dark Mode */
+.dark .semi-navigation {
+  background-color: transparent !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-navigation-item {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dark .semi-navigation-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.dark .semi-navigation-item-selected {
+  background-color: rgba(249, 115, 22, 0.15) !important;
+  color: rgb(249, 115, 22) !important;
+}
+
+/* Rating Dark Mode */
+.dark .semi-rating-star-empty {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .semi-rating-star-full {
+  color: rgb(250, 204, 21) !important;
+}
+
+/* Upload Dark Mode */
+.dark .semi-upload {
+  background-color: transparent !important;
+}
+
+.dark .semi-upload-drag-area {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .semi-upload-drag-area:hover {
+  border-color: rgba(249, 115, 22, 0.5) !important;
+  background-color: rgba(249, 115, 22, 0.05) !important;
+}
+
+.dark .semi-upload-file-card {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-upload-file-name {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Alert Dark Mode */
+.dark .semi-alert {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .semi-alert-info {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+.dark .semi-alert-warning {
+  background-color: rgba(245, 158, 11, 0.15) !important;
+}
+
+.dark .semi-alert-error {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+.dark .semi-alert-success {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+}
+
+.dark .semi-alert-content {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* BackTop Dark Mode */
+.dark .semi-backtop {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark .semi-backtop:hover {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  color: #ffffff !important;
+}
+
+/* Icon Colors in Dark Mode */
+.dark .semi-icon {
+  color: inherit;
+}
+
+/* Scrollbar styling for dark mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Additional Semi Card Header Fixes */
+.dark .semi-card-header-wrapper {
+  background-color: transparent !important;
+}
+
+.dark .semi-card-header-extra {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Table scroll card container */
+.dark .table-scroll-card .semi-card-body {
+  background-color: transparent !important;
+}
+
 /* ==========================================
    Glass Apple Styling Classes
    ========================================== */
@@ -555,4 +1225,96 @@
   background-color: rgba(15, 23, 42, 0.8);
   border-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 32px 80px rgba(15, 23, 42, 0.45);
+}
+
+/* ==========================================
+   Console Page Dark Theme Enhancement
+   ========================================== */
+
+/* Ensure all elements within dark console pages have proper text color */
+.dark .semi-card,
+.dark .semi-card * {
+  color: inherit;
+}
+
+/* Fix any remaining white backgrounds in card bodies */
+.dark .semi-card-body,
+.dark .semi-card-body > div {
+  background-color: transparent !important;
+}
+
+/* Make sure form elements inside cards are visible */
+.dark .semi-card .semi-form {
+  background-color: transparent !important;
+}
+
+/* Fix input group styling */
+.dark .semi-input-group {
+  background-color: transparent !important;
+}
+
+.dark .semi-input-group-wrapper {
+  background-color: transparent !important;
+}
+
+/* Tag Input Dark Mode */
+.dark .semi-tagInput {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .semi-tagInput:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+}
+
+.dark .semi-tagInput-wrapper {
+  background-color: transparent !important;
+}
+
+.dark .semi-tagInput .semi-tag {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Fix Select Arrow Icon */
+.dark .semi-select-arrow {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .semi-select-clear {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.dark .semi-select-clear:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Fix Input Prefix/Suffix */
+.dark .semi-input-prefix,
+.dark .semi-input-suffix {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Fix Card Shadows for better visibility */
+.dark .semi-card-shadows {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Make sure icons in buttons are visible */
+.dark .semi-button .semi-icon {
+  color: inherit !important;
+}
+
+/* Fix any inline styles that might override */
+.dark [style*="background-color: rgb(255, 255, 255)"],
+.dark [style*="background-color:#fff"],
+.dark [style*="background-color: #fff"],
+.dark [style*="background-color:#ffffff"],
+.dark [style*="background-color: #ffffff"],
+.dark [style*="background: rgb(255, 255, 255)"],
+.dark [style*="background:#fff"],
+.dark [style*="background: #fff"] {
+  background-color: transparent !important;
+  background: transparent !important;
 }

@@ -6,7 +6,7 @@ import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const Redemption = () => {
   return (
-    <ConsolePageWrapper>
+    <ConsolePageWrapper noBackground>
       <RedemptionsTable />
     </ConsolePageWrapper>
   );
