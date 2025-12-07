@@ -106,27 +106,9 @@ const stats = [
 
 const TestimonialsPage = () => {
   return (
-    <div className="min-h-screen bg-black">
-      <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 50% 35% at 50% 0%, rgba(226, 232, 240, 0.08), transparent 60%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 60% 40% at 50% 45%, rgba(59, 130, 246, 0.05), transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(ellipse 55% 35% at 50% 85%, rgba(168, 85, 247, 0.04), transparent 65%)",
-          }}
-        />
-      </div>
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-white via-slate-50 to-indigo-50 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white relative">
+      {/* Radial gradient overlays matching landing page */}
+      <div className='absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.18),transparent_60%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,116,144,0.2),transparent_60%)]' />
 
       <div className="relative z-50 pt-4 pb-2 flex justify-center">
         <Navigation />
@@ -141,12 +123,12 @@ const TestimonialsPage = () => {
             className="text-center mb-16"
           >
             <div className="flex justify-center items-center gap-4 mb-6">
-              <Quote className="w-8 h-8 text-orange-400" />
-              <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent">
+              <Quote className="w-8 h-8 text-orange-500 dark:text-orange-400" />
+              <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
                 What Our Customers Say
               </h1>
             </div>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 dark:text-white/60 max-w-2xl mx-auto">
               Join thousands of developers and companies who trust Knight-Omega 
               for their AI integration needs.
             </p>
@@ -165,11 +147,11 @@ const TestimonialsPage = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: index * 0.1 + 0.3 }}
                 whileHover={{ y: -4 }}
-                className="text-center p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl"
+                className="text-center p-6 rounded-2xl bg-white/80 border border-slate-200/70 backdrop-blur-xl shadow-lg dark:bg-white/5 dark:border-white/10"
               >
-                <stat.icon className="w-8 h-8 text-orange-400 mx-auto mb-3" />
-                <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
-                <div className="text-sm text-white/60">{stat.label}</div>
+                <stat.icon className="w-8 h-8 text-orange-500 dark:text-orange-400 mx-auto mb-3" />
+                <div className="text-3xl font-bold text-slate-900 dark:text-white mb-1">{stat.value}</div>
+                <div className="text-sm text-slate-600 dark:text-white/60">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -188,10 +170,10 @@ const TestimonialsPage = () => {
                 whileHover={{ y: -8, scale: 1.02 }}
                 className="group relative"
               >
-                <div className="h-full p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-xl hover:border-white/20 transition-all duration-300">
-                  <Quote className="w-8 h-8 text-orange-400/40 mb-4" />
+                <div className="h-full p-6 rounded-2xl bg-white/80 border border-slate-200/70 backdrop-blur-xl hover:border-slate-300 shadow-lg transition-all duration-300 dark:bg-white/5 dark:border-white/10 dark:hover:border-white/20">
+                  <Quote className="w-8 h-8 text-orange-500/40 dark:text-orange-400/40 mb-4" />
                   
-                  <p className="text-white/80 mb-6 leading-relaxed">
+                  <p className="text-slate-700 dark:text-white/80 mb-6 leading-relaxed">
                     &quot;{testimonial.content}&quot;
                   </p>
                   
@@ -206,13 +188,13 @@ const TestimonialsPage = () => {
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
-                      <div className="font-semibold text-white">{testimonial.name}</div>
-                      <div className="text-sm text-white/60">{testimonial.role} at {testimonial.company}</div>
+                      <div className="font-semibold text-slate-900 dark:text-white">{testimonial.name}</div>
+                      <div className="text-sm text-slate-600 dark:text-white/60">{testimonial.role} at {testimonial.company}</div>
                     </div>
                   </div>
                   
                   <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 rounded-full text-xs bg-white/10 text-white/60 border border-white/10">
+                    <span className="px-3 py-1 rounded-full text-xs bg-slate-100 text-slate-600 border border-slate-200 dark:bg-white/10 dark:text-white/60 dark:border-white/10">
                       {testimonial.industry}
                     </span>
                   </div>
@@ -229,12 +211,12 @@ const TestimonialsPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="text-center p-12 rounded-3xl bg-gradient-to-r from-orange-500/10 to-purple-500/10 border border-white/10 backdrop-blur-xl"
+            className="text-center p-12 rounded-3xl bg-gradient-to-r from-orange-500/10 to-purple-500/10 border border-slate-200/70 backdrop-blur-xl shadow-lg dark:border-white/10"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
               Join Our Growing Community
             </h2>
-            <p className="text-white/60 mb-8 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-white/60 mb-8 max-w-2xl mx-auto">
               Start building with Knight-Omega today and experience why thousands 
               of developers choose us for their AI integration needs.
             </p>

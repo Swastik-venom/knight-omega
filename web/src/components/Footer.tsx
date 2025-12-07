@@ -3,12 +3,11 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { StatusContext } from '../context/Status';
 import { getLogo, getSystemName } from '../helpers';
+import { MessageCircle, MessageSquare } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const [statusState] = useContext(StatusContext);
-  const status = statusState?.status;
-  const logo = getLogo(status);
-  const systemName = getSystemName(status);
+  const logo = getLogo();
+  const systemName = getSystemName();
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -113,14 +112,14 @@ const Footer: React.FC = () => {
                     >
                       {link.name}
                     </a>
-                  ) : (
+                  ) : link.to ? (
                     <Link
                       to={link.to}
                       className="text-sm text-white/60 transition-colors hover:text-orange-400"
                     >
                       {link.name}
                     </Link>
-                  )}
+                  ) : null}
                 </li>
               ))}
             </ul>
@@ -150,6 +149,29 @@ const Footer: React.FC = () => {
 
             {/* Social Links */}
             <div className="flex items-center gap-4">
+              <motion.a
+                href="https://t.me/knightomegaapi"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/70 transition-all hover:border-blue-500/50 hover:text-blue-400"
+                aria-label="Telegram - Knight Omega"
+                whileHover={{ y: -2, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <MessageCircle className="h-5 w-5" />
+              </motion.a>
+              <motion.a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white/70 transition-all hover:border-indigo-500/50 hover:text-indigo-400"
+                aria-label="Discord"
+                whileHover={{ y: -2, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                title="Discord link - Coming soon"
+              >
+                <MessageSquare className="h-5 w-5" />
+              </motion.a>
               <motion.a
                 href="https://github.com/QuantumNous/knight-omega"
                 target="_blank"

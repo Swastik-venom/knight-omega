@@ -1,0 +1,97 @@
+<svg width="800" height="800" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Main gradient: Cyan to Emerald -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Reverse gradient for accents -->
+    <linearGradient id="accentGradient" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Subtle shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- Dark background circle -->
+  <circle cx="400" cy="400" r="400" fill="#0A0E27"/>
+  
+  <!-- Single outer ring -->
+  <circle cx="400" cy="400" r="340" fill="none" stroke="url(#mainGradient)" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Central hexagon background -->
+  <g filter="url(#shadow)">
+    <polygon points="400,260 480,305 480,395 400,440 320,395 320,305" 
+             fill="#0F1629" 
+             stroke="url(#mainGradient)" 
+             stroke-width="4"/>
+  </g>
+  
+  <!-- DFA Monogram -->
+  <g filter="url(#glow)">
+    <!-- D -->
+    <path d="M 330 320 L 330 380 L 350 380 Q 370 380 370 350 Q 370 320 350 320 Z" 
+          fill="url(#mainGradient)" 
+          stroke="url(#mainGradient)" 
+          stroke-width="2"/>
+    
+    <!-- F -->
+    <path d="M 385 320 L 385 380 M 385 320 L 410 320 M 385 348 L 405 348" 
+          fill="none" 
+          stroke="url(#mainGradient)" 
+          stroke-width="8" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <!-- A -->
+    <path d="M 425 380 L 440 320 L 455 380 M 430 360 L 450 360" 
+          fill="none" 
+          stroke="url(#accentGradient)" 
+          stroke-width="8" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Curved text path for "Devs For All" -->
+  <defs>
+    <path id="textPath" d="M 150,400 A 250,250 0 0,1 650,400"/>
+  </defs>
+  
+  <!-- Main text -->
+  <text font-family="'Segoe UI', 'Arial', sans-serif" 
+        font-size="42" 
+        font-weight="700" 
+        letter-spacing="4"
+        fill="url(#mainGradient)">
+    <textPath href="#textPath" startOffset="50%" text-anchor="middle">
+      DEVS FOR ALL
+    </textPath>
+  </text>
+  
+  <!-- Simple decorative dots -->
+  <g fill="url(#mainGradient)" opacity="0.5">
+    <circle cx="300" cy="510" r="2"/>
+    <circle cx="500" cy="510" r="2"/>
+  </g>
+  
+  <!-- Bottom accent line -->
+  <line x1="320" y1="530" x2="480" y2="530" 
+        stroke="url(#mainGradient)" 
+        stroke-width="2" 
+        stroke-linecap="round" 
+        opacity="0.4"/>
+</svg>

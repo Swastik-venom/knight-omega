@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { MessageCircle, MessageSquare } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -30,6 +31,14 @@ export default function Footer() {
               Built for developers, trusted by enterprises.
             </p>
             <div className="flex space-x-4">
+              <a href="https://t.me/knightomegaapi" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-blue-500 transition-colors" title="Join our Telegram - Knight Omega">
+                <span className="sr-only">Telegram</span>
+                <MessageCircle className="h-5 w-5" />
+              </a>
+              <a href="#" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-indigo-500 transition-colors" title="Discord - Coming soon">
+                <span className="sr-only">Discord</span>
+                <MessageSquare className="h-5 w-5" />
+              </a>
               <a href="https://github.com/QuantumNous/knight-omega" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                 <span className="sr-only">GitHub</span>
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

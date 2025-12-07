@@ -9,8 +9,6 @@ import { IconSearch, IconServer, IconLink, IconUser } from '@douyinfe/semi-icons
 import { Crown, Gift, Package, Sparkles } from 'lucide-react';
 
 const ModelsPage: React.FC = () => {
-  // Log to verify this component is loading
-  console.log('[ModelsPage] Using /api/pricing endpoint with category filtering');
   
   const {
     models,
@@ -63,7 +61,7 @@ const ModelsPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-white via-slate-50 to-indigo-50 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-white via-slate-50 to-indigo-50 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white relative">
       {/* Radial gradient overlays matching landing page */}
       <div className='absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.18),transparent_60%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,116,144,0.2),transparent_60%)]' />
       

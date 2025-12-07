@@ -1,0 +1,100 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Main gradient: Cyan to Emerald -->
+    <linearGradient id="mainGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Reverse gradient for accents -->
+    <linearGradient id="accentGradient" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Subtle shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Dark background -->
+  <rect width="512" height="512" fill="#0A0E27" rx="80"/>
+  
+  <!-- Outer decorative ring -->
+  <circle cx="256" cy="256" r="220" fill="none" stroke="url(#mainGradient)" stroke-width="2" opacity="0.3"/>
+  
+  <!-- Inner decorative ring -->
+  <circle cx="256" cy="256" r="190" fill="none" stroke="url(#mainGradient)" stroke-width="1.5" opacity="0.2"/>
+  
+  <!-- Central hexagon background -->
+  <g filter="url(#shadow)">
+    <polygon points="256,140 340,185 340,275 256,320 172,275 172,185" 
+             fill="#0F1629" 
+             stroke="url(#mainGradient)" 
+             stroke-width="5"/>
+  </g>
+  
+  <!-- DFA Monogram - Scaled up for icon -->
+  <g filter="url(#glow)">
+    <!-- D -->
+    <path d="M 185 195 L 185 265 L 210 265 Q 235 265 235 230 Q 235 195 210 195 Z" 
+          fill="url(#mainGradient)" 
+          stroke="url(#mainGradient)" 
+          stroke-width="2"/>
+    
+    <!-- F -->
+    <path d="M 250 195 L 250 265 M 250 195 L 280 195 M 250 228 L 273 228" 
+          fill="none" 
+          stroke="url(#mainGradient)" 
+          stroke-width="10" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    
+    <!-- A -->
+    <path d="M 295 265 L 313 195 L 331 265 M 300 240 L 326 240" 
+          fill="none" 
+          stroke="url(#accentGradient)" 
+          stroke-width="10" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Decorative corner accents -->
+  <g opacity="0.4">
+    <!-- Top left -->
+    <line x1="80" y1="120" x2="100" y2="140" stroke="url(#mainGradient)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="100" y1="120" x2="120" y2="140" stroke="url(#mainGradient)" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Top right -->
+    <line x1="432" y1="120" x2="412" y2="140" stroke="url(#accentGradient)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="412" y1="120" x2="392" y2="140" stroke="url(#accentGradient)" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Bottom left -->
+    <line x1="80" y1="392" x2="100" y2="372" stroke="url(#mainGradient)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="100" y1="392" x2="120" y2="372" stroke="url(#mainGradient)" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Bottom right -->
+    <line x1="432" y1="392" x2="412" y2="372" stroke="url(#accentGradient)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="412" y1="392" x2="392" y2="372" stroke="url(#accentGradient)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Decorative dots around hexagon -->
+  <g fill="url(#mainGradient)" opacity="0.6">
+    <circle cx="256" cy="100" r="3"/>
+    <circle cx="360" cy="160" r="3"/>
+    <circle cx="360" cy="300" r="3"/>
+    <circle cx="256" cy="360" r="3"/>
+    <circle cx="152" cy="300" r="3"/>
+    <circle cx="152" cy="160" r="3"/>
+  </g>
+</svg>

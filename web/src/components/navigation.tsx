@@ -111,7 +111,7 @@ export default function Navigation({ className = '' }: NavigationProps) {
         </Link>
 
         <div className="hidden flex-1 items-center justify-center md:flex">
-          <nav className="relative flex items-center gap-1 rounded-full border border-white/25 bg-white/12 p-1 text-sm text-slate-600 shadow-[0_16px_36px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/15 dark:bg-white/5 dark:text-white/70">
+          <nav className="relative flex items-center gap-1 rounded-full border border-white/25 bg-white/15 p-1 text-sm text-slate-600 shadow-[0_16px_36px_rgba(15,23,42,0.16)] backdrop-blur-2xl dark:border-white/15 dark:bg-white/10 dark:text-white/70">
             {navigationItems.map((item, index) => {
               const isActiveItem = isActive(item.to);
               return (
@@ -126,7 +126,7 @@ export default function Navigation({ className = '' }: NavigationProps) {
                     {isActiveItem && (
                       <motion.span
                         layoutId="marketing-header-pill"
-                        className="absolute inset-0 z-0 rounded-full bg-white/75 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/10 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
+                        className="absolute inset-0 z-0 rounded-full bg-white/80 shadow-[0_18px_40px_rgba(15,23,42,0.22)] backdrop-blur-xl dark:bg-white/15 dark:shadow-[0_16px_40px_rgba(15,23,42,0.45)]"
                         transition={{ type: 'spring', stiffness: 420, damping: 32 }}
                       />
                     )}
