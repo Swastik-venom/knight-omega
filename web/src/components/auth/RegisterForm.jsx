@@ -282,7 +282,7 @@ const LoginForm = () => {
       setGithubButtonDisabled(true);
     }, 20000);
     try {
-      onGitHubOAuthClicked(status.github_client_id);
+      onGitHubOAuthClicked(status.github_client_id, { shouldLogout: true });
     } finally {
       // This won't execute due to the redirect, included for completeness
       setTimeout(() => setGithubLoading(false), 3000);
@@ -297,7 +297,7 @@ const LoginForm = () => {
     }
     setDiscordLoading(true);
     try {
-      onDiscordOAuthClicked(status.discord_client_id);
+      onDiscordOAuthClicked(status.discord_client_id, { shouldLogout: true });
     } finally {
       // 由于重定向，这里不会执行到，但为了完整性添加
       setTimeout(() => setDiscordLoading(false), 3000);
@@ -312,7 +312,12 @@ const LoginForm = () => {
     }
     setOidcLoading(true);
     try {
-      onOIDCClicked(status.oidc_authorization_endpoint, status.oidc_client_id);
+      onOIDCClicked(
+        status.oidc_authorization_endpoint,
+        status.oidc_client_id,
+        false,
+        { shouldLogout: true },
+      );
     } finally {
       // This won't execute due to the redirect, included for completeness
       setTimeout(() => setOidcLoading(false), 3000);
@@ -327,7 +332,7 @@ const LoginForm = () => {
     }
     setLinuxdoLoading(true);
     try {
-      onLinuxDOOAuthClicked(status.linuxdo_client_id);
+      onLinuxDOOAuthClicked(status.linuxdo_client_id, { shouldLogout: true });
     } finally {
       // This won't execute due to the redirect, included for completeness
       setTimeout(() => setLinuxdoLoading(false), 3000);
