@@ -50,6 +50,7 @@ export default function Navigation({ className = '' }: NavigationProps) {
     { to: '/features', label: 'Features' },
     { to: '/models', label: 'Models' },
     { to: '/pricing', label: 'Pricing' },
+    { to: '/docs', label: 'Docs' },
     { to: '/testimonials', label: 'Testimonials' },
     { to: '/about', label: 'About' },
   ]
@@ -177,7 +178,7 @@ export default function Navigation({ className = '' }: NavigationProps) {
                     </div>
                     <div className="p-2">
                       <Link
-                        to="/console/dashboard"
+                        to="/console"
                         onClick={() => setIsProfileMenuOpen(false)}
                         className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-white/80 transition-all hover:bg-white/10"
                       >
@@ -185,12 +186,12 @@ export default function Navigation({ className = '' }: NavigationProps) {
                         Console
                       </Link>
                       <Link
-                        to="/console/settings"
+                        to="/console/setting"
                         onClick={() => setIsProfileMenuOpen(false)}
                         className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm text-white/80 transition-all hover:bg-white/10"
                       >
                         <Settings className="h-4 w-4" />
-                        Profile
+                        Settings
                       </Link>
                     </div>
                     <div className="border-t border-white/10 p-2">
@@ -215,7 +216,7 @@ export default function Navigation({ className = '' }: NavigationProps) {
                 Log In
               </Link>
               <Link
-                to="/signup"
+                to="/register"
                 className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-gradient-to-r from-indigo-500/90 via-purple-500/85 to-blue-500/90 px-4 py-2 text-sm font-semibold text-white shadow-[0_20px_46px_rgba(79,70,229,0.35)] transition-transform duration-300 hover:-translate-y-1"
               >
                 <Sparkles className="h-4 w-4" />
@@ -304,7 +305,7 @@ export default function Navigation({ className = '' }: NavigationProps) {
                       Log In
                     </Link>
                     <Link
-                      to="/signup"
+                      to="/register"
                       className="px-4 py-3 text-lg font-bold text-center bg-gradient-to-b from-orange-500 to-orange-600 text-white rounded-lg shadow-lg hover:-translate-y-0.5 transition-all duration-200 underline-offset-4 hover:underline"
                     >
                       Sign Up

@@ -27,8 +27,9 @@ RUN go build -ldflags "-s -w -X 'github.com/QuantumNous/new-api/common.Version=$
 
 FROM alpine
 
-RUN apk upgrade --no-cache \
-    && apk add --no-cache ca-certificates tzdata \
+# Avoid `apk upgrade` under qemu/multi-arch builds (can fail on triggers like busybox).
+# Install only what's needed for runtime TLS + timezones.
+RUN apk add --no-cache ca-certificates tzdata \
     && update-ca-certificates
 
 COPY --from=builder2 /build/new-api /

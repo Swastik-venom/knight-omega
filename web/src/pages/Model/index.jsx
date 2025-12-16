@@ -5,7 +5,7 @@ import ConsolePageWrapper from '../../components/layout/ConsolePageWrapper';
 
 const ModelPage = () => {
   return (
-    <ConsolePageWrapper noBackground>
+    <ConsolePageWrapper>
       <ModelsTable />
     </ConsolePageWrapper>
   );
