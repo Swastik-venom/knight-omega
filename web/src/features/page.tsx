@@ -13,13 +13,13 @@ export default function FeaturesPage() {
       {/* Subtle animated blobs (kept neutral; avoid bluish wash) */}
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-indigo-200/40 blur-[120px] dark:bg-indigo-500/25"
+        className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-slate-200/50 blur-[120px] dark:bg-slate-700/25"
         animate={{ y: [0, 18, 0], scale: [1, 1.05, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-[-140px] right-[-80px] -z-10 h-72 w-72 rounded-full bg-purple-200/35 blur-[130px] dark:bg-purple-500/20"
+        className="pointer-events-none absolute bottom-[-140px] right-[-80px] -z-10 h-72 w-72 rounded-full bg-slate-200/40 blur-[130px] dark:bg-slate-700/20"
         animate={{ y: [0, -16, 0], scale: [1, 1.06, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />

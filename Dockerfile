@@ -25,19 +25,12 @@ COPY . .
 COPY --from=builder /build/dist ./web/dist
 RUN go build -ldflags "-s -w -X 'github.com/QuantumNous/new-api/common.Version=$(cat VERSION)'" -o new-api
 
-ARG ALPINE_VERSION=3.20
+FROM debian:bookworm-slim
 
-# Buildx/QEMU can intermittently fail executing Alpine `apk` triggers on non-native arches.
-# Certificates and tzdata are architecture-independent, so install them on the build platform
-# and copy the resulting files into the target runtime image.
-FROM --platform=$BUILDPLATFORM alpine:${ALPINE_VERSION} AS certs
-RUN apk add --no-cache ca-certificates tzdata \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates tzdata libasan8 wget \
+    && rm -rf /var/lib/apt/lists/* \
     && update-ca-certificates
-
-FROM alpine:${ALPINE_VERSION}
-
-COPY --from=certs /etc/ssl/certs /etc/ssl/certs
-COPY --from=certs /usr/share/zoneinfo /usr/share/zoneinfo
 
 COPY --from=builder2 /build/new-api /
 EXPOSE 3000

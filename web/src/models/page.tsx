@@ -481,18 +481,26 @@ export default function ModelsPage() {
   })
 
   return (
-    <div className="min-h-screen bg-black py-8">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <div className="relative min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-white via-slate-50 to-indigo-50 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 dark:text-white">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(129,140,248,0.18),transparent_60%),radial-gradient(circle_at_bottom,_rgba(56,189,248,0.18),transparent_65%)] dark:bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),transparent_55%),radial-gradient(circle_at_bottom,_rgba(14,116,144,0.2),transparent_60%)]" />
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-24 left-1/2 -z-10 h-64 w-64 -translate-x-1/2 rounded-full bg-indigo-200/30 blur-[120px] dark:bg-indigo-500/20"
+        animate={{ y: [0, 14, 0], scale: [1, 1.05, 1] }}
+        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut' }}
+      />
+
+      <div className="container mx-auto px-4 max-w-7xl pt-32 pb-20">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white via-white to-white/60 bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
             AI Models
           </h1>
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-600 dark:text-white/70 max-w-2xl mx-auto">
             Explore our comprehensive collection of 50+ AI models from leading providers. 
             Each model optimized for different use cases and performance requirements.
           </p>
@@ -505,27 +513,28 @@ export default function ModelsPage() {
           transition={{ delay: 0.1 }}
           className="mb-8"
         >
+          <div className="rounded-3xl border border-slate-200/70 bg-white/90 p-6 shadow-[0_20px_55px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 dark:shadow-[0_20px_55px_rgba(15,23,42,0.45)]">
           <div className="flex flex-col lg:flex-row gap-4 items-center mb-6">
             {/* Search */}
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/40 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-500 w-4 h-4 dark:text-white/50" />
               <input
                 type="text"
                 placeholder="Search models, providers, or capabilities..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-white/5 border border-white/10 text-white placeholder:text-white/40 rounded-md"
+                className="w-full pl-10 pr-4 py-2 rounded-2xl border border-slate-200/70 bg-white/90 text-slate-700 placeholder:text-slate-400 shadow-sm outline-none transition focus:border-indigo-200 focus:ring-0 dark:border-white/10 dark:bg-slate-950/40 dark:text-white dark:placeholder:text-white/50"
               />
             </div>
 
             {/* Sort and View Controls */}
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Filter className="text-white/60 w-4 h-4" />
+                <Filter className="text-slate-600 w-4 h-4 dark:text-white/70" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="bg-white/5 border border-white/10 text-white rounded-md px-3 py-2 text-sm"
+                  className="rounded-2xl border border-slate-200/70 bg-white/90 px-3 py-2 text-sm text-slate-700 shadow-sm outline-none transition hover:bg-white dark:border-white/10 dark:bg-slate-950/40 dark:text-white"
                 >
                   <option value="popularity">Most Popular</option>
                   <option value="name">Name</option>
@@ -535,16 +544,16 @@ export default function ModelsPage() {
                 </select>
               </div>
               
-              <div className="flex border border-white/10 rounded-md">
+              <div className="flex rounded-2xl border border-slate-200/70 bg-white/90 shadow-sm dark:border-white/10 dark:bg-slate-950/40">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`px-3 py-2 text-sm ${viewMode === 'grid' ? 'bg-white/10 text-white' : 'text-white/60 hover:text-white'}`}
+                  className={`px-3 py-2 text-sm transition ${viewMode === 'grid' ? 'bg-indigo-500 text-white' : 'text-slate-600 hover:text-slate-900 dark:text-white/70 dark:hover:text-white'}`}
                 >
                   Grid
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`px-3 py-2 text-sm ${viewMode === 'list' ? 'bg-white/10 text-white' : 'text-white/60 hover:text-white'}`}
+                  className={`px-3 py-2 text-sm transition ${viewMode === 'list' ? 'bg-indigo-500 text-white' : 'text-slate-600 hover:text-slate-900 dark:text-white/70 dark:hover:text-white'}`}
                 >
                   List
                 </button>
@@ -556,7 +565,7 @@ export default function ModelsPage() {
           <div className="space-y-4">
             {/* Categories */}
             <div>
-              <h3 className="text-sm font-medium text-white/60 mb-2">Categories</h3>
+              <h3 className="text-sm font-medium text-slate-600 dark:text-white/70 mb-2">Categories</h3>
               <div className="flex flex-wrap gap-2">
                 {categories.map(category => (
                   <button
@@ -564,8 +573,8 @@ export default function ModelsPage() {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                       selectedCategory === category
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+                        ? 'bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-[0_18px_45px_rgba(79,70,229,0.25)]'
+                        : 'border border-slate-200/70 bg-white/80 text-slate-600 hover:bg-white/95 hover:text-slate-900 backdrop-blur-md dark:border-white/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/15 dark:hover:text-white'
                     }`}
                   >
                     {getCategoryIcon(category)}
@@ -579,7 +588,7 @@ export default function ModelsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Providers */}
               <div>
-                <h3 className="text-sm font-medium text-white/60 mb-2">Providers</h3>
+                <h3 className="text-sm font-medium text-slate-600 dark:text-white/70 mb-2">Providers</h3>
                 <div className="flex flex-wrap gap-2">
                   {providers.map(provider => (
                     <button
@@ -588,7 +597,7 @@ export default function ModelsPage() {
                       className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                         selectedProvider === provider
                           ? 'bg-purple-500 text-white'
-                          : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+                          : 'border border-slate-200/70 bg-white/80 text-slate-600 hover:bg-white/95 hover:text-slate-900 backdrop-blur-md dark:border-white/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/15 dark:hover:text-white'
                       }`}
                     >
                       {provider}
@@ -600,7 +609,7 @@ export default function ModelsPage() {
               {/* Tiers and Speed */}
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-medium text-white/60 mb-2">Tiers</h3>
+                  <h3 className="text-sm font-medium text-slate-600 dark:text-white/70 mb-2">Tiers</h3>
                   <div className="flex flex-wrap gap-2">
                     {tiers.map(tier => (
                       <button
@@ -609,7 +618,7 @@ export default function ModelsPage() {
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                           selectedTier === tier
                             ? 'bg-green-500 text-white'
-                            : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+                            : 'border border-slate-200/70 bg-white/80 text-slate-600 hover:bg-white/95 hover:text-slate-900 backdrop-blur-md dark:border-white/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/15 dark:hover:text-white'
                         }`}
                       >
                         {tier.charAt(0).toUpperCase() + tier.slice(1)}
@@ -619,7 +628,7 @@ export default function ModelsPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-medium text-white/60 mb-2">Speed</h3>
+                  <h3 className="text-sm font-medium text-slate-600 dark:text-white/70 mb-2">Speed</h3>
                   <div className="flex flex-wrap gap-2">
                     {speeds.map(speed => (
                       <button
@@ -628,7 +637,7 @@ export default function ModelsPage() {
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
                           selectedSpeed === speed
                             ? 'bg-orange-500 text-white'
-                            : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+                            : 'border border-slate-200/70 bg-white/80 text-slate-600 hover:bg-white/95 hover:text-slate-900 backdrop-blur-md dark:border-white/10 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/15 dark:hover:text-white'
                         }`}
                       >
                         {speed === 'All' ? 'All' : speed.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
@@ -638,6 +647,7 @@ export default function ModelsPage() {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </motion.div>
 
@@ -664,26 +674,26 @@ export default function ModelsPage() {
               >
                 {viewMode === 'grid' ? (
                   /* Grid View */
-                  <div className="bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 rounded-lg p-6 h-full">
+                  <div className="h-full rounded-3xl border border-slate-200/70 bg-white/90 p-6 shadow-[0_20px_55px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_24px_65px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-900/60 dark:shadow-[0_20px_55px_rgba(15,23,42,0.45)] dark:hover:shadow-[0_26px_70px_rgba(15,23,42,0.55)]">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-600/20 flex items-center justify-center text-blue-400">
                           {getIconComponent(model.icon)}
                         </div>
                         <div>
-                          <h3 className="text-white text-lg font-semibold">{model.name}</h3>
-                          <p className="text-white/60 text-sm">{model.provider}</p>
+                          <h3 className="text-slate-900 dark:text-white text-lg font-semibold">{model.name}</h3>
+                          <p className="text-slate-600 dark:text-white/70 text-sm">{model.provider}</p>
                         </div>
                       </div>
                       {model.isNew && (
-                        <span className="bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-1 rounded-full text-xs">
+                        <span className="bg-green-500/10 text-green-600 border border-green-500/20 px-2 py-1 rounded-full text-xs dark:text-green-300">
                           New
                         </span>
                       )}
                     </div>
                     
                     <div className="space-y-4">
-                      <p className="text-white/80 text-sm">
+                      <p className="text-slate-600 dark:text-white/70 text-sm">
                         {model.description}
                       </p>
 
@@ -703,42 +713,42 @@ export default function ModelsPage() {
 
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <p className="text-white/40">Context</p>
-                          <p className="text-white font-medium">{model.context.toLocaleString()}</p>
+                          <p className="text-slate-500 dark:text-white/50">Context</p>
+                          <p className="text-slate-900 dark:text-white font-medium">{model.context.toLocaleString()}</p>
                         </div>
                         <div>
-                          <p className="text-white/40">Input/Output</p>
-                          <p className="text-white font-medium">
+                          <p className="text-slate-500 dark:text-white/50">Input/Output</p>
+                          <p className="text-slate-900 dark:text-white font-medium">
                             ${model.pricing.input}/{model.pricing.output}
                           </p>
                         </div>
                         <div>
-                          <p className="text-white/40">Accuracy</p>
-                          <p className="text-white font-medium">{model.accuracy}%</p>
+                          <p className="text-slate-500 dark:text-white/50">Accuracy</p>
+                          <p className="text-slate-900 dark:text-white font-medium">{model.accuracy}%</p>
                         </div>
                         <div>
-                          <p className="text-white/40">Capabilities</p>
-                          <p className="text-white font-medium">{model.capabilities.length}</p>
+                          <p className="text-slate-500 dark:text-white/50">Capabilities</p>
+                          <p className="text-slate-900 dark:text-white font-medium">{model.capabilities.length}</p>
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <p className="text-white/60 text-sm">Features</p>
+                        <p className="text-slate-600 dark:text-white/70 text-sm">Features</p>
                         <div className="flex flex-wrap gap-1">
                           {model.features.slice(0, 3).map(feature => (
-                            <span key={feature} className="text-xs border border-white/20 text-white/60 px-2 py-1 rounded">
+                            <span key={feature} className="text-xs border border-slate-200/70 bg-white/70 text-slate-600 px-2 py-1 rounded backdrop-blur-md dark:border-white/15 dark:bg-white/10 dark:text-white/70">
                               {feature}
                             </span>
                           ))}
                           {model.features.length > 3 && (
-                            <span className="text-xs border border-white/20 text-white/60 px-2 py-1 rounded">
+                            <span className="text-xs border border-slate-200/70 bg-white/70 text-slate-600 px-2 py-1 rounded backdrop-blur-md dark:border-white/15 dark:bg-white/10 dark:text-white/70">
                               +{model.features.length - 3} more
                             </span>
                           )}
                         </div>
                       </div>
 
-                      <div className="pt-4 border-t border-white/10">
+                      <div className="pt-4 border-t border-slate-200/70 dark:border-white/10">
                         <button className="w-full py-2 px-4 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-md font-medium transition-all duration-200">
                           Use Model
                           <ExternalLink className="w-3 h-3 ml-2 inline" />
@@ -748,7 +758,7 @@ export default function ModelsPage() {
                   </div>
                 ) : (
                   /* List View */
-                  <div className="bg-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 rounded-lg p-4">
+                  <div className="rounded-3xl border border-slate-200/70 bg-white/90 p-4 shadow-[0_18px_45px_rgba(15,23,42,0.08)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(15,23,42,0.12)] dark:border-white/10 dark:bg-slate-900/60 dark:shadow-[0_18px_45px_rgba(15,23,42,0.45)]">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4 flex-1">
                         <div className="w-12 h-12 rounded-lg bg-gradient-to-r from-blue-500/20 to-purple-600/20 flex items-center justify-center text-blue-400">
@@ -756,30 +766,30 @@ export default function ModelsPage() {
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-1">
-                            <h3 className="text-white text-lg font-semibold">{model.name}</h3>
+                            <h3 className="text-slate-900 dark:text-white text-lg font-semibold">{model.name}</h3>
                             {model.isNew && (
-                              <span className="bg-green-500/10 text-green-400 border border-green-500/20 px-2 py-1 rounded-full text-xs">
+                              <span className="bg-green-500/10 text-green-600 border border-green-500/20 px-2 py-1 rounded-full text-xs dark:text-green-300">
                                 New
                               </span>
                             )}
                           </div>
-                          <p className="text-white/60 text-sm mb-2">{model.provider}</p>
-                          <p className="text-white/80 text-sm">{model.description}</p>
+                          <p className="text-slate-600 dark:text-white/70 text-sm mb-2">{model.provider}</p>
+                          <p className="text-slate-600 dark:text-white/70 text-sm">{model.description}</p>
                         </div>
                       </div>
                       
                       <div className="flex items-center gap-6 text-sm">
                         <div className="text-center">
-                          <p className="text-white/40">Context</p>
-                          <p className="text-white font-medium">{model.context.toLocaleString()}</p>
+                          <p className="text-slate-500 dark:text-white/50">Context</p>
+                          <p className="text-slate-900 dark:text-white font-medium">{model.context.toLocaleString()}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-white/40">Price</p>
-                          <p className="text-white font-medium">${model.pricing.input}</p>
+                          <p className="text-slate-500 dark:text-white/50">Price</p>
+                          <p className="text-slate-900 dark:text-white font-medium">${model.pricing.input}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-white/40">Accuracy</p>
-                          <p className="text-white font-medium">{model.accuracy}%</p>
+                          <p className="text-slate-500 dark:text-white/50">Accuracy</p>
+                          <p className="text-slate-900 dark:text-white font-medium">{model.accuracy}%</p>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className={`px-2 py-1 rounded-full text-xs border ${getTierColor(model.tier)}`}>
@@ -805,11 +815,11 @@ export default function ModelsPage() {
           transition={{ delay: 0.4 }}
           className="text-center mt-12"
         >
-          <p className="text-white/60 mb-4">
+          <p className="text-slate-600 dark:text-white/70 mb-4">
             Showing {sortedModels.length} of {aiModels.length} models
           </p>
           {sortedModels.length < aiModels.length && (
-            <button className="px-4 py-2 border border-white/20 text-white hover:bg-white/10 rounded-md transition-colors">
+            <button className="px-4 py-2 rounded-full border border-slate-200/70 bg-white/90 text-slate-700 shadow-sm transition hover:bg-white dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:bg-white/15">
               Load More Models
               <ChevronDown className="w-4 h-4 ml-2 inline" />
             </button>
@@ -823,20 +833,20 @@ export default function ModelsPage() {
           transition={{ delay: 0.5 }}
           className="mt-20 text-center"
         >
-          <div className="bg-gradient-to-r from-blue-500/10 to-purple-600/10 border border-blue-500/20 rounded-lg p-8">
-            <h2 className="text-2xl font-bold text-white mb-4">
+          <div className="rounded-3xl border border-slate-200/70 bg-white/95 p-10 shadow-[0_24px_60px_rgba(15,23,42,0.1)] backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/70 dark:shadow-[0_24px_60px_rgba(15,23,42,0.45)]">
+            <h2 className="text-2xl font-semibold text-slate-900 dark:text-white mb-4">
               Ready to build with AI?
             </h2>
-            <p className="text-white/60 mb-6 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-white/70 mb-6 max-w-2xl mx-auto">
               Get started with Knight-Omega today and access all these models through our unified API. 
               No setup required, just one integration for all AI needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-md font-medium">
+              <button className="px-6 py-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold shadow-[0_18px_45px_rgba(79,70,229,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_22px_55px_rgba(79,70,229,0.45)]">
                 Start Free Trial
               </button>
-              <button className="px-6 py-3 border border-white/20 text-white hover:bg-white/10 rounded-md font-medium">
-                View Documentation
+              <button className="px-6 py-3 rounded-full border border-slate-200/70 bg-white/90 text-slate-700 font-semibold shadow-sm transition hover:border-indigo-200 hover:text-indigo-600 dark:border-white/15 dark:bg-white/10 dark:text-white/80">
+                View Docs
                 <ExternalLink className="w-4 h-4 ml-2 inline" />
               </button>
             </div>
