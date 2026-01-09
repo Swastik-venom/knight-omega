@@ -26,9 +26,6 @@ const { vitePluginSemi } = pkg;
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    codeInspectorPlugin({
-      bundler: 'vite',
-    }),
     {
       name: 'treat-js-files-as-jsx',
       async transform(code, id) {
