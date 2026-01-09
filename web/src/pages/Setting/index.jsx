@@ -15,23 +15,19 @@ import {
   MessageSquare,
   Palette,
   CreditCard,
-  User,
 } from 'lucide-react';
 
-import SystemSetting from '../../components/settings/SystemSetting.jsx';
-import { isRoot } from '../../helpers/index.js';
-import OtherSetting from '../../components/settings/OtherSetting.jsx';
-import OperationSetting from '../../components/settings/OperationSetting.jsx';
-import RateLimitSetting from '../../components/settings/RateLimitSetting.jsx';
-import ModelSetting from '../../components/settings/ModelSetting.jsx';
-import DashboardSetting from '../../components/settings/DashboardSetting.jsx';
-import RatioSetting from '../../components/settings/RatioSetting.jsx';
-import ChatsSetting from '../../components/settings/ChatsSetting.jsx';
-import DrawingSetting from '../../components/settings/DrawingSetting.jsx';
-import PaymentSetting from '../../components/settings/PaymentSetting.jsx';
-import PersonalSetting from '../../components/settings/PersonalSetting.jsx';
-import './settings.css';
-import './settings-dark-theme.css';
+import SystemSetting from '../../components/settings/SystemSetting';
+import { isRoot } from '../../helpers';
+import OtherSetting from '../../components/settings/OtherSetting';
+import OperationSetting from '../../components/settings/OperationSetting';
+import RateLimitSetting from '../../components/settings/RateLimitSetting';
+import ModelSetting from '../../components/settings/ModelSetting';
+import DashboardSetting from '../../components/settings/DashboardSetting';
+import RatioSetting from '../../components/settings/RatioSetting';
+import ChatsSetting from '../../components/settings/ChatsSetting';
+import DrawingSetting from '../../components/settings/DrawingSetting';
+import PaymentSetting from '../../components/settings/PaymentSetting';
 
 const Setting = () => {
   const { t } = useTranslation();
@@ -121,6 +117,16 @@ const Setting = () => {
       ),
       content: <ModelSetting />,
       itemKey: 'models',
+    });
+    panes.push({
+      tab: (
+        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+          <Server size={18} />
+          {t('模型部署设置')}
+        </span>
+      ),
+      content: <ModelDeploymentSetting />,
+      itemKey: 'model-deployment',
     });
     panes.push({
       tab: (

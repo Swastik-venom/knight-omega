@@ -110,25 +110,90 @@
     src="./docs/images/io-net.png" alt="IO.NET" height="120"
   /></a>
 </p>
-<p>&nbsp;</p>
+---
+
+## 🚀 快速开始
+
+### 使用 Docker Compose（推荐）
+
+```bash
+# 克隆项目
+git clone https://github.com/QuantumNous/new-api.git
+cd new-api
+
+# 编辑 docker-compose.yml 配置
+nano docker-compose.yml
+
+# 启动服务
+docker-compose up -d
+```
+
+<details>
+<summary><strong>使用 Docker 命令</strong></summary>
+
+```bash
+# 拉取最新镜像
+docker pull calciumion/new-api:latest
+
+# 使用 SQLite（默认）
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
+
+# 使用 MySQL
+docker run --name new-api -d --restart always \
+  -p 3000:3000 \
+  -e SQL_DSN="root:123456@tcp(localhost:3306)/oneapi" \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/data \
+  calciumion/new-api:latest
+```
+
+> **💡 提示：** `-v ./data:/data` 会将数据保存在当前目录的 `data` 文件夹中，你也可以改为绝对路径如 `-v /your/custom/path:/data`
+
+</details>
+
+---
+
+🎉 部署完成后，访问 `http://localhost:3000` 即可使用！
+
+📖 更多部署方式请参考 [部署指南](https://docs.newapi.pro/zh/docs/installation)
+
+---
 
 ## 📚 文档
 
 详细文档请访问我们的官方Wiki：[https://docs.newapi.pro/](https://docs.newapi.pro/)
 
+<<<<<<< HEAD
 也可访问AI生成的DeepWiki:
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
+=======
+### 📖 [官方文档](https://docs.newapi.pro/zh/docs) | [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/QuantumNous/new-api)
+>>>>>>> 93012631d1a8203a5f3b518aae41f8522a3a31fb
 
 ### 🎮 控制台测试工具
 
 Knight Omega 提供了强大的浏览器控制台测试工具，让您可以直接在浏览器开发者工具中测试 AI 模型：
 
+<<<<<<< HEAD
 ```javascript
 // 在浏览器控制台中使用
 playground.help()                    // 显示帮助信息
 await playground.chat("Hello!")      // 简单对话
 await playground.listModels()        // 列出可用模型
 ```
+=======
+| 分类 | 链接 |
+|------|------|
+| 🚀 部署指南 | [安装文档](https://docs.newapi.pro/zh/docs/installation) |
+| ⚙️ 环境配置 | [环境变量](https://docs.newapi.pro/zh/docs/installation/config-maintenance/environment-variables) |
+| 📡 接口文档 | [API 文档](https://docs.newapi.pro/zh/docs/api) |
+| ❓ 常见问题 | [FAQ](https://docs.newapi.pro/zh/docs/support/faq) |
+| 💬 社区交流 | [交流渠道](https://docs.newapi.pro/zh/docs/support/community-interaction) |
+>>>>>>> 93012631d1a8203a5f3b518aae41f8522a3a31fb
 
 📖 **详细文档：**
 - [控制台测试工具完整文档](./docs/CONSOLE_PLAYGROUND.md)
@@ -136,7 +201,7 @@ await playground.listModels()        // 列出可用模型
 
 ## ✨ 主要特性
 
-> 详细特性请参考 [特性说明](https://docs.newapi.pro/wiki/features-introduction)
+> 详细特性请参考 [特性说明](https://docs.newapi.pro/zh/docs/guide/wiki/basic-concepts/features-introduction)
 
 ### 🎨 核心功能
 
@@ -165,11 +230,11 @@ await playground.listModels()        // 列出可用模型
 ### 🚀 高级功能
 
 **API 格式支持：**
-- ⚡ [OpenAI Responses](https://docs.newapi.pro/api/openai-responses)
-- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/api/openai-realtime)（含 Azure）
-- ⚡ [Claude Messages](https://docs.newapi.pro/api/anthropic-chat)
-- ⚡ [Google Gemini](https://docs.newapi.pro/api/google-gemini-chat/)
-- 🔄 [Rerank 模型](https://docs.newapi.pro/api/jinaai-rerank)（Cohere、Jina）
+- ⚡ [OpenAI Responses](https://docs.newapi.pro/zh/docs/api/ai-model/chat/openai/create-response)
+- ⚡ [OpenAI Realtime API](https://docs.newapi.pro/zh/docs/api/ai-model/realtime/create-realtime-session)（含 Azure）
+- ⚡ [Claude Messages](https://docs.newapi.pro/zh/docs/api/ai-model/chat/create-message)
+- ⚡ [Google Gemini](https://doc.newapi.pro/api/google-gemini-chat)
+- 🔄 [Rerank 模型](https://docs.newapi.pro/zh/docs/api/ai-model/rerank/create-rerank)（Cohere、Jina）
 
 **智能路由：**
 - ⚖️ 渠道加权随机
@@ -177,9 +242,11 @@ await playground.listModels()        // 列出可用模型
 - 🚦 用户级别模型限流
 
 **格式转换：**
-- 🔄 OpenAI ⇄ Claude Messages
-- 🔄 OpenAI ⇄ Gemini Chat
-- 🔄 思考转内容功能
+- 🔄 **OpenAI Compatible ⇄ Claude Messages**
+- 🔄 **OpenAI Compatible → Google Gemini**
+- 🔄 **Google Gemini → OpenAI Compatible** - 仅支持文本，暂不支持函数调用
+- 🚧 **OpenAI Compatible ⇄ OpenAI Responses** - 开发中
+- 🔄 **思考转内容功能**
 
 **Reasoning Effort 支持：**
 
@@ -210,16 +277,16 @@ await playground.listModels()        // 列出可用模型
 
 ## 🤖 模型支持
 
-> 详情请参考 [接口文档 - 中继接口](https://docs.newapi.pro/api)
+> 详情请参考 [接口文档 - 中继接口](https://docs.newapi.pro/zh/docs/api)
 
 | 模型类型 | 说明 | 文档 |
 |---------|------|------|
 | 🤖 OpenAI GPTs | gpt-4-gizmo-* 系列 | - |
-| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [文档](https://docs.newapi.pro/api/midjourney-proxy-image) |
-| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [文档](https://docs.newapi.pro/api/suno-music) |
-| 🔄 Rerank | Cohere、Jina | [文档](https://docs.newapi.pro/api/jinaai-rerank) |
-| 💬 Claude | Messages 格式 | [文档](https://docs.newapi.pro/api/anthropic-chat) |
-| 🌐 Gemini | Google Gemini 格式 | [文档](https://docs.newapi.pro/api/google-gemini-chat/) |
+| 🎨 Midjourney-Proxy | [Midjourney-Proxy(Plus)](https://github.com/novicezk/midjourney-proxy) | [文档](https://doc.newapi.pro/api/midjourney-proxy-image) |
+| 🎵 Suno-API | [Suno API](https://github.com/Suno-API/Suno-API) | [文档](https://doc.newapi.pro/api/suno-music) |
+| 🔄 Rerank | Cohere、Jina | [文档](https://docs.newapi.pro/zh/docs/api/ai-model/rerank/create-rerank) |
+| 💬 Claude | Messages 格式 | [文档](https://docs.newapi.pro/zh/docs/api/ai-model/chat/create-message) |
+| 🌐 Gemini | Google Gemini 格式 | [文档](https://doc.newapi.pro/api/google-gemini-chat) |
 | 🔧 Dify | ChatFlow 模式 | - |
 | 🎯 自定义 | 支持完整调用地址 | - |
 
@@ -228,16 +295,16 @@ await playground.listModels()        // 列出可用模型
 <details>
 <summary>查看完整接口列表</summary>
 
-- [聊天接口 (Chat Completions)](https://docs.newapi.pro/api/openai-chat)
-- [响应接口 (Responses)](https://docs.newapi.pro/api/openai-responses)
-- [图像接口 (Image)](https://docs.newapi.pro/api/openai-image)
-- [音频接口 (Audio)](https://docs.newapi.pro/api/openai-audio)
-- [视频接口 (Video)](https://docs.newapi.pro/api/openai-video)
-- [嵌入接口 (Embeddings)](https://docs.newapi.pro/api/openai-embeddings)
-- [重排序接口 (Rerank)](https://docs.newapi.pro/api/jinaai-rerank)
-- [实时对话 (Realtime)](https://docs.newapi.pro/api/openai-realtime)
-- [Claude 聊天](https://docs.newapi.pro/api/anthropic-chat)
-- [Google Gemini 聊天](https://docs.newapi.pro/api/google-gemini-chat)
+- [聊天接口 (Chat Completions)](https://docs.newapi.pro/zh/docs/api/ai-model/chat/openai/create-chat-completion)
+- [响应接口 (Responses)](https://docs.newapi.pro/zh/docs/api/ai-model/chat/openai/create-response)
+- [图像接口 (Image)](https://docs.newapi.pro/zh/docs/api/ai-model/images/openai/v1-images-generations--post)
+- [音频接口 (Audio)](https://docs.newapi.pro/zh/docs/api/ai-model/audio/openai/create-transcription)
+- [视频接口 (Video)](https://docs.newapi.pro/zh/docs/api/ai-model/videos/create-video-generation)
+- [嵌入接口 (Embeddings)](https://docs.newapi.pro/zh/docs/api/ai-model/embeddings/create-embedding)
+- [重排序接口 (Rerank)](https://docs.newapi.pro/zh/docs/api/ai-model/rerank/create-rerank)
+- [实时对话 (Realtime)](https://docs.newapi.pro/zh/docs/api/ai-model/realtime/create-realtime-session)
+- [Claude 聊天](https://docs.newapi.pro/zh/docs/api/ai-model/chat/create-message)
+- [Google Gemini 聊天](https://doc.newapi.pro/api/google-gemini-chat)
 
 </details>
 
@@ -269,10 +336,18 @@ await playground.listModels()        // 列出可用模型
 | `REDIS_CONN_STRING` | Redis 连接字符串                                                  | - |
 | `STREAMING_TIMEOUT` | 流式超时时间（秒）                                                    | `300` |
 | `STREAM_SCANNER_MAX_BUFFER_MB` | 流式扫描器单行最大缓冲（MB），图像生成等超大 `data:` 片段（如 4K 图片 base64）需适当调大 | `64` |
+| `MAX_REQUEST_BODY_MB` | 请求体最大大小（MB，**解压后**计；防止超大请求/zip bomb 导致内存暴涨），超过将返回 `413` | `32` |
 | `AZURE_DEFAULT_API_VERSION` | Azure API 版本                                                 | `2025-04-01-preview` |
 | `ERROR_LOG_ENABLED` | 错误日志开关                                                       | `false` |
+| `PYROSCOPE_URL` | Pyroscope 服务地址                                            | - |
+| `PYROSCOPE_APP_NAME` | Pyroscope 应用名                                        | `new-api` |
+| `PYROSCOPE_BASIC_AUTH_USER` | Pyroscope Basic Auth 用户名                        | - |
+| `PYROSCOPE_BASIC_AUTH_PASSWORD` | Pyroscope Basic Auth 密码                  | - |
+| `PYROSCOPE_MUTEX_RATE` | Pyroscope mutex 采样率                               | `5` |
+| `PYROSCOPE_BLOCK_RATE` | Pyroscope block 采样率                               | `5` |
+| `HOSTNAME` | Pyroscope 标签里的主机名                                          | `new-api` |
 
-📖 **完整配置：** [环境变量文档](https://docs.newapi.pro/installation/environment-variables)
+📖 **完整配置：** [环境变量文档](https://docs.newapi.pro/zh/docs/installation/config-maintenance/environment-variables)
 
 </details>
 
@@ -331,10 +406,32 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 
 ## 💬 帮助支持
 
+<<<<<<< HEAD
 如有问题，请参考[帮助支持](https://docs.newapi.pro/support)：
 - [社区交流](https://docs.newapi.pro/support/community-interaction)
 - [反馈问题](https://docs.newapi.pro/support/feedback-issues)
 - [常见问题](https://docs.newapi.pro/support/faq)
+=======
+### 📖 文档资源
+
+| 资源 | 链接 |
+|------|------|
+| 📘 常见问题 | [FAQ](https://docs.newapi.pro/zh/docs/support/faq) |
+| 💬 社区交流 | [交流渠道](https://docs.newapi.pro/zh/docs/support/community-interaction) |
+| 🐛 反馈问题 | [问题反馈](https://docs.newapi.pro/zh/docs/support/feedback-issues) |
+| 📚 完整文档 | [官方文档](https://docs.newapi.pro/zh/docs) |
+
+### 🤝 贡献指南
+
+欢迎各种形式的贡献！
+
+- 🐛 报告 Bug
+- 💡 提出新功能
+- 📝 改进文档
+- 🔧 提交代码
+
+---
+>>>>>>> 93012631d1a8203a5f3b518aae41f8522a3a31fb
 
 ## 🌟 Star History
 
@@ -352,7 +449,7 @@ docker run --name new-api -d --restart always -p 3000:3000 -e SQL_DSN="root:1234
 
 如果这个项目对你有帮助，欢迎给我们一个 ⭐️ Star！
 
-**[官方文档](https://docs.newapi.pro/)** • **[问题反馈](https://github.com/Calcium-Ion/new-api/issues)** • **[最新发布](https://github.com/Calcium-Ion/new-api/releases)**
+**[官方文档](https://docs.newapi.pro/zh/docs)** • **[问题反馈](https://github.com/Calcium-Ion/new-api/issues)** • **[最新发布](https://github.com/Calcium-Ion/new-api/releases)**
 
 <sub>Built with ❤️ by QuantumNous</sub>
 

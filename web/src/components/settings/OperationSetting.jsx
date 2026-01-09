@@ -1,14 +1,14 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from '@douyinfe/semi-ui-19';
-import SettingsGeneral from '../../pages/Setting/Operation/SettingsGeneral.jsx';
-import SettingsHeaderNavModules from '../../pages/Setting/Operation/SettingsHeaderNavModules.jsx';
-import SettingsSidebarModulesAdmin from '../../pages/Setting/Operation/SettingsSidebarModulesAdmin.jsx';
-import SettingsSensitiveWords from '../../pages/Setting/Operation/SettingsSensitiveWords.jsx';
-import SettingsLog from '../../pages/Setting/Operation/SettingsLog.jsx';
-import SettingsMonitoring from '../../pages/Setting/Operation/SettingsMonitoring.jsx';
-import SettingsCreditLimit from '../../pages/Setting/Operation/SettingsCreditLimit.jsx';
+import { Card, Spin } from '@douyinfe/semi-ui';
+import SettingsGeneral from '../../pages/Setting/Operation/SettingsGeneral';
+import SettingsHeaderNavModules from '../../pages/Setting/Operation/SettingsHeaderNavModules';
+import SettingsSidebarModulesAdmin from '../../pages/Setting/Operation/SettingsSidebarModulesAdmin';
+import SettingsSensitiveWords from '../../pages/Setting/Operation/SettingsSensitiveWords';
+import SettingsLog from '../../pages/Setting/Operation/SettingsLog';
+import SettingsMonitoring from '../../pages/Setting/Operation/SettingsMonitoring';
+import SettingsCreditLimit from '../../pages/Setting/Operation/SettingsCreditLimit';
 import { API, showError, toBoolean } from '../../helpers';
 
 const OperationSetting = () => {
@@ -53,7 +53,10 @@ const OperationSetting = () => {
     AutomaticEnableChannelEnabled: false,
     AutomaticDisableKeywords: '',
     'monitor_setting.auto_test_channel_enabled': false,
-    'monitor_setting.auto_test_channel_minutes': 10,
+    'monitor_setting.auto_test_channel_minutes': 10 /* 签到设置 */,
+    'checkin_setting.enabled': false,
+    'checkin_setting.min_quota': 1000,
+    'checkin_setting.max_quota': 10000,
   });
 
   let [loading, setLoading] = useState(false);
@@ -122,6 +125,10 @@ const OperationSetting = () => {
         {/* 额度设置 */}
         <Card style={{ marginTop: '10px' }}>
           <SettingsCreditLimit options={inputs} refresh={onRefresh} />
+        </Card>
+        {/* 签到设置 */}
+        <Card style={{ marginTop: '10px' }}>
+          <SettingsCheckin options={inputs} refresh={onRefresh} />
         </Card>
       </Spin>
     </>

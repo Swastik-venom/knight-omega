@@ -8,7 +8,9 @@ export default defineConfig({
     "zh",
     "en",
     "fr",
-    "ru"
+    "ru",
+    "ja",
+    "vi"
   ],
   extract: {
     input: [
