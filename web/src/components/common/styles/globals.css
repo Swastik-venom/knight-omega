@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -441,7 +440,6 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
