@@ -6,39 +6,9 @@ import { copy, showSuccess } from './utils';
 import { MOBILE_BREAKPOINT } from '../hooks/common/useIsMobile';
 import { visit } from 'unist-util-visit';
 import * as LobeIcons from '@lobehub/icons';
-import {
-  OpenAI,
-  Claude,
-  Gemini,
-  Moonshot,
-  Zhipu,
-  Qwen,
-  DeepSeek,
-  Minimax,
-  Wenxin,
-  Spark,
-  Midjourney,
-  Hunyuan,
-  Cohere,
-  Cloudflare,
-  Ai360,
-  Yi,
-  Jina,
-  Mistral,
-  XAI,
-  Ollama,
-  Doubao,
-  Suno,
-  Xinference,
-  OpenRouter,
-  Dify,
-  Coze,
-  SiliconCloud,
-  Perplexity,
-  Replicate,
-} from '@lobehub/icons';
 
-// Create fallback components for icons not available in @lobehub/icons
+// IMPORTANT: @lobehub/icons is not stable across versions for named exports.
+// Use namespace import and provide safe fallbacks for missing providers.
 const createFallbackIcon = (letter, color = '#4A90E2') => ({
   Color: ({ size = 14, ...props }) => (
     <svg
@@ -64,10 +34,48 @@ const createFallbackIcon = (letter, color = '#4A90E2') => ({
   ),
 });
 
-// Fallback icons for missing providers
-const Kling = LobeIcons.Kling || createFallbackIcon('K', '#FF6B6B');
-const Jimeng = LobeIcons.Jimeng || createFallbackIcon('J', '#4ECDC4');
-const FastGPT = LobeIcons.FastGPT || createFallbackIcon('F', '#95E1D3');
+// Provider icons (prefer real ones if present)
+const OpenAI = LobeIcons.OpenAI;
+const Claude = LobeIcons.Claude;
+const Gemini = LobeIcons.Gemini;
+const Moonshot = LobeIcons.Moonshot;
+const Zhipu = LobeIcons.Zhipu;
+const Qwen = LobeIcons.Qwen;
+const DeepSeek = LobeIcons.DeepSeek;
+const Minimax = LobeIcons.Minimax;
+const Wenxin = LobeIcons.Wenxin;
+const Spark = LobeIcons.Spark;
+const Midjourney = LobeIcons.Midjourney;
+const Hunyuan = LobeIcons.Hunyuan;
+const Cohere = LobeIcons.Cohere;
+const Cloudflare = LobeIcons.Cloudflare;
+const Ai360 = LobeIcons.Ai360;
+const Yi = LobeIcons.Yi;
+const Jina = LobeIcons.Jina;
+const Mistral = LobeIcons.Mistral;
+const XAI = LobeIcons.XAI;
+const Ollama = LobeIcons.Ollama;
+const Doubao = LobeIcons.Doubao;
+const Suno = LobeIcons.Suno;
+const Xinference = LobeIcons.Xinference;
+const OpenRouter = LobeIcons.OpenRouter;
+const Dify = LobeIcons.Dify;
+const Coze = LobeIcons.Coze;
+const SiliconCloud = LobeIcons.SiliconCloud;
+const Perplexity = LobeIcons.Perplexity;
+const Replicate = LobeIcons.Replicate;
+
+// Fallback icons for providers that may not exist in current @lobehub/icons version.
+// IMPORTANT: Rollup can "optimize" namespace member access into named imports.
+// Use indirection via variables to avoid build warnings when an icon doesn't exist.
+const getLobeIcon = (name) => LobeIcons[name];
+const KLING_ICON_NAME = 'Kling';
+const JIMENG_ICON_NAME = 'Jimeng';
+const FASTGPT_ICON_NAME = 'FastGPT';
+
+const Kling = getLobeIcon(KLING_ICON_NAME) || createFallbackIcon('K', '#FF6B6B');
+const Jimeng = getLobeIcon(JIMENG_ICON_NAME) || createFallbackIcon('J', '#4ECDC4');
+const FastGPT = getLobeIcon(FASTGPT_ICON_NAME) || createFallbackIcon('F', '#95E1D3');
 
 import {
   LayoutDashboard,

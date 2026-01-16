@@ -8,6 +8,7 @@ export * from './api';
 export * from './render';
 export * from './log';
 export * from './data';
+export * from './statusCodeRules';
 export * from './token';
 export * from './boolean';
 export * from './dashboard';

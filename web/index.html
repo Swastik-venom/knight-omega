@@ -6,8 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Knight-Omega - AI API Gateway</title>
   <!-- Prism stub to prevent "Prism is not defined" errors from mermaid -->
+  <!-- Prism plugins expect various fields (e.g. Prism.plugins). Provide a safe minimal shape. -->
   <script>
-    window.Prism = window.Prism || { manual: true, disableWorkerMessageHandler: true };
+    window.Prism = window.Prism || { manual: true, disableWorkerMessageHandler: true, plugins: {}, hooks: { add: () => {}, run: () => {} }, util: { isActive: () => false } };
   </script>
 </head>
 <body>

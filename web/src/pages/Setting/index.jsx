@@ -15,6 +15,8 @@ import {
   MessageSquare,
   Palette,
   CreditCard,
+  Server,
+  User,
 } from 'lucide-react';
 
 import SystemSetting from '../../components/settings/SystemSetting';
@@ -28,6 +30,8 @@ import RatioSetting from '../../components/settings/RatioSetting';
 import ChatsSetting from '../../components/settings/ChatsSetting';
 import DrawingSetting from '../../components/settings/DrawingSetting';
 import PaymentSetting from '../../components/settings/PaymentSetting';
+import ModelDeploymentSetting from '../../components/settings/ModelDeploymentSetting';
+import PersonalSetting from '../../components/settings/PersonalSetting';
 
 const Setting = () => {
   const { t } = useTranslation();
