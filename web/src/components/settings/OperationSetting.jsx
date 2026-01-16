@@ -1,6 +1,6 @@
 
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Card, Spin } from '@douyinfe/semi-ui';
 import SettingsGeneral from '../../pages/Setting/Operation/SettingsGeneral';
 import SettingsHeaderNavModules from '../../pages/Setting/Operation/SettingsHeaderNavModules';
@@ -9,6 +9,7 @@ import SettingsSensitiveWords from '../../pages/Setting/Operation/SettingsSensit
 import SettingsLog from '../../pages/Setting/Operation/SettingsLog';
 import SettingsMonitoring from '../../pages/Setting/Operation/SettingsMonitoring';
 import SettingsCreditLimit from '../../pages/Setting/Operation/SettingsCreditLimit';
+import SettingsCheckin from '../../pages/Setting/Operation/SettingsCheckin';
 import { API, showError, toBoolean } from '../../helpers';
 
 const OperationSetting = () => {
@@ -62,7 +63,7 @@ const OperationSetting = () => {
 
   let [loading, setLoading] = useState(false);
 
-  const getOptions = async () => {
+  const getOptions = useCallback(async () => {
     const res = await API.get('/api/option/');
     const { success, message, data } = res.data;
     if (success) {
@@ -79,8 +80,8 @@ const OperationSetting = () => {
     } else {
       showError(message);
     }
-  };
-  async function onRefresh() {
+  }, [inputs]);
+  const onRefresh = useCallback(async () => {
     try {
       setLoading(true);
       await getOptions();
@@ -90,11 +91,11 @@ const OperationSetting = () => {
     } finally {
       setLoading(false);
     }
-  }
+  }, [getOptions]);
 
   useEffect(() => {
     onRefresh();
-  }, []);
+  }, [onRefresh]);
 
   return (
     <>
